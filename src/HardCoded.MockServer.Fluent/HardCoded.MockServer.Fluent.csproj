@@ -2,15 +2,10 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.0</TargetFramework>
-        <LangVersion>Preview</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Builders" />
     </ItemGroup>
 
 </Project>

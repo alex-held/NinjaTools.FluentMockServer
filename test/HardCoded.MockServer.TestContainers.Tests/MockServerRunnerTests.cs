@@ -24,8 +24,6 @@ namespace HardCoded.MockServer.TestContainers.Tests
         {
         }
         
-        
-
         [Fact]
         public async Task Should_Successfully_Setup_Up_Expectation_On_MockServer()
         {

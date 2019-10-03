@@ -2,120 +2,35 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using HardCoded.MockServer.HttpBodies;
+using HardCoded.MockServer.Fluent;
+using HardCoded.MockServer.Models.HttpBodies;
 using Newtonsoft.Json;
 
 namespace HardCoded.MockServer.Models.HttpEntities
 {
     public class HttpRequest
     {
-        
-        public static HttpRequest Get(string path = null)
-        {
-            return new HttpRequest
-            {
-                Method = "GET",
-                Path = path ?? "/",
-            };
-        }
-        
-        public static HttpRequest Post(string path = null)
-        {
-            return new HttpRequest
-            {
-                Method = "POST",
-                Path = path ?? "/",
-            };
-        }
-        
-        public HttpRequest WithPath(string path)
-        {
-            Path = path;
-            return this;
-        }
+        internal FluentExpectationBuilder Builder { get; }
 
-        public HttpRequest UseSsl(bool useSsl = true)
-        {
-            Secure = useSsl;
-            return this;
-        }
-
-        public HttpRequest KeepingAlive(bool keepAlive = true)
-        {
-            KeepAlive = keepAlive;
-            return this;
-        }
-
-        public HttpRequest WithHeader(string name, params string[] values)
-        {
-            
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("The provided cookie name must not be null or whitespace.", nameof(name));
-            }   
-            if (!values.Any())
-            {
-                throw new ArgumentException("The provided header values must contain at least one item.", nameof(values));
-            } 
-            
-            Headers ??= new Dictionary<string, IEnumerable<string>>();
-            Headers.TryAdd(name, values);
-        
-            return this;
-        }
-        
-        public HttpRequest WithJson(string json)
-        {
-            
-            if (string.IsNullOrWhiteSpace(json))
-            {
-                throw new ArgumentException("The provided json name must not be null or whitespace.", nameof(json));
-            }   
-            
-            Body = RequestBody.FromJson(json);
-        
-            return this;
-        }
-        
-        public HttpRequest WithCookie(string name, string value)
-        {
-            
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("The provided cookie name must not be null or whitespace.", nameof(name));
-            }   
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new ArgumentException("The provided cookie value must not be null or whitespace.", nameof(value));
-            }
-
-            Cookies ??= new Dictionary<string, string>();
-            Cookies.TryAdd(name, value);
-            
-            return this;
-        }
-        
-        [JsonProperty("headers", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, IEnumerable<string>> Headers { get; set; } 
-        
-        [JsonProperty("cookies", NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, string> Cookies { get; set; }
-        
-        [JsonProperty("body", NullValueHandling = NullValueHandling.Ignore)]
-        public RequestBody Body { get; set; }
-        
-        
         public HttpRequest()
         {
             Secure = false;
             KeepAlive = true;
         }
         
-        public HttpRequest(HttpMethod httpMethod, string path) : this()
-        { 
-            Method = httpMethod.ToString().ToUpper();
-            Path = path;
+        internal HttpRequest(FluentExpectationBuilder fluentBuilder) : this()
+        {
+            Builder = fluentBuilder;
         }
+        
+        [JsonProperty("headers", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, object> Headers { get; set; } 
+        
+        [JsonProperty("cookies", NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, string> Cookies { get; set; }
+        
+        [JsonProperty("body", NullValueHandling = NullValueHandling.Ignore)]
+        public RequestBody Body { get; set; }
         
         [JsonProperty("path")]
         public string Path { get; set; }
@@ -128,8 +43,14 @@ namespace HardCoded.MockServer.Models.HttpEntities
 
         [JsonProperty("keepAlive")]
         public bool KeepAlive { get; set; }
-    }
-    
-  
 
+        public static HttpRequest Get(string path)
+        {
+           return new HttpRequest
+           {
+               Method = "GET",
+               Path = path
+           };
+        }
+    }
 }

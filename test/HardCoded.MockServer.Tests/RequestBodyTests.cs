@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using FluentAssertions;
-using HardCoded.MockServer.HttpBodies;
+using HardCoded.MockServer.Fluent;
+using HardCoded.MockServer.Models.HttpBodies;
+using HardCoded.MockServer.Models.HttpEntities;
 using Newtonsoft.Json;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace TestServer.Fluent
+namespace HardCoded.MockServer.Tests
 {
-    public class FluentApiTests
+    public class RequestBodyTests
     {
         private readonly ITestOutputHelper _logger;
 
-        public FluentApiTests(ITestOutputHelper logger)
+        public RequestBodyTests(ITestOutputHelper logger)
         {
             _logger = logger;
         }
@@ -22,7 +24,7 @@ namespace TestServer.Fluent
         [InlineData(null)]
         public void Should_Serialize_Json(MatchType? matchType)
         {
-            var request = new RequestContext()
+            var request = new FluentHttpRequestBuilder(new FluentExpectationBuilder())
                 .WithJson("{\"Hallo\": \"Test\"}", matchType);
 
             var serialized = JsonConvert.SerializeObject(request.Body, Formatting.Indented);
@@ -43,7 +45,7 @@ namespace TestServer.Fluent
         [Fact]
         public void Should_Serialize_Xml()
         {
-            var request = new RequestContext()
+            var request = new FluentHttpRequestBuilder(new FluentExpectationBuilder())
                 .WithXml("<bookstore> <book nationality=\"ITALIAN\" category=\"COOKING\"><title lang=\"en\">Everyday Italian</title><author>Giada De Laurentiis</author><year>2005</year><price>30.00</price></book> </bookstore>");
 
             var serialized = JsonConvert.SerializeObject(request.Body);

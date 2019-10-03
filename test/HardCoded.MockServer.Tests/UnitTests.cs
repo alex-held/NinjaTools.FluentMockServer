@@ -3,11 +3,10 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using HardCoded.MockServer;
 using HardCoded.MockServer.Models.HttpEntities;
 using Xunit;
 
-namespace TestServer
+namespace HardCoded.MockServer.Tests
 {
     public class UnitSetupExpectationsTests
     {
