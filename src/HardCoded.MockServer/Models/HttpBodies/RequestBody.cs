@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-[assembly: InternalsVisibleTo("TestServer")]
+[assembly: InternalsVisibleTo("HardCoded.MockServer.Tests")]
 namespace HardCoded.MockServer.HttpBodies
 {
     
