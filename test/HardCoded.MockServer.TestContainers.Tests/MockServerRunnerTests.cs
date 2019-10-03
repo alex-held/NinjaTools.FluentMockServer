@@ -12,12 +12,6 @@ namespace HardCoded.MockServer.TestContainers.Tests
    
     public class MockServerFixtureTests : MockServerFixture
     {
-        [Fact]
-        public async Task Should_Log_Information_Into_Console()
-        {
-            Logger.LogInformation("Hello World!");
-        }
-
         /// <inheritdoc />
         public MockServerFixtureTests(MockServerRunner mockServerRunner, ITestOutputHelper outputHelper) 
             : base(mockServerRunner, outputHelper)
