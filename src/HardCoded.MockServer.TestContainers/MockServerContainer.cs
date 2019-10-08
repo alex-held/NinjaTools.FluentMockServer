@@ -23,7 +23,7 @@ namespace HardCoded.MockServer.TestContainers
             await Task.Delay(1000);
             
             var httpClient = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Put, MockServerBaseUrl + "/status");
+            var request = new HttpRequestMessage(HttpMethod.Get, MockServerBaseUrl + "/status");
             
             var policyResult = await Policy
                 .TimeoutAsync(TimeSpan.FromMinutes(2))
