@@ -14,6 +14,46 @@ This library is a dotnet client around the fabulous [MockServer](https://www.moc
 We will provide an easy and on-the-fly way to setup all sorts of HttpServers with Responses, Timeouts, Exceptions and so on. 
 
 
+## Quickstart
+
+### Setting up Expectations:
+
+``` csharp
+
+MockServerSetup.Expectations
+                    .OnHandling(HttpMethod.Delete,
+                                request =>
+                                    request
+                                    .WithPath("post")
+                                    .EnableEncryption()
+                                    .KeepConnectionAlive()
+                    )
+                    .RespondWith(HttpStatusCode.Accepted,
+                                response => response
+                                    .WithBody(content => content.WithJson(""))
+                    )
+                    .And
+                    .OnHandling(HttpMethod.Delete,
+                                request =>
+                                    request
+                                    .WithPath("post")
+                                    .EnableEncryption()
+                                    .KeepConnectionAlive()
+                    )
+                    .RespondWith(HttpStatusCode.Accepted,
+                                response => response
+                                    .WithBody(content => content.WithJson(""))
+                    ).Setup();
+
+
+```
+
+
 ## Extensions
 
-Currently we support [testcontainers-dotnet](https://github.com/testcontainers/testcontainers-dotnet) to spin up a MockServer docker container from within an [xunit]() test.
+Currently we support:
+
+- [testcontainers-dotnet](https://github.com/testcontainers/testcontainers-dotnet) to spin up a MockServer docker container from within an [xunit]() test.
+
+- [xunit]()
+
