@@ -26,7 +26,11 @@ namespace HardCoded.MockServer.TestContainers.Tests
             {
                 await client.SetupExpectationAsync(new Expectation
                 {
-                    HttpRequest = HttpRequest.Get("/test"),
+                    HttpRequest = new HttpRequest
+                    {
+                        Method = "GET",
+                        Path = "/test"
+                    },
                     HttpResponse = new HttpResponse(201)
                 });
 
@@ -44,7 +48,11 @@ namespace HardCoded.MockServer.TestContainers.Tests
             {
                 await client.SetupExpectationAsync(new Expectation
                 {
-                    HttpRequest = HttpRequest.Get("/test"),
+                    HttpRequest = new HttpRequest
+                    {
+                        Method = "GET",
+                        Path = "/test"
+                    },
                     HttpResponse = new HttpResponse(201)
                 });
 
@@ -68,7 +76,11 @@ namespace HardCoded.MockServer.TestContainers.Tests
             {
                 await client.SetupExpectationAsync(new Expectation
                 {
-                    HttpRequest = HttpRequest.Get("/test"),
+                    HttpRequest = new HttpRequest
+                    {
+                        Method = "GET",
+                        Path = "/test"
+                    },
                     HttpResponse = new HttpResponse(201)
                 });
 
@@ -76,7 +88,11 @@ namespace HardCoded.MockServer.TestContainers.Tests
                 await client.SendAsync(request);
 
                 // Act
-                var verification = VerificaionRequest.Once(HttpRequest.Get("/test"));
+                var verification = VerificaionRequest.Once(new HttpRequest
+                {
+                    Method = "GET",
+                    Path = "/test"
+                });
                 var response = await client.Verify(verification);
 
                 // Assert

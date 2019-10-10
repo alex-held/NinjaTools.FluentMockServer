@@ -1,5 +1,4 @@
 using System.Net.Http;
-using HardCoded.MockServer.Fluent;
 using HardCoded.MockServer.Models.HttpBodies;
 using Xunit;
 

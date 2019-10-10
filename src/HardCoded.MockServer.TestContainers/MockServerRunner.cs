@@ -29,9 +29,9 @@ namespace HardCoded.MockServer.TestContainers
         }
 
         /// <inheritdoc />
-        public Task InitializeAsync() => Container.Start();
+        public async Task InitializeAsync() => await Container.Start();
 
         /// <inheritdoc />
-        public Task DisposeAsync() => Container.Stop();
+        public async Task DisposeAsync() => await Container.Stop();
     }
 }

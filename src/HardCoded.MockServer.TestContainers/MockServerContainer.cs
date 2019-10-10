@@ -23,16 +23,20 @@ namespace HardCoded.MockServer.TestContainers
             await Task.Delay(1000);
             
             var httpClient = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Put, MockServerBaseUrl + "/status");
+            var request = new HttpRequestMessage(HttpMethod.Get, MockServerBaseUrl + "/status");
             
             var policyResult = await Policy
-                .TimeoutAsync(TimeSpan.FromMinutes(2))
-                .WrapAsync(Policy.Handle<HttpRequestException>().WaitAndRetryForeverAsync(
-                    iteration => TimeSpan.FromSeconds(10), (exception, timespan) => { Console.WriteLine(exception.Message); }))
-                .ExecuteAndCaptureAsync(() => httpClient.SendAsync(request));
+                                    .TimeoutAsync(TimeSpan.FromMinutes(2))
+                                    .WrapAsync(Policy.Handle<HttpRequestException>()
+                                                     .WaitAndRetryForeverAsync(
+                                                         iteration => TimeSpan.FromSeconds(10), 
+                                                         (exception, timespan) => Console.WriteLine(exception.Message)))
+                                    .ExecuteAndCaptureAsync(() => httpClient.SendAsync(request));
             
             if (policyResult.Outcome == OutcomeType.Failure)
                 throw new Exception(policyResult.FinalException.Message);
+            
+            httpClient.Dispose();
         }
     }
 }

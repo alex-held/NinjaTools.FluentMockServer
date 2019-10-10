@@ -1,7 +1,5 @@
 ﻿using System;
-using HardCoded.MockServer.Fluent.Builder;
-using HardCoded.MockServer.Fluent.Models;
-using HardCoded.MockServer.Fluent.Requests;
+using HardCoded.MockServer.Models.HttpEntities;
 
 namespace FluentApi.Generics.Framework
 {

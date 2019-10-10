@@ -1,9 +1,9 @@
-using HardCoded.MockServer.Models;
 using Newtonsoft.Json;
 
-namespace HardCoded.MockServer
+namespace HardCoded.MockServer.Models.ValueTypes
 {
-    public class Delay
+   
+    public class Delay 
     {
         public Delay()
         {
