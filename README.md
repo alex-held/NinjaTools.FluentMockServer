@@ -3,8 +3,7 @@
 ! This repository is currently under construction. !
 
 ## Status
-![azure-pipelines](https://dev.azure.com/aheldext/HardCode.MockServer/_apis/build/repos/github/badge?api-version=5.1-preview.2)
-
+[![azure-pipeline](https://dev.azure.com/aheldext/HardCode.MockServer/_apis/build/status/alex-held.HardCode.MockServer?branchName=master)](https://dev.azure.com/aheldext/HardCode.MockServer/_build/latest?definitionId=4&branchName=master)
 ## What are we trying to solve?
 
 This library is a dotnet client around the fabulous [MockServer](https://www.mock-server.com/) docker image.
