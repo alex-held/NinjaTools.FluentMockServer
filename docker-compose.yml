@@ -1,0 +1,7 @@
+version: '3.5'
+
+services:
+  
+  mockserver:
+    image: jamesdbloom/mockserver
+    ports: "5000:1080"
