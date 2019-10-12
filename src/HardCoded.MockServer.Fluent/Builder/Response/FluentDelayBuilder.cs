@@ -1,7 +1,6 @@
-using HardCoded.MockServer.Models;
 using HardCoded.MockServer.Models.ValueTypes;
 
-namespace HardCoded.MockServer.Fluent.Builder
+namespace HardCoded.MockServer.Fluent.Builder.Response
 {
     internal sealed class FluentDelayBuilder : IFluentDelayBuilder
     {

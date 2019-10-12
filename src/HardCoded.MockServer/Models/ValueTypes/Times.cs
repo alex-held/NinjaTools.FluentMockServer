@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace HardCoded.MockServer
+namespace HardCoded.MockServer.Models.ValueTypes
 {
     public class Times
     {

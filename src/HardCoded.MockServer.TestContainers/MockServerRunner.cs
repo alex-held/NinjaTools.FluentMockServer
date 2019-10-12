@@ -1,11 +1,8 @@
 ﻿using System;
 using TestContainers.Core.Builders;
-using Xunit;
 
 namespace HardCoded.MockServer.TestContainers
 {
-    using System.Net;
-    using System.Net.Sockets;
     using System.Threading.Tasks;
     using Xunit;
 

@@ -1,9 +1,10 @@
 using System;
 using System.Net.Http;
+using HardCoded.MockServer.Contracts.Serialization;
 using HardCoded.MockServer.Models.HttpEntities;
 using Newtonsoft.Json;
 
-namespace HardCoded.MockServer
+namespace HardCoded.MockServer.Requests
 {
     public class VerificaionRequest
     {
@@ -18,7 +19,7 @@ namespace HardCoded.MockServer
         [JsonProperty("httpRequest")]
         public HttpRequest HttpRequest { get; set; }
         
-        [JsonProperty("times")]
+        [JsonProperty("times", NullValueHandling = NullValueHandling.Ignore)]
         public VerficationTimes Times { get; set; }
         
         public static implicit operator HttpRequestMessage(VerificaionRequest request)

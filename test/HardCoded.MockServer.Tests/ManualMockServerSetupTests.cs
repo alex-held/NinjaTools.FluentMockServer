@@ -3,12 +3,14 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using HardCoded.MockServer.Models;
 using HardCoded.MockServer.Models.HttpEntities;
+using HardCoded.MockServer.Requests;
 using Xunit;
 
 namespace HardCoded.MockServer.Tests
 {
-    public class UnitSetupExpectationsTests
+    public class ManualMockServerSetupTests
     {
         [Fact(Skip = "Does not work in build pipeline")]
         public async Task Should_Successfully_Setup_Up_Expecation_On_MockServer()

@@ -2,7 +2,7 @@ using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
 
-namespace HardCoded.MockServer
+namespace HardCoded.MockServer.Contracts.Serialization
 {
     public class JsonContent : StringContent
     {

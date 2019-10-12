@@ -3,7 +3,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using HardCoded.MockServer.Models;
 using HardCoded.MockServer.Models.HttpEntities;
+using HardCoded.MockServer.Requests;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -28,7 +30,7 @@ namespace HardCoded.MockServer.TestContainers.Tests
                 {
                     HttpRequest = new HttpRequest
                     {
-                        Method = "GET",
+                        Method = HttpMethod.Get,
                         Path = "/test"
                     },
                     HttpResponse = new HttpResponse(201)
@@ -50,7 +52,7 @@ namespace HardCoded.MockServer.TestContainers.Tests
                 {
                     HttpRequest = new HttpRequest
                     {
-                        Method = "GET",
+                        Method = HttpMethod.Get,
                         Path = "/test"
                     },
                     HttpResponse = new HttpResponse(201)
@@ -78,7 +80,7 @@ namespace HardCoded.MockServer.TestContainers.Tests
                 {
                     HttpRequest = new HttpRequest
                     {
-                        Method = "GET",
+                        Method = HttpMethod.Get,
                         Path = "/test"
                     },
                     HttpResponse = new HttpResponse(201)
@@ -90,7 +92,7 @@ namespace HardCoded.MockServer.TestContainers.Tests
                 // Act
                 var verification = VerificaionRequest.Once(new HttpRequest
                 {
-                    Method = "GET",
+                    Method = HttpMethod.Get,
                     Path = "/test"
                 });
                 var response = await client.Verify(verification);

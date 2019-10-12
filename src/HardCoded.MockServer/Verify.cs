@@ -1,5 +1,5 @@
-using HardCoded.MockServer.Models;
 using HardCoded.MockServer.Models.HttpEntities;
+using HardCoded.MockServer.Models.ValueTypes;
 using Newtonsoft.Json;
 
 namespace HardCoded.MockServer
