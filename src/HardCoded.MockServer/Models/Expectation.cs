@@ -1,16 +1,17 @@
-﻿using System.Net.Http;
-using HardCoded.MockServer.Models;
+﻿using HardCoded.MockServer.Contracts.Abstractions;
 using HardCoded.MockServer.Models.HttpEntities;
+using HardCoded.MockServer.Models.ValueTypes;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace HardCoded.MockServer
+namespace HardCoded.MockServer.Models
 {
-    public class Expectation
+    public class Expectation : IBuildable
     {
         [JsonProperty("httpRequest")]
         public HttpRequest HttpRequest { get; set; }
-
-        [JsonProperty("httpResponse")]
+        
+        [JsonProperty("httpResponse", NullValueHandling = NullValueHandling.Ignore)]
         public HttpResponse HttpResponse { get; set; }
 
         [JsonProperty("httpResponseTemplate", NullValueHandling = NullValueHandling.Ignore)]
@@ -36,5 +37,8 @@ namespace HardCoded.MockServer
 
         [JsonProperty("timeToLive", NullValueHandling = NullValueHandling.Ignore)]
         public TimeToLive TimeToLive { get; set; }
+        
+        /// <inheritdoc />
+        public JObject Serialize() => JObject.FromObject(this);
     }
 }

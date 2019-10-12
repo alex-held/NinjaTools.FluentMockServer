@@ -22,6 +22,6 @@ namespace HardCoded.MockServer.Models.HttpEntities
         public int StatusCode { get; set; }
         
         [JsonProperty("body", NullValueHandling = NullValueHandling.Ignore)]
-        public Body Body { get; set; }
+        public RequestBody Body { get; set; }
     }
 }
