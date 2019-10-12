@@ -1,13 +1,11 @@
 using System;
-using System.Net;
-using HardCoded.MockServer.Models;
+using HardCoded.MockServer.Fluent.Builder.Request;
 using HardCoded.MockServer.Models.HttpEntities;
 using HardCoded.MockServer.Models.ValueTypes;
-using Newtonsoft.Json;
 
-namespace HardCoded.MockServer.Fluent.Builder
+namespace HardCoded.MockServer.Fluent.Builder.Response
 {
-    internal class FluentHttpResponseBuilder : IFluentHttpResponseBuilder, IWithContent<IFluentHttpResponseBuilder>
+    internal class FluentHttpResponseBuilder : IFluentHttpResponseBuilder
     {
         private readonly HttpResponse _httpResponse;
 
@@ -16,12 +14,7 @@ namespace HardCoded.MockServer.Fluent.Builder
             _httpResponse = new HttpResponse(statusCode);
         }
 
-        /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithBody(Action<IWithContent<IFluentHttpResponseBuilder>> contentFactory)
-        {
-            contentFactory(this);
-            return this;
-        }
+       
 
         /// <inheritdoc />
         public IFluentHttpResponseBuilder WithDelay(Action<IFluentDelayBuilder> delayFactory)
@@ -52,38 +45,15 @@ namespace HardCoded.MockServer.Fluent.Builder
         }
         
         /// <inheritdoc />
-        public HttpResponse Build() =>
-            _httpResponse;
-
+        public HttpResponse Build() => _httpResponse;
+        
         /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithJsonContent(string content)
+        public IFluentHttpResponseBuilder WithBody(Action<IFluentBodyBuilder> bodyFactory)
         {
-            _httpResponse.Body = Body.For(Body.BodyType.JSON); 
-            _httpResponse.Body.Add("json", content);
+            var builder = new FluentBodyBuilder();
+            bodyFactory(builder);
+            _httpResponse.Body = builder.Body;
             return this;
         }
-
-        /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithXmlContent(string content) =>
-            throw new NotImplementedException();
-
-        /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithBinaryContent(byte[] content) =>
-            throw new NotImplementedException();
-
-        /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithJsonArray<T>(params T[] items) =>
-            throw new NotImplementedException();
-
-        /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithJson<T>(T item)
-        {
-            var json = JsonConvert.SerializeObject(item);
-            return WithJsonContent(json);
-        }
-
-        /// <inheritdoc />
-        public IFluentHttpResponseBuilder MatchExactJsonContent(string content) =>
-            throw new NotImplementedException();
     }
 }

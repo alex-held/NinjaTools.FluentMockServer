@@ -1,23 +1,35 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using FluentApi.Generics.Framework;
-using HardCoded.MockServer.Models;
+using System.Runtime.CompilerServices;
+using HardCoded.MockServer.Contracts.FluentInterfaces;
 using HardCoded.MockServer.Models.HttpEntities;
-using Newtonsoft.Json;
 
-namespace HardCoded.MockServer.Fluent.Builder
+[assembly: InternalsVisibleTo("HardCoded.MockServer.Fluent.Tests")]
+namespace HardCoded.MockServer.Fluent.Builder.Request
 {
-    internal sealed class FluentHttpRequestBuilder : IFluentHttpRequestBuilder
+    internal sealed class FluentHttpRequestBuilder : IFluentHttpRequestBuilder,  IFluentBuilder<HttpRequest>
     {
         private readonly HttpRequest _httpRequest;
+
+        public IFluentHttpRequestBuilder WithBody(Action<IFluentBodyBuilder> bodyFactory)
+        {
+            var builder = new FluentBodyBuilder();
+            bodyFactory(builder);
+            _httpRequest.Body = builder.Build();
+            return this;
+        }
         
         public FluentHttpRequestBuilder(HttpMethod method)
         {
             _httpRequest = new HttpRequest
             {
-                Method = method.Method, 
+                Method = method
             };
+        }
+
+        public FluentHttpRequestBuilder()
+        {
+            
         }
 
         /// <inheritdoc />
@@ -47,19 +59,11 @@ namespace HardCoded.MockServer.Fluent.Builder
         {
             var builder = new FluentBodyBuilder();
             contentFactory(builder);
-            _httpRequest.Body = builder.Build();
+            _httpRequest.Body = builder.Body;
             return this;
         }
 
         /// <inheritdoc />
-        public HttpRequest Build() =>
-            _httpRequest;
+        public HttpRequest Build() => _httpRequest;
     }
-
-    public interface IFluentHeaderBuilder : IFluentInterface
-    {
-        IFluentHeaderBuilder WithHeaders(params (string name, string value)[] headers);
-        IFluentHeaderBuilder AddHeader(string name, string value);
-    }
-    
 }
