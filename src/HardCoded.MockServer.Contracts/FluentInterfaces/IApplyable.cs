@@ -1,4 +1,4 @@
-﻿namespace HardCoded.MockServer.Fluent.Framework
+﻿namespace HardCoded.MockServer.Contracts.FluentInterfaces
 {
     public interface IApplyable
     {

@@ -1,13 +1,14 @@
 using System.ComponentModel;
-using FluentApi.Generics.Framework;
+using HardCoded.MockServer.Contracts.FluentInterfaces;
+using HardCoded.MockServer.Models;
 
-namespace HardCoded.MockServer.Fluent.Builder
+namespace HardCoded.MockServer.Fluent.Builder.Response
 {
     /// <summary>
     /// 
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public interface IFluentConnectionOptionsBuilder : IFluentInterface
+    public interface IFluentConnectionOptionsBuilder : IFluentBuilder<ConnectionOptions>, IFluentInterface
     {
         ConnectionOptions Build();
     }

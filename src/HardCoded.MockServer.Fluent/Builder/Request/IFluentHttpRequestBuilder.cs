@@ -1,11 +1,10 @@
 using System;
-using System.Net.Http;
-using FluentApi.Generics.Framework;
+using HardCoded.MockServer.Contracts.FluentInterfaces;
 using HardCoded.MockServer.Models.HttpEntities;
 
-namespace HardCoded.MockServer.Fluent.Builder
+namespace HardCoded.MockServer.Fluent.Builder.Request
 {
-    public interface IFluentHttpRequestBuilder : IFluentInterface
+    public interface IFluentHttpRequestBuilder : IFluentBuilder<HttpRequest>, IFluentInterface
     {
         IFluentHttpRequestBuilder WithPath(string path);
         IFluentHttpRequestBuilder KeepConnectionAlive(bool keepalive = true);

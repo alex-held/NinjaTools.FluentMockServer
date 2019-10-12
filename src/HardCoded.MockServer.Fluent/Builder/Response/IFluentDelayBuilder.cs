@@ -1,8 +1,8 @@
 using System.ComponentModel;
-using FluentApi.Generics.Framework;
+using HardCoded.MockServer.Contracts.FluentInterfaces;
 using HardCoded.MockServer.Models.ValueTypes;
 
-namespace HardCoded.MockServer.Fluent.Builder
+namespace HardCoded.MockServer.Fluent.Builder.Response
 {
     /// <summary>
     /// 

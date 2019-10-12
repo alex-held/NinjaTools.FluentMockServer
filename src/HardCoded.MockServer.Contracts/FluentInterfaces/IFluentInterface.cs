@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace FluentApi.Generics.Framework
+namespace HardCoded.MockServer.Contracts.FluentInterfaces
 {
     /// <summary>
     /// 
@@ -42,6 +42,5 @@ namespace FluentApi.Generics.Framework
         bool Equals(object obj);
 
         #endregion
-
     }
 }
