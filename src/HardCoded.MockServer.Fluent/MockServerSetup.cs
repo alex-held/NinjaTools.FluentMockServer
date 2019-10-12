@@ -1,41 +1,55 @@
 
 using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using HardCoded.MockServer.Fluent.Builder;
+using System.Collections.Concurrent;
+using System.Linq;
+using HardCoded.MockServer.Fluent.Builder.Expectation;
+using HardCoded.MockServer.Models;
+using HardCoded.MockServer.Requests;
+using Newtonsoft.Json;
 
 namespace HardCoded.MockServer.Fluent
 {
+
     public class MockServerSetup
     {
-        private readonly static List<Expectation> _expectations = new List<Expectation>();
-        public static IFluentExpectationBuilder Expectations => new FluentExpectationBuilder(_expectations);
-    }
-//
-//    internal class FluentExpectationBuilder : IFluentExpectationBuilder 
-//    {
-//        private readonly List<Expectation> _expectations;
-//
-//        private Expectation _expectation;
-//        public FluentExpectationBuilder(List<Expectation> expectations)
-//        {
-//            _expectations = expectations;
-//            _expectation = new Expectation();
-//        }
-//
-//        /// <inheritdoc />
-//        public IWithRequest OnHandling(HttpMethod method, Action<IFluentHttpRequestBuilder> responseFactory)
-//        {
-//            var builder = new FluentHttpRequestBuilder(method);
-//            responseFactory(builder);
-//            _expectation.HttpRequest = builder.Build();
-//            return this;
-//        }
-//    }
-//    
-//    public interface IFluentExpectationBuilder
-//    {
-//        IWithRequest OnHandling(HttpMethod method, Action<IFluentHttpRequestBuilder> responseFactory);
-//    }
+        [JsonIgnore]
+        private static readonly Lazy<MockServerSetup> _lazy = new Lazy<MockServerSetup>(() => Init());
     
+        [JsonIgnore]
+        internal static MockServerSetup Setup => _lazy.Value;
+       
+        [JsonIgnore]
+        private readonly ConcurrentBag<Expectation> _expectations;
+      
+        [JsonIgnore]
+        public Func<Expectation, MockServerSetup> UpdateExpectation { get; }
+
+        
+        public static MockServerSetup Init() => new MockServerSetup();
+        
+        internal MockServerSetup()
+        {
+            _expectations = new ConcurrentBag<Expectation>();
+            UpdateExpectation = expectation =>
+            {
+                 _expectations.Add(expectation);
+                 return Setup;
+            };
+        }
+        
+        [JsonIgnore]
+        public ExpectationRequest ExpectationRequest => new ExpectationRequest(_expectations);
+
+
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(_expectations.ToList(), Formatting.Indented);
+        }
+    }
+
+    public class MockServerBootstrap
+    {
+        public static IFluentExpectationBuilder Expectations => new FluentExpectationBuilder(MockServerSetup.Setup.UpdateExpectation);
+    }
 }
