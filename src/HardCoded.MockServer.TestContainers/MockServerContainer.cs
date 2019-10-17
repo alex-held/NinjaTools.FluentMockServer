@@ -19,8 +19,8 @@ namespace HardCoded.MockServer.TestContainers
         /// <inheritdoc />
         protected override async Task WaitUntilContainerStarted()
         {
-            await base.WaitUntilContainerStarted();
-            await Task.Delay(1000);
+            await base.WaitUntilContainerStarted().ConfigureAwait(false);
+            await Task.Delay(5000).ConfigureAwait(false);
             
             var httpClient = new HttpClient();
             var request = new HttpRequestMessage(HttpMethod.Get, MockServerBaseUrl + "/status");
@@ -31,7 +31,8 @@ namespace HardCoded.MockServer.TestContainers
                                                      .WaitAndRetryForeverAsync(
                                                          iteration => TimeSpan.FromSeconds(10), 
                                                          (exception, timespan) => Console.WriteLine(exception.Message)))
-                                    .ExecuteAndCaptureAsync(() => httpClient.SendAsync(request));
+                                    .ExecuteAndCaptureAsync(() => httpClient.SendAsync(request))
+                                    .ConfigureAwait(false);
             
             if (policyResult.Outcome == OutcomeType.Failure)
                 throw new Exception(policyResult.FinalException.Message);
