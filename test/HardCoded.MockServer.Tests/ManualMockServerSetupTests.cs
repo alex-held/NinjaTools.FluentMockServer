@@ -21,7 +21,7 @@ namespace HardCoded.MockServer.Tests
             
             expectation.Add(new Expectation
             {
-                HttpRequest = HttpRequest.Get("/test"),
+                HttpRequest =  new HttpRequest(){ Path = "test", Method = HttpMethod.Get},
                 HttpResponse = new HttpResponse(201)
             });
 
@@ -44,7 +44,7 @@ namespace HardCoded.MockServer.Tests
             
             expectation.Add(new Expectation
             {
-                HttpRequest = HttpRequest.Get("/test"),
+                HttpRequest = new HttpRequest(){ Path = "test", Method = HttpMethod.Get},
                 HttpResponse = new HttpResponse(201)
             });
             
@@ -69,7 +69,7 @@ namespace HardCoded.MockServer.Tests
  
             var response = await client.SetupExpectationAsync(new Expectation
             {
-                HttpRequest = HttpRequest.Get("/test"),
+                HttpRequest =  new HttpRequest(){ Path = "test", Method = HttpMethod.Get},
                 HttpResponse = new HttpResponse(201)
             });
             
@@ -80,7 +80,7 @@ namespace HardCoded.MockServer.Tests
             response.EnsureSuccessStatusCode();
             
             // Act
-            var verification = VerificaionRequest.Once(HttpRequest.Get("/test"));
+            var verification = VerificaionRequest.Once( new HttpRequest(){ Path = "test", Method = HttpMethod.Get});
             response = await client.Verify(verification);
             
             // Assert
