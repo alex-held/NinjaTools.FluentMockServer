@@ -1,15 +1,14 @@
-using Newtonsoft.Json;
+using HardCoded.MockServer.Contracts.Abstractions;
 
 namespace HardCoded.MockServer.Models.ValueTypes
 {
    
-    public class Delay 
+    public class Delay  : BuildableBase
     {
         public Delay()
         {
-            TimeUnit = TimeUnit.SECONDS;
-
         }
+        
         private Delay(int delay, TimeUnit unit)
         {
             TimeUnit = unit;
@@ -18,14 +17,10 @@ namespace HardCoded.MockServer.Models.ValueTypes
 
         public static Delay FromSeconds(int seconds) => new Delay(seconds, TimeUnit.SECONDS);
         public static Delay FromMinutes(int minutes) => new Delay(minutes, TimeUnit.MINUTES);
+        public static Delay None => new Delay();
         
-        
-        [JsonProperty("timeUnit")]
         public TimeUnit TimeUnit { get; set; }
 
-        [JsonProperty("value")]
         public int Value { get; set; }
-
-        public static Delay None => FromSeconds(0);
     }
 }

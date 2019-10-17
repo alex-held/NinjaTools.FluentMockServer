@@ -1,13 +1,12 @@
-using Newtonsoft.Json;
+using HardCoded.MockServer.Contracts.Abstractions;
+
 
 namespace HardCoded.MockServer.Models.HttpEntities
 {
-    public partial class HttpForward
+    public class HttpForward : BuildableBase
     {
-        [JsonProperty("host")]
         public string Host { get; set; }
-
-        [JsonProperty("port")]
+        
         public long Port { get; set; }
     }
 }

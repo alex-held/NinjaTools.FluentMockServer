@@ -1,14 +1,12 @@
+using HardCoded.MockServer.Contracts.Abstractions;
 using HardCoded.MockServer.Models.ValueTypes;
-using Newtonsoft.Json;
 
 namespace HardCoded.MockServer.Models.HttpEntities
 {
-    public partial class HttpTemplate
+    public class HttpTemplate : BuildableBase
     {
-        [JsonProperty("template")]
         public string Template { get; set; }
 
-        [JsonProperty("delay")]
         public Delay Delay { get; set; }
     }
 }

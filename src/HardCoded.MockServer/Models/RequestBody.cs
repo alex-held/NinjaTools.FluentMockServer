@@ -1,17 +1,61 @@
 using HardCoded.MockServer.Contracts.Abstractions;
-using HardCoded.MockServer.Models.HttpBodies;
+
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Converters;
 
 
 namespace HardCoded.MockServer.Models
 {
-    public class RequestBody : IBuildable
+  
+    
+    public class RequestBody : BuildableBase
     {
-        /// <inheritdoc />
-        public JObject Serialize() => JObject.FromObject(this);
+        public const string MatchType_STRICT = "STRICT";
+        public const string MatchType_ONLY_MATCHING_FIELDS = " ONLY_MATCHING_FIELDS";
+       
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum BodyType
+        {
+            JSON_SCHEMA,
+            JSON_PATH,
+            JSON,
+            STRING,
+            XML_SCHEMA,
+            XML,
+            XPATH,
+            REGEX,
+            BINARY
+        }
         
-        public RequestBody(BodyType type, bool invert)
+        public BodyType? Type { get; set; }
+        
+        public bool? Not { get; set; }
+        
+        public string? String { get; set; }
+        
+        public bool? SubString { get; set; }
+        
+        [JsonProperty("xpath")]
+        public string? XPath { get; set; }
+        
+        public string? XmlSchema { get; set; }
+        
+        public string? Json { get; set; }
+        
+        public string? MatchType { get; set; }
+        
+        public string? JsonSchema { get; set; }
+        
+        public string? JsonPath { get; set; }
+        
+        public string? ContentType { get; set; }
+        
+        public string? Xml { get; set; }
+
+
+        #region Setters
+
+         public RequestBody(BodyType type, bool invert)
         {
             Type = type;
             
@@ -23,12 +67,10 @@ namespace HardCoded.MockServer.Models
         {
             return new RequestBody(BodyType.JSON, invert)
             {
-                MatchType = Models.HttpBodies.MatchType.STRICT, 
+                MatchType = MatchType_STRICT,
                 Json = json
             };
         }
-
-
         
         public static RequestBody MatchPartialJson(string json, bool invert = false)
         {
@@ -99,40 +141,7 @@ namespace HardCoded.MockServer.Models
             };
         }  
         
-        [JsonProperty("not", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? Not { get; set; }
-        
-        [JsonProperty("type", NullValueHandling = NullValueHandling.Ignore)]
-        public BodyType? Type { get; set; }
-        
-        [JsonProperty("string", NullValueHandling = NullValueHandling.Ignore)]
-        public string? String { get; set; }
-        
-        [JsonProperty("subString", NullValueHandling = NullValueHandling.Ignore)]
-        public bool? SubString { get; set; }
-        
-        [JsonProperty("xpath", NullValueHandling = NullValueHandling.Ignore)]
-        public string? XPath { get; set; }
-        
-        [JsonProperty("xmlSchema", NullValueHandling = NullValueHandling.Ignore)]
-        public string? XmlSchema { get; set; }
-        
-        [JsonProperty("json", NullValueHandling = NullValueHandling.Ignore)]
-        public string? Json { get; set; }
-        
-        [JsonProperty("matchType", NullValueHandling = NullValueHandling.Ignore)]
-        public MatchType? MatchType { get; set; }
-        
-        [JsonProperty("jsonSchema", NullValueHandling = NullValueHandling.Ignore)]
-        public string? JsonSchema { get; set; }
-        
-        [JsonProperty("jsonPath", NullValueHandling = NullValueHandling.Ignore)]
-        public string? JsonPath { get; set; }
-        
-        [JsonProperty("contentType", NullValueHandling = NullValueHandling.Ignore)]
-        public string? ContentType { get; set; }
-        
-        [JsonProperty("xml", NullValueHandling = NullValueHandling.Ignore)]
-        public string? Xml { get; set; }
+
+        #endregion
     }
 }

@@ -1,9 +1,9 @@
+using HardCoded.MockServer.Contracts.Abstractions;
 using HardCoded.MockServer.Models.ValueTypes;
-using Newtonsoft.Json;
 
 namespace HardCoded.MockServer.Models.HttpEntities
 {
-    public class HttpResponse
+    public class HttpResponse : BuildableBase
     {
         public HttpResponse(int statusCode)
         {
@@ -12,16 +12,9 @@ namespace HardCoded.MockServer.Models.HttpEntities
             Delay = Delay.None;
         }
         
-        [JsonProperty("delay", NullValueHandling = NullValueHandling.Ignore)]
         public Delay Delay { get; set; }
-
-        [JsonProperty("connectionOptions", NullValueHandling = NullValueHandling.Ignore)]
         public ConnectionOptions ConnectionOptions { get; set; }
-
-        [JsonProperty("statusCode")]
         public int StatusCode { get; set; }
-        
-        [JsonProperty("body", NullValueHandling = NullValueHandling.Ignore)]
         public RequestBody Body { get; set; }
     }
 }
