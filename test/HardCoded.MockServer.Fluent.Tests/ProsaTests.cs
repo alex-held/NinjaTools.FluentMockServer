@@ -23,7 +23,7 @@ namespace HardCoded.MockServer.Fluent.Tests
 
             var setup = MockServerBootstrap.Expectations
                                            .OnHandling(HttpMethod.Delete, request => request
-                                                              .WithContent(content => content.MatchingXmlPath("//id"))
+                                                              .WithContent(content => content.MatchingXPath("//id"))
                                                               .WithPath("post")
                                                               .EnableEncryption()
                                                               .KeepConnectionAlive())
@@ -37,7 +37,7 @@ namespace HardCoded.MockServer.Fluent.Tests
                                                               .EnableEncryption()
                                                               .KeepConnectionAlive())
                                            .RespondWith(HttpStatusCode.Accepted, response => response
-                                                           .WithBody(body => body.MatchingXmlPath("//id")))
+                                                           .WithBody(body => body.MatchingXPath("//id")))
                                            .Setup();
 
             var json = setup.ToString();

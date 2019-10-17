@@ -17,8 +17,8 @@ namespace HardCoded.MockServer.Fluent.Builder.Request
         void WithoutXmlContent(string content);
      
         
-        void MatchingXmlPath(string path);
-        void NotMatchingXmlPath(string path);
+        void MatchingXPath(string path);
+        void NotMatchingXPath(string path);
         
         
         void MatchingXmlSchema(string xmlSchema);
