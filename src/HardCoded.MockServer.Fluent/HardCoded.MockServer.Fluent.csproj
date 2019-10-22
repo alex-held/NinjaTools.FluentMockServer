@@ -9,7 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HardCoded.MockServer\HardCoded.MockServer.csproj" />
+      <ProjectReference Include="..\HardCoded.MockServer.Contracts\HardCoded.MockServer.Contracts.csproj" />
     </ItemGroup>
 
 </Project>

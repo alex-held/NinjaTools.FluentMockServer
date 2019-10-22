@@ -12,6 +12,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\HardCoded.MockServer.Contracts\HardCoded.MockServer.Contracts.csproj" />
+      <ProjectReference Include="..\HardCoded.MockServer.Fluent\HardCoded.MockServer.Fluent.csproj" />
     </ItemGroup>
 
 </Project>
