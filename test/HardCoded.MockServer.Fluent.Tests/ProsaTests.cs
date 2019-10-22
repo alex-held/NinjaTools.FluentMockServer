@@ -1,5 +1,6 @@
 using System.Net;
 using System.Net.Http;
+
 using Xunit;
 using Xunit.Abstractions;
 
@@ -31,7 +32,7 @@ namespace HardCoded.MockServer.Fluent.Tests
                                                                .WithBody(body => body.WithExactString("hello world!")
                                                                                  .WithContentType("text/plain"))
                                                                .WithDelay(delay => delay.FromMinutes(1)))
-                                           .And()
+                                           .And
                                            .OnHandling(HttpMethod.Delete, request => request
                                                               .WithPath("post")
                                                               .EnableEncryption()
