@@ -18,10 +18,8 @@ namespace HardCoded.MockServer
         public MockServerClient(Uri mockServerUri)
         {
             MockServerEndpoint = mockServerUri;
-            _httpClient = new HttpClient();
-            _httpClient.BaseAddress = mockServerUri;
-            _httpClient.DefaultRequestHeaders.Clear();
-            _httpClient.DefaultRequestHeaders.Host = null;
+            _httpClient = new HttpClient()
+                        .WithDefaults(mockServerUri);
         }
 
         public async Task<HttpResponseMessage> SetupExpectationAsync(ExpectationRequest request)
