@@ -145,5 +145,57 @@ namespace HardCoded.MockServer.Contracts.Models
         
 
         #endregion
+
+        #region Equality Members
+
+        /// <inheritdoc />
+        public bool Equals(RequestBody other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            return Type == other.Type && Not == other.Not && string.Equals(String, other.String, StringComparison.InvariantCultureIgnoreCase) && SubString == other.SubString && string.Equals(XPath, other.XPath, StringComparison.InvariantCultureIgnoreCase) && string.Equals(XmlSchema, other.XmlSchema, StringComparison.InvariantCultureIgnoreCase) && string.Equals(Json, other.Json, StringComparison.InvariantCultureIgnoreCase) && string.Equals(MatchType, other.MatchType, StringComparison.InvariantCultureIgnoreCase) && string.Equals(JsonSchema, other.JsonSchema, StringComparison.InvariantCultureIgnoreCase) && string.Equals(JsonPath, other.JsonPath, StringComparison.InvariantCultureIgnoreCase) && string.Equals(ContentType, other.ContentType, StringComparison.InvariantCultureIgnoreCase) && string.Equals(Xml, other.Xml, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+
+        /// <inheritdoc />
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+
+            return Equals(( RequestBody ) obj);
+        }
+
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            unchecked {
+                var hashCode = Type.GetHashCode();
+                hashCode = ( hashCode * 397 ) ^ Not.GetHashCode();
+                hashCode = ( hashCode * 397 ) ^ ( String != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(String) : 0 );
+                hashCode = ( hashCode * 397 ) ^ SubString.GetHashCode();
+                hashCode = ( hashCode * 397 ) ^ ( XPath       != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(XPath) : 0 );
+                hashCode = ( hashCode * 397 ) ^ ( XmlSchema   != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(XmlSchema) : 0 );
+                hashCode = ( hashCode * 397 ) ^ ( Json        != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(Json) : 0 );
+                hashCode = ( hashCode * 397 ) ^ ( MatchType   != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(MatchType) : 0 );
+                hashCode = ( hashCode * 397 ) ^ ( JsonSchema  != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(JsonSchema) : 0 );
+                hashCode = ( hashCode * 397 ) ^ ( JsonPath    != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(JsonPath) : 0 );
+                hashCode = ( hashCode * 397 ) ^ ( ContentType != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(ContentType) : 0 );
+                hashCode = ( hashCode * 397 ) ^ ( Xml         != null ? StringComparer.InvariantCultureIgnoreCase.GetHashCode(Xml) : 0 );
+
+                return hashCode;
+            }
+        }
+
+
+        public static bool operator ==(RequestBody left, RequestBody right) => Equals(left, right);
+
+
+        public static bool operator !=(RequestBody left, RequestBody right) => !Equals(left, right);
+
+        #endregion
     }
 }

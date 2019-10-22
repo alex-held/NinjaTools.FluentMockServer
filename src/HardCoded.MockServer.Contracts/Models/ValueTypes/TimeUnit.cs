@@ -1,7 +1,8 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace HardCoded.MockServer.Models.ValueTypes
+
+namespace HardCoded.MockServer.Contracts.Models.ValueTypes
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum TimeUnit
