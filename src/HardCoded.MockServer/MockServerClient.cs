@@ -23,8 +23,7 @@ namespace HardCoded.MockServer
         }
         
         public MockServerClient(string mockServerEndpoint) : this(new Uri(mockServerEndpoint))
-        {
-        }
+        { }
         
         public MockServerClient(Uri mockServerUri)
         {
@@ -33,6 +32,7 @@ namespace HardCoded.MockServer
                         .WithDefaults(mockServerUri);
         }
 
+      
         public async Task<HttpResponseMessage> SetupExpectationAsync(ExpectationRequest request)
         {
             return await _httpClient
@@ -55,14 +55,18 @@ namespace HardCoded.MockServer
         {
             var request = new ExpectationRequest();
             request.AddRange(expectations);
-            var response = await _httpClient.SendAsync(request);
+            
+            var response = await _httpClient
+                        .SendAsync(request);
+            
             response.EnsureSuccessStatusCode();
             return response;
         }
 
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
         {
-            var response = await _httpClient.SendAsync(request);
+            var response = await _httpClient
+                        .SendAsync(request);
             return response;
         }
 

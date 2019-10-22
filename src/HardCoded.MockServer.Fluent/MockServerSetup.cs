@@ -1,10 +1,15 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+
+using HardCoded.MockServer.Contracts;
+using HardCoded.MockServer.Contracts.Models;
 using HardCoded.MockServer.Fluent.Builder.Expectation;
-using HardCoded.MockServer.Models;
-using HardCoded.MockServer.Requests;
+
 using Newtonsoft.Json;
 
 namespace HardCoded.MockServer.Fluent
@@ -12,44 +17,23 @@ namespace HardCoded.MockServer.Fluent
 
     public class MockServerSetup
     {
-        [JsonIgnore]
-        private static readonly Lazy<MockServerSetup> _lazy = new Lazy<MockServerSetup>(() => Init());
-    
-        [JsonIgnore]
-        internal static MockServerSetup Setup => _lazy.Value;
-       
-        [JsonIgnore]
-        private readonly ConcurrentBag<Expectation> _expectations;
-      
-        [JsonIgnore]
-        public Func<Expectation, MockServerSetup> UpdateExpectation { get; }
-
+        public List<Expectation> Expectations { get; } = new List<Expectation>();
         
-        public static MockServerSetup Init() => new MockServerSetup();
-        
-        internal MockServerSetup()
+        public static implicit operator HttpRequestMessage(MockServerSetup setup)
         {
-            _expectations = new ConcurrentBag<Expectation>();
-            UpdateExpectation = expectation =>
+            var expectations = setup.Expectations.ToList();
+            var content = JsonConvert.SerializeObject(expectations, Formatting.Indented);
+
+            return new HttpRequestMessage(HttpMethod.Put, new Uri("expectations", UriKind.Relative))
             {
-                 _expectations.Add(expectation);
-                 return Setup;
+                        Content = new StringContent(content, Encoding.Default, CommonContentType.Json)
             };
-        }
-        
-        [JsonIgnore]
-        public ExpectationRequest ExpectationRequest => new ExpectationRequest(_expectations);
-
-
-        /// <inheritdoc />
-        public override string ToString()
-        {
-            return JsonConvert.SerializeObject(_expectations.ToList(), Formatting.Indented);
         }
     }
 
     public class MockServerBootstrap
     {
-        public static IFluentExpectationBuilder Expectations => new FluentExpectationBuilder(MockServerSetup.Setup.UpdateExpectation);
+        private static MockServerSetup Setup = new MockServerSetup();
+        public static IFluentExpectationBuilder Expectations => new FluentExpectationBuilder(Setup);
     }
 }

@@ -8,13 +8,16 @@ namespace HardCoded.MockServer.Fluent.Builder.Expectation
 {
     internal sealed class FluentExpectationBuilder : IFluentExpectationBuilder
     {
-        private readonly Func<Models.Expectation, MockServerSetup>  _setupCallback;
-        private Models.Expectation _expectation;
-        
-        internal FluentExpectationBuilder(Func<Models.Expectation, MockServerSetup> setupCallback)
+        private readonly MockServerSetup _setup;
+        private Contracts.Models.Expectation _expectation;
+
+        private IFluentExpectationBuilder _and;
+
+
+        internal FluentExpectationBuilder(MockServerSetup setup)
         {
-            _expectation = new Models.Expectation();
-            _setupCallback = setupCallback;
+            _expectation = new Contracts.Models.Expectation();
+            _setup = setup;
         }
         
         /// <inheritdoc />
@@ -45,15 +48,20 @@ namespace HardCoded.MockServer.Fluent.Builder.Expectation
         /// <inheritdoc />
         public MockServerSetup Setup()
         {
-           return _setupCallback(_expectation);
+           _setup.Expectations.Add(_expectation);
+
+           return _setup;
         }
 
+
         /// <inheritdoc />
-        public IFluentExpectationBuilder And()
+        IFluentExpectationBuilder IWithResponse.And
         {
-            _setupCallback(_expectation);
-            _expectation = new Models.Expectation();
-            return this;
+            get
+            {
+                Setup();
+                return new FluentExpectationBuilder(_setup);
+            }
         }
     }
 }
