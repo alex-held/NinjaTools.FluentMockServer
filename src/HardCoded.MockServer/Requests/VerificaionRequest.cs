@@ -1,7 +1,10 @@
 using System;
 using System.Net.Http;
+
+using HardCoded.MockServer.Contracts.Models;
+using HardCoded.MockServer.Contracts.Models.HttpEntities;
 using HardCoded.MockServer.Contracts.Serialization;
-using HardCoded.MockServer.Models.HttpEntities;
+
 using Newtonsoft.Json;
 
 namespace HardCoded.MockServer.Requests

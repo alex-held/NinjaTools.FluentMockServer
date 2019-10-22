@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+
+using HardCoded.MockServer.Contracts.Models;
 using HardCoded.MockServer.Contracts.Serialization;
-using HardCoded.MockServer.Models;
+
 
 namespace HardCoded.MockServer.Requests
 {

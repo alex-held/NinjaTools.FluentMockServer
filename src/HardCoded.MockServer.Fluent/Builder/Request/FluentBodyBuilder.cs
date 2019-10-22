@@ -1,9 +1,8 @@
 using System;
 using System.Net.Mime;
-using System.Text;
 
 using HardCoded.MockServer.Contracts;
-using HardCoded.MockServer.Models;
+using HardCoded.MockServer.Contracts.Models;
 
 using Newtonsoft.Json;
 

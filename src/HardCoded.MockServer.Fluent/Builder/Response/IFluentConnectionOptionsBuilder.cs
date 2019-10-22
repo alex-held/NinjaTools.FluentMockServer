@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using HardCoded.MockServer.Contracts.FluentInterfaces;
-using HardCoded.MockServer.Models;
+using HardCoded.MockServer.Contracts.Models;
+
 
 namespace HardCoded.MockServer.Fluent.Builder.Response
 {

@@ -3,8 +3,9 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using HardCoded.MockServer.Models;
-using HardCoded.MockServer.Models.HttpEntities;
+
+using HardCoded.MockServer.Contracts.Models;
+using HardCoded.MockServer.Contracts.Models.HttpEntities;
 using HardCoded.MockServer.Requests;
 using Xunit;
 

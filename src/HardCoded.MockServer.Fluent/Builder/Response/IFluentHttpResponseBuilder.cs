@@ -1,9 +1,10 @@
 using System;
 using System.ComponentModel;
 using HardCoded.MockServer.Contracts.FluentInterfaces;
+using HardCoded.MockServer.Contracts.Models.HttpEntities;
+using HardCoded.MockServer.Contracts.Models.ValueTypes;
 using HardCoded.MockServer.Fluent.Builder.Request;
-using HardCoded.MockServer.Models.HttpEntities;
-using HardCoded.MockServer.Models.ValueTypes;
+
 
 namespace HardCoded.MockServer.Fluent.Builder.Response
 {

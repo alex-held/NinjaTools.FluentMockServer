@@ -10,9 +10,9 @@ using Bogus.Extensions;
 using FluentAssertions;
 
 using HardCoded.MockServer.Contracts.Abstractions;
+using HardCoded.MockServer.Contracts.Models;
+using HardCoded.MockServer.Contracts.Models.HttpEntities;
 using HardCoded.MockServer.Contracts.Serialization;
-using HardCoded.MockServer.Models;
-using HardCoded.MockServer.Models.HttpEntities;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

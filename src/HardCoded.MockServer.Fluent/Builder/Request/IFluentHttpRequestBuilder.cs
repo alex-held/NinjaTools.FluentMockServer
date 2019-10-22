@@ -1,6 +1,7 @@
 using System;
 using HardCoded.MockServer.Contracts.FluentInterfaces;
-using HardCoded.MockServer.Models.HttpEntities;
+using HardCoded.MockServer.Contracts.Models.HttpEntities;
+
 
 namespace HardCoded.MockServer.Fluent.Builder.Request
 {

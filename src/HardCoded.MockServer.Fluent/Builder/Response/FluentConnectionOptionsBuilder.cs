@@ -1,5 +1,5 @@
-using System;
-using HardCoded.MockServer.Models;
+using HardCoded.MockServer.Contracts.Models;
+
 
 namespace HardCoded.MockServer.Fluent.Builder.Response
 {
@@ -12,7 +12,7 @@ namespace HardCoded.MockServer.Fluent.Builder.Response
             _options = new ConnectionOptions();
         }
 
-        /// <inheritdoc />
+
         public ConnectionOptions Build() => _options;
     }
 }

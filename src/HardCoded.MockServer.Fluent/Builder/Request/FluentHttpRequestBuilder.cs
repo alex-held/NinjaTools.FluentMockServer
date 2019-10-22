@@ -2,7 +2,8 @@ using System;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using HardCoded.MockServer.Contracts.FluentInterfaces;
-using HardCoded.MockServer.Models.HttpEntities;
+using HardCoded.MockServer.Contracts.Models.HttpEntities;
+
 
 [assembly: InternalsVisibleTo("HardCoded.MockServer.Fluent.Tests")]
 namespace HardCoded.MockServer.Fluent.Builder.Request
