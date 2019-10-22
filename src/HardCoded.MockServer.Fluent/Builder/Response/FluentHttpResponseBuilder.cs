@@ -11,7 +11,7 @@ namespace HardCoded.MockServer.Fluent.Builder.Response
     {
         private readonly HttpResponse _httpResponse;
 
-        public FluentHttpResponseBuilder(int statusCode)
+        public FluentHttpResponseBuilder(int statusCode = 200)
         {
             _httpResponse = new HttpResponse(statusCode);
         }
