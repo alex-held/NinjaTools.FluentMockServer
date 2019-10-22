@@ -1,14 +1,16 @@
+using System;
+
 using HardCoded.MockServer.Contracts.Abstractions;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 
-namespace HardCoded.MockServer.Models
+namespace HardCoded.MockServer.Contracts.Models
 {
   
     
-    public class RequestBody : BuildableBase
+    public class RequestBody : BuildableBase, IEquatable<RequestBody>
     {
         public const string MatchType_STRICT = "STRICT";
         public const string MatchType_ONLY_MATCHING_FIELDS = " ONLY_MATCHING_FIELDS";

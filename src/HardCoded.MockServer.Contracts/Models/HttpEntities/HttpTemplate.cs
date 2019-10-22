@@ -1,7 +1,8 @@
 using HardCoded.MockServer.Contracts.Abstractions;
-using HardCoded.MockServer.Models.ValueTypes;
+using HardCoded.MockServer.Contracts.Models.ValueTypes;
 
-namespace HardCoded.MockServer.Models.HttpEntities
+
+namespace HardCoded.MockServer.Contracts.Models.HttpEntities
 {
     public class HttpTemplate : BuildableBase
     {
