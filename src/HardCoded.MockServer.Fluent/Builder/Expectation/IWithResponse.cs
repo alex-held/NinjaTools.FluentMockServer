@@ -10,6 +10,6 @@ namespace HardCoded.MockServer.Fluent.Builder.Expectation
     public interface IWithResponse : IFluentInterface
     {
         MockServerSetup Setup();
-        IFluentExpectationBuilder And();
+        IFluentExpectationBuilder And { get; }
     }
 }
