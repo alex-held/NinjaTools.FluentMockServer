@@ -11,6 +11,12 @@ namespace HardCoded.MockServer
         private readonly HttpClient _httpClient;
         public Uri MockServerEndpoint { get; }
 
+
+        internal MockServerClient(HttpClient httpClient)
+        {
+            _httpClient = httpClient.WithDefaults(new Uri("http://localhost:1080"));
+        }
+        
         public MockServerClient(string mockServerEndpoint) : this(new Uri(mockServerEndpoint))
         {
         }
