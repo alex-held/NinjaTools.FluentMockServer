@@ -35,7 +35,20 @@ namespace HardCoded.MockServer
 
         public async Task<HttpResponseMessage> SetupExpectationAsync(ExpectationRequest request)
         {
-            return await _httpClient.SendAsync(request);
+            return await _httpClient
+                        .SendAsync(request);
+        }
+
+
+        public async Task<HttpResponseMessage> SetupAsync(Func<IFluentExpectationBuilder, MockServerSetup> setupFactory )
+        {
+            var builder = new FluentExpectationBuilder(new MockServerSetup());
+            var setup = setupFactory(builder);
+
+            var response = await _httpClient.SendAsync(setup);
+            response.EnsureSuccessStatusCode();
+
+            return response;
         }
         
         public async Task<HttpResponseMessage> SetupExpectationAsync(params Expectation[] expectations)
