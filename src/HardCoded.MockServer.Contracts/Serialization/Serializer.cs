@@ -23,8 +23,10 @@ using Formatting = Newtonsoft.Json.Formatting;
 
 namespace HardCoded.MockServer.Contracts.Serialization
 {
+    /// <inheritdoc />
     public class CustomNamingStrategy : CamelCaseNamingStrategy
     {
+        /// <inheritdoc />
         public CustomNamingStrategy()
         {
             ProcessDictionaryKeys = true;
@@ -35,7 +37,7 @@ namespace HardCoded.MockServer.Contracts.Serialization
      /// <summary>
     /// Use this tool to reliable use the same encoding and decoding technique.
     /// </summary>
-    public static class EncodingUtils<T>
+    internal static class EncodingUtils<T>
     {
 
         /// <summary>
@@ -140,16 +142,21 @@ namespace HardCoded.MockServer.Contracts.Serialization
 
         public virtual Func<Type, Type, Action<Type>, bool> TypeFilter { get; set; } = (scannedType, banningType, registryCallback) => {
             var matches =
-                        scannedType.IsClass                              && // I need classes
-                        !scannedType.IsEnum                              && // I need classes
-                        !scannedType.IsAbstract                          && // Must be able to instantiate the class
-                        !scannedType.IsNestedPrivate                     && // Nested private types are not accessible
-                        scannedType.Namespace != null                    && // Yes, it can be null!
-                        !scannedType.Namespace.StartsWith("System.")     && // EF, for instance, is not in the GAC
-                        !scannedType.Namespace.StartsWith("DevExpress.") && // Exclude third party lib
-                        !scannedType.Namespace.StartsWith("CySoft.Wff")  && // Exclude my own lib
-                        !scannedType.Namespace.EndsWith(".Migrations")   && // Exclude EF migrations stuff
-                        !scannedType.Namespace.EndsWith(".My")           && // Excludes types from VB My.something
+                        scannedType.IsClass           && // I need classes
+                        !scannedType.IsEnum           && // I need classes
+                        !scannedType.IsAbstract       && // Must be able to instantiate the class
+                        !scannedType.IsNestedPrivate  && // Nested private types are not accessible
+                        scannedType.Namespace != null && // Yes, it can be null!
+                        !scannedType.Namespace.StartsWith("System.", StringComparison.Ordinal)
+                     && // EF, for instance, is not in the GAC
+                        !scannedType.Namespace.StartsWith("DevExpress.", StringComparison.Ordinal)
+                     && // Exclude third party lib
+                        !scannedType.Namespace.StartsWith("CySoft.Wff", StringComparison.Ordinal)
+                     && // Exclude my own lib
+                        !scannedType.Namespace.EndsWith(".Migrations", StringComparison.Ordinal)
+                     && // Exclude EF migrations stuff
+                        !scannedType.Namespace.EndsWith(".My", StringComparison.Ordinal)
+                     && // Excludes types from VB My.something
                         scannedType.GetCustomAttribute<CompilerGeneratedAttribute>() == null; // Excl. compiler gen
             
              // we need to see if this works   -->  !type.Assembly.GlobalAssemblyCache     
@@ -164,6 +171,11 @@ namespace HardCoded.MockServer.Contracts.Serialization
             return true;
         };
         
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <typeparam name="TInterfaceOrBaseClass"></typeparam>
         public void IngorePropertiesWithRegexForAssignableTypes<TInterfaceOrBaseClass>( [DisallowNull]  string pattern)
         {
             var typesToIgnorePropertiesFrom = new HashSet<Type>();
