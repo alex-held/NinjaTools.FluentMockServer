@@ -37,21 +37,49 @@ namespace HardCoded.MockServer.Contracts.Models
         public bool? KeepAliveOverride { get; set; }
 
 
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+        #region Equality Members
 
-namespace HardCoded.MockServer.Models
-{
-    public class ConnectionOptions : BuildableBase
-    {
-        public bool CloseSocket { get; set; }
+        /// <inheritdoc />
+        public bool Equals(ConnectionOptions other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
 
-        public long ContentLengthHeaderOverride { get; set; }
-        
-        public bool SuppressContentLengthHeader { get; set; }
+            return CloseSocket == other.CloseSocket && ContentLengthHeaderOverride == other.ContentLengthHeaderOverride && SuppressContentLengthHeader == other.SuppressContentLengthHeader && SuppressConnectionHeader == other.SuppressConnectionHeader && KeepAliveOverride == other.KeepAliveOverride;
+        }
 
-        public bool SuppressConnectionHeader { get; set; }
 
-        public bool KeepAliveOverride { get; set; }
+        /// <inheritdoc />
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+
+            return Equals(( ConnectionOptions ) obj);
+        }
+
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            unchecked {
+                var hashCode = CloseSocket.GetHashCode();
+                hashCode = ( hashCode * 397 ) ^ ContentLengthHeaderOverride.GetHashCode();
+                hashCode = ( hashCode * 397 ) ^ SuppressContentLengthHeader.GetHashCode();
+                hashCode = ( hashCode * 397 ) ^ SuppressConnectionHeader.GetHashCode();
+                hashCode = ( hashCode * 397 ) ^ KeepAliveOverride.GetHashCode();
+
+                return hashCode;
+            }
+        }
+
+
+        public static bool operator ==(ConnectionOptions left, ConnectionOptions right) => Equals(left, right);
+
+
+        public static bool operator !=(ConnectionOptions left, ConnectionOptions right) => !Equals(left, right);
+
+        #endregion
     }
 }
