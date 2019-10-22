@@ -1,7 +1,12 @@
 using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
-using HardCoded.MockServer.Models;
+
+using HardCoded.MockServer.Contracts.Extensions;
+using HardCoded.MockServer.Contracts.Models;
+using HardCoded.MockServer.Fluent;
+using HardCoded.MockServer.Fluent.Builder.Expectation;
 using HardCoded.MockServer.Requests;
 
 namespace HardCoded.MockServer
