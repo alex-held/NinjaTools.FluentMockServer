@@ -252,20 +252,35 @@ namespace HardCoded.MockServer.Contracts.Serialization
             return true;
         }
     }
-    
-    public class Serializer : JsonSerializer
+
+     /// <inheritdoc />
+     public class Serializer : JsonSerializer
     {
+        /// <summary>
+        /// Gets the default <see cref="Serializer"/> Instance.
+        /// </summary>
         public static Serializer Default => new Serializer(new CustomJsonSerializerSettings());
         
+        /// <summary>
+        /// Gets the <see cref="CustomJsonSerializerSettings"/>.
+        /// </summary>
         public CustomJsonSerializerSettings CustomJsonSerializerSettings { get; }
-        
-        public Serializer(CustomJsonSerializerSettings customJsonSerializerSettings) =>
+
+
+        /// <inheritdoc />
+        public Serializer(CustomJsonSerializerSettings customJsonSerializerSettings) => 
                     CustomJsonSerializerSettings = customJsonSerializerSettings;
         
+        /// <summary>
+        /// Serializes an <see cref="object"/> into an
+        /// </summary>
+        /// <param name="o"></param>
+        /// <returns></returns>
         public static JObject Serialize([DisallowNull] object o)  => JObject.FromObject(o, Default);
         public static T Deserialize<T>([DisallowNull] string json) => JObject.Parse(json).ToObject<T>(Default);
     }
-    
+
+    /// <inheritdoc />
     public class CustomJsonSerializerSettings : JsonSerializerSettings
     {
         public Action<PropertyRenameAndIgnoreSerializerContractResolver> ContractResolverSetup { get; set; } =
