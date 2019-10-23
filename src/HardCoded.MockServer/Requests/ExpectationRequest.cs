@@ -28,5 +28,27 @@ namespace HardCoded.MockServer.Requests
             };
         }
         
+        public static implicit operator ExpectationRequest(Expectation expectation)
+        {
+            return new ExpectationRequest()
+            {
+                        expectation
+            };
+        }
+        
+        public static implicit operator ExpectationRequest(Expectation[] expectations)
+        {
+            var request = new ExpectationRequest();
+
+            foreach ( var expectation in expectations ) 
+            {
+                if (expectation != null) {
+                    request.Add(expectation);
+                }
+            }
+
+            return request;
+        }
+        
     }
 }

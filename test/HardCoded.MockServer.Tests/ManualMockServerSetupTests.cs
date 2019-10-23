@@ -18,16 +18,18 @@ namespace HardCoded.MockServer.Tests
         {
             // Arrange
             using var client = new MockServerClient("http://localhost:5000");
-            var expectation = new ExpectationRequest();
-            
-            expectation.Add(new Expectation
-            {
-                HttpRequest =  new HttpRequest(){ Path = "test", Method = HttpMethod.Get},
-                HttpResponse = new HttpResponse(201)
-            });
-
+          
             // Act
-            var response = await client.SetupExpectationAsync(expectation);
+            var response = await client.SetupExpectationAsync(
+                new Expectation
+                {
+                            HttpRequest = new HttpRequest()
+                            {
+                                        Path = "test"
+                                      , HttpMethod = HttpMethod.Get
+                            }
+                          , HttpResponse = new HttpResponse(201)
+                });
             response.EnsureSuccessStatusCode();
 
             // Assert
@@ -45,7 +47,7 @@ namespace HardCoded.MockServer.Tests
             
             expectation.Add(new Expectation
             {
-                HttpRequest = new HttpRequest(){ Path = "test", Method = HttpMethod.Get},
+                HttpRequest = new HttpRequest(){ Path = "test", HttpMethod = HttpMethod.Get},
                 HttpResponse = new HttpResponse(201)
             });
             
@@ -68,12 +70,14 @@ namespace HardCoded.MockServer.Tests
             // Arrange
             using var client = new MockServerClient("http://localhost:5000");
  
-            var response = await client.SetupExpectationAsync(new Expectation
+            var expectationRequest = new ExpectationRequest();
+            expectationRequest.Add(new Expectation
             {
-                HttpRequest =  new HttpRequest(){ Path = "test", Method = HttpMethod.Get},
-                HttpResponse = new HttpResponse(201)
+                        HttpRequest =  new HttpRequest(){ Path = "test", HttpMethod = HttpMethod.Get},
+                        HttpResponse = new HttpResponse(201)
             });
-            
+            var response = await client.SetupExpectationAsync(expectationRequest);
+           
             response.EnsureSuccessStatusCode();
             
             var request = new HttpRequestMessage(HttpMethod.Get, new Uri("test", UriKind.Relative));
@@ -81,7 +85,7 @@ namespace HardCoded.MockServer.Tests
             response.EnsureSuccessStatusCode();
             
             // Act
-            var verification = VerificaionRequest.Once( new HttpRequest(){ Path = "test", Method = HttpMethod.Get});
+            var verification = VerificaionRequest.Once( new HttpRequest(){ Path = "test", HttpMethod = HttpMethod.Get});
             response = await client.Verify(verification);
             
             // Assert

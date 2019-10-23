@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 using HardCoded.MockServer.Contracts.Extensions;
 using HardCoded.MockServer.Contracts.Models;
+using HardCoded.MockServer.Contracts.Serialization;
 using HardCoded.MockServer.Fluent;
 using HardCoded.MockServer.Fluent.Builder.Expectation;
 using HardCoded.MockServer.Requests;
@@ -14,7 +17,8 @@ namespace HardCoded.MockServer
     public class MockServerClient : IDisposable
     {
         private readonly HttpClient _httpClient;
-        public Uri MockServerEndpoint { get; }
+
+        public Uri MockServerEndpoint => _httpClient.BaseAddress;
 
 
         internal MockServerClient(HttpClient httpClient)
@@ -27,57 +31,43 @@ namespace HardCoded.MockServer
         
         public MockServerClient(Uri mockServerUri)
         {
-            MockServerEndpoint = mockServerUri;
-            _httpClient = new HttpClient()
-                        .WithDefaults(mockServerUri);
+            _httpClient = new HttpClient().WithDefaults(mockServerUri);
         }
 
       
         public async Task<HttpResponseMessage> SetupExpectationAsync(ExpectationRequest request)
         {
-            return await _httpClient
-                        .SendAsync(request);
+            return await _httpClient.SendAsync(request);
         }
 
 
-        public async Task<HttpResponseMessage> SetupAsync(Func<IFluentExpectationBuilder, MockServerSetup> setupFactory )
+        public async Task SetupAsync(Func<IFluentExpectationBuilder, MockServerSetup> setupFactory )
         {
             var builder = new FluentExpectationBuilder(new MockServerSetup());
             var setup = setupFactory(builder);
-
-            var response = await _httpClient.SendAsync(setup);
-            response.EnsureSuccessStatusCode();
-
-            return response;
+            
+            foreach ( var expectation in setup.Expectations ) {
+                var request = new HttpRequestMessage(HttpMethod.Put, GetMockServerUri("expectation"))
+                {
+                            Content = new JsonContent(expectation)
+                };
+                var response = await _httpClient.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+            }
         }
         
-        public async Task<HttpResponseMessage> SetupExpectationAsync(params Expectation[] expectations)
-        {
-            var request = new ExpectationRequest();
-            request.AddRange(expectations);
-            
-            var response = await _httpClient
-                        .SendAsync(request);
-            
-            response.EnsureSuccessStatusCode();
-            return response;
-        }
-
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
         {
-            var response = await _httpClient
-                        .SendAsync(request);
+            request.RequestUri = new Uri(MockServerEndpoint, request.RequestUri);
+        
+            var response = await _httpClient.SendAsync(request);
             return response;
         }
 
         public async Task<HttpResponseMessage> Reset()
         {
-            var request = new HttpRequestMessage()
-            {
-                Method = HttpMethod.Put,
-                RequestUri = new Uri("reset", UriKind.Relative)
-            };
-            
+            var request = new HttpRequestMessage(HttpMethod.Put, GetMockServerUri("reset"));
+  
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             return response;
@@ -96,5 +86,7 @@ namespace HardCoded.MockServer
             response.EnsureSuccessStatusCode();
             return response;
         }
+
+        private protected Uri GetMockServerUri(string path) => new Uri(MockServerEndpoint, $"mockserver/{path}");
     }
 }
