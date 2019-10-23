@@ -9,7 +9,10 @@ namespace HardCoded.MockServer.Contracts.Models.ValueTypes
 {
     public class Times : BuildableBase, IEquatable<Times>
     {
-        private Times(long remainingTimes)
+        public Times()
+        { }
+        
+        public Times(long remainingTimes)
         {
             if (remainingTimes < 0)
                 Unlimited = true;
