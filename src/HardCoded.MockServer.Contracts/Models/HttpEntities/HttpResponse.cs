@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 
 using HardCoded.MockServer.Contracts.Abstractions;
+using HardCoded.MockServer.Contracts.Attributes;
 using HardCoded.MockServer.Contracts.Models.ValueTypes;
-
-using JetBrains.Annotations;
 
 
 namespace HardCoded.MockServer.Contracts.Models.HttpEntities

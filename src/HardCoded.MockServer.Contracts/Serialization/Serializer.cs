@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,8 +11,6 @@ using System.Xml.Serialization;
 
 using HardCoded.MockServer.Contracts.Abstractions;
 using HardCoded.MockServer.Contracts.Attributes;
-
-using JetBrains.Annotations;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

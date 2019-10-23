@@ -2,8 +2,6 @@ using System;
 
 using HardCoded.MockServer.Contracts.Abstractions;
 
-using Newtonsoft.Json;
-
 
 namespace HardCoded.MockServer.Contracts.Models.ValueTypes
 {

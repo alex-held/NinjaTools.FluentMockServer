@@ -4,8 +4,6 @@ using HardCoded.MockServer.Contracts.Abstractions;
 using HardCoded.MockServer.Contracts.Models.HttpEntities;
 using HardCoded.MockServer.Contracts.Models.ValueTypes;
 
-using Newtonsoft.Json;
-
 
 namespace HardCoded.MockServer.Contracts.Models
 {

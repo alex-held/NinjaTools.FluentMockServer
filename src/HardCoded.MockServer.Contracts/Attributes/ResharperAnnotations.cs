@@ -20,10 +20,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
-    using System;
+using System;
 
 
-    // ReSharper disable InheritdocConsiderUsage
+// ReSharper disable InheritdocConsiderUsage
 
     #pragma warning disable 1591
     // ReSharper disable UnusedMember.Global
@@ -33,7 +33,7 @@ SOFTWARE. */
     // ReSharper disable MemberCanBeProtected.Global
     // ReSharper disable InconsistentNaming
 
-    namespace JetBrains.Annotations
+    namespace HardCoded.MockServer.Contracts.Attributes
     {
         /// <summary>
         /// Indicates that the value of the marked element could be <c>null</c> sometimes,

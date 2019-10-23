@@ -1,0 +1,17 @@
+using System.ComponentModel;
+
+using HardCoded.MockServer.Contracts.FluentInterfaces;
+using HardCoded.MockServer.Contracts.Models;
+
+
+namespace HardCoded.MockServer.Builder.Response
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public interface IFluentConnectionOptionsBuilder : IFluentBuilder<ConnectionOptions>, IFluentInterface
+    {
+        ConnectionOptions Build();
+    }
+}

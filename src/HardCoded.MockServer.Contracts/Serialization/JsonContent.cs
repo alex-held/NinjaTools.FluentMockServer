@@ -1,8 +1,7 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
 
-using JetBrains.Annotations;
+using HardCoded.MockServer.Contracts.Attributes;
 
 using Newtonsoft.Json;
 

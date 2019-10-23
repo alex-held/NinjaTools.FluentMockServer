@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
 
+using HardCoded.MockServer.Contracts.Attributes;
 using HardCoded.MockServer.Contracts.Extensions;
-
-using JetBrains.Annotations;
 
 
 namespace HardCoded.MockServer.Contracts

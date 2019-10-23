@@ -5,11 +5,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 
+using HardCoded.MockServer.Builder.Expectation;
 using HardCoded.MockServer.Contracts.Models;
 using HardCoded.MockServer.Contracts.Models.HttpEntities;
 using HardCoded.MockServer.Contracts.Models.ValueTypes;
-using HardCoded.MockServer.Fluent;
-using HardCoded.MockServer.Fluent.Builder.Expectation;
 using HardCoded.MockServer.Requests;
 using Xunit;
 using Xunit.Abstractions;
