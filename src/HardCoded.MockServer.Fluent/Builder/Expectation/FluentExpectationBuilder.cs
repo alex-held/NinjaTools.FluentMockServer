@@ -1,6 +1,9 @@
 using System;
 using System.Net;
 using System.Net.Http;
+
+using HardCoded.MockServer.Contracts.Models.HttpEntities;
+using HardCoded.MockServer.Contracts.Models.ValueTypes;
 using HardCoded.MockServer.Fluent.Builder.Request;
 using HardCoded.MockServer.Fluent.Builder.Response;
 
@@ -17,6 +20,10 @@ namespace HardCoded.MockServer.Fluent.Builder.Expectation
         private IFluentExpectationBuilder _and;
 
 
+        public FluentExpectationBuilder() : this(new MockServerSetup())
+        {
+        }
+
         internal FluentExpectationBuilder(MockServerSetup setup)
         {
             _expectation = new Contracts.Models.Expectation();
@@ -24,19 +31,39 @@ namespace HardCoded.MockServer.Fluent.Builder.Expectation
         }
         
         /// <inheritdoc />
-        public IWithRequest OnHandling(HttpMethod method, Action<IFluentHttpRequestBuilder> requestFactory)
+        public IWithRequest OnHandling(HttpMethod method, Action<IFluentHttpRequestBuilder> requestFactory = null)
         {
             var builder = new FluentHttpRequestBuilder(method);
-            requestFactory(builder);
+            requestFactory?.Invoke(builder);
             _expectation.HttpRequest = builder.Build();
             return this;
         }
-        
+
+
+        /// <inheritdoc />
+        [NotNull]
+        public IWithRequest OnHandlingAny(HttpMethod method = null)
+        {
+            if (method is null) {
+                _expectation.HttpRequest = null;
+            }
+
+            _expectation.HttpRequest = method is null
+                        ? null
+                        : new HttpRequest()
+                        {
+                                    HttpMethod = method
+                        };
+
+            return this;
+        }
+
+
         /// <inheritdoc />
         public IWithResponse RespondWith(int statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
         {
             var builder = new FluentHttpResponseBuilder(statusCode);
-            responseFactory(builder);
+            responseFactory?.Invoke(builder);
             _expectation.HttpResponse = builder.Build();
             return this;
         }
@@ -45,6 +72,35 @@ namespace HardCoded.MockServer.Fluent.Builder.Expectation
         public IWithResponse RespondWith(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
         {
             return RespondWith((int) statusCode, responseFactory);
+        }
+
+
+        /// <inheritdoc />
+        public IWithResponse RespondOnce(int statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
+        {
+            
+            _expectation.Times = Times.Once;
+            return RespondWith(statusCode, responseFactory);
+        }
+
+
+        /// <inheritdoc />
+        public IWithResponse RespondOnce(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
+        {
+            return RespondOnce(( int ) statusCode, responseFactory);
+        }
+
+
+        /// <inheritdoc />
+        public IWithResponse WhichIsValidFor(int value, TimeUnit timeUnit = TimeUnit.SECONDS)
+        {
+            _expectation.TimeToLive = new TimeToLive
+            {
+                        Time = value
+                      , TimeUnit = timeUnit
+            };
+
+            return this;
         }
 
 

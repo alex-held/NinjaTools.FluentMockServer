@@ -15,6 +15,7 @@ namespace HardCoded.MockServer.Fluent.Builder.Expectation
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IBlankExpectation : IFluentInterface
     {
-        IWithRequest OnHandling(HttpMethod method, Action<IFluentHttpRequestBuilder> requestFactory);
+        IWithRequest OnHandling([NotNull] HttpMethod method, [CanBeNull] Action<IFluentHttpRequestBuilder> requestFactory = null);
+        IWithRequest OnHandlingAny([CanBeNull] HttpMethod method = null);
     }
 }
