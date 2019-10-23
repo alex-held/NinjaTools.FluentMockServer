@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -13,6 +12,8 @@ using System.Xml.Serialization;
 
 using HardCoded.MockServer.Contracts.Abstractions;
 using HardCoded.MockServer.Contracts.Attributes;
+
+using JetBrains.Annotations;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -50,7 +51,7 @@ namespace HardCoded.MockServer.Contracts.Serialization
         /// <exception cref="ArgumentNullException">The <param name="body"/> might have been null. </exception>
         /// <exception cref="ArgumentNullException">The <param name="contentType"/> might have been null. </exception>
         /// <exception cref="NotSupportedException">The <param name="contentType"/> is currently not supported.</exception>
-        [return: MaybeNull] [Pure]
+         [System.Diagnostics.Contracts.Pure]
         public static byte[] Encode([NotNull] T body, [NotNull] string contentType, [NotNull]  Encoding encoding)
         {
             if (body is null) 
@@ -74,8 +75,8 @@ namespace HardCoded.MockServer.Contracts.Serialization
         }
 
 
-        [Pure]
-        [return: MaybeNull]
+        [System.Diagnostics.Contracts.Pure]
+        
         private static byte[]? EncodeJson([NotNull]T body, [NotNull] Encoding encoding)
         {
             try {
@@ -91,8 +92,8 @@ namespace HardCoded.MockServer.Contracts.Serialization
         }
 
         
-        [Pure]
-        [return: MaybeNull]
+        [System.Diagnostics.Contracts.Pure]
+        
         private static byte[]? EncodeXml([NotNull] T body, [NotNull] Encoding encoding)
         {
             try {
@@ -121,9 +122,10 @@ namespace HardCoded.MockServer.Contracts.Serialization
         {
             _ignores = new Dictionary<Type, HashSet<string>>();
             _renames = new Dictionary<Type, Dictionary<string, string>>();
+            
         }
         
-        internal void IgnorePropertiesWithRegex([DisallowNull] string pattern, [DisallowNull] params Type[] types)
+        internal void IgnorePropertiesWithRegex([NotNull] string pattern, [NotNull] params Type[] types)
         {
             var regex = new Regex(pattern);
 
@@ -176,7 +178,7 @@ namespace HardCoded.MockServer.Contracts.Serialization
         /// </summary>
         /// <param name="pattern"></param>
         /// <typeparam name="TInterfaceOrBaseClass"></typeparam>
-        public void IngorePropertiesWithRegexForAssignableTypes<TInterfaceOrBaseClass>( [DisallowNull]  string pattern)
+        public void IngorePropertiesWithRegexForAssignableTypes<TInterfaceOrBaseClass>( [NotNull]  string pattern)
         {
             var typesToIgnorePropertiesFrom = new HashSet<Type>();
 
@@ -251,6 +253,10 @@ namespace HardCoded.MockServer.Contracts.Serialization
 
             return true;
         }
+
+
+        /// <inheritdoc />
+        protected override string ResolveDictionaryKey(string dictionaryKey) => dictionaryKey;
     }
 
      /// <inheritdoc />
@@ -276,8 +282,8 @@ namespace HardCoded.MockServer.Contracts.Serialization
         /// </summary>
         /// <param name="o"></param>
         /// <returns></returns>
-        public static JObject Serialize([DisallowNull] object o)  => JObject.FromObject(o, Default);
-        public static T Deserialize<T>([DisallowNull] string json) => JObject.Parse(json).ToObject<T>(Default);
+        public static JObject Serialize([NotNull] object o)  => JObject.FromObject(o, Default);
+        public static T Deserialize<T>([NotNull] string json) => JObject.Parse(json).ToObject<T>(Default);
     }
 
     /// <inheritdoc />
