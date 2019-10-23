@@ -24,18 +24,19 @@ namespace HardCoded.MockServer.Fluent.Builder.Request
         {
             _httpRequest = new HttpRequest
             {
-                Method = method
+                HttpMethod = method
             };
         }
 
         public FluentHttpRequestBuilder()
         {
-            
+            _httpRequest = new HttpRequest();
         }
 
         /// <inheritdoc />
         public IFluentHttpRequestBuilder WithPath(string path)
         {
+            path = path?.TrimStart('/').Insert(0, "/") ?? "/";
             _httpRequest.Path = path;
             return this;
         }

@@ -138,7 +138,7 @@ namespace HardCoded.MockServer.Tests.Contracts
             // 2) The RequestBody
 
             var faker = new Faker<HttpRequest>()
-                        .RuleFor(req => req.Method, f => f.Internet.RandomHttpMethod())
+                        .RuleFor(req => req.HttpMethod, f => f.Internet.RandomHttpMethod())
                         .RuleFor(x => x.Path,       f => f.Internet.UrlWithPath())
                         .RuleFor(x => x.Body,       GetRandomRequestBody);
 
@@ -261,7 +261,7 @@ namespace HardCoded.MockServer.Tests.Contracts
 
             var httpRequest = new HttpRequest
             {
-                        Method = HttpMethod.Post
+                        HttpMethod = HttpMethod.Post
                       , Body = new RequestBody(RequestBody.BodyType.JSON, false)
                         {
                                     Json =

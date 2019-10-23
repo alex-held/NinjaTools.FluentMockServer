@@ -4,6 +4,8 @@ using System.Net.Http;
 
 using HardCoded.MockServer.Contracts.Abstractions;
 
+using Newtonsoft.Json;
+
 
 namespace HardCoded.MockServer.Contracts.Models.HttpEntities
 {
@@ -13,10 +15,22 @@ namespace HardCoded.MockServer.Contracts.Models.HttpEntities
     /// </summary>
     public class HttpRequest : BuildableBase, IEquatable<HttpRequest>
     {
+
         /// <summary>
-        /// The <see cref="HttpMethod"/> to be matched.
+        /// The <see cref="System.Net.Http.HttpMethod"/> to be matched.
         /// </summary>
-        public HttpMethod Method { get; set; }
+        [JsonIgnore]
+        internal HttpMethod HttpMethod
+        {
+            get => new HttpMethod(Method);
+            set => Method = value.Method;
+        }
+
+
+        /// <summary>
+        /// The <see cref="System.Net.Http.HttpMethod"/> to be matched.
+        /// </summary>
+        public string Method { get; set; }
         
         /// <summary>
         /// Header constraints that need to be fulfilled.
@@ -58,7 +72,7 @@ namespace HardCoded.MockServer.Contracts.Models.HttpEntities
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return Equals(Method, other.Method) && Equals(Headers, other.Headers) && Equals(Cookies, other.Cookies) && Equals(Body, other.Body) && string.Equals(Path, other.Path, StringComparison.InvariantCultureIgnoreCase) && Secure == other.Secure && KeepAlive == other.KeepAlive;
+            return Equals(HttpMethod, other.HttpMethod) && Equals(Headers, other.Headers) && Equals(Cookies, other.Cookies) && Equals(Body, other.Body) && string.Equals(Path, other.Path, StringComparison.InvariantCultureIgnoreCase) && Secure == other.Secure && KeepAlive == other.KeepAlive;
         }
 
 
@@ -77,7 +91,7 @@ namespace HardCoded.MockServer.Contracts.Models.HttpEntities
         public override int GetHashCode()
         {
             unchecked {
-                var hashCode = ( Method != null ? Method.GetHashCode() : 0 );
+                var hashCode = ( HttpMethod != null ? HttpMethod.GetHashCode() : 0 );
                 hashCode = ( hashCode * 397 ) ^ ( Headers != null ? Headers.GetHashCode() : 0 );
                 hashCode = ( hashCode * 397 ) ^ ( Cookies != null ? Cookies.GetHashCode() : 0 );
                 hashCode = ( hashCode * 397 ) ^ ( Body    != null ? Body.GetHashCode() : 0 );

@@ -296,10 +296,12 @@ namespace HardCoded.MockServer.Contracts.Serialization
 
         public CustomJsonSerializerSettings()
         {
+            var resolver = new PropertyRenameAndIgnoreSerializerContractResolver();
+            resolver.IgnorePropertiesWithRegex("HttpMethod");
             StringEscapeHandling = StringEscapeHandling.EscapeNonAscii; 
             NullValueHandling = NullValueHandling.Ignore;
             Formatting = Formatting.Indented;
-            ContractResolver = new PropertyRenameAndIgnoreSerializerContractResolver();
+            ContractResolver = resolver;
         }
     }
 }
