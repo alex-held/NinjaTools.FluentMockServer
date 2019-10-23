@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Net.Mime;
 
 using HardCoded.MockServer.Contracts.Extensions;
+
+using JetBrains.Annotations;
 
 
 namespace HardCoded.MockServer.Contracts
@@ -15,6 +15,11 @@ namespace HardCoded.MockServer.Contracts
     public class CommonContentType : ContentType
     {
         
+        /// <summary>
+        /// The MIME content type
+        /// </summary>
+        /// <param name="contentType"></param>
+        /// <returns></returns>
         [Pure]
         public static implicit operator string([NotNull] CommonContentType contentType) => contentType.Name;
         
@@ -63,7 +68,7 @@ namespace HardCoded.MockServer.Contracts
         /// <param name="contentType"></param>
         /// <returns>Whether we could parse the input content type corretly.</returns>
         [Pure]
-        public static bool TryParseContentType([NotNull] string input, [MaybeNull] out CommonContentType contentType)
+        public static bool TryParseContentType([NotNull] string input, [CanBeNull] out CommonContentType contentType)
         {
             contentType = null;
             var list = ToList();

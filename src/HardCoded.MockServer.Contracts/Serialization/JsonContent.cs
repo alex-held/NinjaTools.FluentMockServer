@@ -1,6 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
 using System.Text;
+
+using JetBrains.Annotations;
+
 using Newtonsoft.Json;
 
 namespace HardCoded.MockServer.Contracts.Serialization

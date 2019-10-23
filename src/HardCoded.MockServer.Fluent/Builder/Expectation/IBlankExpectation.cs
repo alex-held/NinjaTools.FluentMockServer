@@ -4,6 +4,9 @@ using System.Net.Http;
 using HardCoded.MockServer.Contracts.FluentInterfaces;
 using HardCoded.MockServer.Fluent.Builder.Request;
 
+using JetBrains.Annotations;
+
+
 namespace HardCoded.MockServer.Fluent.Builder.Expectation
 {
     /// <summary>
