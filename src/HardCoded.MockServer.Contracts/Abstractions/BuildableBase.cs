@@ -12,7 +12,7 @@ namespace HardCoded.MockServer.Contracts.Abstractions
     public abstract class BuildableBase : IBuildable
     {
         [JsonIgnore]
-        internal virtual JsonSerializerSettings  SerializerSettings { get; set; }
+        internal virtual JsonSerializerSettings  SerializerSettings => new CustomJsonSerializerSettings();
 
         [JsonIgnore] 
         internal bool _REVERSE_MATCHING_ENABLED { get; private set; }

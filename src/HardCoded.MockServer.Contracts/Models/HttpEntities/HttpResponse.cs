@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 
 using HardCoded.MockServer.Contracts.Abstractions;
 using HardCoded.MockServer.Contracts.Models.ValueTypes;
+
+using JetBrains.Annotations;
 
 
 namespace HardCoded.MockServer.Contracts.Models.HttpEntities
@@ -12,17 +15,15 @@ namespace HardCoded.MockServer.Contracts.Models.HttpEntities
     /// </summary>
     public class HttpResponse : BuildableBase, IEquatable<HttpResponse>
     {
-        public HttpResponse(int statusCode)
+        public HttpResponse([CanBeNull] int? statusCode = null)
         {
             StatusCode = statusCode;
-            ConnectionOptions = new ConnectionOptions();
-            Delay = Delay.None;
         }
         
         /// <summary>
         /// The <see cref="HttpStatusCode"/> of the <see cref="HttpResponse"/>.
         /// </summary>
-        public int StatusCode { get; set; }
+        public int? StatusCode { get; set; }
         
         /// <summary>
         /// A <see cref="Delay"/> to wait until the <see cref="HttpResponse"/> is returned.
@@ -68,7 +69,7 @@ namespace HardCoded.MockServer.Contracts.Models.HttpEntities
         public override int GetHashCode()
         {
             unchecked {
-                var hashCode = StatusCode;
+                var hashCode = StatusCode ?? int.MaxValue;
                 hashCode = ( hashCode * 397 ) ^ ( Delay             != null ? Delay.GetHashCode() : 0 );
                 hashCode = ( hashCode * 397 ) ^ ( ConnectionOptions != null ? ConnectionOptions.GetHashCode() : 0 );
                 hashCode = ( hashCode * 397 ) ^ ( Body              != null ? Body.GetHashCode() : 0 );
