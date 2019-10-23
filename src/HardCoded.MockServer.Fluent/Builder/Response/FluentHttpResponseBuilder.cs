@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 using HardCoded.MockServer.Contracts.Models.HttpEntities;
 using HardCoded.MockServer.Contracts.Models.ValueTypes;
@@ -36,6 +37,16 @@ namespace HardCoded.MockServer.Fluent.Builder.Response
             };
             return this;
         }
+
+
+        /// <inheritdoc />
+        public IFluentHttpResponseBuilder WithHeader(string name, string value)
+        {
+            _httpResponse.Headers ??= new Dictionary<string, string[]>();
+            _httpResponse.Headers.Add(name, new []{value});
+            return this;
+        }
+
 
         /// <inheritdoc />
         public IFluentHttpResponseBuilder WithConnectionOptions(Action<IFluentConnectionOptionsBuilder> connectionOptionsFactory)

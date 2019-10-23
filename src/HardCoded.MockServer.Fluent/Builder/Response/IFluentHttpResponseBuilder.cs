@@ -15,9 +15,9 @@ namespace HardCoded.MockServer.Fluent.Builder.Response
     public interface IFluentHttpResponseBuilder : IFluentInterface
     {
         IFluentHttpResponseBuilder WithBody(Action<IFluentBodyBuilder> bodyFactory);
-       // IFluentHttpResponseBuilder WithBody(Action<IWithContent<IFluentHttpResponseBuilder>> contentFactory);
         IFluentHttpResponseBuilder WithDelay(Action<IFluentDelayBuilder> delayFactory);
         IFluentHttpResponseBuilder WithDelay(int value, TimeUnit timeUnit);
+        IFluentHttpResponseBuilder WithHeader(string name, string value);
         IFluentHttpResponseBuilder WithConnectionOptions(Action<IFluentConnectionOptionsBuilder> connectionOptionsFactory);
         HttpResponse Build();
     }

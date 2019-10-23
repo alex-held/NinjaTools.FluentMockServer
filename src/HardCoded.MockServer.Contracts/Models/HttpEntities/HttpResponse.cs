@@ -40,6 +40,8 @@ namespace HardCoded.MockServer.Contracts.Models.HttpEntities
         /// </summary>
         public RequestBody Body { get; set; }
 
+        public Dictionary<string, string[]> Headers { get; set; }
+
 
         #region Equality Members
 
