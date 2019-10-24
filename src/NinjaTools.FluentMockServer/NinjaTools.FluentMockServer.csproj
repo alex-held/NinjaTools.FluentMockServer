@@ -10,12 +10,14 @@
         <Authors>Alexander Held</Authors>
         <Description>A C# Client for the MockServer Docker Image</Description>
         <Copyright>Alexander Held © 2019</Copyright>
-        <PackageProjectUrl>https://www.github.com/alex-held/NinjaTools.FluentMockServer</PackageProjectUrl>
-        <RepositoryUrl>https://www.github.com/alex-held/NinjaTools.FluentMockServer</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/alex-held/NinjaTools.FluentMockServer</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/alex-held/NinjaTools.FluentMockServer</RepositoryUrl>
         <RepositoryType>github</RepositoryType>
-        <PackageTags>mockserver</PackageTags>
+        <PackageTags>mockserver, test, mock, docker, xunit, api, soap, rest</PackageTags>
         <Company>AlexanderHeld</Company>
         <Product>FluentMockServer</Product>
+        <PackageLicenseUrl>https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

@@ -7,12 +7,14 @@
         <Authors>Alexander Held</Authors>
         <Description>In memory docker container runner for NinjaTools.FluentMockServer</Description>
         <Copyright>Alexander Held © 2019</Copyright>
-        <PackageProjectUrl>https://www.github.com/alex-held/NinjaTools.FluentMockServer</PackageProjectUrl>
-        <RepositoryUrl>https://www.github.com/alex-held/NinjaTools.FluentMockServer</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/alex-held/NinjaTools.FluentMockServer</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/alex-held/NinjaTools.FluentMockServer</RepositoryUrl>
         <RepositoryType>github</RepositoryType>
         <Company>AlexanderHeld</Company>
         <PackageTags>docker, container, mock, test, server, mockserver</PackageTags>
         <Product>FluentMockServer.TestContainers</Product>
+        <PackageLicenseUrl>https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/LICENSE</PackageLicenseUrl>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     </PropertyGroup>
 
     <ItemGroup>
