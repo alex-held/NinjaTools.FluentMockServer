@@ -19,6 +19,7 @@ namespace NinjaTools.FluentMockServer.Builders
         IFluentHttpResponseBuilder WithDelay(int value, TimeUnit timeUnit);
         IFluentHttpResponseBuilder WithHeader(string name, string value);
         IFluentHttpResponseBuilder WithConnectionOptions(Action<IFluentConnectionOptionsBuilder> connectionOptionsFactory);
+        IFluentHttpResponseBuilder WithBodyLiteral(string literal);
         HttpResponse Build();
     }
 }

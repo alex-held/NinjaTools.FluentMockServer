@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
@@ -11,13 +10,12 @@ namespace NinjaTools.FluentMockServer.Builders
     {
         private readonly HttpResponse _httpResponse;
 
-        public FluentHttpResponseBuilder(int statusCode = 200)
+        public FluentHttpResponseBuilder()
         {
-            _httpResponse = new HttpResponse(statusCode);
+            _httpResponse = new HttpResponse();
         }
 
-       
-
+        
         /// <inheritdoc />
         public IFluentHttpResponseBuilder WithDelay(Action<IFluentDelayBuilder> delayFactory)
         {
@@ -65,6 +63,15 @@ namespace NinjaTools.FluentMockServer.Builders
             var builder = new FluentBodyBuilder();
             bodyFactory(builder);
             _httpResponse.Body = builder.Body;
+            return this;
+        }
+
+        public IFluentHttpResponseBuilder WithBodyLiteral(string bodyLiteral)
+        {
+            var builder = new FluentBodyBuilder();
+            builder.WithLiteral(bodyLiteral);
+            _httpResponse.Body = builder.Build();
+
             return this;
         }
     }

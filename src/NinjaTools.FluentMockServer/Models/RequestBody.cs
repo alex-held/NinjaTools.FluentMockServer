@@ -1,8 +1,8 @@
 using System;
-
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-
+using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Abstractions;
 
 
@@ -14,7 +14,21 @@ namespace NinjaTools.FluentMockServer.Models
     {
         public const string MatchType_STRICT = "STRICT";
         public const string MatchType_ONLY_MATCHING_FIELDS = " ONLY_MATCHING_FIELDS";
-       
+
+        
+        /// <inheritdoc />
+        public override JObject SerializeJObject()
+        {
+            if (IsLiteral)
+            {
+                var jObj = new JObject();
+                jObj.Add("body", Literal);
+                return jObj;
+            }
+            
+            return base.SerializeJObject();
+        }
+
         [JsonConverter(typeof(StringEnumConverter))]
         public enum BodyType
         {
@@ -28,6 +42,31 @@ namespace NinjaTools.FluentMockServer.Models
             REGEX,
             BINARY
         }
+        [OnSerializing]
+        internal void OnSerializingMethod(StreamingContext context)
+        {
+            if (IsLiteral)
+            {
+                Type = null;
+                Not = null;
+                String = null;
+                SubString = null;
+                XPath = null;
+                XmlSchema = null;
+                MatchType = null;
+                JsonSchema = null;
+                JsonPath = null;
+                ContentType = null;
+                Xml = null;
+            }
+          
+        }
+        
+        [JsonIgnore]
+        internal bool IsLiteral => !string.IsNullOrWhiteSpace(Literal);
+
+        [JsonIgnore]
+        public string Literal { get; set; }
         
         public BodyType? Type { get; set; }
         
@@ -57,12 +96,18 @@ namespace NinjaTools.FluentMockServer.Models
 
         #region Setters
 
+        public RequestBody()
+        {
+        }
+        
          public RequestBody(BodyType type, bool invert)
         {
             Type = type;
-            
+
             if (invert)
+            {
                 Not = true;
+            }
         }
 
         public static RequestBody MatchExactJson(string json, bool invert = false)

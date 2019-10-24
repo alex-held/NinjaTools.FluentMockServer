@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Net;
 
 using JetBrains.Annotations;
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Abstractions;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
@@ -15,6 +16,24 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
     /// </summary>
     public class HttpResponse : BuildableBase, IEquatable<HttpResponse>
     {
+        /// <inheritdoc />
+        public override JObject SerializeJObject()
+        {
+            if (Body != null && Body.IsLiteral)
+            {
+                var body = Body.SerializeJObject();
+                var literal = body.GetValue("body");
+                
+                var self = JObject.FromObject(this, JsonSerializer.Create(SerializerSettings));
+                self.Remove("body");
+                self.Add(new JProperty("body", literal));
+                
+                return self;
+            }
+            
+            return base.SerializeJObject();
+        }
+
         public HttpResponse([CanBeNull] int? statusCode = null)
         {
             StatusCode = statusCode;

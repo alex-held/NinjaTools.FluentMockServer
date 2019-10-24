@@ -33,6 +33,24 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
         }
         
         [Fact]
+        public void Should_Add_Body_Literal()
+        {
+            // Arrange
+            var builder = new FluentHttpResponseBuilder();
+            
+            // Act
+            var response = builder
+                .WithBodyLiteral("Hello World!")
+                .Build()
+                .Serialize();
+            
+            // Assert
+            _outputHelper.WriteLine(response);
+            response.Should().MatchRegex(@"{\s*""body"":\s*""Hello World!""\s*}\s*");
+
+        }
+        
+        [Fact]
         public void Should_Add_Multiple_Header_Values()
         {
             // Arrange

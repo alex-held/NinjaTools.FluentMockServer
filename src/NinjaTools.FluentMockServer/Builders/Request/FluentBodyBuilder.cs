@@ -52,6 +52,13 @@ namespace NinjaTools.FluentMockServer.Builders
 
 
         /// <inheritdoc />
+        public void WithLiteral(string literal)
+        {
+            Body = new RequestBody();
+            Body.Literal = literal;
+        }
+
+        /// <inheritdoc />
         public void ContainingJson
                     (string subJson) => Body = RequestBody.MatchPartialJson(subJson);
 
