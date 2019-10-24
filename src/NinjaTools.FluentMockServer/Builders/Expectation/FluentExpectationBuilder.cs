@@ -45,14 +45,13 @@ namespace NinjaTools.FluentMockServer.Builders
         {
             if (method is null) {
                 _expectation.HttpRequest = null;
+                return this;
             }
 
-            _expectation.HttpRequest = method is null
-                        ? null
-                        : new HttpRequest()
-                        {
-                                    HttpMethod = method
-                        };
+            _expectation.HttpRequest = new HttpRequest()
+            {
+                HttpMethod = method
+            };
 
             return this;
         }
@@ -61,9 +60,10 @@ namespace NinjaTools.FluentMockServer.Builders
         /// <inheritdoc />
         public IWithResponse RespondWith(int statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
         {
-            var builder = new FluentHttpResponseBuilder(statusCode);
+            var builder = new FluentHttpResponseBuilder();
             responseFactory?.Invoke(builder);
             _expectation.HttpResponse = builder.Build();
+            _expectation.HttpResponse.StatusCode = statusCode;
             return this;
         }
 
@@ -77,7 +77,6 @@ namespace NinjaTools.FluentMockServer.Builders
         /// <inheritdoc />
         public IWithResponse RespondOnce(int statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
         {
-            
             _expectation.Times = Times.Once;
             return RespondWith(statusCode, responseFactory);
         }
@@ -87,6 +86,23 @@ namespace NinjaTools.FluentMockServer.Builders
         public IWithResponse RespondOnce(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
         {
             return RespondOnce(( int ) statusCode, responseFactory);
+        }
+
+        /// <inheritdoc />
+        public IWithResponse RespondTimes(int times, int statusCode, Action<IFluentHttpResponseBuilder> responseFactory = null)
+        {
+            _expectation.Times = new Times(times);
+            var builder = new FluentHttpResponseBuilder();
+            responseFactory?.Invoke(builder);
+            _expectation.HttpResponse = builder.Build();
+            _expectation.HttpResponse.StatusCode = statusCode;
+            return this;
+        }
+
+        /// <inheritdoc />
+        public IWithResponse RespondTimes(int times, HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory = null)
+        {
+            return RespondTimes(times, (int) statusCode, responseFactory);
         }
 
 

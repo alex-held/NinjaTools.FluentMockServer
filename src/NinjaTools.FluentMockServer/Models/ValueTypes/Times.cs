@@ -10,18 +10,23 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
         public Times()
         { }
         
-        public Times(long remainingTimes)
+        public Times(int remainingTimes)
         {
-            if (remainingTimes < 0)
+            if (remainingTimes <= 0)
+            {
                 Unlimited = true;
+            }
             else
+            {
                 RemainingTimes = remainingTimes;
+                Unlimited = false;
+            }
         }
         
         public static Times Once => new Times(1);
-        public static Times Always => new Times(-1);
+        public static Times Always => new Times(0);
         
-        public long RemainingTimes { get; set; }
+        public int RemainingTimes { get; set; }
 
         public bool Unlimited { get; set; }
         
