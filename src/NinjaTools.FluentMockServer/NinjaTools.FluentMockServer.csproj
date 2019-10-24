@@ -6,21 +6,26 @@
         <NullableContext>Enabled</NullableContext>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageVersion>1.0.0</PackageVersion>
-        <Title>MockServer</Title>
+        <Title>NinjaTools.FluentMockServer</Title>
         <Authors>Alexander Held</Authors>
         <Description>A C# Client for the MockServer Docker Image</Description>
         <Copyright>Alexander Held © 2019</Copyright>
-        <PackageProjectUrl>https://www.github.com/alex-held/HardCode.MockServer</PackageProjectUrl>
-        <RepositoryUrl>https://www.github.com/alex-held/HardCode.MockServer</RepositoryUrl>
+        <PackageProjectUrl>https://www.github.com/alex-held/NinjaTools.FluentMockServer</PackageProjectUrl>
+        <RepositoryUrl>https://www.github.com/alex-held/NinjaTools.FluentMockServer</RepositoryUrl>
         <RepositoryType>github</RepositoryType>
         <PackageTags>mockserver</PackageTags>
-        <Company>Alexander Held</Company>
+        <Company>AlexanderHeld</Company>
+        <Product>FluentMockServer</Product>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <DebugSymbols>true</DebugSymbols>
-      <DebugType>full</DebugType>
+      <DebugType>portable</DebugType>
       <DocumentationFile>bin\Release\HardCoded.MockServer.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\NinjaTools.FluentMockServer.xml</DocumentationFile>
     </PropertyGroup>
 
     <ItemGroup>

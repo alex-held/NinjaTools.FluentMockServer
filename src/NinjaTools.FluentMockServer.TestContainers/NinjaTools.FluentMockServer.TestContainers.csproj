@@ -2,6 +2,17 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>NinjaTools.FluentMockServer.TestContainers</Title>
+        <Authors>Alexander Held</Authors>
+        <Description>In memory docker container runner for NinjaTools.FluentMockServer</Description>
+        <Copyright>Alexander Held © 2019</Copyright>
+        <PackageProjectUrl>https://www.github.com/alex-held/NinjaTools.FluentMockServer</PackageProjectUrl>
+        <RepositoryUrl>https://www.github.com/alex-held/NinjaTools.FluentMockServer</RepositoryUrl>
+        <RepositoryType>github</RepositoryType>
+        <Company>AlexanderHeld</Company>
+        <PackageTags>docker, container, mock, test, server, mockserver</PackageTags>
+        <Product>FluentMockServer.TestContainers</Product>
     </PropertyGroup>
 
     <ItemGroup>
