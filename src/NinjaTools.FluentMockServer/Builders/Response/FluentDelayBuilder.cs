@@ -16,14 +16,14 @@ namespace NinjaTools.FluentMockServer.Builders
         public void FromSeconds(int seconds)
         {
             _delay.Value = seconds;
-            _delay.TimeUnit = TimeUnit.SECONDS;
+            _delay.TimeUnit = TimeUnit.Seconds;
         }
 
         /// <inheritdoc />
         public void FromMiliSeconds(int ms)  
         {
             _delay.Value = ms;
-            _delay.TimeUnit = TimeUnit.MINUTES;
+            _delay.TimeUnit = TimeUnit.Milliseconds;
         }
 
 
@@ -31,7 +31,7 @@ namespace NinjaTools.FluentMockServer.Builders
         public void FromMinutes(int minutes)
         {
             _delay.Value = minutes;
-            _delay.TimeUnit = TimeUnit.MINUTES;
+            _delay.TimeUnit = TimeUnit.Minutes;
         }
 
         /// <inheritdoc />

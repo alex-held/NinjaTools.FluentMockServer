@@ -12,7 +12,7 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
         {
         }
 
-        public LifeTime(int? timeToLive = null, TimeUnit timeUnit = ValueTypes.TimeUnit.MILLISECONDS)
+        public LifeTime(int? timeToLive = null, TimeUnit timeUnit = ValueTypes.TimeUnit.Milliseconds)
         {
             if (timeToLive.HasValue && timeToLive.Value > 0)
             {

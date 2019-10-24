@@ -76,7 +76,7 @@ namespace NinjaTools.FluentMockServer.Tests
             await mockServerClient.SetupAsync(
                 builder => builder
                             .OnHandling(HttpMethod.Post, request => request.WithPath("some/path").EnableEncryption())
-                            .RespondWith(HttpStatusCode.Accepted, response => response.WithDelay(10, TimeUnit.SECONDS))
+                            .RespondWith(HttpStatusCode.Accepted, response => response.WithDelay(10, TimeUnit.Seconds))
                             .Setup());
 
             // Assert
@@ -86,7 +86,7 @@ namespace NinjaTools.FluentMockServer.Tests
                          && e.HttpRequest.Method          == "POST"
                          && e.HttpRequest.Secure          == true
                          && e.HttpResponse.Delay.Value    == 10
-                         && e.HttpResponse.Delay.TimeUnit == TimeUnit.SECONDS);
+                         && e.HttpResponse.Delay.TimeUnit == TimeUnit.Seconds);
             
         }
     }

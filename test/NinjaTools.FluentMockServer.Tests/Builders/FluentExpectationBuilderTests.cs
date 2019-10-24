@@ -29,7 +29,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             // Arrange
             Action<IFluentExpectationBuilder> factory = builder => builder
                         .OnHandling(HttpMethod.Post, request => request.WithPath("/"))
-                        .RespondOnce(HttpStatusCode.Created, resp => resp.WithDelay(1, TimeUnit.MILLISECONDS));
+                        .RespondOnce(HttpStatusCode.Created, resp => resp.WithDelay(1, TimeUnit.Milliseconds));
             
             var setup = new MockServerSetup();
             var builder = new FluentExpectationBuilder(setup);
@@ -74,7 +74,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             var result = builder
                         .OnHandlingAny()
                         .RespondWith(HttpStatusCode.OK)
-                        .WhichIsValidFor(10, TimeUnit.SECONDS)
+                        .WhichIsValidFor(10, TimeUnit.Seconds)
                         .Setup()
                         .Expectations.First()
                         .Serialize();

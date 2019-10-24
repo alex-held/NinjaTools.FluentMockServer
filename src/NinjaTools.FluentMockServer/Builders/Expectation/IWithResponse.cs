@@ -14,7 +14,7 @@ namespace NinjaTools.FluentMockServer.Builders
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IWithResponse : IFluentInterface
     {
-        IWithResponse WhichIsValidFor(int value, [NotNull] TimeUnit timeUnit = TimeUnit.SECONDS);
+        IWithResponse WhichIsValidFor(int value, [NotNull] TimeUnit timeUnit = TimeUnit.Seconds);
         MockServerSetup Setup();
         IFluentExpectationBuilder And { get; }
     }

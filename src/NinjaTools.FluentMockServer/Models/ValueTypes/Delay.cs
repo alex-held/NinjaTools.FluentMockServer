@@ -21,8 +21,8 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
             Value = delay;
         }
 
-        public static Delay FromSeconds(int seconds) => new Delay(seconds, TimeUnit.SECONDS);
-        public static Delay FromMinutes(int minutes) => new Delay(minutes, TimeUnit.MINUTES);
+        public static Delay FromSeconds(int seconds) => new Delay(seconds, TimeUnit.Seconds);
+        public static Delay FromMinutes(int minutes) => new Delay(minutes, TimeUnit.Minutes);
         public static Delay None => new Delay();
         
         /// <summary>

@@ -107,7 +107,7 @@ namespace NinjaTools.FluentMockServer.Builders
 
 
         /// <inheritdoc />
-        public IWithResponse WhichIsValidFor(int value, TimeUnit timeUnit = TimeUnit.SECONDS)
+        public IWithResponse WhichIsValidFor(int value, TimeUnit timeUnit = TimeUnit.Seconds)
         {
             _expectation.TimeToLive = new LifeTime(value, timeUnit);
             return this;
