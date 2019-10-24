@@ -264,6 +264,7 @@
 	<s:String x:Key="/Default/SnapshotsStore/CurrentStore/@EntryValue">/Users/dev/Library/Preferences/Rider2019.2/resharper-host/Sessions</s:String>
 	<s:Boolean x:Key="/Default/SymbolServers/RestoreDecompileSetting/@EntryValue">False</s:Boolean>
 	
+	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=journaled/@EntryIndexedValue">True</s:Boolean>
 	
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=verzeichnis/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

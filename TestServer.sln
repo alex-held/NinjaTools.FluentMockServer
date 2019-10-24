@@ -1,18 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardCoded.MockServer", "src\HardCoded.MockServer\HardCoded.MockServer.csproj", "{E9883692-C8F8-4CA9-8EDB-7859809D8DB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer", "src\NinjaTools.FluentMockServer\NinjaTools.FluentMockServer.csproj", "{E9883692-C8F8-4CA9-8EDB-7859809D8DB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardCoded.MockServer.TestContainers", "src\HardCoded.MockServer.TestContainers\HardCoded.MockServer.TestContainers.csproj", "{4E051198-705E-4605-8EEE-951D05E4B860}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.TestContainers", "src\NinjaTools.FluentMockServer.TestContainers\NinjaTools.FluentMockServer.TestContainers.csproj", "{4E051198-705E-4605-8EEE-951D05E4B860}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1BBF6811-5858-47A7-A382-29D777150068}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardCoded.MockServer.TestContainers.Tests", "test\HardCoded.MockServer.TestContainers.Tests\HardCoded.MockServer.TestContainers.Tests.csproj", "{4E080C86-373B-47ED-81C3-2B8CD0A424D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.TestContainers.Tests", "test\NinjaTools.FluentMockServer.TestContainers.Tests\NinjaTools.FluentMockServer.TestContainers.Tests.csproj", "{4E080C86-373B-47ED-81C3-2B8CD0A424D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{820DD7E9-2777-4D4B-93E0-59711107B4EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardCoded.MockServer.Tests", "test\HardCoded.MockServer.Tests\HardCoded.MockServer.Tests.csproj", "{72FDC041-D690-45C9-9B3A-A48EC676DC37}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HardCoded.MockServer.Contracts", "src\HardCoded.MockServer.Contracts\HardCoded.MockServer.Contracts.csproj", "{D9AA0631-0FCD-4E50-B75C-3F4774A8C034}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.Tests", "test\NinjaTools.FluentMockServer.Tests\NinjaTools.FluentMockServer.Tests.csproj", "{72FDC041-D690-45C9-9B3A-A48EC676DC37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,16 +32,11 @@ Global
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9AA0631-0FCD-4E50-B75C-3F4774A8C034}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9AA0631-0FCD-4E50-B75C-3F4774A8C034}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9AA0631-0FCD-4E50-B75C-3F4774A8C034}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9AA0631-0FCD-4E50-B75C-3F4774A8C034}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4E080C86-373B-47ED-81C3-2B8CD0A424D7} = {1BBF6811-5858-47A7-A382-29D777150068}
 		{E9883692-C8F8-4CA9-8EDB-7859809D8DB8} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
 		{4E051198-705E-4605-8EEE-951D05E4B860} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37} = {1BBF6811-5858-47A7-A382-29D777150068}
-		{D9AA0631-0FCD-4E50-B75C-3F4774A8C034} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
 	EndGlobalSection
 EndGlobal
