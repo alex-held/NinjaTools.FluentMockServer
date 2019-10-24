@@ -93,12 +93,7 @@ namespace NinjaTools.FluentMockServer.Builders
         /// <inheritdoc />
         public IWithResponse WhichIsValidFor(int value, TimeUnit timeUnit = TimeUnit.SECONDS)
         {
-            _expectation.TimeToLive = new TimeToLive
-            {
-                        Time = value
-                      , TimeUnit = timeUnit
-            };
-
+            _expectation.TimeToLive = new LifeTime(value, timeUnit);
             return this;
         }
 
@@ -106,7 +101,6 @@ namespace NinjaTools.FluentMockServer.Builders
         public MockServerSetup Setup()
         {
            _setup.Expectations.Add(_expectation);
-
            return _setup;
         }
 

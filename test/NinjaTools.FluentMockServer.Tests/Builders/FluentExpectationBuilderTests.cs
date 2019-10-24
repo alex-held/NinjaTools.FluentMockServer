@@ -45,6 +45,25 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
                     .MatchRegex(@"(?m)\s*""times"":\s*\{\s*""remainingTimes"":\s*1,\s*""unlimited"":\s*false\s*}");
         }
         
+        [Theory]
+        [InlineData(10, "false")]
+        [InlineData(0, "true")]
+        public void Should_Set_Times_2(int times, string unlimited)
+        {
+            // Arrange
+            var builder = new FluentExpectationBuilder();
+            
+            // Act
+            var result = builder.RespondTimes(times, 200).Setup().Expectations.First().Serialize();
+            
+            
+            // Assert
+            _outputHelper.WriteLine(result);
+            result
+                .Should()
+                .MatchRegex($@"(?m)\s*""times"":\s*\{{\s*""remainingTimes"":\s*{times},\s*""unlimited"":\s*{unlimited}\s*}}");
+        }
+        
         [Fact]
         public void Should_Set_TimeToLive()
         {
@@ -55,14 +74,14 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             var result = builder
                         .OnHandlingAny()
                         .RespondWith(HttpStatusCode.OK)
-                        .WhichIsValidFor(10)
+                        .WhichIsValidFor(10, TimeUnit.SECONDS)
                         .Setup()
                         .Expectations.First()
                         .Serialize();
             
             // Assert
             _outputHelper.WriteLine(result);
-            result.Should().MatchRegex(@"(?m)\s*""timeToLive"":\s*\{\s*""time"":\s*10,\s*""timeUnit"":\s*""SECONDS""\s*}");
+            result.Should().MatchRegex(@"(?m)\s*""timeToLive"":\s*\{\s*""timeUnit"":\s*""SECONDS""\s*,\s*""timeToLive"":\s*10\s*,\s*""unlimited""\s*:\s*false\s*}");
         }
 
         

@@ -5,23 +5,40 @@ using NinjaTools.FluentMockServer.Abstractions;
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
-    public class TimeToLive : BuildableBase, IEquatable<TimeToLive>
+    public class LifeTime : BuildableBase, IEquatable<LifeTime>
     {
-        public int? Time { get; set; }
+
+        public LifeTime()
+        {
+        }
+
+        public LifeTime(int? timeToLive = null, TimeUnit timeUnit = ValueTypes.TimeUnit.MILLISECONDS)
+        {
+            if (timeToLive.HasValue && timeToLive.Value > 0)
+            {
+                TimeToLive = timeToLive;
+                TimeUnit = timeUnit;
+                Unlimited = false;
+            }
+            else
+            {
+                Unlimited = true;
+            }
+        }
         
         public TimeUnit? TimeUnit { get; set; }
-        
+        public int? TimeToLive { get; set; }
         public bool? Unlimited { get; set; }
         
         #region Equality Members
 
         /// <inheritdoc />
-        public bool Equals(TimeToLive other)
+        public bool Equals(LifeTime other)
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return Time == other.Time && TimeUnit == other.TimeUnit && Unlimited == other.Unlimited;
+            return TimeToLive == other.TimeToLive && TimeUnit == other.TimeUnit && Unlimited == other.Unlimited;
         }
 
 
@@ -32,7 +49,7 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
 
-            return Equals(( TimeToLive ) obj);
+            return Equals(( LifeTime ) obj);
         }
 
 
@@ -40,7 +57,7 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
         public override int GetHashCode()
         {
             unchecked {
-                var hashCode = Time.GetHashCode();
+                var hashCode = TimeToLive.GetHashCode();
                 hashCode = ( hashCode * 397 ) ^ TimeUnit.GetHashCode();
                 hashCode = ( hashCode * 397 ) ^ Unlimited.GetHashCode();
 
@@ -49,10 +66,10 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
         }
 
 
-        public static bool operator ==(TimeToLive left, TimeToLive right) => Equals(left, right);
+        public static bool operator ==(LifeTime left, LifeTime right) => Equals(left, right);
 
 
-        public static bool operator !=(TimeToLive left, TimeToLive right) => !Equals(left, right);
+        public static bool operator !=(LifeTime left, LifeTime right) => !Equals(left, right);
 
         #endregion
     }

@@ -19,10 +19,10 @@ namespace NinjaTools.FluentMockServer.Abstractions
         internal bool _REVERSE_MATCHING_ENABLED { get; private set; }
         
         [Pure]
-        public JObject SerializeJObject() => JObject.FromObject(this, JsonSerializer.CreateDefault(SerializerSettings));
+        public virtual JObject SerializeJObject() => JObject.FromObject(this, JsonSerializer.CreateDefault(SerializerSettings));
         
        [Pure] 
-        public string Serialize() => SerializeJObject().ToString(Formatting.Indented);
+        public virtual string Serialize() => SerializeJObject().ToString(Formatting.Indented);
     }
     
     

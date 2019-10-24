@@ -15,17 +15,17 @@ namespace NinjaTools.FluentMockServer.Models
     /// </summary>
     public class Expectation : BuildableBase, IEquatable<Expectation>
     {
-        public static explicit operator Expectation(string json)
-        {
-            try {
-                var expectation = JsonConvert.DeserializeObject<Expectation>(json);
-
-                return expectation;
-            } catch (Exception e) {
-                Console.WriteLine(e);
-                throw new SerializationException($"Deserialization to type: '{nameof(Expectation)}' failed for provided input data: '{json}'!", e);
-            }
-        }
+        // public static explicit operator Expectation(string json)
+        // {
+        //     try {
+        //         var expectation = JsonConvert.DeserializeObject<Expectation>(json);
+        //
+        //         return expectation;
+        //     } catch (Exception e) {
+        //         Console.WriteLine(e);
+        //         throw new SerializationException($"Deserialization to type: '{nameof(Expectation)}' failed for provided input data: '{json}'!", e);
+        //     }
+        // }
         
         /// <summary>
         /// The <see cref="HttpRequest"/> to match.
@@ -58,7 +58,7 @@ namespace NinjaTools.FluentMockServer.Models
         /// <summary>
         /// How long the MockServer should expect this setup.
         /// </summary>
-        public TimeToLive TimeToLive { get; set; }
+        public LifeTime TimeToLive { get; set; }
         
         #region Equality Members
 
