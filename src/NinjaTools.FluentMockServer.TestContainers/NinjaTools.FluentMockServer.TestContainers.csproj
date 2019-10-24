@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>NinjaTools.FluentMockServer.TestContainers</Title>
+        <Authors>Alexander Held</Authors>
+        <Description>In memory docker container runner for NinjaTools.FluentMockServer</Description>
+        <Copyright>Alexander Held © 2019</Copyright>
+        <PackageProjectUrl>https://www.github.com/alex-held/NinjaTools.FluentMockServer</PackageProjectUrl>
+        <RepositoryUrl>https://www.github.com/alex-held/NinjaTools.FluentMockServer</RepositoryUrl>
+        <RepositoryType>github</RepositoryType>
+        <Company>AlexanderHeld</Company>
+        <PackageTags>docker, container, mock, test, server, mockserver</PackageTags>
+        <Product>FluentMockServer.TestContainers</Product>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="TestContainers" Version="0.0.2.107" />
+      <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\NinjaTools.FluentMockServer\NinjaTools.FluentMockServer.csproj" />
+    </ItemGroup>
+
+</Project>
