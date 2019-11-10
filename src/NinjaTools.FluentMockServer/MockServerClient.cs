@@ -15,8 +15,7 @@ namespace NinjaTools.FluentMockServer
         private readonly HttpClient _httpClient;
 
         public Uri MockServerEndpoint => _httpClient.BaseAddress;
-
-
+        
         internal MockServerClient(HttpClient httpClient)
         {
             _httpClient = httpClient.WithDefaults(new Uri("http://localhost:1080"));
@@ -29,20 +28,26 @@ namespace NinjaTools.FluentMockServer
         {
             _httpClient = new HttpClient().WithDefaults(mockServerUri);
         }
+        
 
-      
-        public async Task<HttpResponseMessage> SetupExpectationAsync(ExpectationRequest request)
-        {
-            return await _httpClient.SendAsync(request);
-        }
-
-
-        public async Task SetupAsync(Func<IFluentExpectationBuilder, MockServerSetup> setupFactory )
+        /// <summary>
+        /// Configures the MockServer Client.
+        /// </summary>
+        /// <param name="setupFactory"></param>
+        /// <returns></returns>
+        public async Task SetupAsync(Func<IFluentExpectationBuilder, MockServerSetup> setupFactory)
         {
             var builder = new FluentExpectationBuilder(new MockServerSetup());
             var setup = setupFactory(builder);
             
-            foreach ( var expectation in setup.Expectations ) {
+            if (setup.BaseUrl != null)
+            { 
+                var uri = new Uri(MockServerEndpoint, setup.BaseUrl);
+                _httpClient.BaseAddress = uri;
+            }
+            
+            foreach ( var expectation in setup.Expectations ) 
+            {
                 var request = new HttpRequestMessage(HttpMethod.Put, GetMockServerUri("expectation"))
                 {
                             Content = new JsonContent(expectation)
@@ -83,6 +88,9 @@ namespace NinjaTools.FluentMockServer
             return response;
         }
 
-        private protected Uri GetMockServerUri(string path) => new Uri(MockServerEndpoint, $"mockserver/{path}");
+        private Uri GetMockServerUri(string path)
+        {
+            return new Uri(MockServerEndpoint, $"mockserver/{path}");
+        }
     }
 }

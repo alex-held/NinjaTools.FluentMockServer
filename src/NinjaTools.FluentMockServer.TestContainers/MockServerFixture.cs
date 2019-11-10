@@ -1,19 +1,20 @@
-using System;
-using System.Threading.Tasks;
-
-using Xunit;
-using Xunit.Abstractions;
-
-
 namespace NinjaTools.FluentMockServer.TestContainers
 {
+    using System;
+    using System.Threading.Tasks;
+    using Xunit;
+    using Xunit.Abstractions;
+
     public class MockServerFixture : IClassFixture<MockServerRunner>
     {
         protected ITestOutputHelper OutputHelper { get; }
-        public string MockServerEndpoint { get; }
-        public Uri MockServerUri { get; }
+
+        public string MockServerEndpoint { get; protected set; }
+
+        public Uri MockServerUri { get; protected set; }
+
         public ILogger Logger { get; set; }
-        
+
         public MockServerFixture(MockServerRunner mockServerRunner, ITestOutputHelper outputHelper)
         {
             OutputHelper = outputHelper;
@@ -26,6 +27,16 @@ namespace NinjaTools.FluentMockServer.TestContainers
         {
             using var client = new MockServerClient(MockServerUri);
             await clientResetScope(client);
+        }
+
+        protected MockServerClient CreateClient(string basePath = null)
+        {
+            if (!string.IsNullOrWhiteSpace(basePath))
+            {
+                MockServerUri = new Uri(MockServerUri, basePath);
+            }
+
+            return new MockServerClient(MockServerUri);
         }
     }
 
