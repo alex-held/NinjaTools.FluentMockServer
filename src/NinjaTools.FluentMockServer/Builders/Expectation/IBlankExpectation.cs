@@ -15,6 +15,7 @@ namespace NinjaTools.FluentMockServer.Builders
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IBlankExpectation : IFluentInterface
     {
+        IBlankExpectation WithBaseUrl(string url);
         IWithRequest OnHandling([NotNull] HttpMethod method, [CanBeNull] Action<IFluentHttpRequestBuilder> requestFactory = null);
         IWithRequest OnHandlingAny([CanBeNull] HttpMethod method = null);
     }

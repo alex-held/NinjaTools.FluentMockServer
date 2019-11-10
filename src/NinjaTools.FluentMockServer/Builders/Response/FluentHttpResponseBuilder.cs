@@ -6,7 +6,7 @@ using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.Builders
 {
-    internal class FluentHttpResponseBuilder : IFluentHttpResponseBuilder
+    internal class FluentHttpResponseBuilder : IFluentHttpResponseBuilder, IFluentHeaderBuilder
     {
         private readonly HttpResponse _httpResponse;
 
@@ -44,6 +44,13 @@ namespace NinjaTools.FluentMockServer.Builders
             return this;
         }
 
+        /// <inheritdoc />
+        public IFluentHttpResponseBuilder WithHeaders(Action<IFluentHeaderBuilder> headerFactory)
+        {
+            headerFactory(this);
+            return this;
+        }
+
 
         /// <inheritdoc />
         public IFluentHttpResponseBuilder WithConnectionOptions(Action<IFluentConnectionOptionsBuilder> connectionOptionsFactory)
@@ -53,7 +60,13 @@ namespace NinjaTools.FluentMockServer.Builders
             _httpResponse.ConnectionOptions = builder.Build();
             return this;
         }
-        
+
+        /// <inheritdoc />
+        public IFluentHttpResponseBuilder WithByteStreamBody(string base64Bytes, string contentType)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <inheritdoc />
         public HttpResponse Build() => _httpResponse;
         
@@ -73,6 +86,24 @@ namespace NinjaTools.FluentMockServer.Builders
             _httpResponse.Body = builder.Build();
 
             return this;
+        }
+
+        /// <inheritdoc />
+        public IFluentHeaderBuilder WithHeaders(params (string name, string value)[] headers)
+        {
+            foreach (var (name, value)in headers)
+            {
+                AddHeader(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc />
+        public IFluentHeaderBuilder AddHeader(string name, string value)
+        {
+           _httpResponse.Headers.Add(name, new []{value});
+           return this;
         }
     }
 }

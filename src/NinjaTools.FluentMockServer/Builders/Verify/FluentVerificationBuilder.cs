@@ -9,8 +9,7 @@ namespace NinjaTools.FluentMockServer.Builders
     public class FluentVerificationBuilder : IFluentVerificationBuilder, FluentVerificationBuilder.IWithRequest
     {
         private Verify _verify;
-
-
+        
         public FluentVerificationBuilder()
         {
             _verify = new Verify();;
@@ -18,8 +17,11 @@ namespace NinjaTools.FluentMockServer.Builders
          
         public interface IWithRequest
         {
-            void VerifyTimes(int value);
-            void Always();
+            void AtLeast(int value);
+            void AtMost(int value);
+            void Between(int min, int max);
+            void Once();
+            void Twice();
         }
 
 
@@ -39,10 +41,22 @@ namespace NinjaTools.FluentMockServer.Builders
 
 
         /// <inheritdoc />
-        public void VerifyTimes(int value) => _verify.Times = new Times(value);
+        public void AtLeast(int value) => _verify.Times = VerficationTimes.MoreThan(value);
+        
+        
+        /// <inheritdoc />
+        public void AtMost(int value) => _verify.Times = VerficationTimes.LessThan(value);
 
 
         /// <inheritdoc />
-        public void Always() => _verify.Times = Times.Always;
+        public void Between(int min, int max) => _verify.Times = VerficationTimes.Between(min, max);
+
+
+        /// <inheritdoc />
+        public void Once() => _verify.Times = VerficationTimes.Once;
+        
+        
+        /// <inheritdoc />
+        public void Twice() => _verify.Times = VerficationTimes.Twice;
     }
 }

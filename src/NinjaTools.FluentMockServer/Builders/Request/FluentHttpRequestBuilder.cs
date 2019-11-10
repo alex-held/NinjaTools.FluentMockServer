@@ -9,7 +9,7 @@ using NinjaTools.FluentMockServer.Models.HttpEntities;
 [assembly: InternalsVisibleTo("NinjaTools.FluentMockServer.Fluent.Tests")]
 namespace NinjaTools.FluentMockServer.Builders
 {
-    internal sealed class FluentHttpRequestBuilder : IFluentHttpRequestBuilder,  IFluentBuilder<HttpRequest>
+    internal sealed class FluentHttpRequestBuilder : IFluentHttpRequestBuilder,  IFluentBuilder<HttpRequest>, IFluentHeaderBuilder
     {
         private readonly HttpRequest _httpRequest;
 
@@ -65,8 +65,33 @@ namespace NinjaTools.FluentMockServer.Builders
             _httpRequest.Body = builder.Body;
             return this;
         }
+        
+        /// <inheritdoc />
+        public IFluentHttpRequestBuilder WithHeaders(Action<IFluentHeaderBuilder> headerFactory)
+        {
+            headerFactory(this);
+            return this;
+        }
 
         /// <inheritdoc />
         public HttpRequest Build() => _httpRequest;
+
+        /// <inheritdoc />
+        public IFluentHeaderBuilder WithHeaders(params (string name, string value)[] headers)
+        {
+            foreach (var (name, value) in headers)
+            {
+                AddHeader(name, value);
+            }
+
+            return this;
+        }
+
+        /// <inheritdoc />
+        public IFluentHeaderBuilder AddHeader(string name, string value)
+        {
+            _httpRequest.Headers.Add(name, value);
+            return this;
+        }
     }
 }

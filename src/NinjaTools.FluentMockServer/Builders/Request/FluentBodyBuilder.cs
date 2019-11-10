@@ -52,6 +52,13 @@ namespace NinjaTools.FluentMockServer.Builders
 
 
         /// <inheritdoc />
+        public void WithBinary(string base64)
+        {
+            _body ??= new RequestBody(RequestBody.BodyType.BINARY, false);
+            _body.Base64Bytes = base64;
+        }
+
+        /// <inheritdoc />
         public void WithLiteral(string literal)
         {
             Body = new RequestBody();

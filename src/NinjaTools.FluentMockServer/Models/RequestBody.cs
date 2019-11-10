@@ -92,6 +92,7 @@ namespace NinjaTools.FluentMockServer.Models
         public string? ContentType { get; set; }
         
         public string? Xml { get; set; }
+        public string? Base64Bytes { get; set; }
 
 
         #region Setters
@@ -100,7 +101,7 @@ namespace NinjaTools.FluentMockServer.Models
         {
         }
         
-         public RequestBody(BodyType type, bool invert)
+        public RequestBody(BodyType type, bool invert)
         {
             Type = type;
 

@@ -28,7 +28,14 @@ namespace NinjaTools.FluentMockServer.Builders
             _expectation = new Expectation();
             _setup = setup;
         }
-        
+
+        /// <inheritdoc />
+        public IBlankExpectation WithBaseUrl(string url)
+        {
+            _setup.BaseUrl = url;
+            return this;
+        }
+
         /// <inheritdoc />
         public IWithRequest OnHandling(HttpMethod method, Action<IFluentHttpRequestBuilder> requestFactory = null)
         {

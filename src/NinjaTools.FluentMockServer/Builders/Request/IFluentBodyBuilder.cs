@@ -6,6 +6,8 @@ namespace NinjaTools.FluentMockServer.Builders
 {
     public interface IFluentBodyBuilder : IFluentBuilder<RequestBody>, IFluentInterface
     {
+        void WithBinary(string base64);
+        
         void WithLiteral(string literal);
         
         void ContainingJson(string subJson);

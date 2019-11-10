@@ -12,6 +12,7 @@ namespace NinjaTools.FluentMockServer.Builders
         IFluentHttpRequestBuilder KeepConnectionAlive(bool keepalive = true);
         IFluentHttpRequestBuilder EnableEncryption(bool useSsl = true);
         IFluentHttpRequestBuilder WithContent(Action<IFluentBodyBuilder> contentFactory);
+        IFluentHttpRequestBuilder WithHeaders(Action<IFluentHeaderBuilder> headerFactory);
         HttpRequest Build();
     }
 }
