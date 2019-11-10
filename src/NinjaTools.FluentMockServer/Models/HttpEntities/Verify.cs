@@ -19,7 +19,7 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
         /// <summary>
         /// How many <see cref="Times"/> the request is expected to have occured.
         /// </summary>
-        public Times Times { get; set; }
+        public VerficationTimes Times { get; set; }
         
         
         #region Equality Members
