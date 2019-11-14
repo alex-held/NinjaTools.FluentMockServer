@@ -14,14 +14,14 @@ namespace NinjaTools.FluentMockServer.Builders
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IFluentHttpResponseBuilder : IFluentInterface
     {
-        IFluentHttpResponseBuilder WithBody(Action<IFluentBodyBuilder> bodyFactory);
         IFluentHttpResponseBuilder WithDelay(Action<IFluentDelayBuilder> delayFactory);
         IFluentHttpResponseBuilder WithDelay(int value, TimeUnit timeUnit);
         IFluentHttpResponseBuilder WithHeader(string name, string value);
         IFluentHttpResponseBuilder WithHeaders(Action<IFluentHeaderBuilder> headerFactory);
         IFluentHttpResponseBuilder WithConnectionOptions(Action<IFluentConnectionOptionsBuilder> connectionOptionsFactory);
-        IFluentHttpResponseBuilder WithBodyLiteral(string literal);
-        IFluentHttpResponseBuilder WithByteStreamBody(string base64Bytes, string contentType);
+        IFluentHttpResponseBuilder WithLiteralBody(string literal, string contentType = null);
+        IFluentHttpResponseBuilder WithBinaryFileBody(byte[] bytes, string filename, string contentType);
+        IFluentHttpResponseBuilder WithBinaryBody(string base64Bytes, string contentType);
         HttpResponse Build();
     }
 }

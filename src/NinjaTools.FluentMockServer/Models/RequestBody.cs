@@ -8,7 +8,6 @@ using NinjaTools.FluentMockServer.Abstractions;
 
 namespace NinjaTools.FluentMockServer.Models
 {
-  
     
     public class RequestBody : BuildableBase, IEquatable<RequestBody>
     {
@@ -21,8 +20,10 @@ namespace NinjaTools.FluentMockServer.Models
         {
             if (IsLiteral)
             {
-                var jObj = new JObject();
-                jObj.Add("body", Literal);
+                var jObj = new JObject
+                {
+                    {"body", Literal}
+                };
                 return jObj;
             }
             
@@ -42,6 +43,7 @@ namespace NinjaTools.FluentMockServer.Models
             REGEX,
             BINARY
         }
+        
         [OnSerializing]
         internal void OnSerializingMethod(StreamingContext context)
         {

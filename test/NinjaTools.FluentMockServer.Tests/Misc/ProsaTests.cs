@@ -36,9 +36,7 @@ namespace NinjaTools.FluentMockServer.Tests.Misc
                                         .KeepConnectionAlive())
                         .RespondWith(
                             HttpStatusCode.Accepted, response => response
-                                        .WithBody(
-                                            body => body.WithExactString("hello world!")
-                                                        .WithContentType("text/plain"))
+                                        .WithLiteralBody("hello world!","text/plain")
                                         .WithDelay(delay => delay.FromMinutes(1)))
                         .And
                         .OnHandling(
@@ -48,7 +46,7 @@ namespace NinjaTools.FluentMockServer.Tests.Misc
                                         .KeepConnectionAlive())
                         .RespondWith(
                             HttpStatusCode.Accepted, response => response
-                                        .WithBody(body => body.MatchingXPath("//id")))
+                                .WithBinaryBody("ewogICAgIk5hbWUiOiAiQWxleCIKfQ==", "application/json"))
                         .Setup();
 
             var json = setup.ToString();

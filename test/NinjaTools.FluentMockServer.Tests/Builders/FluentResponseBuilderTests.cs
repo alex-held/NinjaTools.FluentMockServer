@@ -40,7 +40,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             
             // Act
             var response = builder
-                .WithBodyLiteral("Hello World!")
+                .WithLiteralBody("Hello World!")
                 .Build()
                 .Serialize();
             

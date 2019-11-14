@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
@@ -61,30 +64,33 @@ namespace NinjaTools.FluentMockServer.Builders
             return this;
         }
 
-        /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithByteStreamBody(string base64Bytes, string contentType)
-        {
-            throw new NotImplementedException();
-        }
 
         /// <inheritdoc />
         public HttpResponse Build() => _httpResponse;
         
-        /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithBody(Action<IFluentBodyBuilder> bodyFactory)
+        public IFluentHttpResponseBuilder WithBinaryBody(string base64, string contentType)
         {
-            var builder = new FluentBodyBuilder();
-            bodyFactory(builder);
-            _httpResponse.Body = builder.Body;
+            _httpResponse.Body = new ResponseBody(true, base64);
+            _httpResponse.Headers ??= new Dictionary<string, string[]>();
+            _httpResponse.Headers["content-type"] = new[] {contentType};
             return this;
         }
-
-        public IFluentHttpResponseBuilder WithBodyLiteral(string bodyLiteral)
+        
+        public IFluentHttpResponseBuilder WithBinaryFileBody(byte[] bytes, string filename, string contentType)
         {
-            var builder = new FluentBodyBuilder();
-            builder.WithLiteral(bodyLiteral);
-            _httpResponse.Body = builder.Build();
-
+            var base64 = Convert.ToBase64String(bytes);
+            _httpResponse.Headers ??= new Dictionary<string, string[]>();
+            _httpResponse.Headers["content-disposition"] = new[] {$"form-data; name=\"{filename}\"; filename=\"{filename}\""};
+            return WithBinaryBody(base64, contentType);
+        }
+        
+        public IFluentHttpResponseBuilder WithLiteralBody(string bodyLiteral, string contentType = null)
+        {
+            _httpResponse.Body = new ResponseBody(false, bodyLiteral);
+            if (string.IsNullOrWhiteSpace(contentType)) return this;
+            
+            _httpResponse.Headers ??= new Dictionary<string, string[]>();
+            _httpResponse.Headers["content-type"] = new[] {contentType};
             return this;
         }
 

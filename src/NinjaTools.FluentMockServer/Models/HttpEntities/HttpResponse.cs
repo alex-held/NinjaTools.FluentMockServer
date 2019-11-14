@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-
+using System.Net.Http.Headers;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -19,25 +19,24 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
         /// <inheritdoc />
         public override JObject SerializeJObject()
         {
-            if (Body != null && Body.IsLiteral)
+            var self = base.SerializeJObject();
+            
+            if (Body != null)
             {
-                var body = Body.SerializeJObject();
-                var literal = body.GetValue("body");
-                
-                var self = JObject.FromObject(this, JsonSerializer.Create(SerializerSettings));
-                self.Remove("body");
-                self.Add(new JProperty("body", literal));
-                
+                var body = Body.ToJProperty();
+                self.Add(body);
                 return self;
             }
-            
-            return base.SerializeJObject();
+
+            return self;
         }
 
         public HttpResponse([CanBeNull] int? statusCode = null)
         {
             StatusCode = statusCode;
         }
+
+       
         
         /// <summary>
         /// The <see cref="HttpStatusCode"/> of the <see cref="HttpResponse"/>.
@@ -54,14 +53,11 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
         /// </summary>
         public ConnectionOptions ConnectionOptions { get; set; }
         
-        /// <summary>
-        /// The Content of the <see cref="HttpResponse"/>.
-        /// </summary>
-        public RequestBody Body { get; set; }
-
+        [JsonIgnore]
+        public ResponseBody Body { get; set; }
+        
         public Dictionary<string, string[]> Headers { get; set; }
-
-
+        
         #region Equality Members
 
         
@@ -71,7 +67,7 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
 
-            return StatusCode == other.StatusCode && Equals(Delay, other.Delay) && Equals(ConnectionOptions, other.ConnectionOptions) && Equals(Body, other.Body);
+            return StatusCode == other.StatusCode && Equals(Delay, other.Delay) && Equals(ConnectionOptions, other.ConnectionOptions);
         }
 
 
@@ -93,8 +89,6 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
                 var hashCode = StatusCode ?? int.MaxValue;
                 hashCode = ( hashCode * 397 ) ^ ( Delay             != null ? Delay.GetHashCode() : 0 );
                 hashCode = ( hashCode * 397 ) ^ ( ConnectionOptions != null ? ConnectionOptions.GetHashCode() : 0 );
-                hashCode = ( hashCode * 397 ) ^ ( Body              != null ? Body.GetHashCode() : 0 );
-
                 return hashCode;
             }
         }
@@ -108,5 +102,32 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
 
         #endregion
         
+    }
+    
+    public class ResponseBody
+    {
+        public ResponseBody(bool isBinary, string content)
+        {
+            IsBinary = isBinary;
+            Content = content ?? throw new ArgumentNullException(nameof(content));
+        }
+        
+        public JProperty ToJProperty()
+        {
+            if (!IsBinary)
+            {
+               return new JProperty("body", Content);
+            }
+            
+            return new JProperty("body", new JObject
+            {
+                ["base64Bytes"] = Content,
+                ["type"] = "BINARY"
+            });
+        }
+        
+        public bool IsBinary { get; }
+        
+        public string Content { get; }
     }
 }
