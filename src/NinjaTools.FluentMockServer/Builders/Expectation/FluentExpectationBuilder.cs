@@ -39,7 +39,7 @@ namespace NinjaTools.FluentMockServer.Builders.Expectation
             var builder = new FluentHttpRequestBuilder();
             requestFactory?.Invoke(builder);
             _expectation.HttpRequest = builder.Build();
-            _expectation.HttpRequest.HttpMethod = method;
+            _expectation.HttpRequest.Method = method.Method;
             return this;
         }
 
@@ -55,7 +55,7 @@ namespace NinjaTools.FluentMockServer.Builders.Expectation
 
             _expectation.HttpRequest = new HttpRequest()
             {
-                HttpMethod = method
+                Method = method.Method
             };
 
             return this;

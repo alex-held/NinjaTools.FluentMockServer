@@ -1,13 +1,10 @@
-using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Abstractions;
 
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
-    [JsonObject(IsReference = true)]
-    public class LifeTime : IBuildable
+    public class LifeTime 
     {
 
         public LifeTime()
@@ -32,15 +29,5 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
         public int? TimeToLive { get; set; }
         public bool? Unlimited { get; set; }
 
-        /// <inheritdoc />
-        public JObject SerializeJObject()
-        {
-            var self = new JObject();
-
-            // TODO: finish serialize
-
-
-            return self;
-        }
     }
 }

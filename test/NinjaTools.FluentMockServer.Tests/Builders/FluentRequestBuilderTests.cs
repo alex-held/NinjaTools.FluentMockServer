@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NinjaTools.FluentMockServer.Builders;
 using NinjaTools.FluentMockServer.Builders.Request;
+using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Tests.Test;
 using Xunit;
 using Xunit.Abstractions;
@@ -46,14 +47,13 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             // Act
             var result = builder
                 .AddContentType(CommonContentType.Soap12)
-                .Build()
-                .SerializeJObject();
-            
-            _logger.LogResult("JSON ", result.ToString(Formatting.Indented));
+                .Build();
+
+            _logger.LogResult("JSON ", result.AsJson());
             
             // Assert
             // TODO:reactive
-            result["headers"]["Content-Type"][0].ToObject<string>().Should().Be(CommonContentType.Soap12);
+            result.AsJObject()["headers"]["Content-Type"][0].ToObject<string>().Should().Be(CommonContentType.Soap12);
         }
 
         

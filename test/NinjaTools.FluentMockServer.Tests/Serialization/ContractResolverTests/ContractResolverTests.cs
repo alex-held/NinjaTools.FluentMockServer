@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using FluentAssertions.Json;
+using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-using NinjaTools.FluentMockServer.Abstractions;
+using NinjaTools.FluentMockServer.Extensions;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -21,7 +20,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization.ContractResolverTests
                           .CreateLogger< ContractResolverTests>();
         }
 
-        public class InternalMember : IBuildable
+        public class InternalMember 
         {
             public int Value { get; set; }
 
@@ -29,18 +28,9 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization.ContractResolverTests
             {
                 Value = value;
             }
-            
-            /// <inheritdoc />
-            public JObject SerializeJObject()
-            {
-                return new JObject(new JProperty("Name", new JObject
-                {
-                    ["number"] = Value
-                }));
-            }
         }
         
-        public class Response : IBuildable
+        public class Response 
         {
             public Response(int id)
             {
@@ -51,27 +41,6 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization.ContractResolverTests
             public string Path { get; set; } = "/some/path";
             public InternalMember BuildableMember { get; set; }
             public Dictionary<string, object> Headers { get; set; }
-            
-            
-            
-            /// <inheritdoc />
-            public  JObject SerializeJObject()
-            {
-                var settings = new JsonSerializerSettings
-                {
-                  //  ContractResolver = new PropertyRenameAndIgnoreSerializerContractResolver(),
-                    TypeNameHandling = TypeNameHandling.Auto,
-                    StringEscapeHandling = StringEscapeHandling.EscapeHtml,
-                    NullValueHandling = NullValueHandling.Ignore,
-                    TraceWriter = TraceWriter,
-                    MaxDepth = 100,
-                    Formatting = Formatting.Indented,
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-                };
-
-                 var jo = JObject.FromObject(this);
-                 return jo;
-            }
         }
 
         private static readonly MemoryTraceWriter TraceWriter = new MemoryTraceWriter();
@@ -85,7 +54,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization.ContractResolverTests
 
 
             // Act
-            var jo  = sut.SerializeJObject();
+            var jo = sut.AsJObject();
             var json = jo.ToString(Formatting.Indented);
             
             _logger.LogInformation(json);

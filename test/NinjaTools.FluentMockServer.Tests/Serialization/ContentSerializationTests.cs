@@ -41,7 +41,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             
             // Act
             var js = JsonConvert.SerializeObject(httpResponse, new JsonConfig());
-            var jo = httpResponse.SerializeJObject();
+            var jo = httpResponse.AsJObject();
             var json = jo.ToString(Formatting.Indented);
             
             _logger.WriteLine(json);

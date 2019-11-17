@@ -1,11 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using NinjaTools.FluentMockServer.Abstractions;
-using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Serialization;
 
 namespace NinjaTools.FluentMockServer.Utils
@@ -17,7 +10,7 @@ namespace NinjaTools.FluentMockServer.Utils
             resolver =>
             {
                 resolver.SerializeCompilerGeneratedMembers = false;
-                resolver.IngorePropertiesWithRegexForAssignableTypes<IBuildable>("_");
+                resolver.IngorePropertiesWithRegexForAssignableTypes<>("_");
             };*/
 
         public static readonly JsonConfig Instance = new JsonConfig();
@@ -28,7 +21,7 @@ namespace NinjaTools.FluentMockServer.Utils
             //     resolver.IgnorePropertiesWithRegex("HttpMethod");
 
             PreserveReferencesHandling = PreserveReferencesHandling.Objects;
-            var resolver = new IBuildableContractResolver();
+            var resolver = new ContractResolver();
             StringEscapeHandling = StringEscapeHandling.EscapeHtml;
             NullValueHandling = NullValueHandling.Ignore;
             Formatting = Formatting.Indented;
@@ -40,7 +33,7 @@ namespace NinjaTools.FluentMockServer.Utils
         /*
         Converters = new List<JsonConverter>
         {
-            new ConcreteTypeConverter<IBuildable>(),
+            new ConcreteTypeConverter<>(),
             new ConcreteTypeConverter<HttpResponse>(),
             new ConcreteTypeConverter<HttpError>(),
             new ConcreteTypeConverter<HttpForward>(),

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
@@ -32,7 +33,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
                 {
                     Body = RequestBody.MatchXml("<xml here>"),
                     Path = "",
-                    HttpMethod = HttpMethod.Post
+                    Method = HttpMethod.Post.Method
                 },
                 HttpResponse = new HttpResponse
                 {
@@ -40,7 +41,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
                     {
                         {"Content-Type", new[] {"xml"}}
                     },
-                    Body = new LiteralContent("some xml response"),
+                    Body = new JValue("some xml response"),
                     Delay = new Delay
                     {
                         Value = 50,
@@ -52,7 +53,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             
             
             // Act
-            var jo = expectation.SerializeJObject();
+            var jo = JObject.FromObject(expectation);
             var json = expectation.ToString();
 
             _logger.LogInformation("JSON", json);

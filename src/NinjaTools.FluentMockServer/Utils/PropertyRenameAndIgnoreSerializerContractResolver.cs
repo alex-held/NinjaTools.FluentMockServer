@@ -34,9 +34,9 @@ namespace NinjaTools.FluentMockServer.Utils
                 {
                     var propValue = pi.GetValue(value, null);
                     
-                    if (typeof(IBuildable).IsAssignableFrom(pi.PropertyType))
+                    if (typeof().IsAssignableFrom(pi.PropertyType))
                     {
-                        var propJObject = ((IBuildable) propValue).SerializeJObject();
+                        var propJObject = (() propValue).SerializeJObject();
                         jo.Add(pi.Name, JToken.FromObject(propJObject, serializer));
                     }
                     
@@ -55,7 +55,7 @@ namespace NinjaTools.FluentMockServer.Utils
         /// <inheritdoc />
         public override bool CanConvert(Type objectType)
         {
-            return typeof(IBuildable).IsAssignableFrom(objectType);
+            return typeof().IsAssignableFrom(objectType);
         }
     }
     
@@ -93,7 +93,7 @@ namespace NinjaTools.FluentMockServer.Utils
             /// <inheritdoc />
             public object? GetValue(object target)
             {
-                if (target is IBuildable buildableBase)
+                if (target is  buildableBase)
                 {
                     return buildableBase.SerializeJObject();
                 }
@@ -225,7 +225,7 @@ namespace NinjaTools.FluentMockServer.Utils
         {
             var property = base.CreateProperty(member, memberSerialization);
 
-            if (property.PropertyType.IsSubclassOf(typeof(IBuildable)) && property.Readable)
+            if (property.PropertyType.IsSubclassOf(typeof()) && property.Readable)
             {
                 property.Readable = true;
                 property.ValueProvider = new BuildableBaseValueProvider(property.ValueProvider, member as PropertyInfo); ;

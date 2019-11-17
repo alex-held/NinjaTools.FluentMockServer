@@ -68,7 +68,7 @@ namespace NinjaTools.FluentMockServer.Tests
             response.EnsureSuccessStatusCode();
             
             // Act
-            var verification = VerificaionRequest.Once( new HttpRequest(){ Path = "test", HttpMethod = HttpMethod.Get});
+            var verification = VerificaionRequest.Once( new HttpRequest(){ Path = "test", Method = HttpMethod.Get.Method});
             response = await client.Verify(verification);
             
             // Assert

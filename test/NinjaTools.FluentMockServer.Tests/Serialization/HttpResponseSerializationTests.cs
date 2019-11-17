@@ -17,6 +17,8 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
         {
            _logger = LoggerFactory.Create(l => l.AddXunit(outputHelper)).CreateLogger<HttpResponseSerializationTests>();
         }
+        
+        
         [Fact]
         public void Get_Body_Returns_Null_If_Content_Is_Null()
         {
@@ -34,36 +36,13 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             // Arrange
             var response = new HttpResponse
             {
-                Body = new LiteralContent("Hello World!")
+                Body = new JValue("Hello World!")
             };
 
             var expected = new JObject(new JProperty("body", "Hello World!"));
-            var jo = response.SerializeJObject();
+            var jo = JObject.FromObject(response);
             jo.Should().BeEquivalentTo(expected);
         }
         
-        
-        [Fact]
-        public void Should_Use_ConcreteType_Conveter()
-        {
-            // Arrange
-            var response = new HttpResponse
-            {
-                Body = new LiteralContent("Hello World!")
-            };
-            
-            // Act & Assert<
-            var json = JsonConvert.SerializeObject(response, Formatting.None, new JsonSerializerSettings
-            {
-                ReferenceLoopHandling =  ReferenceLoopHandling.Ignore,
-          //      PreserveReferencesHandling = PreserveReferencesHandling.Objects,
-                TypeNameHandling = TypeNameHandling.Objects
-                
-            });
-            
-            _logger.LogInformation(json);
-        }
-
-
     }
 }

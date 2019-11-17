@@ -1,9 +1,10 @@
+using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.FluentInterfaces;
 using NinjaTools.FluentMockServer.Models;
 
 namespace NinjaTools.FluentMockServer.Builders.Request
 {
-    public interface IFluentBodyBuilder : IFluentBuilder<RequestBody>, ISetupContentType
+    public interface IFluentBodyBuilder : IFluentBuilder<JToken>, ISetupContentType
     {
         void WithBinary(string base64);
         

@@ -140,7 +140,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
         }
     }
 
-    public class BuildableBaseAssertions<TBuildable> : ReferenceTypeAssertions<TBuildable, BuildableBaseAssertions<TBuildable>> where TBuildable :  BuildableBase, IBuildable
+    public class BuildableBaseAssertions<TBuildable> : ReferenceTypeAssertions<TBuildable, BuildableBaseAssertions<TBuildable>> where TBuildable :  BuildableBase, 
     {
         private readonly ILogger _logger;
         

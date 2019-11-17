@@ -16,8 +16,8 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
         {
             var builder = new  FluentBodyBuilder();
             factory(builder);
-            
-            var resultJToken = builder.Build().SerializeJObject();
+
+            var resultJToken = builder.Build();
             var expectedJToken = JObject.Parse(expected);
             
             var envelope = new JObject(new JProperty("body", "{CONTENT}"));

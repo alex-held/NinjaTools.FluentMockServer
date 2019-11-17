@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Models;
 
 [assembly: InternalsVisibleTo("NinjaTools.FluentMockServer.Tests")]
@@ -15,6 +16,8 @@ namespace NinjaTools.FluentMockServer.Builders.Request
             get => _body ??= new RequestBody(RequestBody.BodyType.STRING, false);
             set => _body = value;
         }
+        
+        private JToken Token { get; set; }
 
 
         private void Invert(Action action)
@@ -145,6 +148,6 @@ namespace NinjaTools.FluentMockServer.Builders.Request
             => WithContentType(contentType.ToString());
         
         /// <inheritdoc />
-        public RequestBody Build() => Body;
+        public JToken Build() => Token;
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Builders.Request;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
@@ -111,14 +112,14 @@ namespace NinjaTools.FluentMockServer.Builders.Response
         public IFluentHttpResponseBuilder WithBody<T>(T payload) where T : class
         {
             var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
-            _httpResponse.Body = new LiteralContent(json);
+            _httpResponse.Body = new JValue(json);
             AddContentType("application/json");
             return this;
         }
 
         public IFluentHttpResponseBuilder WithBody(string bodyLiteral)
         {
-            _httpResponse.Body = new LiteralContent(bodyLiteral);
+            _httpResponse.Body = new JValue(bodyLiteral);
             return this;
         }
 

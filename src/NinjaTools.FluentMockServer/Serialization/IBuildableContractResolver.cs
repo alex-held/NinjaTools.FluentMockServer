@@ -4,12 +4,10 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
-using NinjaTools.FluentMockServer.Abstractions;
-using NinjaTools.FluentMockServer.Utils;
 
 namespace NinjaTools.FluentMockServer.Serialization
 {
-    public class IBuildableContractResolver : CamelCasePropertyNamesContractResolver
+    public class ContractResolver : CamelCasePropertyNamesContractResolver
     {
         /// <summary>
         /// Property names and dictionary keys will be UPPERCASE.
@@ -57,61 +55,26 @@ namespace NinjaTools.FluentMockServer.Serialization
         }
         
         
-        public IBuildableContractResolver()
+        public ContractResolver()
         {
-            NamingStrategy = new CustomNamingStrategy();
-        }
-
-        /// <inheritdoc />
-        protected override JsonContract CreateContract(Type objectType)
-        {
-            var contact = base.CreateContract(objectType);
-            contact.IsReference = false;
-            //       contact.Converter = ResolveContractConverter(typeof(BuildableBaseConverter));
-            return contact;
-        }
-
-        sealed class BuildableBaseValueProvider : IValueProvider
-        {
-            private PropertyInfo _propertyInfo;
-            private IValueProvider _fallbackValueProvider;
-
-            public BuildableBaseValueProvider(IValueProvider fallbackValueProvider, PropertyInfo propertyInfo)
+            NamingStrategy = new CamelCaseNamingStrategy
             {
-                _propertyInfo = propertyInfo;
-                _fallbackValueProvider = fallbackValueProvider;
-            }
-
-            /// <inheritdoc />
-            public void SetValue(object target, object? value)
-            {
-                _fallbackValueProvider.SetValue(target, value);
-            }
-
-            /// <inheritdoc />
-            public object? GetValue(object target)
-            {
-                if (target is IBuildable buildableBase)
-                {
-                    return buildableBase.SerializeJObject();
-                }
-
-                var fallBackValue = _fallbackValueProvider.GetValue(target);
-                return fallBackValue;
-            }
+                ProcessDictionaryKeys = true,
+                OverrideSpecifiedNames = true
+            };
         }
-
-
+        
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
 
-            if (typeof(IBuildable).IsAssignableFrom(property.PropertyType) && property.Readable)
+            /*
+            if (typeof().IsAssignableFrom(property.PropertyType) && property.Readable)
             {
                 property.Readable = true;
-                property.ValueProvider = new BuildableBaseValueProvider(property.ValueProvider, member as PropertyInfo);
                 property.PropertyType = typeof(JToken);
             }
+*/
 
             property.NullValueHandling = NullValueHandling.Ignore;
             return property;

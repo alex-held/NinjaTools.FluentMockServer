@@ -1,23 +1,13 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Abstractions;
 
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
-    [JsonObject(IsReference = true)]
-    public class VerficationTimes : IBuildable
+public class VerficationTimes 
     {
 
-        /// <inheritdoc />
-        public JObject SerializeJObject()
-        {
-            var self = new JObject();
-
-            // TODO: finish serialize
-
-            return self;
-        }
+ 
 
         public static VerficationTimes Once => new VerficationTimes(1, 1);
         public static VerficationTimes Twice => new VerficationTimes(2, 2);
@@ -26,6 +16,7 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
         public static VerficationTimes LessThan(int times) => new VerficationTimes(0, times);
 
         /// <inheritdoc />
+        [JsonConstructor]
         public VerficationTimes(int? atLeast, int? atMost)
         {
             AtLeast = atLeast;

@@ -1,10 +1,5 @@
-﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Abstractions;
-using NinjaTools.FluentMockServer.Models.HttpEntities;
+﻿using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
-using NinjaTools.FluentMockServer.Utils;
 
 
 namespace NinjaTools.FluentMockServer.Models
@@ -12,8 +7,7 @@ namespace NinjaTools.FluentMockServer.Models
     /// <summary>
     /// Model to set up an Expectation on the MockServer.
     /// </summary>
-    [JsonObject(IsReference = true)]
-    public class Expectation : IBuildable
+    public class Expectation
     {
         /// <summary>
         /// The <see cref="HttpRequest"/> to match.
@@ -49,18 +43,5 @@ namespace NinjaTools.FluentMockServer.Models
         /// How long the MockServer should expect this setup.
         /// </summary>
         public LifeTime TimeToLive { get; set; }
-
-
-        /// <inheritdoc />
-        public JObject SerializeJObject()
-        {
-            return JObject.FromObject(this, Serializer.Default);
-
-            var self = new JObject();
-
-            // TODO: finish serialize
-
-            return self;
-        }
     }
 }

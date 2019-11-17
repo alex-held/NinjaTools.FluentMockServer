@@ -1,11 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Net.Http;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Abstractions;
-using NinjaTools.FluentMockServer.Utils;
 
 
 namespace NinjaTools.FluentMockServer.Models.HttpEntities
@@ -14,20 +7,8 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
     /// <summary>
     /// Model to describe, which request should be matched.
     /// </summary>
-    [JsonObject(IsReference = true)]
-    public class HttpRequest : IBuildable
+    public class HttpRequest 
     {
-        /// <summary>
-        /// The <see cref="System.Net.Http.HttpMethod"/> to be matched.
-        /// </summary>
-        [JsonIgnore]
-        internal HttpMethod HttpMethod
-        {
-            get => new HttpMethod(Method);
-            set => Method = value.Method;
-        }
-
-
         /// <summary>
         /// The <see cref="System.Net.Http.HttpMethod"/> to be matched.
         /// </summary>
@@ -62,12 +43,5 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
         /// Constraint on whether to keep the connection alive
         /// </summary>
         public bool? KeepAlive { get; set; }
-
-
-        /// <inheritdoc />
-        public JObject SerializeJObject()
-        {
-            return JObject.FromObject(this, Serializer.Default);
-        }
     }
 }

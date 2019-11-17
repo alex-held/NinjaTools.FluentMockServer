@@ -3,6 +3,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Builders.Response;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
@@ -55,7 +56,7 @@ namespace NinjaTools.FluentMockServer.Tests
             var httpResponse = new HttpResponse
             {
                 // TODO: Check Content
-                Body = new LiteralContent(response),
+                Body = new JValue(response),
                 Delay = new Delay
                 {
                     Value = 50, TimeUnit = TimeUnit.Milliseconds

@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Abstractions;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Utils;
 
 
 namespace NinjaTools.FluentMockServer.Requests
 {
-    [JsonObject(IsReference = true)]
-    public class ExpectationRequest : IBuildable
+public class ExpectationRequest 
     {
         private readonly List<Expectation> _listImplementation;
 
@@ -51,11 +49,6 @@ namespace NinjaTools.FluentMockServer.Requests
 
             return request;
         }
-
-        /// <inheritdoc />
-        public JObject SerializeJObject()
-        {
-            return JObject.FromObject(this, Serializer.Default);
-        }
+        
     }
 }

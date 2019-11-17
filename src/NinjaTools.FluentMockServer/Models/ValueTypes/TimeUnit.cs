@@ -10,7 +10,7 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
     /// <summary>
     /// Enumerate the available time unit.
     /// </summary>
-    [JsonConverter(typeof(IBuildableContractResolver.UpperCaseEnumConverter))]
+    [JsonConverter(typeof(ContractResolver.UpperCaseEnumConverter))]
     public enum TimeUnit
     {
         /// <summary>

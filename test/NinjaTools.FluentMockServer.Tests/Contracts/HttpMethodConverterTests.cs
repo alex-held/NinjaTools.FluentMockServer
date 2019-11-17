@@ -11,12 +11,8 @@ using FluentAssertions;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
-using NinjaTools.FluentMockServer.Abstractions;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Utils;
-
 using Xunit;
 using Xunit.Abstractions;
 
@@ -138,7 +134,7 @@ namespace NinjaTools.FluentMockServer.Tests.Contracts
             // 2) The RequestBody
 
             var faker = new Faker<HttpRequest>()
-                        .RuleFor(req => req.HttpMethod, f => f.Internet.RandomHttpMethod())
+                        .RuleFor(req => req.Method, f => f.Internet.RandomHttpMethod().ToString())
                         .RuleFor(x => x.Path,       f => f.Internet.UrlWithPath())
                         .RuleFor(x => x.Body,       GetRandomRequestBody);
 
@@ -202,17 +198,8 @@ namespace NinjaTools.FluentMockServer.Tests.Contracts
             }
         }
 
-        public class PersonB : IBuildable
+        public class PersonB 
         {
-
-            /// <inheritdoc />
-            public JObject SerializeJObject()
-            {
-                return new JObject
-                {
-                    Name
-                };
-            }
             
             public Guid ID { get; }
 
@@ -258,35 +245,5 @@ namespace NinjaTools.FluentMockServer.Tests.Contracts
             JToken.DeepEquals(jn1, jo2).Should().BeFalse();
             json2.Should().NotBe(json1);
         }
-
-  /*
-      
-        [Fact]
-        public void Should_Rename_HttpMethod_And_Properties()
-        {
-            // Arrange
-            var renameResolver = new PropertyRenameAndIgnoreSerializerContractResolver();
-            renameResolver.RenameProperty<HttpRequest>("HttpMethod", "httpMethod");
-            var settings = new JsonSerializerSettings();
-            settings.ContractResolver = renameResolver;
-
-            var httpRequest = new HttpRequest
-            {
-                        HttpMethod = HttpMethod.Post
-                      , Body = new RequestBody(RequestBody.BodyType.JSON, false)
-                        {
-                                    Json =
-                                                "{ \"id\": 1, \"name\": \"A green door\", \"price\": 12.50, \"tags\": [\"home\", \"green\"] }"
-                        }
-                      , Path = "/my/test/path"
-            };
-
-            var json1 = JsonConvert.SerializeObject(httpRequest, Formatting.Indented);
-            _output.WriteLine(json1 + "\n\n\n");
-
-
-            var json2 = JsonConvert.SerializeObject(httpRequest, Formatting.Indented, settings);
-            _output.WriteLine(json2 + "\n\n\n");
-        }*/
     }
 }

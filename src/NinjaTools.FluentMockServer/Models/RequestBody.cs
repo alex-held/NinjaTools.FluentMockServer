@@ -1,20 +1,18 @@
-using System;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Abstractions;
 using NinjaTools.FluentMockServer.Utils;
 
 
 namespace NinjaTools.FluentMockServer.Models
 {
-    [JsonObject(IsReference = true)]
-    public class RequestBody : IBuildable
+public class RequestBody 
     {
         public const string MatchType_STRICT = "STRICT";
         public const string MatchType_ONLY_MATCHING_FIELDS = " ONLY_MATCHING_FIELDS";
 
+/*
 
         /// <inheritdoc />
         public JObject SerializeJObject()
@@ -36,7 +34,7 @@ namespace NinjaTools.FluentMockServer.Models
             };
             return jObj;
 
-        }
+        }*/
 
         [JsonConverter(typeof(StringEnumConverter))]
         public enum BodyType
