@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": [
+        "statusCode",
+        "headers",
+        "delay",
+        "body"
+    ],
+    "properties": {
+        "statusCode": {
+            "$id": "#/items/properties/httpResponse/properties/statusCode",
+            "type": "integer"
+        },
+        "headers": {
+            "$id": "#/items/properties/httpResponse/properties/headers",
+            "type": "object",
+            "required": [
+                "Content-Type"
+            ],
+            "properties": {
+                "Content-Type": {
+                    "$id": "#/items/properties/httpResponse/properties/headers/properties/Content-Type",
+                    "type": "array",
+                    "items": {
+                        "$id": "#/items/properties/httpResponse/properties/headers/properties/Content-Type/items",
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "delay": {
+            "$id": "#/items/properties/httpResponse/properties/delay",
+            "type": "object",
+            "required": [
+                "timeUnit",
+                "value"
+            ],
+            "properties": {
+                "timeUnit": {
+                    "$id": "#/items/properties/httpResponse/properties/delay/properties/timeUnit",
+                    "type": "string"
+                },
+                "value": {
+                    "$id": "#/items/properties/httpResponse/properties/delay/properties/value",
+                    "type": "integer"
+                }
+            }
+        },
+        "body": {
+            "$id": "#/items/properties/httpResponse/properties/body",
+            "type": "string"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<soap:Envelope xmlns:soap='http://schemas.xmlsoap.org/soap/envelope/' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema'>
+    <soap:Body>
+        <createIgsAxdTmpSalesTableResponse xmlns='http://schemas.microsoft.com/dynamics/2006/02/documents/IgsAxdTmpSalesTable'>
+            <EntityKey xmlns='http://schemas.microsoft.com/dynamics/2006/02/documents/EntityKey'>
+                <KeyData xmlns='http://schemas.microsoft.com/dynamics/2006/02/documents/EntityKey'>
+                    <KeyField>
+                        <Field>SalesId</Field>
+                        <Value>10001234</Value>
+                    </KeyField>
+                    <KeyField>
+                        <Field>SalesImportJourId</Field>
+                        <Value>IP-100001</Value>
+                    </KeyField>
+                </KeyData>
+            </EntityKey>
+        </createIgsAxdTmpSalesTableResponse>
+    </soap:Body>
+</soap:Envelope>
