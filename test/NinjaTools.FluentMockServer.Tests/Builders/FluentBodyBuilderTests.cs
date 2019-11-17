@@ -1,13 +1,9 @@
 using System;
 using System.Linq;
-
-using FluentAssertions.Json;
-
+using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
-using NinjaTools.FluentMockServer.Builders;
-
+using NinjaTools.FluentMockServer.Builders.Request;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -37,7 +33,8 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             _outputHelper.WriteLine($"Expected:\n\n{expected}\n");
             _outputHelper.WriteLine($"Actual:\n\n{result}\n");
 
-            JsonAssertionExtensions.Should(envelope).BeEquivalentTo(expectedJToken);
+            envelope.Should().BeEquivalentTo(expectedJToken);
+       //     JsonAssertionExtensions.Should(envelope).BeEquivalentTo(expectedJToken);
             
         }
         private readonly ITestOutputHelper _outputHelper;

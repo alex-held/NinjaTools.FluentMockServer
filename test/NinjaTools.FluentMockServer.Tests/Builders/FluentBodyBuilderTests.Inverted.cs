@@ -1,3 +1,4 @@
+using NinjaTools.FluentMockServer.Builders.Request;
 using Xunit;
 
 
@@ -166,17 +167,19 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
         public void Without_String_And_Content_Type()
         {
             // Arrange
+            var builder = new FluentBodyBuilder();
             const string content = "some_string";
+            const string contentType = "text/xml";
             const string expected = @"{
-    ""body"": {
-        ""not"": true,
-        ""type"": ""STRING"",
-        ""string"": ""some_string"",
-        ""contentType"": ""text/xml""
+    'body': {
+        'not': true,
+        'type': 'STRING',
+        'string': 'some_string',
+        'contentType': 'text/xml'
     }
 }";
             // Act & Assert
-            Assert(expected,builder => builder.WithoutExactString(content).WithContentType("text/xml"));
+            Assert(expected,builder => builder.WithoutExactString(content).WithContentType(contentType));
         }
     }
 }

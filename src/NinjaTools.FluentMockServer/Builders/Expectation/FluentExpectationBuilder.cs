@@ -1,21 +1,18 @@
 using System;
 using System.Net;
 using System.Net.Http;
-
 using JetBrains.Annotations;
-
-using NinjaTools.FluentMockServer.Models;
+using NinjaTools.FluentMockServer.Builders.Request;
+using NinjaTools.FluentMockServer.Builders.Response;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+namespace NinjaTools.FluentMockServer.Builders.Expectation
 {
     internal sealed class FluentExpectationBuilder : IFluentExpectationBuilder
     {
         private readonly MockServerSetup _setup;
-        private Expectation _expectation;
-
+        private Models.Expectation _expectation;
         private IFluentExpectationBuilder _and;
 
 
@@ -25,7 +22,7 @@ namespace NinjaTools.FluentMockServer.Builders
 
         internal FluentExpectationBuilder(MockServerSetup setup)
         {
-            _expectation = new Expectation();
+            _expectation = new Models.Expectation();
             _setup = setup;
         }
 
@@ -37,11 +34,12 @@ namespace NinjaTools.FluentMockServer.Builders
         }
 
         /// <inheritdoc />
-        public IWithRequest OnHandling(HttpMethod method, Action<IFluentHttpRequestBuilder> requestFactory = null)
+        public IWithRequest OnHandling(HttpMethod method = null, Action<IFluentHttpRequestBuilder> requestFactory = null)
         {
-            var builder = new FluentHttpRequestBuilder(method);
+            var builder = new FluentHttpRequestBuilder();
             requestFactory?.Invoke(builder);
             _expectation.HttpRequest = builder.Build();
+            _expectation.HttpRequest.HttpMethod = method;
             return this;
         }
 

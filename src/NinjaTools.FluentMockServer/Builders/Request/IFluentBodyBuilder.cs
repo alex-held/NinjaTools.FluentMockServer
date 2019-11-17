@@ -1,10 +1,9 @@
 using NinjaTools.FluentMockServer.FluentInterfaces;
 using NinjaTools.FluentMockServer.Models;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+namespace NinjaTools.FluentMockServer.Builders.Request
 {
-    public interface IFluentBodyBuilder : IFluentBuilder<RequestBody>, IFluentInterface
+    public interface IFluentBodyBuilder : IFluentBuilder<RequestBody>, ISetupContentType
     {
         void WithBinary(string base64);
         

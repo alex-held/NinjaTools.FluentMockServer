@@ -4,8 +4,7 @@ using System.Net;
 using System.Net.Http;
 
 using FluentAssertions;
-
-using NinjaTools.FluentMockServer.Builders;
+using NinjaTools.FluentMockServer.Builders.Expectation;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 using Xunit;
@@ -17,10 +16,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
     public class FluentExpectationBuilderTests
     {
         private readonly ITestOutputHelper _outputHelper;
-
-
         public FluentExpectationBuilderTests(ITestOutputHelper outputHelper) { _outputHelper = outputHelper; }
-        
         
         
         [Fact]

@@ -1,5 +1,4 @@
 using System;
-
 using NinjaTools.FluentMockServer.Abstractions;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 
@@ -9,9 +8,9 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
    /// <summary>
    /// Model to configure an optional <see cref="Delay"/> before responding with an action to a matched <see cref="HttpRequest"/>.
    /// </summary>
-    public class Delay  : BuildableBase, IEquatable<Delay>
+   public class Delay  : BuildableBase , IEquatable<Delay>
    {
-        public Delay()
+       public Delay()
         {
         }
         

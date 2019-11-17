@@ -1,7 +1,6 @@
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+namespace NinjaTools.FluentMockServer.Builders.Response
 {
     internal sealed class FluentDelayBuilder : IFluentDelayBuilder
     {

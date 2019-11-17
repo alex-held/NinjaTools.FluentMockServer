@@ -4,8 +4,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using FluentAssertions;
-
-using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Requests;

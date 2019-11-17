@@ -1,11 +1,10 @@
 using System;
 using System.ComponentModel;
 using System.Net;
-
+using NinjaTools.FluentMockServer.Builders.Response;
 using NinjaTools.FluentMockServer.FluentInterfaces;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+namespace NinjaTools.FluentMockServer.Builders.Expectation
 {
     /// <summary>
     /// 

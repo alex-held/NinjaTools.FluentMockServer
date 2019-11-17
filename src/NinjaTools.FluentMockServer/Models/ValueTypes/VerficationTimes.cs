@@ -1,5 +1,3 @@
-using System;
-
 using NinjaTools.FluentMockServer.Abstractions;
 
 
