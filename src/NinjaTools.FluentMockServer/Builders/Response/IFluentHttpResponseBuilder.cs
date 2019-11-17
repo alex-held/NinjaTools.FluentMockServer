@@ -34,41 +34,4 @@ namespace NinjaTools.FluentMockServer.Builders.Response
         HttpResponse Build();
     }
     
-    public interface IHeaderConfigurable<out T> : IFluentInterface where T : IHeaderConfigurable<T>
-    {
-        T WithHeader(string name, params string[] values);
-        T WithContentDispositionHeader(string type, string name, string filename);
-        T WithContentType(CommonContentType contentType);
-    }
-
-
-    public interface IConnectionConfigurable<out T>  : IFluentInterface where T : IConnectionConfigurable<T>
-    {
-        T WithDelay(int value, TimeUnit timeUnit);
-        
-        /// <summary>
-        /// Whether the MockServer should close the socket after the connection.
-        /// </summary>
-        T CloseSocket();
-        
-        /// <summary>
-        /// Overrides the ContentLength Header.
-        /// </summary>
-        T ContentLengthHeaderOverride(long length);
-
-        /// <summary>
-        /// Disables the ContentLengthHeadeer
-        /// </summary>
-        T SuppressContentLengthHeader();
-
-        /// <summary>
-        /// Whether to suppress the connection header.
-        /// </summary>
-        T SuppressConnectionHeader();
-
-        /// <summary>
-        /// Overrides the <see cref="HttpRequest.KeepAlive"/> setting.
-        /// </summary>
-        T KeepAliveOverride();
-    }
 }

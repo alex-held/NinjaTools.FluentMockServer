@@ -1,62 +1,74 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
+using System.Net;
+using Newtonsoft.Json;
+using NinjaTools.FluentMockServer.Builders.Request;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+namespace NinjaTools.FluentMockServer.Builders.Response
 {
-    internal class FluentHttpResponseBuilder : IFluentHttpResponseBuilder, IFluentHeaderBuilder
+    /// <inheritdoc />
+    internal class FluentHttpResponseBuilder : IFluentHttpResponseBuilder
     {
         private readonly HttpResponse _httpResponse;
-
+        
         public FluentHttpResponseBuilder()
         {
             _httpResponse = new HttpResponse();
         }
 
-        
         /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithDelay(Action<IFluentDelayBuilder> delayFactory)
+        public IFluentHttpResponseBuilder WithStatusCode(HttpStatusCode statusCode)
         {
-            var delayBuilder = new FluentDelayBuilder();
-            delayFactory(delayBuilder);
-            _httpResponse.Delay = delayBuilder.Build();
-            return this;
+           return WithStatusCode((int) statusCode);
         }
-
-        /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithDelay(int value, TimeUnit timeUnit)
-        {
-            _httpResponse.Delay = new Delay()
-            {
-                Value = value, TimeUnit = timeUnit
-            };
-            return this;
-        }
-
 
         /// <inheritdoc />
         public IFluentHttpResponseBuilder WithHeader(string name, string value)
         {
             _httpResponse.Headers ??= new Dictionary<string, string[]>();
-            _httpResponse.Headers.Add(name, new []{value});
+            _httpResponse.Headers[name] =  new[] {value};
             return this;
         }
 
+
         /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithHeaders(Action<IFluentHeaderBuilder> headerFactory)
+        public IFluentHttpResponseBuilder WithStatusCode(int statusCode)
         {
-            headerFactory(this);
+            _httpResponse.StatusCode = statusCode;
             return this;
         }
-
+    
+        /// <inheritdoc />
+        public IFluentHttpResponseBuilder WithDelay(int value, TimeUnit timeUnit)
+        {
+            _httpResponse.Delay = new Delay()
+            {
+                Value = value, 
+                TimeUnit = timeUnit
+            };
+            return this;
+        }
+        
 
         /// <inheritdoc />
-        public IFluentHttpResponseBuilder WithConnectionOptions(Action<IFluentConnectionOptionsBuilder> connectionOptionsFactory)
+        public IFluentHttpResponseBuilder FileBody(byte[] bytes, string filename, string contentType)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public IFluentHttpResponseBuilder ConfigureHeaders(Action<IFluentResponseHeaderBuilder> headerFactory)
+        {
+            var builder = new FluentHeaderBuilder(_httpResponse.Headers);
+            headerFactory?.Invoke(builder);
+            _httpResponse.Headers = builder.Build();
+            return this;
+        }
+        
+        /// <inheritdoc />
+        public IFluentHttpResponseBuilder ConfigureConnection(Action<IFluentConnectionOptionsBuilder> connectionOptionsFactory)
         {
             var builder = new FluentConnectionOptionsBuilder();
             connectionOptionsFactory(builder);
@@ -64,52 +76,60 @@ namespace NinjaTools.FluentMockServer.Builders
             return this;
         }
 
+        /// <inheritdoc />
+        public IFluentHttpResponseBuilder AddContentType(string contentType)
+        {
+            _httpResponse.Headers ??= new Dictionary<string, string[]>();
+            _httpResponse.Headers[Headers.ContentType] =  new[] {contentType};
+            return this;
+        }
+
 
         /// <inheritdoc />
         public HttpResponse Build() => _httpResponse;
-        
-        public IFluentHttpResponseBuilder WithBinaryBody(string base64, string contentType)
+
+        public IFluentHttpResponseBuilder WithBody(byte[] bytes, string contentType = null)
         {
-            _httpResponse.Body = new ResponseBody(true, base64);
-            _httpResponse.Headers ??= new Dictionary<string, string[]>();
-            _httpResponse.Headers["content-type"] = new[] {contentType};
+            return WithBinaryBody(Convert.ToBase64String(bytes), contentType);
+        }
+        
+        private IFluentHttpResponseBuilder WithBinaryBody(string base64, string contentType)
+        {
+            _httpResponse.Body = new BinaryContent(base64);
+            AddContentType(contentType);
             return this;
         }
         
-        public IFluentHttpResponseBuilder WithBinaryFileBody(byte[] bytes, string filename, string contentType)
+        public IFluentHttpResponseBuilder WithBinaryFileBody(byte[] bytes, string filename, string name, string contentType)
         {
             var base64 = Convert.ToBase64String(bytes);
-            _httpResponse.Headers ??= new Dictionary<string, string[]>();
-            _httpResponse.Headers["content-disposition"] = new[] {$"form-data; name=\"{filename}\"; filename=\"{filename}\""};
+            WithContentDispositionHeader("form-data", name, filename);
             return WithBinaryBody(base64, contentType);
         }
-        
-        public IFluentHttpResponseBuilder WithLiteralBody(string bodyLiteral, string contentType = null)
+
+        /// <inheritdoc />
+        public IFluentHttpResponseBuilder WithBody<T>(T payload) where T : class
         {
-            _httpResponse.Body = new ResponseBody(false, bodyLiteral);
-            if (string.IsNullOrWhiteSpace(contentType)) return this;
-            
-            _httpResponse.Headers ??= new Dictionary<string, string[]>();
-            _httpResponse.Headers["content-type"] = new[] {contentType};
+            var json = JsonConvert.SerializeObject(payload, Formatting.Indented);
+            _httpResponse.Body = new LiteralContent(json);
+            AddContentType("application/json");
             return this;
         }
 
-        /// <inheritdoc />
-        public IFluentHeaderBuilder WithHeaders(params (string name, string value)[] headers)
+        public IFluentHttpResponseBuilder WithBody(string bodyLiteral)
         {
-            foreach (var (name, value)in headers)
-            {
-                AddHeader(name, value);
-            }
-
+            _httpResponse.Body = new LiteralContent(bodyLiteral);
             return this;
         }
 
+
         /// <inheritdoc />
-        public IFluentHeaderBuilder AddHeader(string name, string value)
+        public IFluentHttpResponseBuilder WithContentDispositionHeader(string type, string name, string filename)
         {
-           _httpResponse.Headers.Add(name, new []{value});
-           return this;
+            var builder =  new FluentHeaderBuilder(_httpResponse.Headers);
+            builder.WithContentDispositionHeader(type, name, filename);
+            _httpResponse.Headers = builder.Build();
+            return this;
         }
     }
 }

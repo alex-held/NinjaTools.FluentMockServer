@@ -174,7 +174,7 @@ namespace NinjaTools.FluentMockServer.Tests.Contracts
         public void Should_Serialize_HttpRequests_As_Expected(HttpRequest request)
         {
             // Act & Assert
-            var json = request.Serialize();
+            var json = request.ToString();
             _output.WriteLine(json);
         }
     }
@@ -202,8 +202,18 @@ namespace NinjaTools.FluentMockServer.Tests.Contracts
             }
         }
 
-        public class PersonB : BuildableBase
+        public class PersonB : IBuildable
         {
+
+            /// <inheritdoc />
+            public JObject SerializeJObject()
+            {
+                return new JObject
+                {
+                    Name
+                };
+            }
+            
             public Guid ID { get; }
 
 
@@ -249,7 +259,8 @@ namespace NinjaTools.FluentMockServer.Tests.Contracts
             json2.Should().NotBe(json1);
         }
 
-        
+  /*
+      
         [Fact]
         public void Should_Rename_HttpMethod_And_Properties()
         {
@@ -276,6 +287,6 @@ namespace NinjaTools.FluentMockServer.Tests.Contracts
 
             var json2 = JsonConvert.SerializeObject(httpRequest, Formatting.Indented, settings);
             _output.WriteLine(json2 + "\n\n\n");
-        }
+        }*/
     }
 }

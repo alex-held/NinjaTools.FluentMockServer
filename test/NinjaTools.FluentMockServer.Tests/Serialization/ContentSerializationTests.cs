@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Utils;
 using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
@@ -39,8 +40,9 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             };
             
             // Act
+            var js = JsonConvert.SerializeObject(httpResponse, new JsonConfig());
             var jo = httpResponse.SerializeJObject();
-            var json = httpResponse.Serialize();
+            var json = jo.ToString(Formatting.Indented);
             
             _logger.WriteLine(json);
 

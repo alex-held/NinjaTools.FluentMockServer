@@ -1,20 +1,20 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
+    [JsonObject(IsReference = true)]
     public class LiteralContent : Content
     {
         public LiteralContent(string literal)
         {
-            Literal = literal ?? throw new ArgumentNullException(nameof(literal)); 
+            Literal = literal ?? throw new ArgumentNullException(nameof(literal));
         }
-        
+
         [JsonIgnore]
         public string Literal { get; set; }
-        
+
         /// <inheritdoc />
         public override JToken Resolve()
         {
@@ -27,7 +27,7 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
         public override string Type => null;
     }
 
-    
+    [JsonObject(IsReference = true)]
     public class BinaryContent : Content
     {
         /// <inheritdoc />
@@ -43,21 +43,25 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
         /// <inheritdoc />
         public override JToken Resolve()
         {
-            var self = JObject.FromObject(this);
+            var self = new JObject();
+            self.Add("type", Type);
+            self.Add("base64Bytes", Base64Bytes);
             var prop = new JProperty("body", self);
             return prop;
         }
 
         public string Base64Bytes { get; set; }
-        
+
         /// <inheritdoc />
         public override string Type => "BINARY";
     }
 
 
+    /*
 
-    [JsonObject(MemberSerialization.OptOut, ItemNullValueHandling = NullValueHandling.Ignore, IsReference = false,
-        NamingStrategyType = typeof(CamelCaseNamingStrategy))]
+        [JsonObject(MemberSerialization.OptOut, ItemNullValueHandling = NullValueHandling.Ignore, IsReference = false,
+            NamingStrategyType = typeof(CamelCaseNamingStrategy))]*/
+    [JsonObject(IsReference = true)]
     public abstract class Content
     {
         public abstract JToken Resolve();

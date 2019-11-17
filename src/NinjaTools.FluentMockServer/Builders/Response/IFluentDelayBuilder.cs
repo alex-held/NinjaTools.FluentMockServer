@@ -11,7 +11,7 @@ namespace NinjaTools.FluentMockServer.Builders.Response
     public interface IFluentDelayBuilder : IFluentInterface
     {
         void FromSeconds(int seconds);
-        void FromMiliSeconds(int ms);
+        void FromMilliSeconds(int ms);
         void FromMinutes(int minutes);
         Delay Build();
     }

@@ -17,22 +17,23 @@
         <Product>FluentMockServer</Product>
         <PackageLicenseUrl>https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/LICENSE</PackageLicenseUrl>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0</TargetFrameworks>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.0;netcoreapp2.1;netcoreapp3.1;netcoreapp2.2</TargetFrameworks>
         <AssemblyVersion>1.0.5</AssemblyVersion>
     </PropertyGroup>
-
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DebugSymbols>true</DebugSymbols>
-      <DebugType>portable</DebugType>
-      <DocumentationFile>bin\Release\HardCoded.MockServer.xml</DocumentationFile>
+    
+    <PropertyGroup Condition=" '$(Configuration' == 'Debug' ">
+        <DocumentationFile>bin\Debug\NinjaTools.FluentMockServer.xml</DocumentationFile>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DocumentationFile>bin\Debug\NinjaTools.FluentMockServer.xml</DocumentationFile>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>portable</DebugType>
+        <DocumentationFile>bin\Release\HardCoded.MockServer.xml</DocumentationFile> 
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     </ItemGroup>
 
 </Project>

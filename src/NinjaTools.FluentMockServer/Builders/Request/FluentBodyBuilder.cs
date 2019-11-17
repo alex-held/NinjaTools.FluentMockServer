@@ -1,18 +1,15 @@
 using System;
-using System.Net.Mime;
-
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
-
 using NinjaTools.FluentMockServer.Models;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+[assembly: InternalsVisibleTo("NinjaTools.FluentMockServer.Tests")]
+namespace NinjaTools.FluentMockServer.Builders.Request
 {
-    internal class FluentBodyBuilder : IFluentBodyBuilder, ISetupContentType
+    internal class FluentBodyBuilder : IFluentBodyBuilder
     {
         private RequestBody _body;
-
-
+        
         public RequestBody Body
         {
             get => _body ??= new RequestBody(RequestBody.BodyType.STRING, false);
@@ -40,17 +37,7 @@ namespace NinjaTools.FluentMockServer.Builders
 
             return result;
         }
-
-
-        public ISetupContentType SetupContentType
-                    (Action action) => new Func<ISetupContentType>(
-            () => {
-                action();
-
-                return this;
-            }).Invoke();
-
-
+        
         /// <inheritdoc />
         public void WithBinary(string base64)
         {
@@ -76,13 +63,11 @@ namespace NinjaTools.FluentMockServer.Builders
 
 
         /// <inheritdoc />
-        public void WithExactJson
-                    (string content) => Body = RequestBody.MatchExactJson(content);
+        public void WithExactJson(string content) => Body = RequestBody.MatchExactJson(content);
 
 
         /// <inheritdoc />
-        public void WithoutExactJson
-                    (string json) => Invert(() => WithExactJson(json));
+        public void WithoutExactJson(string json) => Invert(() => WithExactJson(json));
 
 
         /// <inheritdoc />
@@ -98,18 +83,15 @@ namespace NinjaTools.FluentMockServer.Builders
 
 
         /// <inheritdoc />
-        public void MatchingXmlSchema
-                    (string xmlSchema) => Body = RequestBody.MatchXmlSchema(xmlSchema);
+        public void MatchingXmlSchema(string xmlSchema) => Body = RequestBody.MatchXmlSchema(xmlSchema);
 
 
         /// <inheritdoc />
-        public void NotMatchingXmlSchema
-                    (string xmlSchema) => Invert(() => MatchingXmlSchema(xmlSchema));
+        public void NotMatchingXmlSchema(string xmlSchema) => Invert(() => MatchingXmlSchema(xmlSchema));
 
 
         /// <inheritdoc />
-        public void MatchingJsonPath
-                    (string path) => Body = RequestBody.MatchJsonPath(path);
+        public void MatchingJsonPath(string path) => Body = RequestBody.MatchJsonPath(path);
 
 
         /// <inheritdoc />
@@ -117,25 +99,30 @@ namespace NinjaTools.FluentMockServer.Builders
 
 
         /// <inheritdoc />
-        public void MatchingJsonSchema
-                    (string jsonSchema) => Body = RequestBody.MatchJsonSchema(jsonSchema);
+        public void MatchingJsonSchema (string jsonSchema) => Body = RequestBody.MatchJsonSchema(jsonSchema);
 
 
         /// <inheritdoc />
-        public void NotMatchingJsonSchema
-                    (string jsonSchema) => Invert(() => MatchingJsonSchema(jsonSchema));
+        public void NotMatchingJsonSchema(string jsonSchema) => Invert(() => MatchingJsonSchema(jsonSchema));
 
 
         /// <inheritdoc />
-        public void ContainingSubstring
-                    (string substring) => Body = RequestBody.MatchSubstring(substring);
+        public void ContainingSubstring(string substring) => Body = RequestBody.MatchSubstring(substring);
 
 
         /// <inheritdoc />
-        public void NotContainingSubstring
-                    (string substring) => Invert(() => ContainingSubstring(substring));
+        public void NotContainingSubstring(string substring) => Invert(() => ContainingSubstring(substring));
 
+        /// <inheritdoc />
+        public ISetupContentType WithExactString(string content)
+        {
+            Body = RequestBody.MatchString(content);
+           return this;
+        }
 
+        /// <inheritdoc />
+        public ISetupContentType WithoutExactString(string content) => Invert(() => WithExactString(content));
+        
         /// <inheritdoc />
         public void WithXmlContent(string content) => Body = RequestBody.MatchXml(content);
 
@@ -150,36 +137,13 @@ namespace NinjaTools.FluentMockServer.Builders
                     (params T[] items) => Body = RequestBody.MatchExactJson(
             JsonConvert.SerializeObject(items, Formatting.Indented));
 
-
         /// <inheritdoc />
-        public ISetupContentType WithExactString
-                    (string content) => SetupContentType(() => Body = RequestBody.MatchString(content));
-
-
+        public void WithContentType(string contentType) => Body.ContentType = contentType;
+        
         /// <inheritdoc />
-        public ISetupContentType WithoutExactString
-                    (string content) => Invert(() => WithExactString(content));
-
-
-        /// <inheritdoc />
-        public void WithoutContentType() => Body.ContentType = null;
-
-
-        /// <inheritdoc />
-        public void WithContentType
-                    (string contentType) => Body.ContentType = contentType;
-
-
-        /// <inheritdoc />
-        public void WithContentType
-                    (ContentType contentType) => WithContentType(contentType.ToString());
-
-
-        /// <inheritdoc />
-        public void WithContentType
-                    (CommonContentType contentType) => WithContentType(contentType.ToString());
-
-
+        public void WithCommonContentType(CommonContentType contentType)
+            => WithContentType(contentType.ToString());
+        
         /// <inheritdoc />
         public RequestBody Build() => Body;
     }

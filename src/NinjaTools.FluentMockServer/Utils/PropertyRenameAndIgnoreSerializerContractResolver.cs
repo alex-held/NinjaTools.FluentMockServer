@@ -1,3 +1,4 @@
+/*
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,23 +7,129 @@ using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using NinjaTools.FluentMockServer.Abstractions;
 using NinjaTools.FluentMockServer.Annotations;
 
 namespace NinjaTools.FluentMockServer.Utils
 {
+
+    public class BuildableBaseConverter : JsonConverter
+    {
+        /// <inheritdoc />
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+        {
+            if (value is null)
+            {
+                return;
+            }
+            
+            var jo = new JObject();
+            var type = value?.GetType();
+
+            foreach (var pi in type.GetProperties(BindingFlags.Instance | BindingFlags.Public))
+            {
+                if (pi.CanRead)
+                {
+                    var propValue = pi.GetValue(value, null);
+                    
+                    if (typeof(IBuildable).IsAssignableFrom(pi.PropertyType))
+                    {
+                        var propJObject = ((IBuildable) propValue).SerializeJObject();
+                        jo.Add(pi.Name, JToken.FromObject(propJObject, serializer));
+                    }
+                    
+                    jo.Add(pi.Name, JToken.FromObject(propValue, serializer));
+                    
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc />
+        public override bool CanConvert(Type objectType)
+        {
+            return typeof(IBuildable).IsAssignableFrom(objectType);
+        }
+    }
+    
+    
     public class PropertyRenameAndIgnoreSerializerContractResolver : CamelCasePropertyNamesContractResolver
     {
         private readonly Dictionary<Type, HashSet<string>> _ignores;
         private readonly Dictionary<Type, Dictionary<string, string>> _renames;
-       
+
         public PropertyRenameAndIgnoreSerializerContractResolver()
         {
             _ignores = new Dictionary<Type, HashSet<string>>();
             _renames = new Dictionary<Type, Dictionary<string, string>>();
-            
         }
+
         
+        sealed class BuildableBaseValueProvider : IValueProvider
+        {
+
+            private PropertyInfo _propertyInfo;
+            private IValueProvider _fallbackValueProvider;
+
+            public BuildableBaseValueProvider(IValueProvider fallbackValueProvider, PropertyInfo propertyInfo)
+            {
+                _propertyInfo = propertyInfo;
+                _fallbackValueProvider = fallbackValueProvider;
+            }
+
+            /// <inheritdoc />
+            public void SetValue(object target, object? value)
+            {
+                _fallbackValueProvider.SetValue(target, value);
+            }
+
+            /// <inheritdoc />
+            public object? GetValue(object target)
+            {
+                if (target is IBuildable buildableBase)
+                {
+                    return buildableBase.SerializeJObject();
+                }
+
+                var fallBackValue = _fallbackValueProvider.GetValue(target);
+                return fallBackValue;
+            }
+        }
+
+
+        //// <inheritdoc />
+/*        protected override JsonObjectContract CreateObjectContract(Type objectType)
+        {
+            var contract = base.CreateObjectContract(objectType);
+            //    contract.Converter
+
+
+            // override BuildableBase Converts 
+            if (typeof(BuildableBase).IsAssignableFrom(objectType))
+            {
+                var propertyHashSet = new HashSet<JsonProperty>();
+                
+                foreach (var contractProperty in contract.Properties)
+                {
+                    if (!typeof(BuildableBase).IsAssignableFrom(contractProperty.PropertyType))
+                    {
+                       continue;
+                    }
+                    
+                    propertyHashSet.Add(contractProperty);
+                    contractProperty
+                }
+
+            }
+        }#1#
+
         internal void IgnorePropertiesWithRegex([NotNull] string pattern, [NotNull] params Type[] types)
         {
             var regex = new Regex(pattern);
@@ -118,6 +225,15 @@ namespace NinjaTools.FluentMockServer.Utils
         {
             var property = base.CreateProperty(member, memberSerialization);
 
+            if (property.PropertyType.IsSubclassOf(typeof(IBuildable)) && property.Readable)
+            {
+                property.Readable = true;
+                property.ValueProvider = new BuildableBaseValueProvider(property.ValueProvider, member as PropertyInfo); ;
+                property.PropertyType = typeof(JToken);
+                property.ShouldSerialize = value => true;
+            }
+            
+            
             if (IsIgnored(property.DeclaringType, property.PropertyName)) {
                 property.ShouldSerialize = i => false;
                 property.Ignored = true;
@@ -157,3 +273,4 @@ namespace NinjaTools.FluentMockServer.Utils
         protected override string ResolveDictionaryKey(string dictionaryKey) => dictionaryKey;
     }
 }
+*/

@@ -33,7 +33,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             // Act
             factory(builder);
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.Serialize();
+            var result = expectation.ToString();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -50,7 +50,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             var builder = new FluentExpectationBuilder();
             
             // Act
-            var result = builder.RespondTimes(times, 200).Setup().Expectations.First().Serialize();
+            var result = builder.RespondTimes(times, 200).Setup().Expectations.First().ToString();
             
             
             // Assert
@@ -68,12 +68,12 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             
             // Act
             var result = builder
-                        .OnHandlingAny()
-                        .RespondWith(HttpStatusCode.OK)
-                        .WhichIsValidFor(10, TimeUnit.Seconds)
-                        .Setup()
-                        .Expectations.First()
-                        .Serialize();
+                .OnHandlingAny()
+                .RespondWith(HttpStatusCode.OK)
+                .WhichIsValidFor(10, TimeUnit.Seconds)
+                .Setup()
+                .Expectations.First()
+                .ToString();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -95,7 +95,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             // Act
             factory(builder);
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.Serialize();
+            var result = expectation.ToString();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -119,7 +119,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             // Act
             factory(builder);
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.Serialize();
+            var result = expectation.ToString();
             
             // Assert
             _outputHelper.WriteLine(result);

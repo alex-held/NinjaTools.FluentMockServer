@@ -1,8 +1,9 @@
 using System.Net;
 using System.Net.Http;
-
+using System.Text;
 using NinjaTools.FluentMockServer.Builders;
-
+using NinjaTools.FluentMockServer.Builders.Expectation;
+using NinjaTools.FluentMockServer.Models.ValueTypes;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -28,25 +29,29 @@ namespace NinjaTools.FluentMockServer.Tests.Misc
             var builder = new FluentExpectationBuilder();
 
             var setup = builder
-                        .OnHandling(
-                            HttpMethod.Delete, request => request
+                        .OnHandling(HttpMethod.Delete, request => request
                                         .WithContent(content => content.MatchingXPath("//id"))
                                         .WithPath("post")
                                         .EnableEncryption()
                                         .KeepConnectionAlive())
-                        .RespondWith(
-                            HttpStatusCode.Accepted, response => response
-                                        .WithLiteralBody("hello world!","text/plain")
-                                        .WithDelay(delay => delay.FromMinutes(1)))
+                        .RespondWith(HttpStatusCode.Accepted, response => response
+                            .ConfigureConnection( opt => opt.Build())
+                            .ConfigureHeaders(opt =>
+                            {
+                                opt.AddContentType(CommonContentType.Json);
+                                opt.Add("Basic", "cqwr");
+                            })
+                            .WithStatusCode(100)
+                            .WithBody("hello world!")
+                            .WithDelay(1, TimeUnit.Minutes))
                         .And
                         .OnHandling(
                             HttpMethod.Delete, request => request
                                         .WithPath("post")
                                         .EnableEncryption()
                                         .KeepConnectionAlive())
-                        .RespondWith(
-                            HttpStatusCode.Accepted, response => response
-                                .WithBinaryBody("ewogICAgIk5hbWUiOiAiQWxleCIKfQ==", "application/json"))
+                        .RespondWith(HttpStatusCode.Accepted, response => response
+                            .WithBody(Encoding.UTF8.GetBytes("ewogICAgIk5hbWUiOiAiQWxleCIKfQ==")))
                         .Setup();
 
             var json = setup.ToString();

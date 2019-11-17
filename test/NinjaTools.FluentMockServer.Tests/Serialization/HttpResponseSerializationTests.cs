@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
@@ -40,5 +41,29 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             var jo = response.SerializeJObject();
             jo.Should().BeEquivalentTo(expected);
         }
+        
+        
+        [Fact]
+        public void Should_Use_ConcreteType_Conveter()
+        {
+            // Arrange
+            var response = new HttpResponse
+            {
+                Body = new LiteralContent("Hello World!")
+            };
+            
+            // Act & Assert<
+            var json = JsonConvert.SerializeObject(response, Formatting.None, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling =  ReferenceLoopHandling.Ignore,
+          //      PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                TypeNameHandling = TypeNameHandling.Objects
+                
+            });
+            
+            _logger.LogInformation(json);
+        }
+
+
     }
 }

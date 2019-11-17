@@ -7,8 +7,6 @@ namespace NinjaTools.FluentMockServer.Abstractions
 {
     public interface IBuildable : IFluentInterface
     {
-        string Serialize();
-        
         JObject SerializeJObject();
     }
 }

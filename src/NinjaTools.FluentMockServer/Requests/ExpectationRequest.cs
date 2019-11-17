@@ -1,25 +1,33 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using NinjaTools.FluentMockServer.Abstractions;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Utils;
 
 
 namespace NinjaTools.FluentMockServer.Requests
 {
-    public class ExpectationRequest : List<Expectation>
+    [JsonObject(IsReference = true)]
+    public class ExpectationRequest : IBuildable
     {
+        private readonly List<Expectation> _listImplementation;
+
         public ExpectationRequest()
-        { }
+        {
+            _listImplementation = new List<Expectation>();
+        }
 
         internal protected ExpectationRequest(IEnumerable<Expectation> expectations)
         {
-            AddRange( expectations ?? throw new ArgumentNullException(nameof(expectations)));
+            _listImplementation.AddRange(expectations ?? throw new ArgumentNullException(nameof(expectations)));
         }
-        
+
+
         public static ExpectationRequest Create(IEnumerable<Expectation> expectations) => new ExpectationRequest(expectations);
-        
+
         public static implicit operator HttpRequestMessage(ExpectationRequest request)
         {
             return new HttpRequestMessage(HttpMethod.Put, new Uri("expectation", UriKind.Relative))
@@ -27,28 +35,27 @@ namespace NinjaTools.FluentMockServer.Requests
                 Content = new JsonContent(request)
             };
         }
-        
-        public static implicit operator ExpectationRequest(Expectation expectation)
-        {
-            return new ExpectationRequest()
-            {
-                        expectation
-            };
-        }
-        
+
+
         public static implicit operator ExpectationRequest(Expectation[] expectations)
         {
             var request = new ExpectationRequest();
 
-            foreach ( var expectation in expectations ) 
+            foreach (var expectation in expectations)
             {
-                if (expectation != null) {
-                    request.Add(expectation);
+                if (expectation != null)
+                {
+                    request._listImplementation.Add(expectation);
                 }
             }
 
             return request;
         }
-        
+
+        /// <inheritdoc />
+        public JObject SerializeJObject()
+        {
+            return JObject.FromObject(this, Serializer.Default);
+        }
     }
 }

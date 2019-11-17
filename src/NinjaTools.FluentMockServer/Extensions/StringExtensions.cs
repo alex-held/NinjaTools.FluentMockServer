@@ -1,5 +1,3 @@
-using System;
-
 namespace NinjaTools.FluentMockServer.Extensions
 {
     public static class StringExtensions

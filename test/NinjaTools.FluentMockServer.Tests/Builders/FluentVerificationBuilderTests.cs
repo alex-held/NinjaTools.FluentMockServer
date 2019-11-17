@@ -55,7 +55,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             
             // Act
             builder.Verify(request => request.WithPath("some/path"));
-            var result = builder.Build().Serialize();
+            var result = builder.Build().ToString();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -80,7 +80,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).Once();
-            var result = builder.Build().Serialize();
+            var result = builder.Build().ToString();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -105,7 +105,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).Between(1, 2);
-            var result = builder.Build().Serialize();
+            var result = builder.Build().ToString();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -126,13 +126,13 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
                     ["atLeast"] = 0, 
                     ["atMost"] = 5
                 }
-            }.ToString(Formatting.Indented);;
+            }.ToString(Formatting.Indented);
  
             var builder = new FluentVerificationBuilder();
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).AtMost(5);
-            var result = builder.Build().Serialize();
+            var result = builder.Build().ToString();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -157,7 +157,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).AtLeast(5);
-            var result = builder.Build().Serialize();
+            var result = builder.Build().ToString();
             
             // Assert
             _outputHelper.WriteLine(result);

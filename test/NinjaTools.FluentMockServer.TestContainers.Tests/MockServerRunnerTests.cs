@@ -4,8 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using NinjaTools.FluentMockServer.Builders;
-using NinjaTools.FluentMockServer.Models;
+using NinjaTools.FluentMockServer.Builders.Expectation;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Requests;
@@ -78,14 +77,14 @@ namespace NinjaTools.FluentMockServer.TestContainers.Tests
 
             foreach (var setupExpectation in factory(builder).Expectations)
             {
-                _outputHelper.WriteLine(setupExpectation.Serialize());
+                _outputHelper.WriteLine(setupExpectation.SerializeJObject().ToString(Newtonsoft.Json.Formatting.Indented));
             }
 
             // Act
             await Using(async client =>
             {
                 var expectation = factory(builder).Expectations.First();
-                _outputHelper.WriteLine(expectation.Serialize());
+                _outputHelper.WriteLine(expectation.SerializeJObject().ToString(Newtonsoft.Json.Formatting.Indented));
 
                 await client.SetupAsync(factory);
 
