@@ -4,7 +4,7 @@
         <LangVersion>8.0</LangVersion>
         <NullableContext>Enabled</NullableContext>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>1.0.5</PackageVersion>
+        <PackageVersion>1.0.6</PackageVersion>
         <Title>NinjaTools.FluentMockServer</Title>
         <Authors>Alexander Held</Authors>
         <Description>A C# Client for the MockServer Docker Image</Description>
@@ -18,7 +18,7 @@
         <PackageLicenseUrl>https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/LICENSE</PackageLicenseUrl>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.0;netcoreapp2.1;netcoreapp3.1;netcoreapp2.2</TargetFrameworks>
-        <AssemblyVersion>1.0.5</AssemblyVersion>
+        <AssemblyVersion>1.0.6</AssemblyVersion>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration' == 'Debug' ">
