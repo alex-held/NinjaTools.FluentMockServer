@@ -8,7 +8,7 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
     {
         public static implicit operator JToken(BinaryContent content)
         {
-            return content.Resolve();
+             return content.Resolve();
         }
         
           /// <inheritdoc />
@@ -22,10 +22,8 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
         }
 
         private JToken Resolve()
-        {
-            var self = new JObject {{"type", Type}, {"base64Bytes", Base64Bytes}};
-            var prop = new JProperty("body", self);
-            return prop;
+        { return new JObject {{"type", Type}, {"base64Bytes", Base64Bytes}};
+           
         }
 
         public string Base64Bytes { get; set; }

@@ -90,7 +90,7 @@ namespace NinjaTools.FluentMockServer.Builders.Request
         }
     }
     
-    internal sealed class                     FluentHttpRequestBuilder : IFluentHttpRequestBuilder
+    internal sealed class  FluentHttpRequestBuilder : IFluentHttpRequestBuilder
     {
         private readonly HttpRequest _httpRequest;
 
@@ -122,23 +122,23 @@ namespace NinjaTools.FluentMockServer.Builders.Request
         }
         
         /// <inheritdoc />
-        public IFluentHttpRequestBuilder WithBody(RequestBody.BodyType type, string value)
+        public IFluentHttpRequestBuilder WithBody(Body.BodyType type, string value)
         {
             var builder = new FluentBodyBuilder();
   
             Action<IFluentBodyBuilder> factory = type switch
             {
-                RequestBody.BodyType.JSON => b => b.WithExactJson(value),
-                RequestBody.BodyType.JSON_PATH => b =>b.MatchingJsonPath(value),
-                RequestBody.BodyType.JSON_SCHEMA => b => b.MatchingJsonSchema(value),
-                RequestBody.BodyType.XML => b => b.WithXmlContent(value),
-                RequestBody.BodyType.XPATH =>  b =>b.MatchingXPath(value),
-                RequestBody.BodyType.XML_SCHEMA => b => b.MatchingXmlSchema(value),
-                RequestBody.BodyType.STRING => b => b.WithLiteral(value),
+                Body.BodyType.JSON => b => b.WithExactJson(value),
+                Body.BodyType.JSON_PATH => b =>b.MatchingJsonPath(value),
+                Body.BodyType.JSON_SCHEMA => b => b.MatchingJsonSchema(value),
+                Body.BodyType.XML => b => b.WithXmlContent(value),
+                Body.BodyType.XPATH =>  b =>b.MatchingXPath(value),
+                Body.BodyType.XML_SCHEMA => b => b.MatchingXmlSchema(value),
+                Body.BodyType.STRING => b => b.WithExactContent(value)
             };
 
             factory(builder);
-            _httpRequest.Body = builder.Body;
+            _httpRequest.Body = builder.Build();
             return this;
         }
 
@@ -156,7 +156,7 @@ namespace NinjaTools.FluentMockServer.Builders.Request
         {
             var builder = new FluentBodyBuilder();
             contentFactory(builder);
-            _httpRequest.Body = builder.Body;
+            _httpRequest.Body = builder.Build();
             return this;
         }
 

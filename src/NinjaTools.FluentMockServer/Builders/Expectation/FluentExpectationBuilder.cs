@@ -88,7 +88,7 @@ namespace NinjaTools.FluentMockServer.Builders.Expectation
 
 
         /// <inheritdoc />
-        public IWithResponse RespondOnce(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
+        public IWithResponse  RespondOnce(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
         {
             return RespondOnce(( int ) statusCode, responseFactory);
         }

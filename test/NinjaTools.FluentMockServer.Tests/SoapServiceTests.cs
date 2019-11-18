@@ -145,18 +145,7 @@ namespace NinjaTools.FluentMockServer.Tests
         )
         {
             contentType = $"{contentType}; charset=utf-8";
-            var responseBuilder = new FluentHttpResponseBuilder();
          
-            var response = responseBuilder
-                .WithBody(responseBody)
-                .WithDelay(50, TimeUnit.Milliseconds)
-                .AddContentType(contentType)
-                .WithStatusCode(HttpStatusCode.OK)
-                .Build();
-
-            var json = JsonConvert.SerializeObject(response);
-            
-            _logger.WriteLine(json);
             
             await MockedServer.SetupAsync(
                 builder =>
@@ -164,7 +153,7 @@ namespace NinjaTools.FluentMockServer.Tests
                         .OnHandling(method, request => request.WithPath(path))
                         .RespondOnce(HttpStatusCode.OK, response =>
                             response
-                                .WithBody(response)
+                                .WithBody(responseBody)
                                 .WithDelay(50, TimeUnit.Milliseconds)
                                 .AddContentType(contentType))
                         .Setup()

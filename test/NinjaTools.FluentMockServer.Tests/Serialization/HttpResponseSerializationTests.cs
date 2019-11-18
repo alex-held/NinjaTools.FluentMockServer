@@ -2,6 +2,7 @@ using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using Xunit;
@@ -40,7 +41,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             };
 
             var expected = new JObject(new JProperty("body", "Hello World!"));
-            var jo = JObject.FromObject(response);
+            var jo = response.AsJObject();
             jo.Should().BeEquivalentTo(expected);
         }
         

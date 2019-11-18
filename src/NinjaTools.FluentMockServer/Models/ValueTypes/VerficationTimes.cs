@@ -6,9 +6,7 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
 public class VerficationTimes 
     {
-
- 
-
+        
         public static VerficationTimes Once => new VerficationTimes(1, 1);
         public static VerficationTimes Twice => new VerficationTimes(2, 2);
         public static VerficationTimes Between(int atLeast, int atMost) => new VerficationTimes(atLeast, atMost);
@@ -22,9 +20,8 @@ public class VerficationTimes
             AtLeast = atLeast;
             AtMost = atMost;
         }
-
+        
         public int? AtLeast { get; }
-
         public int? AtMost { get; }
     }
 }

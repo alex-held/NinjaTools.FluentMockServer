@@ -147,7 +147,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
         }
         
         [Fact]
-        public void WithoutExactString()
+        public void WithoutExactContent()
         {
             // Arrange
             const string content = "some_string";
@@ -159,7 +159,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
     }
 }";
             // Act & Assert
-            Assert(expected, builder => builder.WithoutExactString(content));
+            Assert(expected, builder => builder.WithoutExactContent(content));
         }
         
         
@@ -179,7 +179,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
     }
 }";
             // Act & Assert
-            Assert(expected,builder => builder.WithoutExactString(content).WithContentType(contentType));
+            Assert(expected,bodyBuilder => bodyBuilder.WithoutExactContent(content, contentType));
         }
     }
 }

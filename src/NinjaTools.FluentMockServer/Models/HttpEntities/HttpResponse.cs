@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Net;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 

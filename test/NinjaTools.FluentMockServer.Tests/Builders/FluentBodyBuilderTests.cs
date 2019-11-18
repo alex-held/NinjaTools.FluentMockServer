@@ -84,13 +84,6 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             ""jsonSchema"" : ""{\""$schema\"": \""http://json-schema.org/draft-04/schema#\"", \""title\"": \""Product\"", \""description\"": \""A product from Acme's catalog\"", \""type\"": \""object\"", \""properties\"": { \""id\"": { \""description\"": \""The unique identifier for a product\"", \""type\"": \""integer\"" }, \""name\"": { \""description\"": \""Name of the product\"", \""type\"": \""string\""}, \""price\"": { \""type\"": \""number\"", \""minimum\"": 0, \""exclusiveMinimum\"": true }, \""tags\"": { \""type\"": \""array\"", \""items\"": { \""type\"": \""string\"" }, \""minItems\"": 1, \""uniqueItems\"": true } }, \""required\"": [\""id\"", \""name\"", \""price\""] }""    }
             }"; 
             
-             const string expectedNegated = @"{
-            ""body"": {
-            ""not"": true,
-            ""type"": ""JSON_SCHEMA"",
-            ""jsonSchema"" : ""{\""$schema\"": \""http://json-schema.org/draft-04/schema#\"", \""title\"": \""Product\"", \""description\"": \""A product from Acme's catalog\"", \""type\"": \""object\"", \""properties\"": { \""id\"": { \""description\"": \""The unique identifier for a product\"", \""type\"": \""integer\"" }, \""name\"": { \""description\"": \""Name of the product\"", \""type\"": \""string\""}, \""price\"": { \""type\"": \""number\"", \""minimum\"": 0, \""exclusiveMinimum\"": true }, \""tags\"": { \""type\"": \""array\"", \""items\"": { \""type\"": \""string\"" }, \""minItems\"": 1, \""uniqueItems\"": true } }, \""required\"": [\""id\"", \""name\"", \""price\""] }""    }
-            }"; 
- 
             // Act & Assert
             Assert(expected, builder => builder.MatchingJsonSchema(content));
         }
@@ -179,7 +172,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
         }
         
         [Fact]
-        public void WithExactString()
+        public void  WithExactContent()
         {
             // Arrange
             const string content = "some_string";
@@ -190,7 +183,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
     }
 }";
             // Act & Assert
-            Assert(expected, builder => builder.WithExactString(content));
+            Assert(expected, builder => builder.WithExactContent(content));
         }
         
         
@@ -207,7 +200,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
     }
 }";
             // Act & Assert
-            Assert(expected, builder => builder.WithExactString(content).WithContentType("application/json"));
+            Assert(expected, builder => builder.WithExactContent(content, "application/json"));
         }
     }
 }

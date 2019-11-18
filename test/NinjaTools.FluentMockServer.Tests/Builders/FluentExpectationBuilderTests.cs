@@ -5,6 +5,7 @@ using System.Net.Http;
 
 using FluentAssertions;
 using NinjaTools.FluentMockServer.Builders.Expectation;
+using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 using Xunit;
@@ -23,17 +24,18 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
         public void Should_Set_Times()
         {
             // Arrange
-            Action<IFluentExpectationBuilder> factory = builder => builder
+            Action<IFluentExpectationBuilder> fac = expectationBuilder => expectationBuilder
                         .OnHandling(HttpMethod.Post, request => request.WithPath("/"))
                         .RespondOnce(HttpStatusCode.Created, resp => resp.WithDelay(1, TimeUnit.Milliseconds));
+            
             
             var setup = new MockServerSetup();
             var builder = new FluentExpectationBuilder(setup);
             
             // Act
-            factory(builder);
+            fac(builder);
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.ToString();
+            var result = expectation.AsJson(); 
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -50,7 +52,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             var builder = new FluentExpectationBuilder();
             
             // Act
-            var result = builder.RespondTimes(times, 200).Setup().Expectations.First().ToString();
+            var result = builder.RespondTimes(times, 200).Setup().Expectations.First().AsJson();
             
             
             // Assert
@@ -73,7 +75,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
                 .WhichIsValidFor(10, TimeUnit.Seconds)
                 .Setup()
                 .Expectations.First()
-                .ToString();
+                .AsJson();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -95,7 +97,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             // Act
             factory(builder);
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.ToString();
+            var result = expectation.AsJson();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -119,7 +121,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             // Act
             factory(builder);
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.ToString();
+            var result = expectation.AsJson();
             
             // Assert
             _outputHelper.WriteLine(result);

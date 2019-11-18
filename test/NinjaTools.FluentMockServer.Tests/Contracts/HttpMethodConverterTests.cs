@@ -108,15 +108,14 @@ namespace NinjaTools.FluentMockServer.Tests.Contracts
 
         /// <summary>Gets a random request body.</summary>
         /// <returns></returns>
-        public RequestBody GetRandomRequestBody()
+        public Body GetRandomRequestBody()
         {
-            var faker = new Faker<RequestBody>()
-                        .CustomInstantiator(faker => new RequestBody(RequestBody.BodyType.JSON, false))
-                        .RuleFor(
-                            x => x.Json, () =>
+            var faker = new Faker<Body>()
+                        .CustomInstantiator(faker => new Body())
+                        .RuleFor(x => x.Path, () =>
                                         JObject.FromObject(GetRandomRantCollection())
                                                     .ToString(Formatting.Indented))
-                        .RuleFor(x => x.Type, RequestBody.BodyType.JSON);
+                        .RuleFor(x => x.Path, Body.BodyType.JSON.ToString());
 
             faker.AssertConfigurationIsValid();
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 
 namespace NinjaTools.FluentMockServer.Models.HttpEntities
@@ -27,7 +28,7 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
         /// <summary>
         /// Body constraints that need be fulfilled.
         /// </summary>
-        public RequestBody? Body { get; set; }
+        public JToken Body { get; set; }
 
         /// <summary>
         /// Constrains on the path

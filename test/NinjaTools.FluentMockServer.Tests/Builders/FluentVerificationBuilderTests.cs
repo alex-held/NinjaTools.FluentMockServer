@@ -6,6 +6,7 @@ using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Builders.Verify;
+using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 using Xunit;
@@ -49,13 +50,13 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
                 {
                     ["path"] = "/some/path"
                 }
-            }.ToString(Formatting.Indented);
+            }.AsJson();
             
             var builder = new FluentVerificationBuilder();
             
             // Act
             builder.Verify(request => request.WithPath("some/path"));
-            var result = builder.Build().ToString();
+            var result = builder.Build().AsJson();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -66,25 +67,25 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
         public void Should_Verify_Once()
         {
             // Arrange
-            var expected = JObject.FromObject(
-                new
-                {
-                    httpRequest = new
-                    {
-                        path = "/some/path"
-                    },
-                    times = new VerficationTimes(1, 1)
-                });
+            var expected = @"{
+  ""httpRequest"": {
+    ""path"": ""/some/path""
+  },
+  ""times"": {
+    ""atLeast"": 1,
+    ""atMost"": 1
+  }
+}";
             
             var builder = new FluentVerificationBuilder();
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).Once();
-            var result = builder.Build().ToString();
+            var result = builder.Build().AsJson();
             
             // Assert
             _outputHelper.WriteLine(result);
-            result.Should().Be(expected.ToString(Formatting.Indented));
+            result.Should().Be(expected);
         }
         
         
@@ -105,7 +106,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).Between(1, 2);
-            var result = builder.Build().ToString();
+            var result = builder.Build().AsJson();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -132,7 +133,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).AtMost(5);
-            var result = builder.Build().ToString();
+            var result = builder.Build().AsJson();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -148,16 +149,16 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
                 {
                     ["path"] = "/some/path"
                 },
-                ["times"] = new JObject 
-                { 
+                ["times"] = new JObject
+                {
                     ["atLeast"] = 5
                 }
-            }.ToString(Formatting.Indented);
+            }.AsJson();
             var builder = new FluentVerificationBuilder();
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).AtLeast(5);
-            var result = builder.Build().ToString();
+            var result = builder.Build().AsJson();
             
             // Assert
             _outputHelper.WriteLine(result);

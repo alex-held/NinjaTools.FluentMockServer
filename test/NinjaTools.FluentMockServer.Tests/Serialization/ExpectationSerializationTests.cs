@@ -3,9 +3,11 @@ using System.Net.Http;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
+using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Serialization;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -31,7 +33,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             {
                 HttpRequest = new HttpRequest
                 {
-                    Body = RequestBody.MatchXml("<xml here>"),
+                    Body = Body.Init("XML").AddOrUpdate("xml",  "<xml here>"),
                     Path = "",
                     Method = HttpMethod.Post.Method
                 },
@@ -53,8 +55,8 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             
             
             // Act
-            var jo = JObject.FromObject(expectation);
-            var json = expectation.ToString();
+            var jo = expectation.AsJObject();
+            var json = Serializer.Serialize(expectation);
 
             _logger.LogInformation("JSON", json);
             

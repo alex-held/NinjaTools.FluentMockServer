@@ -25,8 +25,7 @@ namespace NinjaTools.FluentMockServer.Models
         /// The Target specification to forward the matched <see cref="HttpRequest"/> to.
         /// </summary>
         public HttpForward HttpForward { get; set; }
-
-
+        
         public HttpTemplate HttpForwardTemplate { get; set; }
 
         /// <summary>

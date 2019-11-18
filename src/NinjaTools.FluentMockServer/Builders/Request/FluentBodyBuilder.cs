@@ -5,69 +5,46 @@ using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Models;
 
 [assembly: InternalsVisibleTo("NinjaTools.FluentMockServer.Tests")]
+
 namespace NinjaTools.FluentMockServer.Builders.Request
 {
     internal class FluentBodyBuilder : IFluentBodyBuilder
     {
-        private RequestBody _body;
+        private Body Body { get; set; } = new Body();
         
-        public RequestBody Body
-        {
-            get => _body ??= new RequestBody(RequestBody.BodyType.STRING, false);
-            set => _body = value;
-        }
-        
-        private JToken Token { get; set; }
-
-
         private void Invert(Action action)
         {
             action();
-
-            Body.Not = Body.Not.HasValue
-                        ? ( bool? ) null
-                        : true;
+            Body.AddOrUpdate("not", true);
         }
 
-
-        private T Invert<T>(Func<T> action)
-        {
-            var result = action();
-
-            Body.Not = Body.Not.HasValue
-                        ? ( bool? ) null
-                        : true;
-
-            return result;
-        }
-        
         /// <inheritdoc />
         public void WithBinary(string base64)
         {
-            _body ??= new RequestBody(RequestBody.BodyType.BINARY, false);
-            _body.Base64Bytes = base64;
+            Add("BINARY", ("base64Bytes", base64));
         }
 
-        /// <inheritdoc />
-        public void WithLiteral(string literal)
+
+        internal void Add(string type, params (string key, object value)[] tuples)
         {
-            Body = new RequestBody();
-            Body.Literal = literal;
+            Body = Body.Init(type);
+            foreach (var (key, value) in tuples)
+            {
+                Body.AddOrUpdate(key, new JValue(value));
+            }
         }
 
         /// <inheritdoc />
-        public void ContainingJson
-                    (string subJson) => Body = RequestBody.MatchPartialJson(subJson);
-
-
-        /// <inheritdoc />
-        public void NotContainingJson
-                    (string subJson) => Invert(() => ContainingJson(subJson));
-
+        public void ContainingJson(string json)
+        { 
+           Add("JSON",  ("json", json));
+        }
 
         /// <inheritdoc />
-        public void WithExactJson(string content) => Body = RequestBody.MatchExactJson(content);
+        public void NotContainingJson(string json) => Invert( () => ContainingJson(json));
 
+        /// <inheritdoc />
+        public void WithExactJson(string json) =>   Add("JSON", ("json", json), ("matchType", "STRICT"));
 
         /// <inheritdoc />
         public void WithoutExactJson(string json) => Invert(() => WithExactJson(json));
@@ -78,7 +55,7 @@ namespace NinjaTools.FluentMockServer.Builders.Request
 
 
         /// <inheritdoc />
-        public void MatchingXPath(string path) => Body = RequestBody.MatchXPath(path);
+        public void MatchingXPath(string path) => Add("XPATH", ("xpath", path));
 
 
         /// <inheritdoc />
@@ -86,7 +63,7 @@ namespace NinjaTools.FluentMockServer.Builders.Request
 
 
         /// <inheritdoc />
-        public void MatchingXmlSchema(string xmlSchema) => Body = RequestBody.MatchXmlSchema(xmlSchema);
+        public void MatchingXmlSchema(string xmlSchema) => Add("XML_SCHEMA", ("xmlSchema", xmlSchema));
 
 
         /// <inheritdoc />
@@ -94,7 +71,7 @@ namespace NinjaTools.FluentMockServer.Builders.Request
 
 
         /// <inheritdoc />
-        public void MatchingJsonPath(string path) => Body = RequestBody.MatchJsonPath(path);
+        public void MatchingJsonPath(string path) => Add("JSON_PATH",("jsonPath", path));
 
 
         /// <inheritdoc />
@@ -102,52 +79,47 @@ namespace NinjaTools.FluentMockServer.Builders.Request
 
 
         /// <inheritdoc />
-        public void MatchingJsonSchema (string jsonSchema) => Body = RequestBody.MatchJsonSchema(jsonSchema);
-
+        public void MatchingJsonSchema(string jsonSchema) => Add("JSON_SCHEMA", ("jsonSchema", jsonSchema));
 
         /// <inheritdoc />
         public void NotMatchingJsonSchema(string jsonSchema) => Invert(() => MatchingJsonSchema(jsonSchema));
 
-
         /// <inheritdoc />
-        public void ContainingSubstring(string substring) => Body = RequestBody.MatchSubstring(substring);
-
-
+        public void ContainingSubstring(string substring) => Add("STRING", ("string", substring), ("substring", true));
+        
         /// <inheritdoc />
         public void NotContainingSubstring(string substring) => Invert(() => ContainingSubstring(substring));
 
         /// <inheritdoc />
-        public ISetupContentType WithExactString(string content)
+        public void WithExactContent(string content, string contentType)
         {
-            Body = RequestBody.MatchString(content);
-           return this;
+            if (!string.IsNullOrWhiteSpace(contentType))
+            {
+                Add("STRING", ("string", content));
+            }
+            
+            Add("STRING", ("string", content), ("contentType", contentType));
         }
 
         /// <inheritdoc />
-        public ISetupContentType WithoutExactString(string content) => Invert(() => WithExactString(content));
+        public void WithoutExactContent(string content, string contentType) => Invert(() =>WithExactContent(content, contentType));
+
+        /// <inheritdoc />
+        public void WithXmlContent(string content) => Add("XML", ("xml", content));
+
+        /// <inheritdoc />
+        public void WithExactJsonForItem<T>(T item) => WithExactJsonForItems(item);
         
         /// <inheritdoc />
-        public void WithXmlContent(string content) => Body = RequestBody.MatchXml(content);
+        public void WithExactJsonForItems<T>(params T[] items) => WithExactContent(JsonConvert.SerializeObject(items, Formatting.Indented), "application/json");
 
         /// <inheritdoc />
-        public void WithExactJsonForItem<T>
-                    (T item) => Body = RequestBody.MatchPartialJson(
-            JsonConvert.SerializeObject(item, Formatting.Indented));
-
-
-        /// <inheritdoc />
-        public void WithExactJsonForItems<T>
-                    (params T[] items) => Body = RequestBody.MatchExactJson(
-            JsonConvert.SerializeObject(items, Formatting.Indented));
-
-        /// <inheritdoc />
-        public void WithContentType(string contentType) => Body.ContentType = contentType;
+        public void WithContentType(string contentType) => Body.AddOrUpdate("contentType", contentType);
         
         /// <inheritdoc />
-        public void WithCommonContentType(CommonContentType contentType)
-            => WithContentType(contentType.ToString());
+        public void WithCommonContentType(CommonContentType contentType) =>   WithContentType(contentType.ToString());
         
         /// <inheritdoc />
-        public JToken Build() => Token;
+        public JToken Build() => Body;
     }
 }

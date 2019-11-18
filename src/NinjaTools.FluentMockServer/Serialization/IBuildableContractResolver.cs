@@ -59,15 +59,20 @@ namespace NinjaTools.FluentMockServer.Serialization
         {
             NamingStrategy = new CamelCaseNamingStrategy
             {
-                ProcessDictionaryKeys = true,
-                OverrideSpecifiedNames = true
+                ProcessDictionaryKeys = false,
+                OverrideSpecifiedNames = false
             };
         }
         
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
+/*
 
+            if (property.PropertyType == typeof())
+            {
+                
+            }*/
             /*
             if (typeof().IsAssignableFrom(property.PropertyType) && property.Readable)
             {
