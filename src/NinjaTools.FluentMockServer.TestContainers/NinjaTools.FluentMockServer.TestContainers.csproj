@@ -18,6 +18,7 @@
         <PackageVersion>1.0.7</PackageVersion>
         <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.0;netcoreapp2.1;netcoreapp3.1;netcoreapp2.2</TargetFrameworks>
         <AssemblyVersion>1.0.7</AssemblyVersion>
+        <IsPackable>true</IsPackable>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
