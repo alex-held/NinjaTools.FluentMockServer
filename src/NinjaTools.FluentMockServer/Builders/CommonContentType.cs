@@ -22,6 +22,15 @@ namespace NinjaTools.FluentMockServer.Builders
         /// <returns></returns>
         [Pure]
         public static implicit operator string([NotNull] CommonContentType contentType) => contentType.Name;
+
+        /// <summary>
+        /// The MIME content type
+        /// </summary>
+        /// <param name="contentType"></param>
+        /// <returns></returns>
+        [Pure]
+        public static implicit operator CommonContentType([NotNull] string contentType) => ToList()
+            .FirstOrDefault(c => c.ToString() == contentType);
         
         public int Id { get; }
 

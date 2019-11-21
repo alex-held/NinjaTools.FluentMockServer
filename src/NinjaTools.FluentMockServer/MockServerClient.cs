@@ -1,10 +1,10 @@
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-
-using NinjaTools.FluentMockServer.Builders;
+using NinjaTools.FluentMockServer.Builders.Expectation;
 using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Requests;
+using NinjaTools.FluentMockServer.Serialization;
 using NinjaTools.FluentMockServer.Utils;
 
 
@@ -45,13 +45,40 @@ namespace NinjaTools.FluentMockServer
                 var uri = new Uri(MockServerEndpoint, setup.BaseUrl);
                 _httpClient.BaseAddress = uri;
             }
-            
-            foreach ( var expectation in setup.Expectations ) 
+ 
+            foreach ( var expectation in setup.Expectations )
             {
                 var request = new HttpRequestMessage(HttpMethod.Put, GetMockServerUri("expectation"))
                 {
                             Content = new JsonContent(expectation)
                 };
+                
+                var response = await _httpClient.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+            }
+        }
+        
+        
+        /// <summary>
+        /// Configures the MockServer Client using a predefined <see cref="MockServerSetup"/>.
+        /// </summary>
+        /// <param name="setup"></param>
+        /// <returns></returns>
+        public async Task SetupAsync(MockServerSetup setup)
+        {
+            if (setup.BaseUrl != null)
+            { 
+                var uri = new Uri(MockServerEndpoint, setup.BaseUrl);
+                _httpClient.BaseAddress = uri;
+            }
+            
+            foreach ( var expectation in setup.Expectations ) 
+            {
+                var request = new HttpRequestMessage(HttpMethod.Put, GetMockServerUri("expectation"))
+                {
+                    Content = new JsonContent(expectation)
+                };
+                
                 var response = await _httpClient.SendAsync(request);
                 response.EnsureSuccessStatusCode();
             }

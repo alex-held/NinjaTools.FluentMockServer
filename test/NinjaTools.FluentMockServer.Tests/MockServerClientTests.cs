@@ -43,8 +43,8 @@ namespace NinjaTools.FluentMockServer.Tests
             try {
                 var content = await request.Content.ReadAsStringAsync();
                 var expectation = JsonConvert.DeserializeObject<Expectation>(content);
-                
-                json = expectation.Serialize();
+
+                json = expectation.ToString();
                 Expectations.Add(expectation);
             } 
             catch (Exception e) 
@@ -63,7 +63,6 @@ namespace NinjaTools.FluentMockServer.Tests
 
 
         public FluentExpectationBuilderTests(ITestOutputHelper outputHelper) { _outputHelper = outputHelper; }
-        
         
         [Fact]
         public async Task Should_Build_Expectation()

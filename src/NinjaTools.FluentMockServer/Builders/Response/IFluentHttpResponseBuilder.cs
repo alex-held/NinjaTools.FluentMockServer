@@ -1,27 +1,37 @@
 using System;
-using System.ComponentModel;
-
+using System.Net;
+using NinjaTools.FluentMockServer.Builders.Request;
 using NinjaTools.FluentMockServer.FluentInterfaces;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+namespace NinjaTools.FluentMockServer.Builders.Response
 {
+   
     /// <summary>
     /// 
     /// </summary>
-    [EditorBrowsable(EditorBrowsableState.Never)]
-    public interface IFluentHttpResponseBuilder : IFluentInterface
+    public interface IFluentHttpResponseBuilder  : IFluentInterface
     {
-        IFluentHttpResponseBuilder WithDelay(Action<IFluentDelayBuilder> delayFactory);
-        IFluentHttpResponseBuilder WithDelay(int value, TimeUnit timeUnit);
+        IFluentHttpResponseBuilder WithBody<T>(T payload) where T : class;
+        IFluentHttpResponseBuilder WithBody(string value);
+        IFluentHttpResponseBuilder WithBody(byte[] bytes, string contentType);
+        IFluentHttpResponseBuilder FileBody(byte[] bytes, string filename, string contentType);
+        
+        
+        IFluentHttpResponseBuilder WithStatusCode(int code);  
+        IFluentHttpResponseBuilder WithStatusCode(HttpStatusCode code);  
+        
+        
         IFluentHttpResponseBuilder WithHeader(string name, string value);
-        IFluentHttpResponseBuilder WithHeaders(Action<IFluentHeaderBuilder> headerFactory);
-        IFluentHttpResponseBuilder WithConnectionOptions(Action<IFluentConnectionOptionsBuilder> connectionOptionsFactory);
-        IFluentHttpResponseBuilder WithLiteralBody(string literal, string contentType = null);
-        IFluentHttpResponseBuilder WithBinaryFileBody(byte[] bytes, string filename, string contentType);
-        IFluentHttpResponseBuilder WithBinaryBody(string base64Bytes, string contentType);
+        IFluentHttpResponseBuilder AddContentType(string contentType);
+        
+        IFluentHttpResponseBuilder ConfigureHeaders(Action<IFluentResponseHeaderBuilder> headerFactory);
+        IFluentHttpResponseBuilder ConfigureConnection(Action<IFluentConnectionOptionsBuilder> connectionOptionsFactory);
+        
+        IFluentHttpResponseBuilder WithDelay(int value, TimeUnit timeUnit);
+        
         HttpResponse Build();
     }
+    
 }

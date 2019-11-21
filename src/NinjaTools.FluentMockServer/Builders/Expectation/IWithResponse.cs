@@ -1,12 +1,9 @@
 using System.ComponentModel;
-
 using JetBrains.Annotations;
-
 using NinjaTools.FluentMockServer.FluentInterfaces;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+namespace NinjaTools.FluentMockServer.Builders.Expectation
 {
     /// <summary>
     /// 

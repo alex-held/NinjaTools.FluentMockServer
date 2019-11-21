@@ -1,7 +1,6 @@
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+namespace NinjaTools.FluentMockServer.Builders.Response
 {
     internal sealed class FluentDelayBuilder : IFluentDelayBuilder
     {
@@ -20,7 +19,7 @@ namespace NinjaTools.FluentMockServer.Builders
         }
 
         /// <inheritdoc />
-        public void FromMiliSeconds(int ms)  
+        public void FromMilliSeconds(int ms)  
         {
             _delay.Value = ms;
             _delay.TimeUnit = TimeUnit.Milliseconds;

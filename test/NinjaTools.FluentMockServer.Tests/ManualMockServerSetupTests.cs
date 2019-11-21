@@ -4,8 +4,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using FluentAssertions;
-
-using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Requests;
@@ -70,7 +68,7 @@ namespace NinjaTools.FluentMockServer.Tests
             response.EnsureSuccessStatusCode();
             
             // Act
-            var verification = VerificaionRequest.Once( new HttpRequest(){ Path = "test", HttpMethod = HttpMethod.Get});
+            var verification = VerificaionRequest.Once( new HttpRequest(){ Path = "test", Method = HttpMethod.Get.Method});
             response = await client.Verify(verification);
             
             // Assert

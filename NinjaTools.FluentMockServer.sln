@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer", "src\NinjaTools.FluentMockServer\NinjaTools.FluentMockServer.csproj", "{E9883692-C8F8-4CA9-8EDB-7859809D8DB8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.TestContainers", "src\NinjaTools.FluentMockServer.TestContainers\NinjaTools.FluentMockServer.TestContainers.csproj", "{4E051198-705E-4605-8EEE-951D05E4B860}"

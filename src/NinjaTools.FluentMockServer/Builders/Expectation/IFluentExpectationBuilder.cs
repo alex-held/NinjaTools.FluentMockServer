@@ -1,7 +1,6 @@
 using System.ComponentModel;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+namespace NinjaTools.FluentMockServer.Builders.Expectation
 {
     /// <summary>
     /// 

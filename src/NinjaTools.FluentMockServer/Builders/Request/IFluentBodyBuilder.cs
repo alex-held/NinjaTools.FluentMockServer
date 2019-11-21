@@ -1,16 +1,13 @@
+using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.FluentInterfaces;
-using NinjaTools.FluentMockServer.Models;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+namespace NinjaTools.FluentMockServer.Builders.Request
 {
-    public interface IFluentBodyBuilder : IFluentBuilder<RequestBody>, IFluentInterface
+    public interface IFluentBodyBuilder : IFluentBuilder<JToken>
     {
         void WithBinary(string base64);
-        
-        void WithLiteral(string literal);
-        
-        void ContainingJson(string subJson);
+
+        void ContainingJson(string json);
         void NotContainingJson(string subJson);
 
         
@@ -40,10 +37,14 @@ namespace NinjaTools.FluentMockServer.Builders
         
         void ContainingSubstring(string substring);
         void NotContainingSubstring(string substring);
+
+
+        void WithExactContent(string content, string contentType = null);
+        void WithoutExactContent(string content, string contentType = null);
         
         
-        ISetupContentType WithExactString(string content);
-        ISetupContentType WithoutExactString(string content);
+        void WithContentType(string contentType);
+        void WithCommonContentType(CommonContentType contentType);
         
         
         void WithExactJsonForItems<T>(params T[] content);

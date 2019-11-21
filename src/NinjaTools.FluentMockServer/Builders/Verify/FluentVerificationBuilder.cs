@@ -1,18 +1,16 @@
 using System;
-
-using NinjaTools.FluentMockServer.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Builders.Request;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
-
-namespace NinjaTools.FluentMockServer.Builders
+namespace NinjaTools.FluentMockServer.Builders.Verify
 {
     public class FluentVerificationBuilder : IFluentVerificationBuilder, FluentVerificationBuilder.IWithRequest
     {
-        private Verify _verify;
+        private Models.HttpEntities.Verify _verify;
         
         public FluentVerificationBuilder()
         {
-            _verify = new Verify();;
+            _verify = new Models.HttpEntities.Verify();;
         }
          
         public interface IWithRequest
@@ -26,7 +24,7 @@ namespace NinjaTools.FluentMockServer.Builders
 
 
         /// <inheritdoc />
-        public Verify Build() => _verify;
+        public Models.HttpEntities.Verify Build() => _verify;
 
 
         /// <inheritdoc />

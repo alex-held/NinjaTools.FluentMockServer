@@ -1,0 +1,120 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "httpRequest": {
+            "$id": "#/items/properties/httpRequest",
+            "type": "object",
+            "required": [
+                "method",
+                "path"
+            ],
+            "properties": {
+                "method": {
+                    "$id": "#/items/properties/httpRequest/properties/method",
+                    "type": "string"
+                },
+                "path": {
+                    "$id": "#/items/properties/httpRequest/properties/path",
+                    "type": "string"
+                }
+            }
+        },
+        "httpResponse": {
+            "$id": "#/items/properties/httpResponse",
+            "type": "object",
+            "required": [
+                "statusCode",
+                "headers",
+                "delay",
+                "body"
+            ],
+            "properties": {
+                "statusCode": {
+                    "$id": "#/items/properties/httpResponse/properties/statusCode",
+                    "type": "integer"
+                },
+                "headers": {
+                    "$id": "#/items/properties/httpResponse/properties/headers",
+                    "type": "object",
+                    "required": [
+                        "Content-Type"
+                    ],
+                    "properties": {
+                        "Content-Type": {
+                            "$id": "#/items/properties/httpResponse/properties/headers/properties/Content-Type",
+                            "type": "array",
+                            "items": {
+                                "$id": "#/items/properties/httpResponse/properties/headers/properties/Content-Type/items",
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "delay": {
+                    "$id": "#/items/properties/httpResponse/properties/delay",
+                    "type": "object",
+                    "required": [
+                        "timeUnit",
+                        "value"
+                    ],
+                    "properties": {
+                        "timeUnit": {
+                            "$id": "#/items/properties/httpResponse/properties/delay/properties/timeUnit",
+                            "type": "string"
+                        },
+                        "value": {
+                            "$id": "#/items/properties/httpResponse/properties/delay/properties/value",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "body": {
+                    "$id": "#/items/properties/httpResponse/properties/body",
+                    "type": "object",
+                    "required": [
+                        "body"
+                    ],
+                    "properties": {
+                        "body": {
+                            "$id": "#/items/properties/httpResponse/properties/body/properties/body",
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "times": {
+            "$id": "#/items/properties/times",
+            "type": "object",
+            "required": [
+                "remainingTimes"
+            ],
+            "properties": {
+                "remainingTimes": {
+                    "$id": "#/items/properties/times/properties/remainingTimes",
+                    "type": "integer"
+                }
+            }
+        },
+        "timeToLive": {
+            "$id": "#/items/properties/timeToLive",
+            "type": "object",
+            "required": [
+                "unlimited"
+            ],
+            "properties": {
+                "unlimited": {
+                    "$id": "#/items/properties/timeToLive/properties/unlimited",
+                    "type": "boolean"
+                }
+            }
+        }
+    },
+    "required": [
+        "httpRequest",
+        "httpResponse",
+        "times",
+        "timeToLive"
+    ]
+}

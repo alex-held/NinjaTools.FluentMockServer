@@ -1,13 +1,9 @@
 using System;
 using System.Linq;
-
-using FluentAssertions.Json;
-
+using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-
-using NinjaTools.FluentMockServer.Builders;
-
+using NinjaTools.FluentMockServer.Builders.Request;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -20,8 +16,8 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
         {
             var builder = new  FluentBodyBuilder();
             factory(builder);
-            
-            var resultJToken = builder.Build().SerializeJObject();
+
+            var resultJToken = builder.Build();
             var expectedJToken = JObject.Parse(expected);
             
             var envelope = new JObject(new JProperty("body", "{CONTENT}"));
@@ -37,7 +33,8 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             _outputHelper.WriteLine($"Expected:\n\n{expected}\n");
             _outputHelper.WriteLine($"Actual:\n\n{result}\n");
 
-            JsonAssertionExtensions.Should(envelope).BeEquivalentTo(expectedJToken);
+            envelope.Should().BeEquivalentTo(expectedJToken);
+       //     JsonAssertionExtensions.Should(envelope).BeEquivalentTo(expectedJToken);
             
         }
         private readonly ITestOutputHelper _outputHelper;
@@ -87,13 +84,6 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             ""jsonSchema"" : ""{\""$schema\"": \""http://json-schema.org/draft-04/schema#\"", \""title\"": \""Product\"", \""description\"": \""A product from Acme's catalog\"", \""type\"": \""object\"", \""properties\"": { \""id\"": { \""description\"": \""The unique identifier for a product\"", \""type\"": \""integer\"" }, \""name\"": { \""description\"": \""Name of the product\"", \""type\"": \""string\""}, \""price\"": { \""type\"": \""number\"", \""minimum\"": 0, \""exclusiveMinimum\"": true }, \""tags\"": { \""type\"": \""array\"", \""items\"": { \""type\"": \""string\"" }, \""minItems\"": 1, \""uniqueItems\"": true } }, \""required\"": [\""id\"", \""name\"", \""price\""] }""    }
             }"; 
             
-             const string expectedNegated = @"{
-            ""body"": {
-            ""not"": true,
-            ""type"": ""JSON_SCHEMA"",
-            ""jsonSchema"" : ""{\""$schema\"": \""http://json-schema.org/draft-04/schema#\"", \""title\"": \""Product\"", \""description\"": \""A product from Acme's catalog\"", \""type\"": \""object\"", \""properties\"": { \""id\"": { \""description\"": \""The unique identifier for a product\"", \""type\"": \""integer\"" }, \""name\"": { \""description\"": \""Name of the product\"", \""type\"": \""string\""}, \""price\"": { \""type\"": \""number\"", \""minimum\"": 0, \""exclusiveMinimum\"": true }, \""tags\"": { \""type\"": \""array\"", \""items\"": { \""type\"": \""string\"" }, \""minItems\"": 1, \""uniqueItems\"": true } }, \""required\"": [\""id\"", \""name\"", \""price\""] }""    }
-            }"; 
- 
             // Act & Assert
             Assert(expected, builder => builder.MatchingJsonSchema(content));
         }
@@ -182,7 +172,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
         }
         
         [Fact]
-        public void WithExactString()
+        public void  WithExactContent()
         {
             // Arrange
             const string content = "some_string";
@@ -193,7 +183,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
     }
 }";
             // Act & Assert
-            Assert(expected, builder => builder.WithExactString(content));
+            Assert(expected, builder => builder.WithExactContent(content));
         }
         
         
@@ -210,7 +200,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
     }
 }";
             // Act & Assert
-            Assert(expected, builder => builder.WithExactString(content).WithContentType("application/json"));
+            Assert(expected, builder => builder.WithExactContent(content, "application/json"));
         }
     }
 }

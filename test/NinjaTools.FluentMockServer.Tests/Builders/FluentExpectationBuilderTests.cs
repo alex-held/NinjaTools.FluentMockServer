@@ -4,8 +4,8 @@ using System.Net;
 using System.Net.Http;
 
 using FluentAssertions;
-
-using NinjaTools.FluentMockServer.Builders;
+using NinjaTools.FluentMockServer.Builders.Expectation;
+using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 using Xunit;
@@ -17,27 +17,25 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
     public class FluentExpectationBuilderTests
     {
         private readonly ITestOutputHelper _outputHelper;
-
-
         public FluentExpectationBuilderTests(ITestOutputHelper outputHelper) { _outputHelper = outputHelper; }
-        
         
         
         [Fact]
         public void Should_Set_Times()
         {
             // Arrange
-            Action<IFluentExpectationBuilder> factory = builder => builder
+            Action<IFluentExpectationBuilder> fac = expectationBuilder => expectationBuilder
                         .OnHandling(HttpMethod.Post, request => request.WithPath("/"))
                         .RespondOnce(HttpStatusCode.Created, resp => resp.WithDelay(1, TimeUnit.Milliseconds));
+            
             
             var setup = new MockServerSetup();
             var builder = new FluentExpectationBuilder(setup);
             
             // Act
-            factory(builder);
+            fac(builder);
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.Serialize();
+            var result = expectation.AsJson(); 
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -54,7 +52,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             var builder = new FluentExpectationBuilder();
             
             // Act
-            var result = builder.RespondTimes(times, 200).Setup().Expectations.First().Serialize();
+            var result = builder.RespondTimes(times, 200).Setup().Expectations.First().AsJson();
             
             
             // Assert
@@ -72,12 +70,12 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             
             // Act
             var result = builder
-                        .OnHandlingAny()
-                        .RespondWith(HttpStatusCode.OK)
-                        .WhichIsValidFor(10, TimeUnit.Seconds)
-                        .Setup()
-                        .Expectations.First()
-                        .Serialize();
+                .OnHandlingAny()
+                .RespondWith(HttpStatusCode.OK)
+                .WhichIsValidFor(10, TimeUnit.Seconds)
+                .Setup()
+                .Expectations.First()
+                .AsJson();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -99,7 +97,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             // Act
             factory(builder);
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.Serialize();
+            var result = expectation.AsJson();
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -123,7 +121,7 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
             // Act
             factory(builder);
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.Serialize();
+            var result = expectation.AsJson();
             
             // Assert
             _outputHelper.WriteLine(result);
