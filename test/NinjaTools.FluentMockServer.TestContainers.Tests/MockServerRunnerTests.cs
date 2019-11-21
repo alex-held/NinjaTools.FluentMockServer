@@ -4,10 +4,11 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using NinjaTools.FluentMockServer.Builders;
+using NinjaTools.FluentMockServer.Builders.Expectation;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Requests;
+using NinjaTools.FluentMockServer.Serialization;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -77,13 +78,13 @@ namespace NinjaTools.FluentMockServer.TestContainers.Tests
 
             foreach (var setupExpectation in factory(builder).Expectations)
             {
-                _outputHelper.WriteLine(setupExpectation.Serialize());
+                _outputHelper.WriteLine(Serializer.Serialize(setupExpectation));
             }
 
             // Act
           
             var expectation = factory(builder).Expectations.First();
-            _outputHelper.WriteLine(expectation.Serialize());
+            _outputHelper.WriteLine(Serializer.Serialize(expectation));
 
             await Client.SetupAsync(factory);
 
@@ -107,7 +108,7 @@ namespace NinjaTools.FluentMockServer.TestContainers.Tests
                 // Act
                 var verification = VerificaionRequest.Once(new HttpRequest
                 {
-                    HttpMethod = HttpMethod.Get,
+                    Method = HttpMethod.Get.Method,
                     Path = "/test"
                 });
                 var response = await Client.Verify(verification);
