@@ -1,54 +1,75 @@
+import { Routes } from '@angular/router';
+import { ChartModule } from 'primeng/chart';
+import { InputTextModule } from 'primeng/inputtext';
+import { SidebarModule } from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { PanelModule } from 'primeng/panel';
+import { ToastModule } from 'primeng/toast';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { PanelModule } from 'primeng/panel';
-import { SidebarComponent } from './dashboard/components/sidebar/sidebar.component';
-import { SidebarModule } from 'primeng/sidebar';
-import { ButtonModule } from 'primeng/button';
-import { TableComponent } from './dashboard/components/table/table.component';
-import { TableModule } from 'primeng/table';
-import { InputTextModule } from 'primeng/inputtext';
-import { MenubarComponent } from './dashboard/components/menubar/menubar.component';
+
+import { ConfigModule } from './config/config.module';
+import { MenubarComponent } from './shared/menubar/menubar.component';
 import { MenubarModule } from 'primeng/menubar';
-import { PolarAreaChartComponent } from './dashboard/components/polar-area-chart/polar-area-chart.component';
-import { ChartModule } from 'primeng/chart';
-import { DoughnutChartComponent } from './dashboard/components/doughnut-chart/doughnut-chart.component';
-import { RadarChartComponent } from './dashboard/components/radar-chart/radar-chart.component';
-import { PieChartComponent } from './dashboard/components/pie-chart/pie-chart.component';
-import { LineChartComponent } from './dashboard/components/line-chart/line-chart.component';
-import { ToastModule } from 'primeng/toast';
-import { BarChartComponent } from './dashboard/components/bar-chart/bar-chart.component';
+import { AdminModule } from './admin/admin.module';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/core';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { NgZorroAntdModule, NZ_I18N, zh_CN } from 'ng-zorro-antd';
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+import { TestComponent } from './test/test.component';
+import { TestDialogComponent } from './test-dialog/test-dialog.component';
+import { MatButtonModule, MatDialogModule } from '@angular/material';
+
+registerLocaleData(zh);
+
+
+const appRoutes: Routes = [
+    { path: "", component: AppComponent}
+] 
+
 
 @NgModule({
-  declarations: [
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        PanelModule,
+        SidebarModule,
+        ButtonModule,
+        TableModule,
+        InputTextModule,
+        MenubarModule,
+        ChartModule,
+        ToastModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        ConfigModule,
+        MatPasswordStrengthModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        FormsModule,
+        HttpClientModule,
+        NgZorroAntdModule,
+        MatButtonModule,
+        MatDialogModule
+      ],
+    declarations: [
     AppComponent,
-    DashboardComponent,
-    SidebarComponent,
-    TableComponent,
     MenubarComponent,
-    PolarAreaChartComponent,
-    DoughnutChartComponent,
-    RadarChartComponent,
-    PieChartComponent,
-    LineChartComponent,
-    BarChartComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    PanelModule,
-    SidebarModule,
-    ButtonModule,
-    TableModule,
-    InputTextModule,
-    MenubarModule,
-    ChartModule,
-    ToastModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    TestComponent,
+    TestDialogComponent
+],
+
+  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
+  bootstrap: [AppComponent],
+  entryComponents: [TestDialogComponent]
 })
+
+
 export class AppModule { }
