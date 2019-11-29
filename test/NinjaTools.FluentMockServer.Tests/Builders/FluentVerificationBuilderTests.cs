@@ -67,15 +67,19 @@ namespace NinjaTools.FluentMockServer.Tests.Builders
         public void Should_Verify_Once()
         {
             // Arrange
-            var expected = @"{
-  ""httpRequest"": {
-    ""path"": ""/some/path""
-  },
-  ""times"": {
-    ""atLeast"": 1,
-    ""atMost"": 1
-  }
-}";
+            var expected = new JObject
+            {
+                ["httpRequest"] = new JObject
+                {
+                    ["path"] = "/some/path"
+                },
+                ["times"] = new JObject
+                {
+                    ["atLeast"] = 1,
+                    ["atMost"] = 1
+                }
+            }.ToString(Formatting.Indented);
+
             
             var builder = new FluentVerificationBuilder();
             
