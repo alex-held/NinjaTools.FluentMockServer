@@ -126,18 +126,31 @@ namespace NinjaTools.FluentMockServer.Builders.Request
         {
             var builder = new FluentBodyBuilder();
   
-            Action<IFluentBodyBuilder> factory = type switch
+            switch (type)
             {
-                Body.BodyType.JSON => b => b.WithExactJson(value),
-                Body.BodyType.JSON_PATH => b =>b.MatchingJsonPath(value),
-                Body.BodyType.JSON_SCHEMA => b => b.MatchingJsonSchema(value),
-                Body.BodyType.XML => b => b.WithXmlContent(value),
-                Body.BodyType.XPATH =>  b =>b.MatchingXPath(value),
-                Body.BodyType.XML_SCHEMA => b => b.MatchingXmlSchema(value),
-                Body.BodyType.STRING => b => b.WithExactContent(value)
-            };
-
-            factory(builder);
+                case Body.BodyType.JSON:
+                    builder.WithExactJson(value);
+                    break;
+                case Body.BodyType.JSON_PATH:
+                    builder.MatchingJsonPath(value);
+                    break;
+                case Body.BodyType.JSON_SCHEMA:
+                    builder.MatchingJsonSchema(value);
+                    break;
+                case Body.BodyType.XML:
+                    builder.WithXmlContent(value);
+                    break;
+                case Body.BodyType.XPATH:
+                    builder.MatchingXPath(value);
+                    break;
+                case Body.BodyType.XML_SCHEMA:
+                    builder.MatchingXmlSchema(value);
+                    break;
+                case Body.BodyType.STRING:
+                    builder.WithExactContent(value);
+                    break;
+            }
+            
             _httpRequest.Body = builder.Build();
             return this;
         }

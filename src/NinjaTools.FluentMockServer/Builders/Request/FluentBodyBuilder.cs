@@ -91,18 +91,19 @@ namespace NinjaTools.FluentMockServer.Builders.Request
         public void NotContainingSubstring(string substring) => Invert(() => ContainingSubstring(substring));
 
         /// <inheritdoc />
-        public void WithExactContent(string content, string contentType)
+        public void WithExactContent(string content, string contentType = null)
         {
-            if (!string.IsNullOrWhiteSpace(contentType))
+            if (string.IsNullOrWhiteSpace(contentType))
             {
                 Add("STRING", ("string", content));
+                return;
             }
             
             Add("STRING", ("string", content), ("contentType", contentType));
         }
 
         /// <inheritdoc />
-        public void WithoutExactContent(string content, string contentType) => Invert(() =>WithExactContent(content, contentType));
+        public void WithoutExactContent(string content, string contentType = null) => Invert(() =>WithExactContent(content, contentType));
 
         /// <inheritdoc />
         public void WithXmlContent(string content) => Add("XML", ("xml", content));
