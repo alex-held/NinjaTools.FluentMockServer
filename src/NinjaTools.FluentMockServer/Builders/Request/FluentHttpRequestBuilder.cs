@@ -7,7 +7,6 @@ using System.Text;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 
-[assembly: InternalsVisibleTo("NinjaTools.FluentMockServer.Tests")]
 namespace NinjaTools.FluentMockServer.Builders.Request
 {
     internal class FluentHeaderBuilder : IFluentResponseHeaderBuilder
