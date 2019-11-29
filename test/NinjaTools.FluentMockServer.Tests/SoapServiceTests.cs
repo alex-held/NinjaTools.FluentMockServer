@@ -13,6 +13,7 @@ using Xunit.Abstractions;
 
 namespace NinjaTools.FluentMockServer.Tests
 {
+    
     public class SoapServiceTests
     {
         private readonly ITestOutputHelper _logger;
@@ -28,7 +29,7 @@ namespace NinjaTools.FluentMockServer.Tests
 
 
 
-        [Fact]
+        [Fact(Skip = "local")]
         public async Task Should_Setup_Expectation_With_Xml_Body()
         {
             // Arrange
@@ -42,7 +43,7 @@ namespace NinjaTools.FluentMockServer.Tests
             // Assert
         }
         
-        [Fact]
+        [Fact(Skip = "local")]
         public async Task Should_Setup_Expectation_With_Xml_Body_When_Setup_Using_Predefined_Setup()
         {
             // Arrange
