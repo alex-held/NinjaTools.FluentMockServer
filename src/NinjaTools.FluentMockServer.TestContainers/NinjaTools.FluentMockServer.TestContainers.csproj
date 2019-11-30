@@ -16,9 +16,9 @@
         <PackageLicenseUrl>https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/LICENSE</PackageLicenseUrl>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageVersion>1.0.7</PackageVersion>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.0;netcoreapp2.1;netcoreapp3.1;netcoreapp2.2</TargetFrameworks>
         <AssemblyVersion>1.0.7</AssemblyVersion>
         <IsPackable>true</IsPackable>
+        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -28,10 +28,11 @@
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <DebugSymbols>true</DebugSymbols>
       <DocumentationFile>bin\Release\NinjaTools.FluentMockServer.TestContainers.xml</DocumentationFile>
+        <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Ductus.FluentDocker" Version="2.7.3" />
+      <PackageReference Include="Ductus.FluentDocker" Version="2.7.38-beta0072" />
         <PackageReference Include="xunit" Version="2.4.1" />
     </ItemGroup>
 
