@@ -16,5 +16,14 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
         ///     How many <see cref="Times" /> the request is expected to have occured.
         /// </summary>
         public VerificationTimes Times { get; set; }
+
+        public static Verify Once(HttpRequest httpRequest = null)
+        {
+            return new Verify
+            {
+                HttpRequest = httpRequest,
+                Times = VerificationTimes.Once
+            };
+        }
     }
 }

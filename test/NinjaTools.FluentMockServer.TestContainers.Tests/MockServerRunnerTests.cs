@@ -106,9 +106,9 @@ namespace NinjaTools.FluentMockServer.TestContainers.Tests
                 await Client.SendAsync(request);
 
                 // Act
-                var verification = VerificationRequest.Once(new HttpRequest
+                var verification =Verify.Once(new HttpRequest
                 {
-                    Method = HttpMethod.Get.Method,
+                    Method = "GET",
                     Path = "/test"
                 });
                 var response = await Client.Verify(verification);
