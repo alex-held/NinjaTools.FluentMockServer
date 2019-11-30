@@ -19,13 +19,13 @@ namespace NinjaTools.FluentMockServer.TestContainers
         /// Gets the Port exposed to the Host.
         /// </summary>
         public int HostPort { get; }
-                                         
+
         /// <summary>
         /// Gets the <see cref="ContainerService"/>. 
         /// </summary>
         public IContainerService ContainerService { get; }
 
-        
+
         private static int GetAvailablePort(int startingPort)
         {
             var properties = IPGlobalProperties.GetIPGlobalProperties();
@@ -71,18 +71,18 @@ namespace NinjaTools.FluentMockServer.TestContainers
         /// The MockServer Docker Image
         /// </summary>
         public const string ContainerImage = "jamesdbloom/mockserver";
-        
+
         /// <summary>
         /// The Port beeing exposed to the Host. 
         /// </summary>
         public const int ContainerPort = 1080;
-        
+
         /// <summary>
         /// Gets the BaseUrl of the MockServer.
         /// </summary>
         public string MockServerBaseUrl => $"http://localhost:{HostPort}";
-        
-       
+
+
         /// <summary>
         /// Waits until the MockServer is finished with initialization. 
         /// </summary>
@@ -104,26 +104,26 @@ namespace NinjaTools.FluentMockServer.TestContainers
                     httpClient.Dispose();
                     return;
                 }
-                
+
                 await Task.Delay(TimeSpan.FromSeconds(5));
             }
-            
+
             httpClient.Dispose();
             throw new Exception($"Could not start MockServer TestContainer.");
         }
-        
-          /// <summary>
-          /// Starts the MockServer.
-          /// </summary>
+
+        /// <summary>
+        /// Starts the MockServer.
+        /// </summary>
         public async Task StartAsync()
         {
             ContainerService.Start();
             await WaitUntilContainerStarted();
         }
 
-          /// <summary>
-          /// Stops the MockServer Container.
-          /// </summary>
+        /// <summary>
+        /// Stops the MockServer Container.
+        /// </summary>
         public Task StopAsync()
         {
             ContainerService.Stop();

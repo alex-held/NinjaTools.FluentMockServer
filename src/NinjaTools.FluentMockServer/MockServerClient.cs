@@ -1,67 +1,39 @@
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using NinjaTools.FluentMockServer.Builders.Expectation;
 using NinjaTools.FluentMockServer.Extensions;
-using NinjaTools.FluentMockServer.Requests;
-using NinjaTools.FluentMockServer.Utils;
+using NinjaTools.FluentMockServer.Models.HttpEntities;
+using static NinjaTools.FluentMockServer.Requests.RequestFactory;
 
 namespace NinjaTools.FluentMockServer
 {
     public class MockServerClient : IDisposable
     {
-        private readonly HttpClient _httpClient;
+        private HttpClient _httpClient;
 
-        internal MockServerClient(HttpClient httpClient)
+        public MockServerClient(HttpClient client, string hostname = "http://localhost:9003")
         {
-            _httpClient = httpClient.WithDefaults(new Uri("http://localhost:1080"));
+            _httpClient = client.WithDefaults(new Uri(hostname));
+        }
+        
+        public MockServerClient(string mockServerEndpoint) : this(new HttpClient(),mockServerEndpoint)
+        {
         }
 
-        public MockServerClient(string mockServerEndpoint) : this(new Uri(mockServerEndpoint))
-        {
-        }
-
-        public MockServerClient(Uri mockServerUri)
-        {
-            _httpClient = new HttpClient().WithDefaults(mockServerUri);
-        }
-
-        public Uri MockServerEndpoint => _httpClient.BaseAddress;
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            Reset().GetAwaiter().GetResult();
-            _httpClient?.Dispose();
-        }
-
-
+        
         /// <summary>
         ///     Configures the MockServer Client.
         /// </summary>
         /// <param name="setupFactory"></param>
         /// <returns></returns>
-        public async Task SetupAsync(Func<IFluentExpectationBuilder, MockServerSetup> setupFactory)
+        public Task SetupAsync(Func<IFluentExpectationBuilder, MockServerSetup> setupFactory)
         {
             var builder = new FluentExpectationBuilder(new MockServerSetup());
             var setup = setupFactory(builder);
 
-            if (setup.BaseUrl != null)
-            {
-                var uri = new Uri(MockServerEndpoint, setup.BaseUrl);
-                _httpClient.BaseAddress = uri;
-            }
-
-            foreach (var expectation in setup.Expectations)
-            {
-                var request = new HttpRequestMessage(HttpMethod.Put, GetMockServerUri("expectation"))
-                {
-                    Content = new JsonContent(expectation)
-                };
-
-                var response = await _httpClient.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-            }
+            return SetupAsync(setup);
         }
 
 
@@ -72,19 +44,8 @@ namespace NinjaTools.FluentMockServer
         /// <returns></returns>
         public async Task SetupAsync(MockServerSetup setup)
         {
-            if (setup.BaseUrl != null)
+            foreach (var request in setup.Expectations.Select(Expectation))
             {
-                var uri = new Uri(MockServerEndpoint, setup.BaseUrl);
-                _httpClient.BaseAddress = uri;
-            }
-
-            foreach (var expectation in setup.Expectations)
-            {
-                var request = new HttpRequestMessage(HttpMethod.Put, GetMockServerUri("expectation"))
-                {
-                    Content = new JsonContent(expectation)
-                };
-
                 var response = await _httpClient.SendAsync(request);
                 response.EnsureSuccessStatusCode();
             }
@@ -92,31 +53,33 @@ namespace NinjaTools.FluentMockServer
 
         public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
         {
-            request.RequestUri = new Uri(MockServerEndpoint, request.RequestUri);
-
             var response = await _httpClient.SendAsync(request);
             return response;
         }
 
-        public async Task<HttpResponseMessage> Reset()
+        public async Task<HttpResponseMessage> ResetAsync()
         {
-            var request = new HttpRequestMessage(HttpMethod.Put, GetMockServerUri("reset"));
-
+            var request = Reset();
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             return response;
         }
 
-        public async Task<HttpResponseMessage> Verify(VerificationRequest request)
+        public async Task<HttpResponseMessage> VerifyAsync(Verify verify)
         {
+            var request = Verify(verify);
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             return response;
         }
-
-        private Uri GetMockServerUri(string path)
+        
+        
+        /// <inheritdoc />
+        public void Dispose()
         {
-            return new Uri(MockServerEndpoint, $"mockserver/{path}");
+            _httpClient?.Dispose();
+            _httpClient = null;
         }
+
     }
 }

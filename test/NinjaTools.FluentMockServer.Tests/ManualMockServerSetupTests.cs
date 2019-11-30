@@ -44,7 +44,7 @@ namespace NinjaTools.FluentMockServer.Tests
                     .Setup());
             
             // Act
-            var result = await client.Reset();
+            var result = await client.ResetAsync();
             
             // Assert
             var request = new HttpRequestMessage(HttpMethod.Get, new Uri("test", UriKind.Relative));
@@ -68,8 +68,8 @@ namespace NinjaTools.FluentMockServer.Tests
             response.EnsureSuccessStatusCode();
             
             // Act
-            var verification = VerificationRequest.Once( new HttpRequest(){ Path = "test", Method = HttpMethod.Get.Method});
-            response = await client.Verify(verification);
+            var verification = Verify.Once( new HttpRequest{ Path = "test", Method = HttpMethod.Get.Method});
+            response = await client.VerifyAsync(verification);
             
             // Assert
             response.StatusCode.Should().Be(HttpStatusCode.Accepted);
