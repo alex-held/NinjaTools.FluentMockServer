@@ -4,13 +4,12 @@ using NinjaTools.FluentMockServer.FluentInterfaces;
 
 namespace NinjaTools.FluentMockServer.Builders.Request
 {
-    public interface IFluentResponseHeaderBuilder :  IFluentHeaderBuilder
+    public interface IFluentResponseHeaderBuilder : IFluentHeaderBuilder
     {
+        ContentDispositionHeaderValue ContentDisposition { get; set; }
         IFluentHeaderBuilder WithContentDispositionHeader(string type, string name, string filename);
-        ContentDispositionHeaderValue ContentDisposition{ get; set; }
-
     }
-    
+
     public interface IFluentHeaderBuilder : IFluentInterface
     {
         AuthenticationHeaderValue Authentication { get; set; }

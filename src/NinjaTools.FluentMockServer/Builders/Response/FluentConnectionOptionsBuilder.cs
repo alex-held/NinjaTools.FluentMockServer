@@ -12,6 +12,9 @@ namespace NinjaTools.FluentMockServer.Builders.Response
         }
 
 
-        public ConnectionOptions Build() => _options;
+        public ConnectionOptions Build()
+        {
+            return _options;
+        }
     }
 }

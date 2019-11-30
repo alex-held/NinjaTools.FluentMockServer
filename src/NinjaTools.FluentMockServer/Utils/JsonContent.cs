@@ -1,10 +1,8 @@
 using System.Net.Http;
 using System.Text;
-
 using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.Builders;
 using NinjaTools.FluentMockServer.Serialization;
-
 
 namespace NinjaTools.FluentMockServer.Utils
 {

@@ -1,50 +1,46 @@
 using Newtonsoft.Json;
-
+using NinjaTools.FluentMockServer.Serialization;
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
-    using Serialization;
-
-
-
     /// <summary>
-    /// Enumerate the available time unit.
+    ///     Enumerate the available time unit.
     /// </summary>
     [JsonConverter(typeof(ContractResolver.UpperCaseEnumConverter))]
     public enum TimeUnit
     {
         /// <summary>
-        /// The nanoseconds.
+        ///     The nanoseconds.
         /// </summary>
         Nanoseconds,
 
         /// <summary>
-        /// The Microseconds.
+        ///     The Microseconds.
         /// </summary>
         Microseconds,
 
         /// <summary>
-        /// The Milliseconds.
+        ///     The Milliseconds.
         /// </summary>
         Milliseconds,
 
         /// <summary>
-        /// The seconds.
+        ///     The seconds.
         /// </summary>
         Seconds,
 
         /// <summary>
-        /// The minutes.
+        ///     The minutes.
         /// </summary>
         Minutes,
 
         /// <summary>
-        /// The hours.
+        ///     The hours.
         /// </summary>
         Hours,
 
         /// <summary>
-        /// The days.
+        ///     The days.
         /// </summary>
         Days
     }

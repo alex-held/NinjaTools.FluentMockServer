@@ -1,59 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
-
 using JetBrains.Annotations;
-
 using NinjaTools.FluentMockServer.Extensions;
-
 
 namespace NinjaTools.FluentMockServer.Builders
 {
     /// <summary>
-    /// Contains information about various content types.
+    ///     Contains information about various content types.
     /// </summary>
     public class CommonContentType : ContentType
     {
-        
-        /// <summary>
-        /// The MIME content type
-        /// </summary>
-        /// <param name="contentType"></param>
-        /// <returns></returns>
-        [Pure]
-        public static implicit operator string([NotNull] CommonContentType contentType) => contentType.Name;
-
-        /// <summary>
-        /// The MIME content type
-        /// </summary>
-        /// <param name="contentType"></param>
-        /// <returns></returns>
-        [Pure]
-        public static implicit operator CommonContentType([NotNull] string contentType) => ToList()
-            .FirstOrDefault(c => c.ToString() == contentType);
-        
-        public int Id { get; }
-
-
-        /// <summary>
-        /// Add charset information to the content type.
-        /// </summary>
-        /// <remarks>
-        /// text/xml; --> text/xml; charset="utf-8"
-        /// </remarks>
-        /// <param name="charset">The charset of the encoding used.</param>
-        public CommonContentType WithCharset(string charset)
-        {
-            CharSet = charset;
-            return this;
-        }
-
-        private CommonContentType(string contentType, int id)
-        {
-            Name = contentType;
-            Id = id;
-        }
-
         public static readonly CommonContentType Json = new CommonContentType("application/json", 0);
 
         public static readonly CommonContentType Xml = new CommonContentType("text/xml", 1);
@@ -64,14 +21,62 @@ namespace NinjaTools.FluentMockServer.Builders
 
         public static readonly CommonContentType Html = new CommonContentType("text/html", 4);
 
+        private CommonContentType(string contentType, int id)
+        {
+            Name = contentType;
+            Id = id;
+        }
+
+        public int Id { get; }
+
+        /// <summary>
+        ///     The MIME content type
+        /// </summary>
+        /// <param name="contentType"></param>
+        /// <returns></returns>
         [Pure]
-        public static IReadOnlyList<CommonContentType> ToList() => typeof(CommonContentType)
-                    .GetFieldsOfType<CommonContentType>()
-                    .ToList();
+        public static implicit operator string([NotNull] CommonContentType contentType)
+        {
+            return contentType.Name;
+        }
+
+        /// <summary>
+        ///     The MIME content type
+        /// </summary>
+        /// <param name="contentType"></param>
+        /// <returns></returns>
+        [Pure]
+        public static implicit operator CommonContentType([NotNull] string contentType)
+        {
+            return ToList()
+                .FirstOrDefault(c => c.ToString() == contentType);
+        }
 
 
         /// <summary>
-        /// Tries to parse content types from user input
+        ///     Add charset information to the content type.
+        /// </summary>
+        /// <remarks>
+        ///     text/xml; --> text/xml; charset="utf-8"
+        /// </remarks>
+        /// <param name="charset">The charset of the encoding used.</param>
+        public CommonContentType WithCharset(string charset)
+        {
+            CharSet = charset;
+            return this;
+        }
+
+        [Pure]
+        public static IReadOnlyList<CommonContentType> ToList()
+        {
+            return typeof(CommonContentType)
+                .GetFieldsOfType<CommonContentType>()
+                .ToList();
+        }
+
+
+        /// <summary>
+        ///     Tries to parse content types from user input
         /// </summary>
         /// <param name="input"></param>
         /// <param name="contentType"></param>
@@ -82,10 +87,9 @@ namespace NinjaTools.FluentMockServer.Builders
             contentType = null;
             var list = ToList();
 
-            if (!( list.Any(ct => ct.Name == input) )) return false;
+            if (!list.Any(ct => ct.Name == input)) return false;
             contentType = list.First(ct => ct.Name == input);
             return true;
         }
-
     }
 }

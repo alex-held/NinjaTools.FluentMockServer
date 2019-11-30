@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
 using System.Text;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
@@ -11,6 +10,7 @@ namespace NinjaTools.FluentMockServer.Builders.Request
 {
     internal class FluentHeaderBuilder : IFluentResponseHeaderBuilder
     {
+        private readonly Dictionary<string, string[]> _headers;
         public readonly HttpRequestMessage RequestMessage = new HttpRequestMessage();
         public readonly HttpResponseMessage ResponseMessage = new HttpResponseMessage();
 
@@ -18,24 +18,21 @@ namespace NinjaTools.FluentMockServer.Builders.Request
         {
             _headers = seed ?? new Dictionary<string, string[]>();
         }
-        
+
         private HttpRequestHeaders RequestHeaders => RequestMessage.Headers;
         private HttpResponseHeaders ResponseHeaders => ResponseMessage.Headers;
-        
+
         /// <inheritdoc />
         public AuthenticationHeaderValue Authentication
         {
             get => RequestHeaders.Authorization;
             set => RequestHeaders.Authorization = value;
         }
-        
+
         /// <inheritdoc />
         public IFluentHeaderBuilder AddHeaders(params (string name, string value)[] headers)
         {
-            foreach (var kvp in headers ?? new (string name, string value)[0])
-            {
-                Add(kvp.name, kvp.value);
-            }
+            foreach (var kvp in headers ?? new (string name, string value)[0]) Add(kvp.name, kvp.value);
 
             return this;
         }
@@ -44,7 +41,7 @@ namespace NinjaTools.FluentMockServer.Builders.Request
         public IFluentHeaderBuilder Add(string name, string value)
         {
             RequestHeaders.TryAddWithoutValidation(name, value);
-            _headers[name]  = new []{value};
+            _headers[name] = new[] {value};
             return this;
         }
 
@@ -64,7 +61,10 @@ namespace NinjaTools.FluentMockServer.Builders.Request
         }
 
         /// <inheritdoc />
-        public Dictionary<string, string[]> Build() => _headers;
+        public Dictionary<string, string[]> Build()
+        {
+            return _headers;
+        }
 
         /// <inheritdoc />
         public IFluentHeaderBuilder WithContentDispositionHeader(string type, string name, string filename)
@@ -79,17 +79,11 @@ namespace NinjaTools.FluentMockServer.Builders.Request
             Add(Headers.ContentDisposition, ContentDisposition.ToString());
             return this;
         }
-        
-        private readonly Dictionary<string, string[]> _headers;
 
-        public ContentDispositionHeaderValue ContentDisposition
-        {
-            get;
-            set;
-        }
+        public ContentDispositionHeaderValue ContentDisposition { get; set; }
     }
-    
-    internal sealed class  FluentHttpRequestBuilder : IFluentHttpRequestBuilder
+
+    internal sealed class FluentHttpRequestBuilder : IFluentHttpRequestBuilder
     {
         private readonly HttpRequest _httpRequest;
 
@@ -119,12 +113,12 @@ namespace NinjaTools.FluentMockServer.Builders.Request
             _httpRequest.Secure = true;
             return this;
         }
-        
+
         /// <inheritdoc />
         public IFluentHttpRequestBuilder WithBody(Body.BodyType type, string value)
         {
             var builder = new FluentBodyBuilder();
-  
+
             switch (type)
             {
                 case Body.BodyType.JSON:
@@ -149,7 +143,7 @@ namespace NinjaTools.FluentMockServer.Builders.Request
                     builder.WithExactContent(value);
                     break;
             }
-            
+
             _httpRequest.Body = builder.Build();
             return this;
         }
@@ -174,14 +168,17 @@ namespace NinjaTools.FluentMockServer.Builders.Request
 
 
         /// <inheritdoc />
-        public HttpRequest Build() => _httpRequest;
-        
+        public HttpRequest Build()
+        {
+            return _httpRequest;
+        }
+
         /// <inheritdoc />
         public IFluentHttpRequestBuilder AddContentType(string contentType)
         {
-            _httpRequest.Headers ??= new Dictionary<string, string[]>(); 
-             _httpRequest.Headers[Headers.ContentType] =  new[] {contentType};
-             return this;
+            _httpRequest.Headers ??= new Dictionary<string, string[]>();
+            _httpRequest.Headers[Headers.ContentType] = new[] {contentType};
+            return this;
         }
     }
 }

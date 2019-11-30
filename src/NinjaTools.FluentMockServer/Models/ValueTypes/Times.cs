@@ -1,17 +1,10 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
-
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
-    public class Times 
+    public class Times
     {
-        public int RemainingTimes { get; set; }
-
-        public bool Unlimited { get; set; }
-        
         public Times()
-        { }
+        {
+        }
 
         public Times(int remainingTimes)
         {
@@ -25,6 +18,10 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
                 Unlimited = false;
             }
         }
+
+        public int RemainingTimes { get; set; }
+
+        public bool Unlimited { get; set; }
 
         public static Times Once => new Times(1);
         public static Times Always => new Times(0);

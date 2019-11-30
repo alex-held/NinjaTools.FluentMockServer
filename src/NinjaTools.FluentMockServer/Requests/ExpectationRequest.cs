@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Utils;
 
-
 namespace NinjaTools.FluentMockServer.Requests
 {
-public class ExpectationRequest 
+    public class ExpectationRequest
     {
         private readonly List<Expectation> _listImplementation;
 
@@ -18,13 +15,16 @@ public class ExpectationRequest
             _listImplementation = new List<Expectation>();
         }
 
-        internal protected ExpectationRequest(IEnumerable<Expectation> expectations)
+        protected internal ExpectationRequest(IEnumerable<Expectation> expectations)
         {
             _listImplementation.AddRange(expectations ?? throw new ArgumentNullException(nameof(expectations)));
         }
 
 
-        public static ExpectationRequest Create(IEnumerable<Expectation> expectations) => new ExpectationRequest(expectations);
+        public static ExpectationRequest Create(IEnumerable<Expectation> expectations)
+        {
+            return new ExpectationRequest(expectations);
+        }
 
         public static implicit operator HttpRequestMessage(ExpectationRequest request)
         {
@@ -40,15 +40,10 @@ public class ExpectationRequest
             var request = new ExpectationRequest();
 
             foreach (var expectation in expectations)
-            {
                 if (expectation != null)
-                {
                     request._listImplementation.Add(expectation);
-                }
-            }
 
             return request;
         }
-        
     }
 }

@@ -1,16 +1,22 @@
 using System;
 using System.Net.Http;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Utils;
 
 namespace NinjaTools.FluentMockServer.Requests
 {
-public class VerificaionRequest 
+    public class VerificaionRequest
     {
+        public VerificaionRequest(HttpRequest request, VerficationTimes times)
+        {
+            HttpRequest = request;
+            Times = times;
+        }
+
+        public HttpRequest HttpRequest { get; set; }
+
+        public VerficationTimes Times { get; set; }
 
 
         public static implicit operator HttpRequestMessage(VerificaionRequest request)
@@ -22,17 +28,9 @@ public class VerificaionRequest
         }
 
 
-        public static VerificaionRequest Once(HttpRequest request) => new VerificaionRequest(request, VerficationTimes.Once);
-
-        public VerificaionRequest(HttpRequest request, VerficationTimes times)
+        public static VerificaionRequest Once(HttpRequest request)
         {
-            HttpRequest = request;
-            Times = times;
+            return new VerificaionRequest(request, VerficationTimes.Once);
         }
-
-        public HttpRequest HttpRequest { get; set; }
-
-        public VerficationTimes Times { get; set; }
-
     }
 }

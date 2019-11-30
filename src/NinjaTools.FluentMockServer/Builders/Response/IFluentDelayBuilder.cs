@@ -5,7 +5,6 @@ using NinjaTools.FluentMockServer.Models.ValueTypes;
 namespace NinjaTools.FluentMockServer.Builders.Response
 {
     /// <summary>
-    /// 
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IFluentDelayBuilder : IFluentInterface

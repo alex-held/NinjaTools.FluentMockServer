@@ -6,25 +6,20 @@ namespace NinjaTools.FluentMockServer.Builders.Verify
 {
     public class FluentVerificationBuilder : IFluentVerificationBuilder, FluentVerificationBuilder.IWithRequest
     {
-        private Models.HttpEntities.Verify _verify;
-        
+        private readonly Models.HttpEntities.Verify _verify;
+
         public FluentVerificationBuilder()
         {
-            _verify = new Models.HttpEntities.Verify();;
-        }
-         
-        public interface IWithRequest
-        {
-            void AtLeast(int value);
-            void AtMost(int value);
-            void Between(int min, int max);
-            void Once();
-            void Twice();
+            _verify = new Models.HttpEntities.Verify();
+            ;
         }
 
 
         /// <inheritdoc />
-        public Models.HttpEntities.Verify Build() => _verify;
+        public Models.HttpEntities.Verify Build()
+        {
+            return _verify;
+        }
 
 
         /// <inheritdoc />
@@ -39,22 +34,46 @@ namespace NinjaTools.FluentMockServer.Builders.Verify
 
 
         /// <inheritdoc />
-        public void AtLeast(int value) => _verify.Times = VerficationTimes.MoreThan(value);
-        
-        
-        /// <inheritdoc />
-        public void AtMost(int value) => _verify.Times = VerficationTimes.LessThan(value);
+        public void AtLeast(int value)
+        {
+            _verify.Times = VerficationTimes.MoreThan(value);
+        }
 
 
         /// <inheritdoc />
-        public void Between(int min, int max) => _verify.Times = VerficationTimes.Between(min, max);
+        public void AtMost(int value)
+        {
+            _verify.Times = VerficationTimes.LessThan(value);
+        }
 
 
         /// <inheritdoc />
-        public void Once() => _verify.Times = VerficationTimes.Once;
-        
-        
+        public void Between(int min, int max)
+        {
+            _verify.Times = VerficationTimes.Between(min, max);
+        }
+
+
         /// <inheritdoc />
-        public void Twice() => _verify.Times = VerficationTimes.Twice;
+        public void Once()
+        {
+            _verify.Times = VerficationTimes.Once;
+        }
+
+
+        /// <inheritdoc />
+        public void Twice()
+        {
+            _verify.Times = VerficationTimes.Twice;
+        }
+
+        public interface IWithRequest
+        {
+            void AtLeast(int value);
+            void AtMost(int value);
+            void Between(int min, int max);
+            void Once();
+            void Twice();
+        }
     }
 }

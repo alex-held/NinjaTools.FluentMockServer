@@ -1,12 +1,7 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
-
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
-    public class LifeTime 
+    public class LifeTime
     {
-
         public LifeTime()
         {
         }
@@ -28,6 +23,5 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
         public TimeUnit? TimeUnit { get; set; }
         public int? TimeToLive { get; set; }
         public bool? Unlimited { get; set; }
-
     }
 }

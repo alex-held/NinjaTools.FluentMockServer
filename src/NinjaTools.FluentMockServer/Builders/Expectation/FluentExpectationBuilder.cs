@@ -12,8 +12,8 @@ namespace NinjaTools.FluentMockServer.Builders.Expectation
     internal sealed class FluentExpectationBuilder : IFluentExpectationBuilder
     {
         private readonly MockServerSetup _setup;
-        private Models.Expectation _expectation;
         private IFluentExpectationBuilder _and;
+        private readonly Models.Expectation _expectation;
 
 
         public FluentExpectationBuilder() : this(new MockServerSetup())
@@ -48,12 +48,13 @@ namespace NinjaTools.FluentMockServer.Builders.Expectation
         [NotNull]
         public IWithRequest OnHandlingAny(HttpMethod method = null)
         {
-            if (method is null) {
+            if (method is null)
+            {
                 _expectation.HttpRequest = null;
                 return this;
             }
 
-            _expectation.HttpRequest = new HttpRequest()
+            _expectation.HttpRequest = new HttpRequest
             {
                 Method = method.Method
             };
@@ -88,9 +89,9 @@ namespace NinjaTools.FluentMockServer.Builders.Expectation
 
 
         /// <inheritdoc />
-        public IWithResponse  RespondOnce(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
+        public IWithResponse RespondOnce(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
         {
-            return RespondOnce(( int ) statusCode, responseFactory);
+            return RespondOnce((int) statusCode, responseFactory);
         }
 
         /// <inheritdoc />
@@ -121,8 +122,8 @@ namespace NinjaTools.FluentMockServer.Builders.Expectation
         /// <inheritdoc />
         public MockServerSetup Setup()
         {
-           _setup.Expectations.Add(_expectation);
-           return _setup;
+            _setup.Expectations.Add(_expectation);
+            return _setup;
         }
 
 

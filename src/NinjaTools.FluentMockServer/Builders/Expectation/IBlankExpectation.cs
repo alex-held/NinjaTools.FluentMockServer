@@ -8,7 +8,6 @@ using NinjaTools.FluentMockServer.FluentInterfaces;
 namespace NinjaTools.FluentMockServer.Builders.Expectation
 {
     /// <summary>
-    /// 
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public interface IBlankExpectation : IFluentInterface

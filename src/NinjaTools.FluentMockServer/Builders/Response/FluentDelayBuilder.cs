@@ -19,7 +19,7 @@ namespace NinjaTools.FluentMockServer.Builders.Response
         }
 
         /// <inheritdoc />
-        public void FromMilliSeconds(int ms)  
+        public void FromMilliSeconds(int ms)
         {
             _delay.Value = ms;
             _delay.TimeUnit = TimeUnit.Milliseconds;
@@ -34,7 +34,9 @@ namespace NinjaTools.FluentMockServer.Builders.Response
         }
 
         /// <inheritdoc />
-        public Delay Build() =>
-            _delay;
+        public Delay Build()
+        {
+            return _delay;
+        }
     }
 }
