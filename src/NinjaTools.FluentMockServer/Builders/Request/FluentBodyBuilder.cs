@@ -1,10 +1,8 @@
 using System;
-using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Models;
+using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
 
-[assembly: InternalsVisibleTo("NinjaTools.FluentMockServer.Tests")]
 
 namespace NinjaTools.FluentMockServer.Builders.Request
 {
