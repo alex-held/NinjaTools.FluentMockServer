@@ -3,8 +3,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using NinjaTools.FluentMockServer.Builders.Expectation;
+using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Extensions;
-using NinjaTools.FluentMockServer.Models.HttpEntities;
 using static NinjaTools.FluentMockServer.Requests.RequestFactory;
 
 namespace NinjaTools.FluentMockServer

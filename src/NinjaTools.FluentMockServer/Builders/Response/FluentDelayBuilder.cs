@@ -1,4 +1,4 @@
-using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.Builders.Response
 {

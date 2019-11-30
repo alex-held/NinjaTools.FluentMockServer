@@ -1,7 +1,8 @@
 using System;
+using NinjaTools.FluentMockServer.Client.Models;
+using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
 using NinjaTools.FluentMockServer.FluentInterfaces;
-using NinjaTools.FluentMockServer.Models;
-using NinjaTools.FluentMockServer.Models.HttpEntities;
 
 namespace NinjaTools.FluentMockServer.Builders.Request
 {

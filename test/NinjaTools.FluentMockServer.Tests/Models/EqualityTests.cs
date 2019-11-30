@@ -4,9 +4,9 @@ using System.Reflection;
 using FluentAssertions;
 using Force.DeepCloner;
 using NinjaTools.FluentMockServer.Builders.Request;
-using NinjaTools.FluentMockServer.Models;
-using NinjaTools.FluentMockServer.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Client.Models;
+using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Utils;
 using Xunit;
 

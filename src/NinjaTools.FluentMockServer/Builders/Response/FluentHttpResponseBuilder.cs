@@ -4,8 +4,8 @@ using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Builders.Request;
-using NinjaTools.FluentMockServer.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.Builders.Response
 {

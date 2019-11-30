@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using NinjaTools.FluentMockServer.Models;
+using NinjaTools.FluentMockServer.Client.Models;
 
 namespace NinjaTools.FluentMockServer
 {

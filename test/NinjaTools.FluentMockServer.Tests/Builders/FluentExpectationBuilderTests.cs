@@ -5,9 +5,8 @@ using System.Net.Http;
 
 using FluentAssertions;
 using NinjaTools.FluentMockServer.Builders.Expectation;
+using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Extensions;
-using NinjaTools.FluentMockServer.Models.ValueTypes;
-
 using Xunit;
 using Xunit.Abstractions;
 

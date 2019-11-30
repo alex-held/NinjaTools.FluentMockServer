@@ -7,8 +7,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Builders.Verify;
 using NinjaTools.FluentMockServer.Extensions;
-using NinjaTools.FluentMockServer.Models.ValueTypes;
-
 using Xunit;
 using Xunit.Abstractions;
 

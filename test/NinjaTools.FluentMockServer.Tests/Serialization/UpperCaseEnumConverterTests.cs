@@ -1,9 +1,7 @@
 using FluentAssertions;
 
 using Newtonsoft.Json;
-
-using NinjaTools.FluentMockServer.Models.ValueTypes;
-
+using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
 using Xunit;
 using Xunit.Abstractions;
 

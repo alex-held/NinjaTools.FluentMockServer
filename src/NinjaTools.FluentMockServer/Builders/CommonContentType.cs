@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
+using System.Reflection;
 using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.Extensions;
 
@@ -69,9 +70,13 @@ namespace NinjaTools.FluentMockServer.Builders
         [Pure]
         public static IReadOnlyList<CommonContentType> ToList()
         {
-            return typeof(CommonContentType)
-                .GetFieldsOfType<CommonContentType>()
-                .ToList();
+            var type = typeof(CommonContentType);
+            return type
+                    .GetFields(BindingFlags.Public | BindingFlags.Static
+                                                   | BindingFlags.FlattenHierarchy)
+                    .Where(p => type.IsAssignableFrom(p.FieldType))
+                    .Select(pi => (CommonContentType) pi.GetValue(null))
+                    .ToList();
         }
 
 

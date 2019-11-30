@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using NinjaTools.FluentMockServer.Models;
-using NinjaTools.FluentMockServer.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Client.Models;
+using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Client.Serialization;
 using NinjaTools.FluentMockServer.Utils;
 
 namespace NinjaTools.FluentMockServer.Requests

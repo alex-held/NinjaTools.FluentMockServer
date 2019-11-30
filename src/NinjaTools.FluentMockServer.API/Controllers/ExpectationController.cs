@@ -6,7 +6,7 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using NinjaTools.FluentMockServer.Builders.Expectation;
-using NinjaTools.FluentMockServer.Models;
+using NinjaTools.FluentMockServer.Client.Models;
 
 namespace NinjaTools.FluentMockServer.API.Controllers
 {

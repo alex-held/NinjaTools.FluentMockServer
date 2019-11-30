@@ -4,8 +4,8 @@ using System.Net.Http;
 using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.Builders.Request;
 using NinjaTools.FluentMockServer.Builders.Response;
-using NinjaTools.FluentMockServer.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.Builders.Expectation
 {
@@ -13,7 +13,7 @@ namespace NinjaTools.FluentMockServer.Builders.Expectation
     {
         private readonly MockServerSetup _setup;
         private IFluentExpectationBuilder _and;
-        private readonly Models.Expectation _expectation;
+        private readonly Client.Models.Expectation _expectation;
 
 
         public FluentExpectationBuilder() : this(new MockServerSetup())
@@ -22,7 +22,7 @@ namespace NinjaTools.FluentMockServer.Builders.Expectation
 
         internal FluentExpectationBuilder(MockServerSetup setup)
         {
-            _expectation = new Models.Expectation();
+            _expectation = new Client.Models.Expectation();
             _setup = setup;
         }
 
