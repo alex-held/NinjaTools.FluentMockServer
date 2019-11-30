@@ -16,7 +16,7 @@ namespace NinjaTools.FluentMockServer.Serialization
         /// <summary>
         /// Property names and dictionary keys will be UPPERCASE.
         /// </summary>
-        public class UpperCaseNamingStrategy : NamingStrategy
+        private class UpperCaseNamingStrategy : NamingStrategy
         {
             /// <summary>
             /// Resolves the specified property name.
@@ -33,12 +33,12 @@ namespace NinjaTools.FluentMockServer.Serialization
                 this.OverrideSpecifiedNames = true;
             }
         }
-        
+
         /// <summary>
         /// Converts the enum values to an UPPERCASE string.
         /// <seealso cref="UpperCaseNamingStrategy"/>
         /// </summary>
-        public class UpperCaseEnumConverter : StringEnumConverter
+        internal class UpperCaseEnumConverter : StringEnumConverter
         {
             /// <inheritdoc />
             public UpperCaseEnumConverter()
@@ -47,16 +47,6 @@ namespace NinjaTools.FluentMockServer.Serialization
             }
         }
 
-        /// <inheritdoc />
-        public class CustomNamingStrategy : CamelCaseNamingStrategy
-        {
-            /// <inheritdoc />
-            public CustomNamingStrategy()
-            {
-                ProcessDictionaryKeys = true;
-                OverrideSpecifiedNames = true;
-            }   
-        }
         
         private ContractResolver()
         {
@@ -70,19 +60,6 @@ namespace NinjaTools.FluentMockServer.Serialization
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
-/*
-
-            if (property.PropertyType == typeof())
-            {
-                
-            }*/
-            /*
-            if (typeof().IsAssignableFrom(property.PropertyType) && property.Readable)
-            {
-                property.Readable = true;
-                property.PropertyType = typeof(JToken);
-            }
-*/
 
             property.NullValueHandling = NullValueHandling.Ignore;
             return property;
