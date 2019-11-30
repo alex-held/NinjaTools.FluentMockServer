@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NinjaTools.FluentMockServer.Builders.Expectation;
-using NinjaTools.FluentMockServer.Client.Models;
+using Newtonsoft.Json.Linq;
+using NinjaTools.FluentMockServer.Domain.Models;
+using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.API.Controllers
 {
@@ -41,55 +42,95 @@ namespace NinjaTools.FluentMockServer.API.Controllers
         {
             if (count >= 1)
             {
-                var builder = new FluentExpectationBuilder();
-                var result = builder.RespondTimes(3, 200).Setup().Expectations.First();
-                _expectations.Add(result);
+                var expectation = new Expectation
+                {
+                    HttpRequest = new HttpRequest
+                    {
+                        Method = "GET",
+                        Path = "/home"
+                    },
+                    HttpError = new HttpError
+                    {
+                        DropConnection = true,
+                        Delay = new Delay
+                        {
+                            Value = 4,
+                            TimeUnit = TimeUnit.Seconds
+                        }
+                    }
+                };
+                        
+                _expectations.Add(expectation);
             }
             if (count >= 1)
             {
-                var builder = new FluentExpectationBuilder();
-                var result = builder
-                    .OnHandling(HttpMethod.Post)
-                    .RespondTimes(3, HttpStatusCode.Conflict)
-                    .Setup()
-                    .Expectations.First();
-                _expectations.Add(result);
+                var expectation = new Expectation
+                {
+                    Times = new Times
+                    {
+                        Unlimited = true
+                    },
+                    HttpResponse = new HttpResponse
+                    {
+                        StatusCode = 201
+                    }
+                };
+                        
+                _expectations.Add(expectation);
             }
             if (count >= 2)
             {
-                var builder = new FluentExpectationBuilder();
-                var result = builder
-                    .OnHandling(HttpMethod.Post)
-                    .RespondOnce(201)
-                    .Setup()
-                    .Expectations.First();
-                
-                _expectations.Add(result);
+                var expectation = new Expectation
+                {
+                    Times = Times.Once,
+                    HttpRequest = new HttpRequest
+                    {
+                        Method = "PUT"
+                    },
+                    HttpResponse = new HttpResponse
+                    {
+                        StatusCode = 500
+                    }
+                };
+                        
+                _expectations.Add(expectation);
             }
             if (count >= 3)
             {
-                var builder = new FluentExpectationBuilder();
-                var result = builder
-                    .OnHandling(HttpMethod.Post)
-                    .RespondWith(200, response => response.WithBody("body"))
-                    .Setup()
-                    .Expectations.First();
+                var expectation = new Expectation
+                {
+                    Times = Times.Once,
+                    HttpRequest = new HttpRequest
+                    {
+                        Method = "POST",
+                        Path = "/some/test",
+                        Body = JToken.FromObject(new {type = "JSON", json = "json-body"})
+                    },
+                    HttpResponse = new HttpResponse
+                    {
+                        StatusCode =200
+                    }
+                };
                 
-                _expectations.Add(result);
+                _expectations.Add(expectation);
             }
             if (count >= 4)
             {
-                var builder = new FluentExpectationBuilder();
-                var result = builder
-                    .OnHandling(HttpMethod.Post)
-                    .RespondOnce(HttpStatusCode.BadGateway)
-                    .And
-                    .OnHandlingAny(HttpMethod.Get)
-                    .RespondWith(404)
-                    .Setup()
-                    .Expectations.First();
-                
-                _expectations.Add(result);
+                var expectation = new Expectation
+                {
+                    Times = Times.Once,
+                    HttpRequest = new HttpRequest
+                    {
+                        Method = "POST",
+                        Path = "/some/test"
+                    },
+                    HttpResponse = new HttpResponse
+                    {
+                        StatusCode = (int)HttpStatusCode.BadGateway
+                    }
+                };
+            
+                _expectations.Add(expectation);
             }
         }
         

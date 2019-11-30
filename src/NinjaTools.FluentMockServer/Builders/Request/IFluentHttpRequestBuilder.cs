@@ -1,8 +1,7 @@
 using System;
-using NinjaTools.FluentMockServer.Client.Models;
-using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
 using NinjaTools.FluentMockServer.FluentInterfaces;
+using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
+using static NinjaTools.FluentMockServer.Client.Models.ValueTypes.Body;
 
 namespace NinjaTools.FluentMockServer.Builders.Request
 {
@@ -12,7 +11,7 @@ namespace NinjaTools.FluentMockServer.Builders.Request
         IFluentHttpRequestBuilder KeepConnectionAlive(bool keepalive = true);
         IFluentHttpRequestBuilder EnableEncryption(bool useSsl = true);
         IFluentHttpRequestBuilder WithContent(Action<IFluentBodyBuilder> contentFactory);
-        IFluentHttpRequestBuilder WithBody(Body.BodyType type, string value);
+        IFluentHttpRequestBuilder WithBody(BodyType type, string value);
         IFluentHttpRequestBuilder ConfigureHeaders(Action<IFluentHeaderBuilder> headerFactory);
         IFluentHttpRequestBuilder AddContentType(string contentType);
     }

@@ -1,8 +1,7 @@
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Extensions;
 using Xunit;
 using Xunit.Abstractions;

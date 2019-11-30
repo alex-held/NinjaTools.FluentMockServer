@@ -4,10 +4,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Builders.Response;
-using NinjaTools.FluentMockServer.Client.Models;
-using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Domain.Models;
+using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
 using Xunit;
 using Xunit.Abstractions;
 

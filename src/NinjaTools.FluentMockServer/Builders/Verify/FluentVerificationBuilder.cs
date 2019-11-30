@@ -1,22 +1,22 @@
 using System;
 using NinjaTools.FluentMockServer.Builders.Request;
-using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.Builders.Verify
 {
     public class FluentVerificationBuilder : IFluentVerificationBuilder, FluentVerificationBuilder.IWithRequest
     {
-        private readonly Client.Models.HttpEntities.Verify _verify;
+        private readonly Domain.Models.HttpEntities.Verify _verify;
 
         public FluentVerificationBuilder()
         {
-            _verify = new Client.Models.HttpEntities.Verify();
+            _verify = new Domain.Models.HttpEntities.Verify();
             ;
         }
 
 
         /// <inheritdoc />
-        public Client.Models.HttpEntities.Verify Build()
+        public Domain.Models.HttpEntities.Verify Build()
         {
             return _verify;
         }

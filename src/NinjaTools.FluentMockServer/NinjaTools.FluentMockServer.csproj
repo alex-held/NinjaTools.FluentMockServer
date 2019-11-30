@@ -38,7 +38,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\NinjaTools.FluentMockServer.Models\NinjaTools.FluentMockServer.Models.csproj" />
+      <ProjectReference Include="..\NinjaTools.FluentMockServer.Domain\NinjaTools.FluentMockServer.Domain.csproj" />
     </ItemGroup>
 
 </Project>

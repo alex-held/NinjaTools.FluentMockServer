@@ -1,6 +1,6 @@
 using System.ComponentModel;
-using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
 using NinjaTools.FluentMockServer.FluentInterfaces;
+using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.Builders.Response
 {

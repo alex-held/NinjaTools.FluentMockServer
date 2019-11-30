@@ -5,11 +5,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\NinjaTools.FluentMockServer\NinjaTools.FluentMockServer.csproj" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0-preview3.19555.2" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0-preview3.19555.2" />
+      <ProjectReference Include="..\NinjaTools.FluentMockServer.Domain\NinjaTools.FluentMockServer.Domain.csproj" />
     </ItemGroup>
 
 

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using FluentAssertions;
 
 using Newtonsoft.Json;
-using NinjaTools.FluentMockServer.Client.Models;
-using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Domain.Models;
+using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
 using Xunit;
 using Xunit.Abstractions;
 

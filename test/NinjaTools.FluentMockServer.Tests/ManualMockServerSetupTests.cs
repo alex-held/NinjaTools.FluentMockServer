@@ -4,9 +4,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 
 using FluentAssertions;
-using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
-using NinjaTools.FluentMockServer.Requests;
+using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
 using Xunit;
 
 namespace NinjaTools.FluentMockServer.Tests

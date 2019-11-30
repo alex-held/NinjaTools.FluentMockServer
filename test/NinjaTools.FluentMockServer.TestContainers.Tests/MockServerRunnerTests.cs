@@ -5,10 +5,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NinjaTools.FluentMockServer.Builders.Expectation;
-using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
-using NinjaTools.FluentMockServer.Client.Serialization;
-using NinjaTools.FluentMockServer.Requests;
+using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Domain.Serialization;
 using Xunit;
 using Xunit.Abstractions;
 

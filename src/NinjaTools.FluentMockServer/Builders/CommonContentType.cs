@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net.Mime;
 using System.Reflection;
 using JetBrains.Annotations;
-using NinjaTools.FluentMockServer.Extensions;
 
 namespace NinjaTools.FluentMockServer.Builders
 {

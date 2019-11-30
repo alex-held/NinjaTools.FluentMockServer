@@ -1,5 +1,5 @@
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Client.Serialization;
+using NinjaTools.FluentMockServer.Domain.Serialization;
 
 namespace NinjaTools.FluentMockServer.Extensions
 {

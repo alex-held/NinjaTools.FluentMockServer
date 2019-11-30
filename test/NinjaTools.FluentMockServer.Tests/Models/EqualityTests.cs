@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using FluentAssertions;
-using Force.DeepCloner;
 using NinjaTools.FluentMockServer.Builders.Request;
-using NinjaTools.FluentMockServer.Client.Models;
-using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
-using NinjaTools.FluentMockServer.Utils;
+using NinjaTools.FluentMockServer.Domain.Models;
+using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
 using Xunit;
 
 namespace NinjaTools.FluentMockServer.Tests.Models

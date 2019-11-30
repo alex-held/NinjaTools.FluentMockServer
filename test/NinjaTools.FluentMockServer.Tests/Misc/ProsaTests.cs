@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Text;
 using NinjaTools.FluentMockServer.Builders;
 using NinjaTools.FluentMockServer.Builders.Expectation;
-using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
 using Xunit;
 using Xunit.Abstractions;
 

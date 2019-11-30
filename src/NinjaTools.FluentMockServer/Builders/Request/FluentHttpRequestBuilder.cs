@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using NinjaTools.FluentMockServer.Client.Models;
-using NinjaTools.FluentMockServer.Client.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Client.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
+using static NinjaTools.FluentMockServer.Client.Models.ValueTypes.Body;
 
 namespace NinjaTools.FluentMockServer.Builders.Request
 {
@@ -116,31 +115,31 @@ namespace NinjaTools.FluentMockServer.Builders.Request
         }
 
         /// <inheritdoc />
-        public IFluentHttpRequestBuilder WithBody(Body.BodyType type, string value)
+        public IFluentHttpRequestBuilder WithBody(BodyType type, string value)
         {
             var builder = new FluentBodyBuilder();
 
             switch (type)
             {
-                case Body.BodyType.JSON:
+                case BodyType.JSON:
                     builder.WithExactJson(value);
                     break;
-                case Body.BodyType.JSON_PATH:
+                case BodyType.JSON_PATH:
                     builder.MatchingJsonPath(value);
                     break;
-                case Body.BodyType.JSON_SCHEMA:
+                case BodyType.JSON_SCHEMA:
                     builder.MatchingJsonSchema(value);
                     break;
-                case Body.BodyType.XML:
+                case BodyType.XML:
                     builder.WithXmlContent(value);
                     break;
-                case Body.BodyType.XPATH:
+                case BodyType.XPATH:
                     builder.MatchingXPath(value);
                     break;
-                case Body.BodyType.XML_SCHEMA:
+                case BodyType.XML_SCHEMA:
                     builder.MatchingXmlSchema(value);
                     break;
-                case Body.BodyType.STRING:
+                case BodyType.STRING:
                     builder.WithExactContent(value);
                     break;
             }

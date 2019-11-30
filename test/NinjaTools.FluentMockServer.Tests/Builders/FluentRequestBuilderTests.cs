@@ -1,7 +1,5 @@
-using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using NinjaTools.FluentMockServer.Builders;
 using NinjaTools.FluentMockServer.Builders.Request;
 using NinjaTools.FluentMockServer.Extensions;
