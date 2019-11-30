@@ -93,10 +93,11 @@ namespace NinjaTools.FluentMockServer.TestContainers
             var httpClient = new HttpClient();
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-
+            await Task.Delay(1000);
+            
             while (stopwatch.IsRunning && stopwatch.Elapsed < TimeSpan.FromMinutes(2))
             {
-                var request = new HttpRequestMessage(HttpMethod.Put, MockServerBaseUrl + "/status");
+                var request = new HttpRequestMessage(HttpMethod.Put, MockServerBaseUrl + "/mockserver/status");
                 var response = await httpClient.SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
