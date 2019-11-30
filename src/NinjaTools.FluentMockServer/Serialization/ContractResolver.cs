@@ -9,6 +9,10 @@ namespace NinjaTools.FluentMockServer.Serialization
 {
     public class ContractResolver : CamelCasePropertyNamesContractResolver
     {
+        private static readonly Lazy<ContractResolver> Lazy = new Lazy<ContractResolver>(() => new ContractResolver());
+
+        public static ContractResolver Instance => Lazy.Value;
+
         /// <summary>
         /// Property names and dictionary keys will be UPPERCASE.
         /// </summary>
@@ -54,8 +58,7 @@ namespace NinjaTools.FluentMockServer.Serialization
             }   
         }
         
-        
-        public ContractResolver()
+        private ContractResolver()
         {
             NamingStrategy = new CamelCaseNamingStrategy
             {
