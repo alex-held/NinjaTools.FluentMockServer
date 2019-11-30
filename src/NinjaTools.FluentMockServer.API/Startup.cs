@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NinjaTools.FluentMockServer.API.Controllers;
+using NinjaTools.FluentMockServer.API.Services;
 
 namespace NinjaTools.FluentMockServer.API
 {
