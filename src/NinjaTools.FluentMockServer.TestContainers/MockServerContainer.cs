@@ -93,7 +93,7 @@ namespace NinjaTools.FluentMockServer.TestContainers
             var httpClient = new HttpClient();
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            await Task.Delay(1000);
+            await Task.Delay(5000);
             
             while (stopwatch.IsRunning && stopwatch.Elapsed < TimeSpan.FromMinutes(2))
             {
