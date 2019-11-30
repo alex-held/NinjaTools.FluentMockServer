@@ -11,16 +11,16 @@ namespace NinjaTools.FluentMockServer.Builders.Request
     internal class FluentHeaderBuilder : IFluentResponseHeaderBuilder
     {
         private readonly Dictionary<string, string[]> _headers;
-        public readonly HttpRequestMessage RequestMessage = new HttpRequestMessage();
-        public readonly HttpResponseMessage ResponseMessage = new HttpResponseMessage();
+        private readonly HttpRequestMessage _requestMessage = new HttpRequestMessage();
+        private readonly HttpResponseMessage _responseMessage = new HttpResponseMessage();
 
         public FluentHeaderBuilder(Dictionary<string, string[]> seed = null)
         {
             _headers = seed ?? new Dictionary<string, string[]>();
         }
 
-        private HttpRequestHeaders RequestHeaders => RequestMessage.Headers;
-        private HttpResponseHeaders ResponseHeaders => ResponseMessage.Headers;
+        private HttpRequestHeaders RequestHeaders => _requestMessage.Headers;
+        private HttpResponseHeaders ResponseHeaders => _responseMessage.Headers;
 
         /// <inheritdoc />
         public AuthenticationHeaderValue Authentication
