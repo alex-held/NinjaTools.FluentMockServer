@@ -10,7 +10,7 @@ namespace NinjaTools.FluentMockServer.Utils
 
         public JsonConfig()
         {
-            var resolver = new ContractResolver();
+            var resolver = Serialization.ContractResolver.Instance;
             StringEscapeHandling = StringEscapeHandling.EscapeHtml;
             NullValueHandling = NullValueHandling.Ignore;
             Formatting = Formatting.Indented;
