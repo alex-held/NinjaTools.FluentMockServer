@@ -5,7 +5,7 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
     /// <summary>
     ///     Model used to describe what to verify.
     /// </summary>
-    public class Verify
+    public partial class Verify
     {
         /// <summary>
         ///     The to be matched <see cref="HttpRequest" />.
@@ -15,6 +15,6 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
         /// <summary>
         ///     How many <see cref="Times" /> the request is expected to have occured.
         /// </summary>
-        public VerficationTimes Times { get; set; }
+        public VerificationTimes Times { get; set; }
     }
 }

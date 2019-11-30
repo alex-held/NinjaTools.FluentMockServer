@@ -10,7 +10,7 @@ namespace NinjaTools.FluentMockServer.Builders.Request
 {
     internal class FluentBodyBuilder : IFluentBodyBuilder
     {
-        private Body Body { get; set; } = new Body();
+        protected Body Body { get; set; } = new Body();
 
         /// <inheritdoc />
         public void WithBinary(string base64)

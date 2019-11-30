@@ -1,8 +1,9 @@
+using System;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.Models.HttpEntities
 {
-    public class HttpTemplate
+    public partial class HttpTemplate
     {
         public string Template { get; set; }
 

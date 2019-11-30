@@ -6,7 +6,7 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
     /// <summary>
     ///     Model to describe, which request should be matched.
     /// </summary>
-    public class HttpRequest
+    public partial class HttpRequest
     {
         /// <summary>
         ///     The <see cref="System.Net.Http.HttpMethod" /> to be matched.

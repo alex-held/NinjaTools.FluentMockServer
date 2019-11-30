@@ -8,7 +8,7 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
     /// <summary>
     ///     Model to describe how to respond to a matching <see cref="HttpRequest" />.
     /// </summary>
-    public class HttpResponse
+    public partial class HttpResponse
     {
         /// <summary>
         ///     The <see cref="HttpStatusCode" /> of the <see cref="HttpResponse" />.

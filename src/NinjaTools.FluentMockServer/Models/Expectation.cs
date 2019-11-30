@@ -9,7 +9,7 @@ namespace NinjaTools.FluentMockServer.Models
     ///     Model to set up an Expectation on the MockServer.
     /// </summary>
     [JsonConverter(typeof(ExpectationConverter))]
-    public class Expectation
+    public partial class Expectation
     {
         /// <summary>
         ///     The <see cref="HttpRequest" /> to match.

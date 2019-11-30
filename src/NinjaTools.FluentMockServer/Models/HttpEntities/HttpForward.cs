@@ -1,9 +1,11 @@
+using System;
+
 namespace NinjaTools.FluentMockServer.Models.HttpEntities
 {
     /// <summary>
     ///     Model to describe to which destination the <see cref="HttpRequest" /> to forward.
     /// </summary>
-    public class HttpForward
+    public partial class HttpForward
     {
         /// <summary>
         ///     Gets and sets the Hostname to forward to.

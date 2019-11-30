@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 using NinjaTools.FluentMockServer.Serialization;
 
@@ -7,6 +8,7 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
     ///     Enumerate the available time unit.
     /// </summary>
     [JsonConverter(typeof(ContractResolver.UpperCaseEnumConverter))]
+    [Serializable]
     public enum TimeUnit
     {
         /// <summary>
