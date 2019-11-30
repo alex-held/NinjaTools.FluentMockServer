@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +24,8 @@ namespace NinjaTools.FluentMockServer.API
             services
                 .AddSingleton<ExpectationService>()
                 .AddControllers()
-                .AddNewtonsoftJson();
+                .AddNewtonsoftJson()
+                .AddMvcOptions(opt => opt.EnableEndpointRouting = false);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,11 +38,18 @@ namespace NinjaTools.FluentMockServer.API
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
 
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UsePathBase(new PathString("/mockconfig"));
+            app.UseMvc();
+            
+            app.UseRouting();
+//            app.UseEndpoints(endpoints =>
+//            {
+//                endpoints.MapControllers();
+//                endpoints.MapControllerRoute("mockconfig", "{controller}")}
+//                endpoints.MapControllerRoute("expectations", "mockconfig/{controller}/{action}");
+//            });
         }
     }
 }
