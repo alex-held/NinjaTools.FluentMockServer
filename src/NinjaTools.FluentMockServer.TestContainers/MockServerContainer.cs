@@ -13,7 +13,7 @@ namespace NinjaTools.FluentMockServer.TestContainers
     /// <summary>
     /// The InMemory handle to the MockServer Docker Container
     /// </summary>
-    public class MockServerContainer 
+    public class MockServerContainer : IDisposable
     {
         /// <summary>
         /// Gets the Port exposed to the Host.
@@ -127,6 +127,12 @@ namespace NinjaTools.FluentMockServer.TestContainers
         {
             ContainerService.Stop();
             return Task.CompletedTask;
+        }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            ContainerService.Dispose();
         }
     }
 }
