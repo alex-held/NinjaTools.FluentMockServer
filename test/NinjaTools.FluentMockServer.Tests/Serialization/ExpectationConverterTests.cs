@@ -3,6 +3,7 @@ using System.Text;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
@@ -112,11 +113,12 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
         public void Should_Use_ExpectationConverter_When_Using_Standard_Serializer()
         {
             // Arrange
-            const string expected = @"{
+            var expected = JObject.Parse(@"{
   ""httpRequest"": {
     ""path"": ""/some/path""
   }
-}";
+}").ToString(Formatting.Indented);
+            
             var expectation = new Expectation
             {
                 HttpRequest = new HttpRequest
@@ -137,11 +139,12 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
         public void Should_Convert_Expectation_To_Json()
         {
             // Arrange
-            const string expected = @"{
+            var expected = JObject.Parse(@"{
   ""httpRequest"": {
     ""path"": ""/some/path""
   }
-}";
+}").ToString(Formatting.Indented);
+            
             var expectation = new Expectation
             {
                 HttpRequest = new HttpRequest
