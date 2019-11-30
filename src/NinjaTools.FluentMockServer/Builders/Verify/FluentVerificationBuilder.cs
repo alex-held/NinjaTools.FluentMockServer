@@ -36,35 +36,35 @@ namespace NinjaTools.FluentMockServer.Builders.Verify
         /// <inheritdoc />
         public void AtLeast(int value)
         {
-            _verify.Times = VerficationTimes.MoreThan(value);
+            _verify.Times = VerificationTimes.MoreThan(value);
         }
 
 
         /// <inheritdoc />
         public void AtMost(int value)
         {
-            _verify.Times = VerficationTimes.LessThan(value);
+            _verify.Times = VerificationTimes.LessThan(value);
         }
 
 
         /// <inheritdoc />
         public void Between(int min, int max)
         {
-            _verify.Times = VerficationTimes.Between(min, max);
+            _verify.Times = VerificationTimes.Between(min, max);
         }
 
 
         /// <inheritdoc />
         public void Once()
         {
-            _verify.Times = VerficationTimes.Once;
+            _verify.Times = VerificationTimes.Once;
         }
 
 
         /// <inheritdoc />
         public void Twice()
         {
-            _verify.Times = VerficationTimes.Twice;
+            _verify.Times = VerificationTimes.Twice;
         }
 
         public interface IWithRequest

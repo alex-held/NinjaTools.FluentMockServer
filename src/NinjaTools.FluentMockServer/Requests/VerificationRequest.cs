@@ -6,9 +6,9 @@ using NinjaTools.FluentMockServer.Utils;
 
 namespace NinjaTools.FluentMockServer.Requests
 {
-    public class VerificaionRequest
+    public class VerificationRequest
     {
-        public VerificaionRequest(HttpRequest request, VerficationTimes times)
+        public VerificationRequest(HttpRequest request, VerificationTimes times)
         {
             HttpRequest = request;
             Times = times;
@@ -16,10 +16,10 @@ namespace NinjaTools.FluentMockServer.Requests
 
         public HttpRequest HttpRequest { get; set; }
 
-        public VerficationTimes Times { get; set; }
+        public VerificationTimes Times { get; set; }
 
 
-        public static implicit operator HttpRequestMessage(VerificaionRequest request)
+        public static implicit operator HttpRequestMessage(VerificationRequest request)
         {
             return new HttpRequestMessage(HttpMethod.Put, new Uri("verify", UriKind.Relative))
             {
@@ -28,9 +28,9 @@ namespace NinjaTools.FluentMockServer.Requests
         }
 
 
-        public static VerificaionRequest Once(HttpRequest request)
+        public static VerificationRequest Once(HttpRequest request)
         {
-            return new VerificaionRequest(request, VerficationTimes.Once);
+            return new VerificationRequest(request, VerificationTimes.Once);
         }
     }
 }

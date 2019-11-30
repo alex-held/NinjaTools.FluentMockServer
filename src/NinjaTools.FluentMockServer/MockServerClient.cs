@@ -107,7 +107,7 @@ namespace NinjaTools.FluentMockServer
             return response;
         }
 
-        public async Task<HttpResponseMessage> Verify(VerificaionRequest request)
+        public async Task<HttpResponseMessage> Verify(VerificationRequest request)
         {
             var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
