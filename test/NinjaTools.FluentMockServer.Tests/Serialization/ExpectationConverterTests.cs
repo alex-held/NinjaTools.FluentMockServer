@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Serialization;
 using Xunit;
 using Xunit.Abstractions;
@@ -64,6 +65,17 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             const string json = @"{
   ""httpRequest"": {
     ""path"": ""/some/path""
+  },
+ ""httpResponse"": {
+    ""statusCode"": 201,
+    ""delay"": {
+      ""timeUnit"": ""MILLISECONDS"",
+      ""value"": 1
+    }
+  },
+  ""times"": {
+    ""remainingTimes"": 1,
+    ""unlimited"": false
   }
 }";
             var expected = new Expectation
@@ -71,7 +83,16 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
                 HttpRequest = new HttpRequest
                 {
                     Path = "/some/path"
-                }
+                }, HttpResponse = new HttpResponse
+                {
+                    StatusCode = 201,
+                    Delay = new Delay
+                    {
+                        Value = 1,
+                        TimeUnit = TimeUnit.Milliseconds
+                    }
+                },
+                Times = Times.Once
             };
             
             // Act
