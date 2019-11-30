@@ -56,7 +56,20 @@ namespace NinjaTools.FluentMockServer.Serialization
                 OverrideSpecifiedNames = false
             };
         }
-        
+
+        /// <inheritdoc />
+        public override JsonContract ResolveContract(Type type)
+        {
+            var contract = base.ResolveContract(type);
+            
+            if (contract.Converter?.GetType() == typeof(ExpectationConverter))
+            {       
+                contract.Converter = null;
+            }
+            
+            return contract;
+        }
+
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);

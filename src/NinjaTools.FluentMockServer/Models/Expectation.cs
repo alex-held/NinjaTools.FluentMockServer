@@ -1,5 +1,7 @@
-﻿using NinjaTools.FluentMockServer.Models.HttpEntities;
+﻿using Newtonsoft.Json;
+using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Serialization;
 
 
 namespace NinjaTools.FluentMockServer.Models
@@ -7,6 +9,7 @@ namespace NinjaTools.FluentMockServer.Models
     /// <summary>
     /// Model to set up an Expectation on the MockServer.
     /// </summary>
+    [JsonConverter(typeof(ExpectationConverter))]
     public class Expectation
     {
         /// <summary>
