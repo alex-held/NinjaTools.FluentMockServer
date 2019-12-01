@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NinjaTools.FluentMockServer.API.Data;
 
 namespace NinjaTools.FluentMockServer.API.Migrations
 {
     [DbContext(typeof(ExpectationDbContext))]
-    partial class ExpectationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191201103246_initial commit")]
+    partial class initialcommit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
