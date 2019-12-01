@@ -5,21 +5,8 @@ namespace NinjaTools.FluentMockServer.Domain.Models.HttpEntities
     /// <summary>
     ///     Model to describe, which request should be matched.
     /// </summary>
-    public partial class HttpRequest : IIdentifiable<HttpRequest>
+    public partial class HttpRequest : IEquatable<HttpRequest>
     {
-        /// <inheritdoc />
-        public int Id { get; set; }
-
-        /// <inheritdoc />
-        public DateTime CreatedOn { get; set; }
-
-        /// <inheritdoc />
-        public DateTime ModifiedOn{ get; set; }
-
-        /// <inheritdoc />
-        public byte[] Timestamp{ get; set; }
-        
-        
         /// <inheritdoc />
         public bool Equals(HttpRequest other)
         {
@@ -52,7 +39,5 @@ namespace NinjaTools.FluentMockServer.Domain.Models.HttpEntities
                 return hashCode;
             }
         }
-
-
     }
 }

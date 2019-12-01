@@ -2,21 +2,9 @@ using System;
 
 namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
 {
-
-    public class Times : IIdentifiable<Times>
+    [Serializable]
+    public class Times : IEquatable<Times>
     {
-        /// <inheritdoc />
-        public int Id { get; }
-
-        /// <inheritdoc />
-        public DateTime CreatedOn { get; set; }
-
-        /// <inheritdoc />
-        public DateTime ModifiedOn{ get; set; }
-
-        /// <inheritdoc />
-        public byte[] Timestamp{ get; set; }
-        
         public Times()
         {
         }

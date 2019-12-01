@@ -2,21 +2,8 @@ using System;
 
 namespace NinjaTools.FluentMockServer.Domain.Models.HttpEntities
 {
-    public partial class HttpError : IIdentifiable<HttpError>
+    public partial class HttpError : IEquatable<HttpError>
     {
-        /// <inheritdoc />
-        public int Id { get; }
-
-        /// <inheritdoc />
-        public DateTime CreatedOn { get; set; }
-
-        /// <inheritdoc />
-        public DateTime ModifiedOn{ get; set; }
-
-        /// <inheritdoc />
-        public byte[] Timestamp{ get; set; }
-        
-        
         /// <inheritdoc />
         public bool Equals(HttpError other)
         {

@@ -6,21 +6,8 @@ namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
     /// <summary>
     ///     Model to configure an optional <see cref="Delay" /> before responding with an action to a matched <see cref="HttpRequest" />.
     /// </summary>
-    public class Delay : IIdentifiable<Delay>
+    public class Delay : IEquatable<Delay>
     {
-        /// <inheritdoc />
-        public int Id { get; }
-
-        /// <inheritdoc />
-        public DateTime CreatedOn { get; set; }
-
-        /// <inheritdoc />
-        public DateTime ModifiedOn{ get; set; }
-
-        /// <inheritdoc />
-        public byte[] Timestamp{ get; set; }
-        
-        
         /// <summary>
         ///     The <see cref="TimeUnit" /> of the <see cref="Delay" />.
         /// </summary>

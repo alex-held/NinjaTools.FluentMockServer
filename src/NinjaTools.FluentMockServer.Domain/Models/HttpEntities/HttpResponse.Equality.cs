@@ -5,20 +5,8 @@ namespace NinjaTools.FluentMockServer.Domain.Models.HttpEntities
     /// <summary>
     ///     Model to describe how to respond to a matching <see cref="HttpRequest" />.
     /// </summary>
-    public partial class HttpResponse : IIdentifiable<HttpResponse>
+    public partial class HttpResponse : IEquatable<HttpResponse>
     {
-        /// <inheritdoc />
-        public int Id { get; }
-
-        /// <inheritdoc />
-        public DateTime CreatedOn { get; set; }
-
-        /// <inheritdoc />
-        public DateTime ModifiedOn{ get; set; }
-
-        /// <inheritdoc />
-        public byte[] Timestamp{ get; set; }
-        
         /// <inheritdoc />
         public bool Equals(HttpResponse other)
         {

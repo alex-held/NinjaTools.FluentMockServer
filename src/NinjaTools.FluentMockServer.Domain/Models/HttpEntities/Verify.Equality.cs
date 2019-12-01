@@ -2,20 +2,8 @@ using System;
 
 namespace NinjaTools.FluentMockServer.Domain.Models.HttpEntities
 {
-    public partial class Verify : IIdentifiable<Verify>
+    public partial class Verify : IEquatable<Verify>
     {
-        /// <inheritdoc />
-        public int Id { get; }
-
-        /// <inheritdoc />
-        public DateTime CreatedOn { get; set; }
-
-        /// <inheritdoc />
-        public DateTime ModifiedOn{ get; set; }
-
-        /// <inheritdoc />
-        public byte[] Timestamp{ get; set; }
-        
         /// <inheritdoc />
         public bool Equals(Verify other)
         {
