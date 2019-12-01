@@ -3,6 +3,7 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Serialization;
+using NinjaTools.FluentMockServer.Domain.Models;
 
 namespace NinjaTools.FluentMockServer.Domain.Serialization
 {
@@ -26,7 +27,7 @@ namespace NinjaTools.FluentMockServer.Domain.Serialization
         public override JsonContract ResolveContract(Type type)
         {
             var contract = base.ResolveContract(type);
-
+            
             if (contract.Converter?.GetType() == typeof(ExpectationConverter)) contract.Converter = null;
 
             return contract;
@@ -35,7 +36,6 @@ namespace NinjaTools.FluentMockServer.Domain.Serialization
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
-
             property.NullValueHandling = NullValueHandling.Ignore;
             return property;
         }

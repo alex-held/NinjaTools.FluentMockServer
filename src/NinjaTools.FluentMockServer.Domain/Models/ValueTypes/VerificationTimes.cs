@@ -4,8 +4,20 @@ using Newtonsoft.Json;
 namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
 {
     [Serializable]
-    public class VerificationTimes : IEquatable<VerificationTimes>
+    public class VerificationTimes : IIdentifiable<VerificationTimes>
     {
+        /// <inheritdoc />
+        public int Id { get; }
+
+        /// <inheritdoc />
+        public DateTime CreatedOn { get; set; }
+
+        /// <inheritdoc />
+        public DateTime ModifiedOn{ get; set; }
+
+        /// <inheritdoc />
+        public byte[] Timestamp{ get; set; }
+        
         public VerificationTimes()
         {
         

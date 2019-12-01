@@ -2,12 +2,22 @@ using System;
 
 namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
 {
-    [Serializable]
-    public class LifeTime : IEquatable<LifeTime>
+    public class LifeTime :IIdentifiable<LifeTime>
     {
+        /// <inheritdoc />
+        public int Id { get; }
+
+        /// <inheritdoc />
+        public DateTime CreatedOn { get; set; }
+
+        /// <inheritdoc />
+        public DateTime ModifiedOn{ get; set; }
+
+        /// <inheritdoc />
+        public byte[] Timestamp{ get; set; }
+        
         public LifeTime()
-        {
-        }
+        { }
 
         public LifeTime(int? timeToLive = null, TimeUnit timeUnit = ValueTypes.TimeUnit.Milliseconds)
         {

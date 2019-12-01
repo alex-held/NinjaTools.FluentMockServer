@@ -5,8 +5,21 @@
     /// <summary>
     ///     Model to describe to which destination the <see cref="HttpRequest" /> to forward.
     /// </summary>
-    public partial class HttpForward : IEquatable<HttpForward>
+    public partial class HttpForward : IIdentifiable<HttpForward>
     {
+        /// <inheritdoc />
+        public int Id { get; }
+
+        /// <inheritdoc />
+        public DateTime CreatedOn { get; set; }
+
+        /// <inheritdoc />
+        public DateTime ModifiedOn{ get; set; }
+
+        /// <inheritdoc />
+        public byte[] Timestamp{ get; set; }
+        
+        
         /// <inheritdoc />
         public bool Equals(HttpForward other)
         {

@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Logging;
 using NinjaTools.FluentMockServer.API.Services;
 using NinjaTools.FluentMockServer.Domain.Models;
@@ -19,33 +22,38 @@ namespace NinjaTools.FluentMockServer.API.Controllers
             _expectationService = expectationService;
         }
         
-
-       
-        
         [HttpGet("list")]
-        public IEnumerable<Expectation> Get()
+        [ProducesResponseType(typeof(List<Expectation>), StatusCodes.Status200OK)]
+
+        public async IAsyncEnumerable<Expectation> GetAsync()
         {
-            return _expectationService.GetExpectations();
+              await foreach (var expectation in _expectationService.GetAllAsync()) 
+                  yield  return  expectation;
         }
         
         [HttpGet("prune")]
-        public IActionResult Prune()
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        public async Task<IStatusCodeActionResult> Prune()
         {
-            return Ok(_expectationService.Prune());
+            var count = await _expectationService.PruneAsync();
+            return Ok(count);
         }
         
         [HttpGet("seed/{count}")]
-        public IActionResult Seed(int count)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IStatusCodeActionResult Seed(int count)
         {
-            _expectationService.Seed(count);
+            _expectationService.SeedAsync(count);
             return Ok();
         }
         
         [HttpGet("create")]
-        public IActionResult Create(Expectation expectation)
-        {
-          _expectationService.Add(expectation);
-           return Accepted();
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
+        public async Task<IStatusCodeActionResult> Create(Expectation expectation)
+        { 
+            await _expectationService.AddAsync(expectation);
+            return Ok();
         }
     }
 }

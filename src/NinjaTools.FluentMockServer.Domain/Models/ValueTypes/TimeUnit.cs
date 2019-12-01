@@ -9,41 +9,41 @@ namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
     /// </summary>
     [JsonConverter(typeof(ContractResolver.UpperCaseEnumConverter))]
     [Serializable]
-    public enum TimeUnit
+    public enum TimeUnit : ushort
     {
         /// <summary>
         ///     The nanoseconds.
         /// </summary>
-        Nanoseconds,
+        Nanoseconds = 0,
 
         /// <summary>
         ///     The Microseconds.
         /// </summary>
-        Microseconds,
+        Microseconds= 1,
 
         /// <summary>
         ///     The Milliseconds.
         /// </summary>
-        Milliseconds,
+        Milliseconds= 2,
 
         /// <summary>
         ///     The seconds.
         /// </summary>
-        Seconds,
+        Seconds= 4,
 
         /// <summary>
         ///     The minutes.
         /// </summary>
-        Minutes,
+        Minutes= 8,
 
         /// <summary>
         ///     The hours.
         /// </summary>
-        Hours,
+        Hours= 16,
 
         /// <summary>
         ///     The days.
         /// </summary>
-        Days
+        Days= 32
     }
 }

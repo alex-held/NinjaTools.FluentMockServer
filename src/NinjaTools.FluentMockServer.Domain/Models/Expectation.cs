@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Domain.Serialization;

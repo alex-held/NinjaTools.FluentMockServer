@@ -5,9 +5,21 @@ namespace NinjaTools.FluentMockServer.Domain.Models
     /// <summary>
     ///     Model to set up an Expectation on the MockServer.
     /// </summary>
-    public partial class Expectation : IEquatable<Expectation>
+    public partial class Expectation : IIdentifiable<Expectation>
     {
+        /// <inheritdoc />
+        public int Id { get; set; }
+        
+        /// <inheritdoc />
+        public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
+        /// <inheritdoc />
+        public DateTime ModifiedOn{ get; set; }
+
+        /// <inheritdoc />
+        public byte[] Timestamp { get; set; }
+        
+        
         /// <inheritdoc />
         public bool Equals(Expectation other)
         {

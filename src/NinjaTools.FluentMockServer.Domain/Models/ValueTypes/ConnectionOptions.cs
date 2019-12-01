@@ -6,8 +6,20 @@ namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
     /// <summary>
     ///     Some options regarding a Connection.
     /// </summary>
-    public class ConnectionOptions : IEquatable<ConnectionOptions>
+    public class ConnectionOptions :IIdentifiable<ConnectionOptions>
     {
+        /// <inheritdoc />
+        public int Id { get; }
+
+        /// <inheritdoc />
+        public DateTime CreatedOn { get; set; }
+
+        /// <inheritdoc />
+        public DateTime ModifiedOn{ get; set; }
+
+        /// <inheritdoc />
+        public byte[] Timestamp{ get; set; }
+        
         /// <summary>
         ///     Whether the MockServer should close the socket after the connection.
         /// </summary>
