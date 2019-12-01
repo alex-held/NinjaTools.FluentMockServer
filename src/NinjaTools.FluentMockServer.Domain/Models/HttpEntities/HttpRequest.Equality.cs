@@ -8,7 +8,7 @@ namespace NinjaTools.FluentMockServer.Domain.Models.HttpEntities
     public partial class HttpRequest : IIdentifiable<HttpRequest>
     {
         /// <inheritdoc />
-        public int Id { get; }
+        public int Id { get; set; }
 
         /// <inheritdoc />
         public DateTime CreatedOn { get; set; }

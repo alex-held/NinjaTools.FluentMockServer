@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using NinjaTools.FluentMockServer.API.Services;
+using NinjaTools.FluentMockServer.Builders;
 using NinjaTools.FluentMockServer.Domain.Models;
 
 namespace NinjaTools.FluentMockServer.API.Controllers
@@ -24,11 +28,17 @@ namespace NinjaTools.FluentMockServer.API.Controllers
         
         [HttpGet("list")]
         [ProducesResponseType(typeof(List<Expectation>), StatusCodes.Status200OK)]
-
         public async IAsyncEnumerable<Expectation> GetAsync()
         {
-              await foreach (var expectation in _expectationService.GetAllAsync()) 
-                  yield  return  expectation;
+            var counter = 1;
+            await foreach (var expectation in _expectationService.GetAllAsync())
+            {
+                var c = counter;
+                _logger.LogDebug($"[GetAsync] has found the: {c.ToString()} {nameof(Expectation)}.");
+                counter++;
+                yield return expectation;
+            } 
+                  
         }
         
         [HttpGet("prune")]
@@ -40,20 +50,37 @@ namespace NinjaTools.FluentMockServer.API.Controllers
         }
         
         [HttpGet("seed/{count}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public IStatusCodeActionResult Seed(int count)
+        [Produces("application/json", Type = typeof(IAsyncEnumerable<Expectation>))]
+        [ProducesResponseType(typeof(IAsyncEnumerable<Expectation>), StatusCodes.Status200OK)]
+        public async IAsyncEnumerable<Expectation> SeedAsync(int count)
         {
-            _expectationService.SeedAsync(count);
-            return Ok();
+            await foreach (var expectation in _expectationService.SeedAsync(count))
+            {
+                yield return expectation;
+            }
         }
         
-        [HttpGet("create")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-
-        public async Task<IStatusCodeActionResult> Create(Expectation expectation)
+        [HttpPut("create")]
+        [Consumes("application/json")]
+        [Produces("application/json", Type = typeof(Expectation))]
+        [ProducesResponseType(typeof(Expectation), StatusCodes.Status200OK)]
+        public async Task<ActionResult<Expectation>> Create(Expectation expectation)
         { 
-            await _expectationService.AddAsync(expectation);
-            return Ok();
+            var id = await _expectationService.AddAsync(expectation);
+            
+            if (id.HasValue)
+            {
+                expectation.Id = id.Value;
+                return new JsonResult(expectation)
+                {
+                    StatusCode = 200
+                };
+            }
+
+            return Problem($"Unable to save the{nameof(expectation)} on the database.",
+                
+                JsonConvert.SerializeObject(expectation), 500, "ServerError");
+
         }
     }
 }

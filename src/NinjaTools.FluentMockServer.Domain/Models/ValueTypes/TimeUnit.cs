@@ -9,7 +9,7 @@ namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
     /// </summary>
     [JsonConverter(typeof(ContractResolver.UpperCaseEnumConverter))]
     [Serializable]
-    public enum TimeUnit : ushort
+    public enum TimeUnit : int
     {
         /// <summary>
         ///     The nanoseconds.

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace NinjaTools.FluentMockServer.Domain.Models
 {
@@ -17,6 +18,7 @@ namespace NinjaTools.FluentMockServer.Domain.Models
         public DateTime ModifiedOn{ get; set; }
 
         /// <inheritdoc />
+        [Timestamp]
         public byte[] Timestamp { get; set; }
         
         

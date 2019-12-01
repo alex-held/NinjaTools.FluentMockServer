@@ -9,7 +9,6 @@ using Serilog.Formatting.Compact;
 
 namespace NinjaTools.FluentMockServer.API
 {
-    
     public static class Program
     {
         private static readonly LoggerProviderCollection Providers = new LoggerProviderCollection();
@@ -19,7 +18,7 @@ namespace NinjaTools.FluentMockServer.API
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
+        private static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSerilog((ctx, config) => {
                     var serviceStartupTimeStamp = DateTime.Now.ToString("u");

@@ -11,8 +11,6 @@
   "profiles": {
     "NinjaTools.FluentMockServer.API": {
       "commandName": "Project",
-      "launchBrowser": true,
-      "launchUrl": "expectation/list",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

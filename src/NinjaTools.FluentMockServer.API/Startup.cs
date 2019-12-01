@@ -2,6 +2,7 @@ using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +29,15 @@ namespace NinjaTools.FluentMockServer.API
             services
                 .AddDbContext<ExpectationDbContext>(opt =>
                 {
-                    opt.UseSqlite($"Data Source={Path.Combine(Directory.GetCurrentDirectory(), "Data/expectations.sb")}");
+                    // Build connection string
+                    var  builder = new SqlConnectionStringBuilder();
+                    builder.DataSource = "localhost";                   // update me
+                    builder.UserID = "sa";                              // update me
+                    builder.Password = "59ab41dd721aa9dca2f6722a";      // update me
+                    builder.InitialCatalog = "master";
+
+                    var connectionString = builder.ConnectionString;
+                    opt.UseSqlServer(new SqlConnection(connectionString));
                     opt.ConfigureWarnings(warnings => { warnings.Default(WarningBehavior.Log); });
                 })
                 .AddTransient<ExpectationService>()

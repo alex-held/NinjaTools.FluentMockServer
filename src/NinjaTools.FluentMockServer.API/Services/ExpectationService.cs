@@ -7,6 +7,7 @@ using AutoBogus;
 using Bogus;
 using Bogus.Extensions;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.API.Data;
@@ -128,7 +129,7 @@ namespace NinjaTools.FluentMockServer.API.Services
         {
             _logger = logger;
             _context = context;
-            SeedAsync(5);
+//            SeedAsync(5);
         }
         
         public async IAsyncEnumerable<Expectation> FindExpectationsAsync(Func<Expectation, bool> predicate, CancellationToken token = default)
@@ -141,6 +142,8 @@ namespace NinjaTools.FluentMockServer.API.Services
                 }
             }
         }
+
+        public async Task<List<Expectation>> ToListAsync(CancellationToken token = default) => await _context.Expectations.ToListAsync(token);
         
         public async IAsyncEnumerable<Expectation> GetAllAsync(CancellationToken token = default)
         {
@@ -158,18 +161,18 @@ namespace NinjaTools.FluentMockServer.API.Services
             return count;
         }
 
-        public async ValueTask<bool> AddAsync(Expectation expectation, CancellationToken token = default)
+        public async ValueTask<int?> AddAsync(Expectation expectation, CancellationToken token = default)
         {
             try
             {
                 await _context.Expectations.AddAsync(expectation, token);
                 await _context.SaveChangesAsync(token);
-                return true;
+                return expectation.Id;
             }
             catch (Exception e)
             {
                 _logger.LogError($"Could not save {nameof(Expectation)} to DbSet<{nameof(Expectation)}>.", e);
-                return false;
+                return null;
             }
         }
         
