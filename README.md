@@ -2,10 +2,7 @@
 
 ! This repository is currently under construction. !
 
-## Status
-[![azure-pipeline](https://dev.azure.com/aheldext/HardCode.MockServer/_apis/build/status/alex-held.HardCode.MockServer?branchName=master)](https://dev.azure.com/aheldext/HardCode.MockServer/_build/latest?definitionId=4&branchName=master)
-
-[![Board Status](https://dev.azure.com/aheldext/dd2a5c29-0864-43a2-acde-a0a3da18fe71/b512aad6-fd76-4d19-86c7-fbda79cb29c2/_apis/work/boardbadge/8f972b26-27fd-4f20-922a-023bdc291a3c?columnOptions=1)](https://dev.azure.com/aheldext/dd2a5c29-0864-43a2-acde-a0a3da18fe71/_boards/board/t/b512aad6-fd76-4d19-86c7-fbda79cb29c2/Microsoft.RequirementCategory/)
+[![Build Status](https://dev.azure.com/alex-held/NinjaTools.FluentMockServer/_apis/build/status/alex-held.NinjaTools.FluentMockServer?branchName=master)](https://dev.azure.com/alex-held/NinjaTools.FluentMockServer/_build/latest?definitionId=2&branchName=master) [![Board Status](https://dev.azure.com/alex-held/1d2716aa-e492-484f-9771-a7ae71f6f3fb/c4f6723f-2182-4ab9-979a-9011eda004f8/_apis/work/boardbadge/a9799606-87b5-4e95-b7e3-2cec9c84c163?columnOptions=1)](https://dev.azure.com/alex-held/1d2716aa-e492-484f-9771-a7ae71f6f3fb/_boards/board/t/c4f6723f-2182-4ab9-979a-9011eda004f8/Microsoft.RequirementCategory/)
 
 ## What are we trying to solve?
 
