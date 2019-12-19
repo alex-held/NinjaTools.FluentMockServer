@@ -1,4 +1,6 @@
 using System;
+using JetBrains.Annotations;
+using NinjaTools.FluentMockServer.Domain.Builders.Response;
 using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
 
 namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
@@ -8,30 +10,61 @@ namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
     /// </summary>
     public class ConnectionOptions : IEquatable<ConnectionOptions>
     {
+        internal class FluentConnectionOptionsBuilder : IFluentConnectionOptionsBuilder
+        {
+            private  bool? _closeSocket;
+            private  long? _contentLengthHeaderOverride;
+            private  bool? _suppressContentLengthHeader;
+            private  bool? _suppressConnectionHeader;
+            private  bool? _keepAliveOverride;
+
+            /// <inheritdoc />
+            public IFluentConnectionOptionsBuilder WithKeepAliveOverride(bool keepAliveOverride)
+            {
+                _keepAliveOverride = keepAliveOverride;
+                return this;
+            }
+
+            [NotNull]
+            public ConnectionOptions Build()
+            {
+                return new ConnectionOptions(_closeSocket, _contentLengthHeaderOverride, _suppressContentLengthHeader, _suppressConnectionHeader, _keepAliveOverride);
+            }
+        }
+        
+        public ConnectionOptions(bool? closeSocket, long? contentLengthHeaderOverride, bool? suppressContentLengthHeader, bool? suppressConnectionHeader, bool? keepAliveOverride)
+        {
+            CloseSocket = closeSocket;
+            ContentLengthHeaderOverride = contentLengthHeaderOverride;
+            SuppressContentLengthHeader = suppressContentLengthHeader;
+            SuppressConnectionHeader = suppressConnectionHeader;
+            KeepAliveOverride = keepAliveOverride;
+        }
+        
         /// <summary>
         ///     Whether the MockServer should close the socket after the connection.
         /// </summary>
-        public bool? CloseSocket { get; set; }
+        public bool? CloseSocket { get; }
 
         /// <summary>
         ///     Overrides the ContentLength Header.
         /// </summary>
-        public long? ContentLengthHeaderOverride { get; set; }
+        public long? ContentLengthHeaderOverride { get; }
 
         /// <summary>
         ///     Disables the ContentLengthHeadeer
         /// </summary>
-        public bool? SuppressContentLengthHeader { get; set; }
+        public bool? SuppressContentLengthHeader { get; }
 
         /// <summary>
         ///     Whether to suppress the connection header.
         /// </summary>
-        public bool? SuppressConnectionHeader { get; set; }
+        public bool? SuppressConnectionHeader { get; }
 
         /// <summary>
         ///     Overrides the <see cref="HttpRequest.KeepAlive" /> setting.
         /// </summary>
-        public bool? KeepAliveOverride { get; set; }
+        public bool? KeepAliveOverride { get; }
 
         /// <inheritdoc />
         public bool Equals(ConnectionOptions other)

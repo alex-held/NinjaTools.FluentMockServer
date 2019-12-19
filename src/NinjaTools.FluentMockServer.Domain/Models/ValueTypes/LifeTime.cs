@@ -2,13 +2,8 @@ using System;
 
 namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
 {
-    [Serializable]
     public class LifeTime : IEquatable<LifeTime>
     {
-        public LifeTime()
-        {
-        }
-
         public LifeTime(int? timeToLive = null, TimeUnit timeUnit = ValueTypes.TimeUnit.Milliseconds)
         {
             if (timeToLive.HasValue && timeToLive.Value > 0)
@@ -23,9 +18,9 @@ namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
             }
         }
 
-        public TimeUnit? TimeUnit { get; set; }
-        public int? TimeToLive { get; set; }
-        public bool? Unlimited { get; set; }
+        public TimeUnit? TimeUnit { get; }
+        public int? TimeToLive { get; }
+        public bool? Unlimited { get; }
 
         /// <inheritdoc />
         public bool Equals(LifeTime other)

@@ -2,10 +2,10 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using NinjaTools.FluentMockServer.Builders.Expectation;
-using NinjaTools.FluentMockServer.Extensions;
-using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
-using static NinjaTools.FluentMockServer.Requests.RequestFactory;
+using NinjaTools.FluentMockServer.FluentAPI;
+using NinjaTools.FluentMockServer.FluentAPI.Builders;
+using NinjaTools.FluentMockServer.Models;
+using static NinjaTools.FluentMockServer.Utils.RequestFactory;
 
 namespace NinjaTools.FluentMockServer
 {
@@ -15,7 +15,10 @@ namespace NinjaTools.FluentMockServer
 
         public MockServerClient(HttpClient client, string hostname = "http://localhost:9003")
         {
-            _httpClient = client.WithDefaults(new Uri(hostname));
+            client.BaseAddress = new Uri(hostname);
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Host = null;
+            _httpClient = client;
         }
         
         public MockServerClient(string mockServerEndpoint) : this(new HttpClient(),mockServerEndpoint)

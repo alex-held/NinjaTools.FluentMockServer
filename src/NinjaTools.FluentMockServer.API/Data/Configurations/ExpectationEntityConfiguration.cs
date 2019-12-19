@@ -3,8 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Domain.Models;
-using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Models;
+using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.API.Data.Configurations
 {

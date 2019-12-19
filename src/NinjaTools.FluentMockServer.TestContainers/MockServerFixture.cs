@@ -19,7 +19,6 @@ namespace NinjaTools.FluentMockServer.TestContainers
         /// </summary>
         protected MockServerContainer Container { get; }
          
-        /// <inheritdoc />
         public MockServerFixture()
         {
             Container = new MockServerContainer();

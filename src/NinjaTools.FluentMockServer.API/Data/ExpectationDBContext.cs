@@ -1,8 +1,6 @@
-using System.Threading;
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
-using NinjaTools.FluentMockServer.Domain.Models;
+using NinjaTools.FluentMockServer.Models;
 
 namespace NinjaTools.FluentMockServer.API.Data
 {
@@ -18,12 +16,6 @@ namespace NinjaTools.FluentMockServer.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ExpectationDbContext).Assembly);
-        }
-        
-        /// <inheritdoc />
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-        {
-            return base.SaveChangesAsync(cancellationToken);
         }
     }
 

@@ -3,13 +3,12 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NinjaTools.FluentMockServer.API.Data;
 
 namespace NinjaTools.FluentMockServer.API.Migrations
 {
     [DbContext(typeof(ExpectationDbContext))]
-    partial class ExpectationDbContextModelSnapshot : ModelSnapshot
+     class ExpectationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {

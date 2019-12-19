@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoBogus;
@@ -11,10 +12,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.API.Data;
-using NinjaTools.FluentMockServer.Builders.Request;
-using NinjaTools.FluentMockServer.Domain.Models;
-using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
+using NinjaTools.FluentMockServer.FluentAPI;
+using NinjaTools.FluentMockServer.FluentAPI.Builders.ValueObjects;
+using NinjaTools.FluentMockServer.Models;
+using NinjaTools.FluentMockServer.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.API.Services
 {
@@ -86,11 +88,7 @@ namespace NinjaTools.FluentMockServer.API.Services
         public static HttpResponse FakeResponse()
         {
             var resposeFaker = new AutoFaker<HttpResponse>()
-                .RuleFor(exp => exp.Delay, fake => new Delay
-                {
-                    TimeUnit = fake.PickRandom<TimeUnit>(),
-                    Value = fake.Random.Int(50, 100000)
-                })
+                .RuleFor(exp => exp.Delay, fake => new Delay(fake.PickRandom<TimeUnit>(), fake.Random.Int(50, 100000)))
                 .RuleFor(exp => exp.Body, FakeBody());
 
             return resposeFaker.Generate();
@@ -102,12 +100,12 @@ namespace NinjaTools.FluentMockServer.API.Services
         
         public static JToken FakeBody()
         {
-            Func<IFluentBodyBuilder> Factory = () => new FluentBodyBuilder();
+            Func<IFluentBodyBuilder> factory = () => new FluentBodyBuilder();
             
             var faker = new AutoFaker<JToken>();
             var list = BodyOptions.Select(act =>
             {
-                var builder = Factory.Invoke();
+                var builder = factory.Invoke();
                 act(builder);
                 return builder.Build();
             }).ToList();
@@ -132,7 +130,7 @@ namespace NinjaTools.FluentMockServer.API.Services
 //            SeedAsync(5);
         }
         
-        public async IAsyncEnumerable<Expectation> FindExpectationsAsync(Func<Expectation, bool> predicate, CancellationToken token = default)
+        public async IAsyncEnumerable<Expectation> FindExpectationsAsync(Func<Expectation, bool> predicate, [EnumeratorCancellation] CancellationToken token = default)
         {
             await foreach (var expectation in _context.Expectations.AsAsyncEnumerable().WithCancellation(token))
             {
@@ -145,7 +143,7 @@ namespace NinjaTools.FluentMockServer.API.Services
 
         public async Task<List<Expectation>> ToListAsync(CancellationToken token = default) => await _context.Expectations.ToListAsync(token);
         
-        public async IAsyncEnumerable<Expectation> GetAllAsync(CancellationToken token = default)
+        public async IAsyncEnumerable<Expectation> GetAllAsync([EnumeratorCancellation] CancellationToken token = default)
         {
             await foreach (var expectation in  _context.Expectations.AsAsyncEnumerable().WithCancellation(token))
             {
@@ -176,7 +174,7 @@ namespace NinjaTools.FluentMockServer.API.Services
             }
         }
         
-        public async IAsyncEnumerable<Expectation> SeedAsync(int count, CancellationToken token = default)
+        public async IAsyncEnumerable<Expectation> SeedAsync(int count, [EnumeratorCancellation] CancellationToken token = default)
         {
 #if DEBUG
             var expectations = ExpectationFactory.FakeExpectations(count);

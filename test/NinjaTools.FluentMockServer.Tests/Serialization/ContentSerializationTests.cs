@@ -4,45 +4,34 @@ using System.Linq;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Extensions;
+using NinjaTools.FluentMockServer.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
 
 namespace NinjaTools.FluentMockServer.Tests.Serialization
 {
-    public class ContentSerializationTests
+    public class ContentSerializationTests : XUnitTestBase<ContentSerializationTests>
     {
-
-        public ContentSerializationTests(ITestOutputHelper outputHelper)
-        {
-            _logger = outputHelper;
-        }
+        public ContentSerializationTests(ITestOutputHelper outputHelper) : base(outputHelper)
+        { }
         
-        
-        private readonly ITestOutputHelper _logger;
-
         [Fact]
         public void Should_Serialize_Binary_Content()
         {
             // Arrange
-            var httpResponse = new HttpResponse
-            {
-                Body = new BinaryContent("iVBORw0KGgoAAAANSUhEUgAAAqwAAAApCAIAAAB"),
-                Delay = new Delay
-                {
-                    Value = 50,
-                    TimeUnit =  TimeUnit.Milliseconds
-                }
-            };
-            
+            var httpResponse = HttpResponse.Create(
+                body: new BinaryContent("iVBORw0KGgoAAAANSUhEUgAAAqwAAAApCAIAAAB"), 
+                delay: new Delay(TimeUnit.Milliseconds, 50));
+        
             // Act
-            var jo = httpResponse.AsJObject();
+            httpResponse.AsJObject();
             var json = httpResponse.AsJson();
             
-            _logger.WriteLine(json);
+            Output.WriteLine(json);
 
             const string expected = @"
 {
@@ -124,12 +113,12 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             // Act
             if (!Parser.TryParsePartialJson(json, out var result, out var exceptionPath))
             {
-                _logger.WriteLine(exceptionPath);
+                Output.WriteLine(exceptionPath);
                 throw new XunitException($"Parsing the input {json} failed.");
             }
             
             
-            _logger.WriteLine(result.ToString(Formatting.Indented));
+            Output.WriteLine(result.ToString(Formatting.Indented));
             result.ToString().Should().Be(jToken.ToString());
         }
     }
@@ -217,8 +206,6 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
                 Debug.WriteLine(exception);
                 return false;
             }
-
-            return false;
         }
 
         private static bool TryResolveJProperty(out JToken token, string validJson)
@@ -257,7 +244,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             {
                 try
                 {
-                    var obj = JToken.Parse(strInput);
+                    var unused = JToken.Parse(strInput);
                     return true;
                 }
                 catch (JsonReaderException jex)

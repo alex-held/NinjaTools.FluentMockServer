@@ -35,10 +35,9 @@
 
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+      <PackageReference Include="ReSharper.Annotations" Version="7.1.3.130415" />
     </ItemGroup>
+    
 
-    <ItemGroup>
-      <ProjectReference Include="..\NinjaTools.FluentMockServer.Domain\NinjaTools.FluentMockServer.Domain.csproj" />
-    </ItemGroup>
 
 </Project>
