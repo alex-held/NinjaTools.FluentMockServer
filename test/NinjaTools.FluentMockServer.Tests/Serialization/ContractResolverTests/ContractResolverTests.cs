@@ -1,24 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using NinjaTools.FluentMockServer.Extensions;
+using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;
 using Xunit.Abstractions;
 
 namespace NinjaTools.FluentMockServer.Tests.Serialization.ContractResolverTests
 {
-    public class ContractResolverTests
+    public class ContractResolverTests : XUnitTestBase<ContractResolverTests>
     {
-        private ILogger<ContractResolverTests> _logger;
-
-        public ContractResolverTests(ITestOutputHelper logger)
-        {
-            _logger = LoggerFactory.Create(i => i.AddXunit(logger))
-                          .CreateLogger< ContractResolverTests>();
-        }
+        public ContractResolverTests(ITestOutputHelper outputHelper) : base(outputHelper)
+        { }
 
         public class InternalMember 
         {
@@ -55,10 +49,9 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization.ContractResolverTests
 
             // Act
             var jo = sut.AsJObject();
-            var json = jo.ToString(Formatting.Indented);
             
-            _logger.LogInformation(json);
-            TraceWriter.GetTraceMessages().ToList().ForEach(m => _logger.LogInformation(m));   
+            Output.Dump(jo);
+            TraceWriter.GetTraceMessages().ToList().ForEach(m => Output.Dump(m));   
             
             // Assert
             jo.Should().NotBeNull();

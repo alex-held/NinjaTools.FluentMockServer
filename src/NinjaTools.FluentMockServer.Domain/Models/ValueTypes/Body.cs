@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
-namespace NinjaTools.FluentMockServer.Client.Models.ValueTypes
+namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
 {
     [Serializable]
     public class Body : JObject

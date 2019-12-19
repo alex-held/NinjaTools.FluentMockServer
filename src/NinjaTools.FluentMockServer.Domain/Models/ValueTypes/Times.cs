@@ -5,9 +5,13 @@ namespace NinjaTools.FluentMockServer.Domain.Models.ValueTypes
     [Serializable]
     public class Times : IEquatable<Times>
     {
-        public Times()
+        public Times(int remainingTimes, bool unlimited)
         {
+            RemainingTimes = remainingTimes;
+            Unlimited = unlimited;
         }
+        
+      
 
         public Times(int remainingTimes)
         {

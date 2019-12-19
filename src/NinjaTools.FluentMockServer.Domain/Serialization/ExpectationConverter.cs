@@ -1,15 +1,18 @@
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Domain.Models;
+using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
 
 namespace NinjaTools.FluentMockServer.Domain.Serialization
 {
     public class ExpectationConverter : JsonConverter<Expectation>
     {
-        private static readonly object sync = new object();
+        private static readonly object Sync = new object();
 
         private bool _isWriting;
 
@@ -17,7 +20,7 @@ namespace NinjaTools.FluentMockServer.Domain.Serialization
         {
             get
             {
-                lock (sync)
+                lock (Sync)
                 {
                     return _isWriting;
                 }
@@ -25,7 +28,7 @@ namespace NinjaTools.FluentMockServer.Domain.Serialization
 
             set
             {
-                lock (sync)
+                lock (Sync)
                 {
                     _isWriting = value;
                 }
@@ -34,7 +37,7 @@ namespace NinjaTools.FluentMockServer.Domain.Serialization
 
 
         /// <inheritdoc />
-        public override void WriteJson(JsonWriter writer, Expectation value, JsonSerializer serializer)
+        public override void WriteJson([NotNull] JsonWriter writer, Expectation value, JsonSerializer serializer)
         {
             try
             {
@@ -50,11 +53,11 @@ namespace NinjaTools.FluentMockServer.Domain.Serialization
         }
 
         /// <inheritdoc />
-        public override Expectation ReadJson(JsonReader reader, Type objectType, Expectation existingValue, bool hasExistingValue, JsonSerializer serializer)
+        public override Expectation ReadJson(JsonReader reader, [NotNull] Type objectType, Expectation existingValue, bool hasExistingValue, JsonSerializer serializer)
         {
             var token = JToken.ReadFrom(reader);
 
-            var expectation = new Expectation();
+            var expectation = Expectation.FluentExpectationBuilder.Create();
             
             foreach (var propertyInfo in objectType
                 .GetProperties(BindingFlags.Public | BindingFlags.Instance)
@@ -68,7 +71,7 @@ namespace NinjaTools.FluentMockServer.Domain.Serialization
                 try
                 {
                     var value = memberJson.ToObject(propertyInfo.PropertyType);
-                    propertyInfo.SetValue(expectation, value);
+                    propertyInfo.SetValue(expectation, value, BindingFlags.Instance | BindingFlags.NonPublic, null, null, CultureInfo.DefaultThreadCurrentCulture);
                 }
                 catch (Exception e)
                 {

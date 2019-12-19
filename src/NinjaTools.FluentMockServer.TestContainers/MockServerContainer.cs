@@ -54,7 +54,6 @@ namespace NinjaTools.FluentMockServer.TestContainers
             return port;
         }
 
-        /// <inheritdoc />
         public MockServerContainer()
         {
             HostPort = GetAvailablePort(3000);
