@@ -1,40 +1,83 @@
-using System;
 using System.IO;
+using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using NinjaTools.FluentMockServer.API.Data;
+using NinjaTools.FluentMockServer.API.Services;
 using Serilog;
-using Serilog.Enrichers;
-using Serilog.Extensions.Logging;
+using Serilog.Events;
 using Serilog.Formatting.Compact;
+using Serilog.Formatting.Json;
+using Serilog.Sinks.SystemConsole.Themes;
 
+[assembly: InternalsVisibleTo("NinjaTools.FluentMockServer.API.Tests")]
 namespace NinjaTools.FluentMockServer.API
 {
-    public static class Program
+    internal static class Program
     {
-        private static readonly LoggerProviderCollection Providers = new LoggerProviderCollection();
-
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            WebHost
+                .CreateDefaultBuilder(args)
+                .UseSerilog((context, logger) => logger
+                    .WriteTo.TextWriter(new CompactJsonFormatter(), new StringWriter())
+                    .WriteTo.Console(theme: AnsiConsoleTheme.Code)
+                    .WriteTo.Debug()
+                    .WriteTo.File(new JsonFormatter("\n-----\n"), context.Configuration.GetValue<string>("Logging:FilePath"))
+                    .Enrich.FromLogContext()
+                )
+                .ConfigureServices((context, services) =>
+                {
+                    services.AddDbContext<ExpectationDbContext>(opt =>
+                        {
+                            // Build connection string
+                            var  builder = new SqlConnectionStringBuilder();
+                            builder.DataSource = "localhost";                   // update me
+                            builder.UserID = "sa";                              // update me
+                            builder.Password = "59ab41dd721aa9dca2f6722a";      // update me
+                            builder.InitialCatalog = "master";
+
+                            var connectionString = builder.ConnectionString;
+                            opt.UseSqlServer(new SqlConnection(connectionString));
+                            opt.ConfigureWarnings(warnings => { warnings.Default(WarningBehavior.Log); });
+                        })
+                        .AddTransient<ExpectationService>()
+                        .AddControllers()
+                        .AddNewtonsoftJson()
+                        .AddMvcOptions(opt => opt.EnableEndpointRouting = false);
+                })
+                .Configure((context, app) =>
+                {
+                    app.UseSerilogRequestLogging(options =>
+                    {
+                        // Customize the message template
+                        options.MessageTemplate = "Handled {RequestPath}";
+
+                        // Emit debug-level events instead of the defaults
+                        options.GetLevel = (httpContext, elapsed, ex) => LogEventLevel.Debug;
+
+                        // Attach additional properties to the request completion event
+                        options.EnrichDiagnosticContext = (diagnosticContext, httpContext) =>
+                        {
+                            diagnosticContext.Set("RequestHost", httpContext.Request.Host.Value);
+                            diagnosticContext.Set("RequestScheme", httpContext.Request.Scheme);
+                        };
+                    });
+
+                    app.UseHttpsRedirection();
+                    app.UseAuthorization();
+                    app.UsePathBase(new PathString("/mockconfig"));
+                    app.UseMvc();
+                    app.UseRouting();
+                })
+                .Build()
+                .RunAsync();
         }
-
-        private static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .UseSerilog((ctx, config) => {
-                    var serviceStartupTimeStamp = DateTime.Now.ToString("u");
-                    var name = AppDomain.CurrentDomain.FriendlyName;
-                    var logFileName = $"{name}-{serviceStartupTimeStamp}.log";
-                    var rootedPath = Path.Combine(Directory.GetCurrentDirectory(), "Data", logFileName);
-
-                    config.ReadFrom.Configuration(ctx.Configuration)
-                        .MinimumLevel.Information()
-                        .Enrich.FromLogContext()
-                        .Enrich.With<EnvironmentUserNameEnricher>()
-                        .Enrich.With<MachineNameEnricher>()
-                        .WriteTo.Providers(Providers)
-                        .WriteTo.File(new RenderedCompactJsonFormatter(), rootedPath )
-                        .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} {Properties:j}{NewLine}{Exception}");
-                }, writeToProviders: true)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NinjaTools.FluentMockServer.API
 {
-    public static class Extensions
+    public static class EFCoreExtensions
     {
         public static async ValueTask<long> ClearAsync<T>(this DbSet<T> dbSet, CancellationToken token = default) where T : class
         {

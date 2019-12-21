@@ -1,29 +1,39 @@
+using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using NinjaTools.FluentMockServer.Models;
 
 namespace NinjaTools.FluentMockServer.API.Configuration
 {
     public class DownstreamContext
     {
-        public DownstreamContext(HttpContext httpContext)
+        public DownstreamContext([NotNull] HttpContext httpContext)
         {
             HttpContext = httpContext;
             Errors = new List<Error>();
         }
-     
-        public IMockServerReverseProxyConfiguration Configuration { get; set; } 
-     
-        [NotNull] 
-        public HttpContext HttpContext { get; }
-        
-        [NotNull] 
-        public List<Error> Errors { get; }
+
+        [NotNull] public IMockServerReverseProxyConfiguration Configuration { get; set; }
+
+        [NotNull] public IServiceProvider Services => HttpContext.RequestServices;
+
+        [NotNull] public HttpContext HttpContext { get; }
+
+        [NotNull] public List<Error> Errors { get; }
 
         public bool IsError => Errors.Count > 0;
+        public IExpectationRepository ExpectationRepository => Services.GetRequiredService<IExpectationRepository>(); 
     }
 
-    public class Error
+    public interface IExpectationRepository
+    {
+        Expectation? GetExpectation(HttpContext context);
+    }
+
+
+public class Error
     {
         public Error(string message, MockServerErrorCode errorCode)
         {
@@ -44,6 +54,9 @@ namespace NinjaTools.FluentMockServer.API.Configuration
 
     public enum MockServerErrorCode
     {
+        NoDataFoundError = 100,
+        AddDataFailedError = 101,
+        RequestMappingError = 200,
     }
 
     public interface IMockServerReverseProxyConfiguration
