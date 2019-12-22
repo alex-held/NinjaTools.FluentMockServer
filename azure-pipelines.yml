@@ -9,6 +9,7 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
+steps:
 
 - task: UseDotNet@2
   inputs:
