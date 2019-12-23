@@ -1,8 +1,9 @@
+[![Board Status](https://dev.azure.com/alexander-held/00124096-a538-40ea-bac4-02a51826d901/8a0ca3cb-69d4-48e2-b635-d4aa53497c59/_apis/work/boardbadge/0f6795f5-d696-4477-b69e-273f081deda4)](https://dev.azure.com/alexander-held/00124096-a538-40ea-bac4-02a51826d901/_boards/board/t/8a0ca3cb-69d4-48e2-b635-d4aa53497c59/Microsoft.RequirementCategory)
 # HardCode.MockServer
 
 ! This repository is currently under construction. !
 
-[![Build Status](https://dev.azure.com/alex-held/NinjaTools.FluentMockServer/_apis/build/status/alex-held.NinjaTools.FluentMockServer?branchName=master)](https://dev.azure.com/alex-held/NinjaTools.FluentMockServer/_build/latest?definitionId=2&branchName=master) [![Board Status](https://dev.azure.com/alex-held/1d2716aa-e492-484f-9771-a7ae71f6f3fb/c4f6723f-2182-4ab9-979a-9011eda004f8/_apis/work/boardbadge/a9799606-87b5-4e95-b7e3-2cec9c84c163?columnOptions=1)](https://dev.azure.com/alex-held/1d2716aa-e492-484f-9771-a7ae71f6f3fb/_boards/board/t/c4f6723f-2182-4ab9-979a-9011eda004f8/Microsoft.RequirementCategory/)
+[![Board Status](https://dev.azure.com/alexander-held/00124096-a538-40ea-bac4-02a51826d901/8a0ca3cb-69d4-48e2-b635-d4aa53497c59/_apis/work/boardbadge/0f6795f5-d696-4477-b69e-273f081deda4?columnOptions=1)](https://dev.azure.com/alexander-held/00124096-a538-40ea-bac4-02a51826d901/_boards/board/t/8a0ca3cb-69d4-48e2-b635-d4aa53497c59/Microsoft.RequirementCategory/)
 
 ## What are we trying to solve?
 
