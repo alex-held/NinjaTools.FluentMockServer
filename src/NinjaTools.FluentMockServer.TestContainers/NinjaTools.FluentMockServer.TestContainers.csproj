@@ -18,11 +18,12 @@
         <PackageVersion>1.0.7</PackageVersion>
         <AssemblyVersion>1.0.7</AssemblyVersion>
         <IsPackable>true</IsPackable>
-        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
       <DocumentationFile>bin\Debug\NinjaTools.FluentMockServer.TestContainers.xml</DocumentationFile>
+      <NoWarn>1701;1702;1591;</NoWarn>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">

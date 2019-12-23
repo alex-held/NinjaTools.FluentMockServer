@@ -11,7 +11,7 @@ namespace NinjaTools.FluentMockServer.API.Migrations
                 name: "Expectations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<int>()
                         .Annotation("SqlServer:Identity", "1, 1"),
                     HttpRequest_Method = table.Column<string>(maxLength: 20, nullable: true),
                     HttpRequest_Headers = table.Column<string>(nullable: true),
@@ -73,7 +73,7 @@ namespace NinjaTools.FluentMockServer.API.Migrations
                     TimeToLive_Unlimited = table.Column<bool>(nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getutcdate()"),
                     ModifiedOn = table.Column<DateTime>(type: "datetime", nullable: false, defaultValueSql: "getutcdate()"),
-                    Timestamp = table.Column<byte[]>(rowVersion: true, nullable: false)
+                    Timestamp = table.Column<byte[]>(rowVersion: true)
                 },
                 constraints: table =>
                 {

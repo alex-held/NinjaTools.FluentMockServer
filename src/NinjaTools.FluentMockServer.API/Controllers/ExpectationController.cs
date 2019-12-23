@@ -1,15 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using NinjaTools.FluentMockServer.API.Services;
-using NinjaTools.FluentMockServer.Builders;
-using NinjaTools.FluentMockServer.Domain.Models;
+using NinjaTools.FluentMockServer.Models;
 
 namespace NinjaTools.FluentMockServer.API.Controllers
 {

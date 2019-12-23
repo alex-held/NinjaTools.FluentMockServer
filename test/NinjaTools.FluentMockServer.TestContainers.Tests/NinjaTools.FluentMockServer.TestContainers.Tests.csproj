@@ -18,6 +18,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\NinjaTools.FluentMockServer.TestContainers\NinjaTools.FluentMockServer.TestContainers.csproj" />
+      <ProjectReference Include="..\NinjaTools.FluentMockServer.Tests\NinjaTools.FluentMockServer.Tests.csproj" />
     </ItemGroup>
 
 </Project>

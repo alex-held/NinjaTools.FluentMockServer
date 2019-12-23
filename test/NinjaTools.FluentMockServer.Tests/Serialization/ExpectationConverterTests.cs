@@ -1,36 +1,21 @@
 using System.IO;
 using System.Text;
 using FluentAssertions;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Domain.Models;
-using NinjaTools.FluentMockServer.Domain.Models.HttpEntities;
-using NinjaTools.FluentMockServer.Domain.Models.ValueTypes;
-using NinjaTools.FluentMockServer.Domain.Serialization;
+using NinjaTools.FluentMockServer.FluentAPI.Builders;
+using NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities;
+using NinjaTools.FluentMockServer.Models;
+using NinjaTools.FluentMockServer.Models.HttpEntities;
+using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Serialization;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace NinjaTools.FluentMockServer.Tests.Serialization
 {
-    public abstract class TestBase
-    {
-        protected ILogger Logger { get; }
-        
-        protected TestBase(ITestOutputHelper output)
-        {
-            Logger = LoggerFactory.Create(b => b.AddXunit(output)).CreateLogger(GetType().Name);
-        }    
-    } 
     
-    public class ExpectationConverterTests : TestBase
+    public class ExpectationConverterTests
     {
-        /// <inheritdoc />
-        public ExpectationConverterTests(ITestOutputHelper output) : base(output)
-        {
-        }
-
-  
         [Fact]
         public void Should_Use_ExpectationConverter_When_Using_Standard_Deserializer()
         {
@@ -40,17 +25,15 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
     ""path"": ""/some/path""
   }
 }";
-            var expected = new Expectation
-            {
-                HttpRequest = new HttpRequest
-                {
-                    Path = "/some/path"
-                }
-            };
+            var builder = new FluentHttpRequestBuilder().WithPath("/some/path");
             
             // Act
+            var unused =Verify.Once(builder.Build());
+            var expected = FluentExpectationBuilder.Create(httpRequest:builder.Build());
+
+            // Act
             var result = JsonConvert.DeserializeObject<Expectation>(json);
-    
+
             // Assert
             result
                 .Should()
@@ -58,7 +41,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
                 .Which
                 .HttpRequest.Path.Should().Be(expected.HttpRequest.Path);
         }
-        
+
         [Fact]
         public void Should_Convert_To_Expectation_When_Converting_From_String()
         {
@@ -79,28 +62,22 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
     ""unlimited"": false
   }
 }";
-            var expected = new Expectation
-            {
-                HttpRequest = new HttpRequest
-                {
-                    Path = "/some/path"
-                }, HttpResponse = new HttpResponse
-                {
-                    StatusCode = 201,
-                    Delay = new Delay
-                    {
-                        Value = 1,
-                        TimeUnit = TimeUnit.Milliseconds
-                    }
-                },
-                Times = Times.Once
-            };
+            var builder = new FluentHttpRequestBuilder()
+                .WithPath("/some/path");
             
+            var expected = FluentExpectationBuilder.Create(
+                httpRequest: builder.Build(),
+                httpResponse:  HttpResponse.Create(
+                    statusCode:201,
+                    delay: new Delay(TimeUnit.Milliseconds, 1)),
+                times: Times.Once
+            );
+
             // Act
             var jsonReader = new JsonTextReader(new StringReader(json));
             var sut = new ExpectationConverter();
             var result = sut.ReadJson(jsonReader, typeof(Expectation), null, JsonSerializer.Create(Serializer.SerializerSettings)) as Expectation;
-    
+
             // Assert
             result
                 .Should()
@@ -108,7 +85,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
                 .Which
                 .HttpRequest.Path.Should().Be(expected.HttpRequest.Path);
         }
-           
+
         [Fact]
         public void Should_Use_ExpectationConverter_When_Using_Standard_Serializer()
         {
@@ -118,23 +95,19 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
     ""path"": ""/some/path""
   }
 }").ToString(Formatting.Indented);
-            
-            var expectation = new Expectation
-            {
-                HttpRequest = new HttpRequest
-                {
-                    Path = "/some/path"
-                }
-            };
-            
+
+            var builder = new FluentHttpRequestBuilder()
+                .WithPath("/some/path");
+            var expectation = FluentExpectationBuilder.Create(httpRequest:builder.Build());
+
             // Act
             var json = JsonConvert.SerializeObject(expectation);
-    
+
             // Assert
             json.Should().Be(expected);
         }
 
-        
+
         [Fact]
         public void Should_Convert_Expectation_To_Json()
         {
@@ -144,15 +117,11 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
     ""path"": ""/some/path""
   }
 }").ToString(Formatting.Indented);
-            
-            var expectation = new Expectation
-            {
-                HttpRequest = new HttpRequest
-                {
-                    Path = "/some/path"
-                }
-            };
-            
+
+            var builder = new FluentHttpRequestBuilder()
+                .WithPath("/some/path");
+            var expectation = FluentExpectationBuilder.Create(httpRequest: builder.Build());
+
             var subject = CreateSubject(out var sb, out var writer);
 
             // Act
