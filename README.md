@@ -19,7 +19,6 @@ with Responses, Timeouts, Exceptions and so on.
 
 Run a pod in the browser and [try out](https://gitpod.io/#https://github.com/alex-held/NinjaTools.FluentMockServer)!
 
-
 ### Setting up Expectations:
 
 ```csharp
@@ -55,7 +54,6 @@ MockServerSetup.Expectations
 ## Extensions
 
 Currently we support:
-
-- [testcontainers-dotnet](https://github.com/testcontainers/testcontainers-dotnet)
+*   [testcontainers-dotnet](https://github.com/testcontainers/testcontainers-dotnet)
   to spin up a MockServer docker container from within an test.
-- [xunit](https://github.com/xunit/xunit)
+*   [xunit](https://github.com/xunit/xunit)
