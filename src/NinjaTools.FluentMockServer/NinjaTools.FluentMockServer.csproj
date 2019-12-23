@@ -17,7 +17,7 @@
         <Product>FluentMockServer</Product>
         <PackageLicenseUrl>https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/LICENSE</PackageLicenseUrl>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <TargetFrameworks>netcoreapp3.1;</TargetFrameworks>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <AssemblyVersion>1.0.7</AssemblyVersion>
     </PropertyGroup>
     
@@ -34,8 +34,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-      <PackageReference Include="ReSharper.Annotations" Version="7.1.3.130415" />
     </ItemGroup>
     
 
