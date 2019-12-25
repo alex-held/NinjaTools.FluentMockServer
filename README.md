@@ -55,7 +55,7 @@ in the browser!
 
 | Package                                    |                                                         Master                                                         |                                                         Develop                                                         |
 | ------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: |
-| NinjaTools.FluentMockServer                | [NinjaTools.FluentMockServer](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer?logo=nuget&style=flat-square) | ![NinjaTools.FluentMockServer](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer?logo=nuget&style=flat-square) |
+| NinjaTools.FluentMockServer                | ![NinjaTools.FluentMockServer](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer?logo=nuget&style=flat-square) | ![NinjaTools.FluentMockServer](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer?logo=nuget&style=flat-square) |
 | NinjaTools.FluentMockServer.TestContainers |    ![Nuget](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer.TestContainers?logo=nuget&style=flat-square)    |   ![Nuget](https://img.shields.io/nuget/vpre/NinjaTools.FluentMockServer.TestContainers?logo=nuget&style=flat-square)   |
 
 | Package         | Master |                                                                      Develop                                                                      |
