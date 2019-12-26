@@ -71,14 +71,13 @@ actively added into the repository.
 
 - Tightly integrated with
   [mockserver](https://github.com/jamesdbloom/mockservice)
-- And a beautiful UI
 - In-memory creation of MockServer Docker Instances with
   [FluentDocker](https://github.com/mariotoffia/FluentDocker)
 - [XUnit](https://github.com/xunit/xunit) integration with Fixtures
-- Configure `Expectation`s:
+- Configure an `Expectation`:
   - Select which `HttpRequest` to handle
-  - Configure `Responses` like `Expections`, `HttpResponse`, `Timeouts`,
-    `ConnectionLoss` ...
+  - Configure an action like `Exceptions`, `HttpResponse`, `Timeout`,
+    `ConnectionLos` ...
   - _Optionally_ provide for how often / timespan the expectation is valid
 - Verfiy `Expectation`s:
   - Select which `HttpRequest` to verify
@@ -87,9 +86,9 @@ actively added into the repository.
 
 ### Planned Features
 
-See the
-[Roadmap blogpost](https://blog.radarr.video/development/update/2018/11/11/roadmap-update.html)
-for an overview of planned features.
+- Admin UI
+- Configuration via json/yaml files
+- Support for var
 
 ### Requirements
 
