@@ -18,10 +18,6 @@ ProjectSection(SolutionItems) = preProject
 	scripts\docker-compore.dependencies.yml = scripts\docker-compore.dependencies.yml
 EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.API", "src\NinjaTools.FluentMockServer.API\NinjaTools.FluentMockServer.API.csproj", "{E8618678-E2E8-4DEB-9829-83EECABC207A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.API.Tests.Exclude", "test\NinjaTools.FluentMockServer.API.Tests.Exclude\NinjaTools.FluentMockServer.API.Tests.Exclude.csproj", "{5E98DFFB-5AFE-447B-8D88-DC66117978D1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,21 +38,11 @@ Global
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8618678-E2E8-4DEB-9829-83EECABC207A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8618678-E2E8-4DEB-9829-83EECABC207A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8618678-E2E8-4DEB-9829-83EECABC207A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8618678-E2E8-4DEB-9829-83EECABC207A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E98DFFB-5AFE-447B-8D88-DC66117978D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E98DFFB-5AFE-447B-8D88-DC66117978D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E98DFFB-5AFE-447B-8D88-DC66117978D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E98DFFB-5AFE-447B-8D88-DC66117978D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4E080C86-373B-47ED-81C3-2B8CD0A424D7} = {1BBF6811-5858-47A7-A382-29D777150068}
 		{E9883692-C8F8-4CA9-8EDB-7859809D8DB8} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
 		{4E051198-705E-4605-8EEE-951D05E4B860} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37} = {1BBF6811-5858-47A7-A382-29D777150068}
-		{E8618678-E2E8-4DEB-9829-83EECABC207A} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
-		{5E98DFFB-5AFE-447B-8D88-DC66117978D1} = {1BBF6811-5858-47A7-A382-29D777150068}
 	EndGlobalSection
 EndGlobal
