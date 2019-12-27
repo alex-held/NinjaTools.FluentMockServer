@@ -3,7 +3,6 @@
     <PropertyGroup>
         <LangVersion>8.0</LangVersion>
         <NullableContext>Enabled</NullableContext>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageVersion>1.0.7</PackageVersion>
         <Title>NinjaTools.FluentMockServer</Title>
         <Authors>Alexander Held</Authors>

@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <LangVersion>Preview</LangVersion>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>NinjaTools.FluentMockServer.TestContainers</Title>
         <Authors>Alexander Held</Authors>
         <Description>In memory docker container runner for NinjaTools.FluentMockServer</Description>
