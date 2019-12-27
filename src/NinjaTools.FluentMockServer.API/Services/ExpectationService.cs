@@ -20,22 +20,14 @@ using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.API.Services
 {
-
     public static class ExpectationFactory
     {
-        
         public static readonly List<HttpMethod> HttpMethods = new List<HttpMethod>
         {
-            HttpMethod.Delete
-            , HttpMethod.Head
-            , HttpMethod.Trace
-            , HttpMethod.Options
-            , HttpMethod.Patch
-            , HttpMethod.Put
-            , HttpMethod.Post
+            HttpMethod.Delete, HttpMethod.Head, HttpMethod.Trace, HttpMethod.Options, HttpMethod.Patch, HttpMethod.Put, HttpMethod.Post
         };
-        
-        
+
+
         private static readonly List<Action<IFluentBodyBuilder>> BodyOptions = new List<Action<IFluentBodyBuilder>>
         {
             b => b.WithXmlContent("xml"),
@@ -46,13 +38,12 @@ namespace NinjaTools.FluentMockServer.API.Services
             b => b.WithoutExactJson("{ \"id\": 1, \"name\": \"A green door\", \"price\": 12.50, \"tags\": [\"home\", \"green\"] }")
         };
 
-        
-        private static readonly Faker<Expectation> ExpectationFaker =  new AutoFaker<Expectation>()
+
+        private static readonly Faker<Expectation> ExpectationFaker = new AutoFaker<Expectation>()
             .Ignore(exp => exp.Id)
             .RuleFor(exp => exp.HttpResponse, FakeResponse)
             .RuleFor(exp => exp.HttpRequest, GetRandomHttpRequest)
             .Ignore(exp => exp.HttpError);
-
 
 
         private static readonly Faker<HttpRequest> HttpRequestFaker = new AutoFaker<HttpRequest>()
@@ -63,8 +54,6 @@ namespace NinjaTools.FluentMockServer.API.Services
             .RuleFor(x => x.KeepAlive, fake => fake.Random.Bool().OrNull(fake, 0.8F));
 
 
-        
-        
         static ExpectationFactory()
         {
             // Configure globally
@@ -95,13 +84,20 @@ namespace NinjaTools.FluentMockServer.API.Services
         }
 
 
-        public static Expectation FakeExpectation() => ExpectationFaker.Generate();
-        public static List<Expectation> FakeExpectations(int count) => ExpectationFaker.Generate(count);
-        
+        public static Expectation FakeExpectation()
+        {
+            return ExpectationFaker.Generate();
+        }
+
+        public static List<Expectation> FakeExpectations(int count)
+        {
+            return ExpectationFaker.Generate(count);
+        }
+
         public static JToken FakeBody()
         {
             Func<IFluentBodyBuilder> factory = () => new FluentBodyBuilder();
-            
+
             var faker = new AutoFaker<JToken>();
             var list = BodyOptions.Select(act =>
             {
@@ -109,48 +105,48 @@ namespace NinjaTools.FluentMockServer.API.Services
                 act(builder);
                 return builder.Build();
             }).ToList();
-            
-            return faker.RuleFor( x => x, fake => fake.Random.Shuffle(list));
+
+            return faker.RuleFor(x => x, fake => fake.Random.Shuffle(list));
         }
 
 
         /// <summary>Gets a random <see cref="HttpRequest" />.</summary>
         /// <returns></returns>
-        public static HttpRequest GetRandomHttpRequest() => HttpRequestFaker.Generate();
-    } 
+        public static HttpRequest GetRandomHttpRequest()
+        {
+            return HttpRequestFaker.Generate();
+        }
+    }
+
     public class ExpectationService
     {
-        private readonly ILogger<ExpectationService> _logger;
         private readonly ExpectationDbContext _context;
-        
+        private readonly ILogger<ExpectationService> _logger;
+
         public ExpectationService(ExpectationDbContext context, ILogger<ExpectationService> logger)
         {
             _logger = logger;
             _context = context;
 //            SeedAsync(5);
         }
-        
+
         public async IAsyncEnumerable<Expectation> FindExpectationsAsync(Func<Expectation, bool> predicate, [EnumeratorCancellation] CancellationToken token = default)
         {
             await foreach (var expectation in _context.Expectations.AsAsyncEnumerable().WithCancellation(token))
-            {
                 if (predicate(expectation))
-                {
                     yield return expectation;
-                }
-            }
         }
 
-        public async Task<List<Expectation>> ToListAsync(CancellationToken token = default) => await _context.Expectations.ToListAsync(token);
-        
+        public async Task<List<Expectation>> ToListAsync(CancellationToken token = default)
+        {
+            return await _context.Expectations.ToListAsync(token);
+        }
+
         public async IAsyncEnumerable<Expectation> GetAllAsync([EnumeratorCancellation] CancellationToken token = default)
         {
-            await foreach (var expectation in  _context.Expectations.AsAsyncEnumerable().WithCancellation(token))
-            {
-                yield return expectation;
-            }
+            await foreach (var expectation in _context.Expectations.AsAsyncEnumerable().WithCancellation(token)) yield return expectation;
         }
-        
+
         public async ValueTask<long> PruneAsync(CancellationToken token = default)
         {
             var count = await _context.Expectations.ClearAsync(token);
@@ -173,20 +169,14 @@ namespace NinjaTools.FluentMockServer.API.Services
                 return null;
             }
         }
-        
+
         public async IAsyncEnumerable<Expectation> SeedAsync(int count, [EnumeratorCancellation] CancellationToken token = default)
         {
-#if DEBUG
             var expectations = ExpectationFactory.FakeExpectations(count);
             await _context.Expectations.AddRangeAsync(expectations, token);
             await _context.SaveChangesAsync(token);
 
-            await foreach (var expectation in _context.Expectations.AsAsyncEnumerable())
-            {
-                yield return expectation;
-            }
-#endif
+            await foreach (var expectation in _context.Expectations.AsAsyncEnumerable()) yield return expectation;
         }
-        
     }
 }
