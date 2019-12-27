@@ -16,7 +16,8 @@ using Serilog.Formatting.Compact;
 using Serilog.Formatting.Json;
 using Serilog.Sinks.SystemConsole.Themes;
 
-[assembly: InternalsVisibleTo("NinjaTools.FluentMockServer.API.Tests")]
+[assembly: InternalsVisibleTo("NinjaTools.FluentMockServer.API.Exclude.Tests")]
+
 namespace NinjaTools.FluentMockServer.API
 {
     internal static class Program
@@ -37,10 +38,10 @@ namespace NinjaTools.FluentMockServer.API
                     services.AddDbContext<ExpectationDbContext>(opt =>
                         {
                             // Build connection string
-                            var  builder = new SqlConnectionStringBuilder();
-                            builder.DataSource = "localhost";                   // update me
-                            builder.UserID = "sa";                              // update me
-                            builder.Password = "59ab41dd721aa9dca2f6722a";      // update me
+                            var builder = new SqlConnectionStringBuilder();
+                            builder.DataSource = "localhost"; // update me
+                            builder.UserID = "sa"; // update me
+                            builder.Password = "59ab41dd721aa9dca2f6722a"; // update me
                             builder.InitialCatalog = "master";
 
                             var connectionString = builder.ConnectionString;

@@ -23,23 +23,23 @@ namespace NinjaTools.FluentMockServer.API.Tests.Infrastructure
     }
 
     [ExampleData(ExampleData = typeof(HttpContextExamples))]
-    [Story(   
+    [Story(
         Title = "Can store and retrieve data inside a scoped HttpContext",
         AsA = "As a user of the MockServer-API",
         IWant = "I want to setup up properties for a request",
         SoThat = "So that the MockServer later is setup up as expected."
-     )]
+    )]
     public class ScopedHttpContextRepositoryTests
     {
+        private readonly IHttpContextAccessor _contextAccessor;
         private readonly HttpContext _httpContext;
-        private IHttpContextAccessor _contextAccessor;
         private readonly IScopeRepository _scopeRepository;
         private object _result;
 
         public ScopedHttpContextRepositoryTests()
         {
             _httpContext = new DefaultHttpContext();
-            _contextAccessor = new HttpContextAccessor() {HttpContext = _httpContext};
+            _contextAccessor = new HttpContextAccessor {HttpContext = _httpContext};
             _scopeRepository = new ScopedHttpContextRepository(_contextAccessor);
         }
 
@@ -71,10 +71,10 @@ namespace NinjaTools.FluentMockServer.API.Tests.Infrastructure
         {
             const string initialValue = "initial value";
             this.Given(x => x.GivenAHttpContextContaining(key, initialValue))
-                    .And(x => x.UpdateIsCalledWithKey(key, value))
+                .And(x => x.UpdateIsCalledWithKey(key, value))
                 .When(x => x.GetIsCalledWithKey<string>(key))
                 .Then(x => x.ThenTheResultIsAnOkResponse<string>(value))
-                    .And(x => x.AndTheValueForTheKeyGotUpdated<string>(key, initialValue))
+                .And(x => x.AndTheValueForTheKeyGotUpdated(key, initialValue))
                 .Run<ScopedHttpContextRepositoryTests>("Update existing values in the HttpContext store.");
         }
 
@@ -84,12 +84,12 @@ namespace NinjaTools.FluentMockServer.API.Tests.Infrastructure
         public void Add_Sets_Correct_Values_For_The_Key([NotNull] string key, [CanBeNull] object value)
         {
             this.Given(x => x.GivenAHttpContextContaining("abc", "string"))
-                    .And(x => x.GetIsCalledWithKey<string>("abc"))
-                    .And(x => x.ThenTheResultIsAnOkResponse<string>("string"))
+                .And(x => x.GetIsCalledWithKey<string>("abc"))
+                .And(x => x.ThenTheResultIsAnOkResponse<string>("string"))
                 .When(x => x.AddIsCalledWithKey(key, value))
-                    .And(x => x.GetIsCalledWithKey<string>(key))
+                .And(x => x.GetIsCalledWithKey<string>(key))
                 .Then(x => x.ThenTheResultIsAnOkResponse<string>(value))
-                .Run<ScopedHttpContextRepositoryTests>(("Add new values to the store."));
+                .Run<ScopedHttpContextRepositoryTests>("Add new values to the store.");
         }
 
 
@@ -125,7 +125,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Infrastructure
 
         private void UpdateIsCalledWithKey<T>([NotNull] string key, [NotNull] T value)
         {
-           _scopeRepository.Update(key, value);
+            _scopeRepository.Update(key, value);
         }
 
         private void AddIsCalledWithKey<T>([NotNull] string key, [NotNull] T value)
@@ -137,28 +137,25 @@ namespace NinjaTools.FluentMockServer.API.Tests.Infrastructure
 
 public class ExampleDataAttribute : Attribute
 {
-    [CanBeNull] 
-    public Type ExampleData { get; set; }
+    [CanBeNull] public Type ExampleData { get; set; }
 }
 
 public static class ExampleExtensions
 {
     public static Story Run<TStory>([NotNull] this object testObject, [NotNull] string scenarioTitle) where TStory : class
     {
-      //  var context = TestContext.GetContext(testObject);
+        //  var context = TestContext.GetContext(testObject);
         //var type = context.TestObject.GetType();
         var type = typeof(TStory);
         Story story;
 
         if (type.GetCustomAttribute<ExampleDataAttribute>() is {} attribute)
-        {
             if (attribute.ExampleData != null && Activator.CreateInstance(attribute.ExampleData) is ExampleTable examples)
             {
-               story  = testObject.WithExamples(examples).LazyBDDfy<TStory>(scenarioTitle, null).Run();
-               return story;
+                story = testObject.WithExamples(examples).LazyBDDfy<TStory>(scenarioTitle, null).Run();
+                return story;
             }
-        }
-        
+
         story = testObject.LazyBDDfy<TStory>(scenarioTitle, null).Run();
         return story;
     }
@@ -177,12 +174,11 @@ public class HttpContextData : TheoryData<string, object>
 
 public class HttpContextExamples : ExampleTable
 {
-    [NotNull] 
-    public static HttpContextExamples Examples => new HttpContextExamples();
-
     public HttpContextExamples() : base("key", "value")
     {
         Add(MockServerHttpContextKeys.RequestId, "Request-TraceId-5678");
         Add(MockServerHttpContextKeys.PreviousRequestId, "PreviousRequest-TraceId-1234");
     }
+
+    [NotNull] public static HttpContextExamples Examples => new HttpContextExamples();
 }

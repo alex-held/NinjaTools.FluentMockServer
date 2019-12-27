@@ -18,23 +18,29 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
                 .RuleFor(mail => mail.To, f => f.Internet.ExampleEmail("aheld"))
                 .RuleFor(mail => mail.Content, f => JsonConvert.SerializeObject(f.Rant.Reviews(f.Commerce.ProductName(), f.Random.Int(1, 5))))
                 .RuleFor(mail => mail.Subject, f => f.Company.CatchPhrase());
-            
+
             EmailFaker.AssertConfigurationIsValid();
         }
 
 
         /// <summary>
-        /// Generates one pseudo random generated <see cref="Email"/> instances.
+        ///     Generates one pseudo random generated <see cref="Email" /> instances.
         /// </summary>
         /// <returns></returns>
         [NotNull]
-        public static Email GenerateOneRandomEmail() => EmailFaker.Generate();
+        public static Email GenerateOneRandomEmail()
+        {
+            return EmailFaker.Generate();
+        }
 
         /// <summary>
-        /// Generates <see cref="count"/> of pseudo random generated <see cref="Email"/> instances.
+        ///     Generates <see cref="count" /> of pseudo random generated <see cref="Email" /> instances.
         /// </summary>
         /// <param name="count"></param>
         /// <returns></returns>
-        public static IEnumerable<Email> Generate(int count) => EmailFaker.Generate(count);
+        public static IEnumerable<Email> Generate(int count)
+        {
+            return EmailFaker.Generate(count);
+        }
     }
 }

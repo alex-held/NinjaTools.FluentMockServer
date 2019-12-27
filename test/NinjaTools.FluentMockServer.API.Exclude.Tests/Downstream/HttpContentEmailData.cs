@@ -1,7 +1,7 @@
 using System.IO;
 using System.Net.Http;
 using System.Text;
-using Newtonsoft.Json;
+using JetBrains.Annotations;
 using Xunit;
 
 namespace NinjaTools.FluentMockServer.API.Tests.Downstream
@@ -9,14 +9,11 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
     public class HttpContentEmailData : TheoryData<Stream, HttpContent>
     {
         public const int Count = 5;
-        
+
         /// <inheritdoc />
-        public HttpContentEmailData ()
+        public HttpContentEmailData()
         {
-            foreach (var email in RandomEmailFactory.Generate(Count))
-            {
-                AddDataset(email.ToString());
-            }
+            foreach (var email in RandomEmailFactory.Generate(Count)) AddDataset(email.ToString());
 
             // var dataCount = 0;
             // do
@@ -27,8 +24,8 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
             //
             // } while (++dataCount != Count);
         }
-        
-        private void AddDataset([JetBrains.Annotations.NotNull] string content, [JetBrains.Annotations.CanBeNull] string? other = null)
+
+        private void AddDataset([NotNull] string content, [CanBeNull] string? other = null)
         {
             Add(new MemoryStream(Encoding.UTF8.GetBytes(content)), new ByteArrayContent(Encoding.UTF8.GetBytes(other ?? content)));
         }

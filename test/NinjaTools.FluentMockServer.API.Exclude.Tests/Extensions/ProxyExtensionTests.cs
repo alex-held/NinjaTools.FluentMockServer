@@ -10,7 +10,6 @@ using NinjaTools.FluentMockServer.API.Downstream;
 using NinjaTools.FluentMockServer.API.Extensions;
 using Xunit;
 using HttpMethod = Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http.HttpMethod;
-using NotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace NinjaTools.FluentMockServer.API.Tests.Extensions
 {
@@ -32,20 +31,16 @@ namespace NinjaTools.FluentMockServer.API.Tests.Extensions
             // Arrange
             var sut = new DefaultHttpContext().Request;
             sut.Method = method.ToString();
-            
+
             // Act && Assert
             sut.CouldHaveContentBasedOnMethod().Should().Be(expected);
         }
-        
-        
-        
     }
 
     [SuppressMessage("ReSharper", "InvokeAsExtensionMethod")]
     public class HttpRequestMessageFactoryTests
     {
-
-        private DownstreamContext CreateContext([NotNull] HttpContext httpContext)
+        private DownstreamContext CreateContext([JetBrains.Annotations.NotNull] HttpContext httpContext)
         {
             return new DownstreamContext(httpContext);
         }
@@ -61,7 +56,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Extensions
             VerifyEqual(actual, expected);
         }
 
-        private static void VerifyEqual([NotNull] HttpRequestMessage actual, [NotNull] HttpRequestMessage expected)
+        private static void VerifyEqual([JetBrains.Annotations.NotNull] HttpRequestMessage actual, [JetBrains.Annotations.NotNull] HttpRequestMessage expected)
         {
             actual.Method.Method.ToUpper().Should().Be(expected.Method.Method.ToUpper());
             actual.RequestUri.Should().Be(expected.RequestUri);
@@ -71,7 +66,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Extensions
             actual.Properties.Should().Contain(expected.Properties);
             actual.Properties.Count.Should().Be(expected.Properties.Count);
         }
-        
+
         public static IEnumerable<object[]> CreateDefaultContextData()
         {
             yield return CreateData(new Uri("http://host:80/some/path"), HttpMethod.Post);
@@ -84,10 +79,10 @@ namespace NinjaTools.FluentMockServer.API.Tests.Extensions
                 httpContext.Request.Host = new HostString(requestUri.Authority, requestUri.Port);
                 httpContext.Request.Method = method.ToString();
                 httpContext.Request.Path = new PathString(requestUri.AbsolutePath);
-                httpContext.Request.QueryString = string.IsNullOrWhiteSpace(requestUri.Query) 
-                    ? new QueryString(requestUri.Query) 
+                httpContext.Request.QueryString = string.IsNullOrWhiteSpace(requestUri.Query)
+                    ? new QueryString(requestUri.Query)
                     : QueryString.Empty;
-                
+
                 var requestMessage = new HttpRequestMessage(System.Net.Http.HttpMethod.Post, requestUri);
                 return new object[]
                 {

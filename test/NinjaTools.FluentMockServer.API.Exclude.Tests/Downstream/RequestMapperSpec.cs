@@ -22,17 +22,17 @@ using Xunit.Abstractions;
 namespace NinjaTools.FluentMockServer.API.Tests.Downstream
 {
     // [ExampleData(ExampleData = typeof(EmailExampleTable))]
-    [Story( TitlePrefix = "Internal",Title = "Modify scoped HttpRequest before they get routed by MVC.",
+    [Story(TitlePrefix = "Internal", Title = "Modify scoped HttpRequest before they get routed by MVC.",
         AsA = "API user",
         IWant = "I want to configure httpRequest re-routes",
         SoThat = "I can setup up actions the mockserver should take.")]
     public class RequestMapperSpec : XUnitTestBase<RequestMapperSpec>
     {
-        private HttpRequest _inputRequest;
-        private Response<HttpRequestMessage> _result;
         private readonly RequestMapper _requestMapper;
         private List<KeyValuePair<string, StringValues>> _inputHeaders;
+        private HttpRequest _inputRequest;
         private Email _mail;
+        private Response<HttpRequestMessage> _result;
 
 
         public RequestMapperSpec(ITestOutputHelper outputHelper) : base(outputHelper)
@@ -40,7 +40,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
             _inputRequest = new DefaultHttpContext().Request;
             _requestMapper = new RequestMapper();
         }
-       
+
         [CanBeNull]
         public string? VerifyEquality([CanBeNull] HttpRequestMessage actual, [CanBeNull] HttpRequestMessage expected)
         {
@@ -63,10 +63,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
             {
                 actual.Properties.Should().NotBeNull();
                 actual.Properties.ToList().Count.Should().Be(expected.Properties.ToList().Count);
-                if (expected.Properties.Any())
-                {
-                    actual.Properties.ToList().Should().Contain(expected.Properties.ToList());
-                }
+                if (expected.Properties.Any()) actual.Properties.ToList().Should().Contain(expected.Properties.ToList());
             }
             else
             {
@@ -78,10 +75,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
                 actual.Headers.Should().NotBeNull();
                 actual.Headers.ToList().Count.Should().Be(expected.Headers.ToList().Count);
 
-                if (expected.Headers.Any())
-                {
-                    actual.Headers.ToList().Should().Contain(expected.Headers.ToList());
-                }
+                if (expected.Headers.Any()) actual.Headers.ToList().Should().Contain(expected.Headers.ToList());
             }
             else
             {
@@ -91,7 +85,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
             return null;
         }
 
-        
+
         [BddfyTheory]
         [ClassData(typeof(HttpContentEmailData))]
         public void MapAsync_Maps_Content(Stream request, HttpContent content)
@@ -103,7 +97,6 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
                 .And(_ => ThenNoErrorIsReturned())
                 .Then(_ => ThenTheMappedContentIs(content))
                 .BDDfy();
-            
         }
 
         private async Task ThenTheMappedContentIs([NotNull] HttpContent expected)
@@ -112,19 +105,13 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
             var actualData = await _result.Data.Content.ReadAsStringAsync();
             var expectedData = await expected.ReadAsStringAsync();
 
-            if (actualData != null)
-            {
-                Output.WriteLine($"Actual data:\n{actualData}");
-            }
+            if (actualData != null) Output.WriteLine($"Actual data:\n{actualData}");
 
-            if (expectedData != null)
-            {
-                Output.WriteLine($"Expected data:\n{expectedData}");
-            }
+            if (expectedData != null) Output.WriteLine($"Expected data:\n{expectedData}");
 
             actualData.ShouldBe(expectedData);
         }
-        
+
         [BddfyTheory]
         [ClassData(typeof(HttpRequestMapperData))]
         public void MapAsync_Maps_Method(HttpRequest request, HttpRequestMessage expected)
@@ -135,7 +122,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
                 .BDDfy();
         }
 
-    
+
         [BddfyTheory]
         [ClassData(typeof(HttpRequestMapperData))]
         public void MapAsync_Maps_RequestUri(HttpRequest request, HttpRequestMessage expected)
@@ -146,7 +133,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
                 .Then(x => ThenTheMappedHasRequestUri(expected.RequestUri))
                 .BDDfy();
         }
-        
+
         //
         // [BddfyTheory]
         // [ClassData(typeof(HttpRequestMapperData))]
@@ -166,7 +153,6 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
         {
             _inputRequest = request;
         }
-        
 
 
         [BddfyTheory]
@@ -174,7 +160,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
         public void MapAsync_Does_Not_Map_Host(HttpRequest request, HttpRequestMessage expected)
         {
             this.Given(_ => GivenInputData(request))
-                .When(_=> WhenMapped())
+                .When(_ => WhenMapped())
                 .Then(_ => ThenHostHeaderIsNotMapped())
                 .BDDfy();
         }
@@ -190,7 +176,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
             response.IsError.Should().BeFalse(response.Errors.Dump());
             VerifyEquality(response.Data, expected);
         }
-        
+
         [Theory]
         [ClassData(typeof(HttpMethodTestData))]
         public void Should_Map_HttpMethod(string input, HttpMethod expected)
@@ -214,7 +200,6 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
                 .Then(_ => ThenTheMappedRequestHasMethod(expected.Method))
                 .BDDfy();
         }
-
 
 
         [BddfyTheory]
@@ -241,7 +226,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
                 .And(_ => ThenHostHeaderIsNotMapped())
                 .BDDfy();
         }
-        
+
         [BddfyTheory]
         [ClassData(typeof(HttpContentEmailData))]
         public void MapAsync_Maps_HttpContent(Stream body, HttpContent expected)
@@ -273,7 +258,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
             _result.Data.Headers.Host.ShouldBeNull();
         }
 
-      
+
         private void GivenTheInputRequestHasMethod([NotNull] string method)
         {
             _inputRequest.Method = new HttpMethod(method).Method;
@@ -295,18 +280,12 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
 
         private void GivenTheInputRequestHasPath([CanBeNull] string path)
         {
-            if (path != null)
-            {
-                _inputRequest.Path = path;
-            }
+            if (path != null) _inputRequest.Path = path;
         }
 
         private void GivenTheInputRequestHasQueryString([CanBeNull] string querystring)
         {
-            if (querystring != null)
-            {
-                _inputRequest.QueryString = new QueryString(querystring);
-            }
+            if (querystring != null) _inputRequest.QueryString = new QueryString(querystring);
         }
 
 
@@ -314,11 +293,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
         {
             _result = await _requestMapper.MapAsync(_inputRequest);
 
-            if (_result.Data != null && _result.Data is { } data )
-            {
-                _mail = await data.Content.DeserializeAsync<Email>();
-               
-            }
+            if (_result.Data != null && _result.Data is { } data) _mail = await data.Content.DeserializeAsync<Email>();
         }
 
 
@@ -328,11 +303,11 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
             _inputRequest.Scheme = uri.Scheme;
             GivenTheInputRequestHasHostWithPort(uri.Authority, uri.Port);
         }
-        
+
         private void GivenTheInputRequestHasBody([NotNull] Stream stream)
         {
             _inputRequest.Body = stream;
-        //    _inputRequest.EnableBuffering();
+            //    _inputRequest.EnableBuffering();
         }
 
         private void GivenTheInputRequestHasNullContent()
@@ -341,7 +316,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Downstream
         }
 
 
-        private void ThenTheMappedRequestHasMethod(System.Net.Http.HttpMethod method)
+        private void ThenTheMappedRequestHasMethod(HttpMethod method)
         {
             _result.Data?.Method.ShouldBe(method);
         }
