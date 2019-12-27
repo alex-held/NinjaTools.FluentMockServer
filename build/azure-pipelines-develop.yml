@@ -1,19 +1,17 @@
 trigger:
 - develop
 
-pool:
-  vmImage: 'ubuntu-latest'
-
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
 stages:
   - stage: Build
     displayName: build and test
     jobs:
-      - job: 
+      - job:
+        pool:
+          vmImage: 'ubuntu-latest'
+        displayName: 'Build & test projects'
         steps:
         - task: UseDotNet@2
           inputs:
@@ -31,10 +29,9 @@ stages:
         - task: DotNetCoreCLI@2
           displayName: test and cover
           inputs:
-            testRunTitle: 'test and cover'
+            testRunTitle: 'run unit tests'
             command: 'test'
             projects: '**/*.Tests.csproj'
-            arguments: '--configuration $(buildConfiguration) --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput="$(Build.SourcesDirectory)/TestResults/Coverage"'
 
         - task: DotNetCoreCLI@2
           displayName: 'Create NuGet Package - Prerelease Version'
