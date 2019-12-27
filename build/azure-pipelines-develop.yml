@@ -69,5 +69,5 @@ stages:
         inputs:
           command: 'push'
           packagesToPush: '$(Pipeline.Workspace)/packages/prereleases/*.nupkg'
-          nuGetFeedType: 'internal'
-          publishVstsFeed: 'Test'
+          nuGetFeedType: 'external'
+          publishFeedCredentials: 'nuget ninjatools'
