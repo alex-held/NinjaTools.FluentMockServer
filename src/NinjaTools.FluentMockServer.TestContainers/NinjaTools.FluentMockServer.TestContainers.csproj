@@ -17,7 +17,9 @@
         <PackageVersion>1.0.7</PackageVersion>
         <AssemblyVersion>1.0.7</AssemblyVersion>
         <IsPackable>true</IsPackable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -28,7 +30,8 @@
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <DebugSymbols>true</DebugSymbols>
       <DocumentationFile>bin\Release\NinjaTools.FluentMockServer.TestContainers.xml</DocumentationFile>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+        <NoWarn>CS1591;</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
