@@ -16,7 +16,7 @@ using Serilog.Formatting.Compact;
 using Serilog.Formatting.Json;
 using Serilog.Sinks.SystemConsole.Themes;
 
-[assembly: InternalsVisibleTo("NinjaTools.FluentMockServer.API.Exclude.Tests")]
+[assembly: InternalsVisibleTo("NinjaTools.FluentMockServer.API.Tests.Exclude")]
 
 namespace NinjaTools.FluentMockServer.API
 {
