@@ -1,0 +1,72 @@
+trigger:
+- develop
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+stages:
+  - stage: Build
+    displayName: build and test
+    jobs:
+      - job: 
+        steps:
+        - task: UseDotNet@2
+          inputs:
+            packageType: 'sdk'
+            version: '3.1.100'
+            includePreviewVersions: true
+            
+        - task: DotNetCoreCLI@2
+          displayName: Build projects
+          inputs:
+            command: 'build'
+            projects: '**/*.csproj'
+            arguments: '--configuration $(buildConfiguration)'
+
+        - task: DotNetCoreCLI@2
+          displayName: test and cover
+          inputs:
+            testRunTitle: 'test and cover'
+            command: 'test'
+            projects: '**/*.Tests.csproj'
+            arguments: '--configuration $(buildConfiguration) --logger trx /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:CoverletOutput="$(Build.SourcesDirectory)/TestResults/Coverage"'
+
+        - task: DotNetCoreCLI@2
+          displayName: 'Create NuGet Package - Prerelease Version'
+          inputs:
+            command: pack
+            buildProperties: 'VersionSuffix="$(Build.BuildNumber)"'
+            packDirectory: '$(Build.ArtifactStagingDirectory)/packages/prereleases'
+            arguments: '--configuration $(buildConfiguration)'
+            
+        - publish: '$(Build.ArtifactStagingDirectory)/packages'
+          artifact: 'packages'
+
+
+  - stage: 'PublishPrereleaseNuGetPackage'
+    displayName: 'Publish Prerelease NuGet Package'
+    dependsOn: 'Build'
+    condition: succeeded()
+    jobs:
+    - job:
+      pool:
+        vmImage: 'ubuntu-latest'
+
+      steps:
+      - checkout: none
+
+      - download: current
+        artifact: 'packages'
+
+      - task: NuGetCommand@2
+        displayName: 'Push NuGet Package'
+        inputs:
+          command: 'push'
+          packagesToPush: '$(Pipeline.Workspace)/packages/prereleases/*.nupkg'
+          nuGetFeedType: 'internal'
+          publishVstsFeed: 'Test'
