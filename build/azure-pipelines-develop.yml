@@ -1,6 +1,7 @@
 trigger:
 - develop
 
+
 variables:
   buildConfiguration: 'Release'
 
@@ -18,9 +19,8 @@ stages:
             packageType: 'sdk'
             version: '3.1.100'
             includePreviewVersions: true
-            
+
         - task: DotNetCoreCLI@2
-          displayName: Build projects
           inputs:
             command: 'build'
             projects: '**/*.csproj'
@@ -39,15 +39,11 @@ stages:
             command: 'pack'
             packagesToPack: '**/*.csproj'
             packDirectory: '$(Build.ArtifactStagingDirectory)/packages/prereleases'
-            nobuild: true
-            versioningScheme: 'off'
-            buildProperties: 'VersionSuffix="$(Build.BuildNumber)"'
             arguments: '--configuration $(buildConfiguration)'
-
+            buildProperties: 'VersionSuffix="$(Build.BuildNumber)"'
 
         - publish: '$(Build.ArtifactStagingDirectory)/packages'
           artifact: 'packages'
-
 
   - stage: 'PublishPrereleaseNuGetPackage'
     displayName: 'Publish Prerelease NuGet Package'
@@ -55,6 +51,7 @@ stages:
     condition: succeeded()
     jobs:
     - job:
+      displayName: 'Publish Prerelease NuGet Package'
       pool:
         vmImage: 'ubuntu-latest'
 
@@ -65,7 +62,7 @@ stages:
         artifact: 'packages'
 
       - task: NuGetCommand@2
-        displayName: 'Push NuGet Package'
+        displayName: 'Publish Prerelease NuGet Package'
         inputs:
           command: 'push'
           packagesToPush: '$(Pipeline.Workspace)/packages/prereleases/*.nupkg'

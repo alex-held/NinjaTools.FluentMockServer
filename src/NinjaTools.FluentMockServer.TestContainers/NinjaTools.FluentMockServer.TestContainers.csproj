@@ -14,12 +14,12 @@
         <Product>FluentMockServer.TestContainers</Product>
         <PackageLicenseUrl>https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/LICENSE</PackageLicenseUrl>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <PackageVersion>1.0.7</PackageVersion>
         <AssemblyVersion>1.0.7</AssemblyVersion>
         <IsPackable>true</IsPackable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-
+        <VersionPrefix>1.0.7</VersionPrefix>
+        <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

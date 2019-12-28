@@ -3,7 +3,6 @@
     <PropertyGroup>
         <LangVersion>8.0</LangVersion>
         <NullableContext>Enabled</NullableContext>
-        <PackageVersion>1.0.7</PackageVersion>
         <Title>NinjaTools.FluentMockServer</Title>
         <Authors>Alexander Held</Authors>
         <Description>A C# Client for the MockServer Docker Image</Description>
@@ -19,6 +18,8 @@
         <AssemblyVersion>1.0.7</AssemblyVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <TargetFramework>netcoreapp3.1</TargetFramework>
+        <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+        <VersionPrefix>1.0.7</VersionPrefix>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration' == 'Debug' ">
