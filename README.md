@@ -55,12 +55,12 @@ in the browser!
 
 | Package                                    |                                                         Master                                                         |                                                         Develop                                                         |
 | ------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------: |
-| NinjaTools.FluentMockServer                | ![NinjaTools.FluentMockServer](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer?logo=nuget&style=flat-square) | ![NinjaTools.FluentMockServer](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer?logo=nuget&style=flat-square) |
+| NinjaTools.FluentMockServer                | ![NinjaTools.FluentMockServer](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer?logo=nuget&style=flat-square) | ![NinjaTools.FluentMockServer](https://img.shields.io/nuget/vpre/NinjaTools.FluentMockServer?logo=nuget&style=flat-square) |
 | NinjaTools.FluentMockServer.TestContainers |    ![Nuget](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer.TestContainers?logo=nuget&style=flat-square)    |   ![Nuget](https://img.shields.io/nuget/vpre/NinjaTools.FluentMockServer.TestContainers?logo=nuget&style=flat-square)   |
 
 | Package         | Master |                                                                      Develop                                                                      |
 | --------------- | :----: | :-----------------------------------------------------------------------------------------------------------------------------------------------: |
-| Azure Pipelines |        | ![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/2/dev?style=flat-square) |
+| Azure Pipelines |![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/2/master?label=master&style=flat-square) | ![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/3/develop?label=develop&style=flat-square) |
 
 NinjaTools.FluentMockServer is currently maintained and pull requests are
 actively added into the repository.
