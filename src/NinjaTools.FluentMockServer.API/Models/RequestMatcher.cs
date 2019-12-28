@@ -55,9 +55,18 @@ namespace NinjaTools.FluentMockServer.API.Models
 
             foreach (var header in Headers)
             {
-                if (requestHeaders.TryGetValue(header.Key, out var value) && value.Except(header.Value).Any())
+
+                if (!requestHeaders.ContainsKey(header.Key))
                 {
                     return false;
+                }
+                
+                if (requestHeaders.TryGetValue(header.Key, out var value))
+                {
+                    if (value.ToList().Except(header.Value).Any())
+                    {
+                        return false;
+                    }
                 }
             }
 

@@ -20,7 +20,7 @@ EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.API", "src\NinjaTools.FluentMockServer.API\NinjaTools.FluentMockServer.API.csproj", "{C60E5A2A-4391-420B-8FBC-D7E941EEF286}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FlAPIuentMockServer.API", "test\NinjaTools.FlAPIuentMockServer.API\NinjaTools.FlAPIuentMockServer.API.csproj", "{175B41A0-DF12-499C-AD27-9E4EC09A82DA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.API.Tests", "test\NinjaTools.FluentMockServer.API.Tests\NinjaTools.FluentMockServer.API.Tests.csproj", "{175B41A0-DF12-499C-AD27-9E4EC09A82DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
