@@ -17,7 +17,7 @@
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <AssemblyVersion>1.0.8</AssemblyVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFrameworks>netstandard2.1;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <VersionPrefix>1.0.8</VersionPrefix>
     </PropertyGroup>
@@ -30,7 +30,6 @@
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DebugSymbols>true</DebugSymbols>
         <DocumentationFile>bin\Release\HardCoded.MockServer.xml</DocumentationFile>
-        <TargetFrameworks>netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
         <NoWarn>CS1591;</NoWarn>
     </PropertyGroup>
 
