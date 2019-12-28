@@ -2,7 +2,6 @@
 
     <PropertyGroup>
         <LangVersion>Preview</LangVersion>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <Title>NinjaTools.FluentMockServer.TestContainers</Title>
         <Authors>Alexander Held</Authors>
         <Description>In memory docker container runner for NinjaTools.FluentMockServer</Description>
@@ -15,10 +14,12 @@
         <Product>FluentMockServer.TestContainers</Product>
         <PackageLicenseUrl>https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/LICENSE</PackageLicenseUrl>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <PackageVersion>1.0.7</PackageVersion>
-        <AssemblyVersion>1.0.7</AssemblyVersion>
+        <AssemblyVersion>1.0.8</AssemblyVersion>
         <IsPackable>true</IsPackable>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <VersionPrefix>1.0.8</VersionPrefix>
+        <TargetFrameworks>netstandard2.1;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+        <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -29,7 +30,7 @@
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <DebugSymbols>true</DebugSymbols>
       <DocumentationFile>bin\Release\NinjaTools.FluentMockServer.TestContainers.xml</DocumentationFile>
-        <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+        <NoWarn>CS1591;</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>

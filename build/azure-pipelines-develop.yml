@@ -1,0 +1,70 @@
+trigger:
+- develop
+
+
+variables:
+  buildConfiguration: 'Release'
+
+stages:
+  - stage: Build
+    displayName: build and test
+    jobs:
+      - job:
+        pool:
+          vmImage: 'ubuntu-latest'
+        displayName: 'Build & test projects'
+        steps:
+        - task: UseDotNet@2
+          inputs:
+            packageType: 'sdk'
+            version: '3.1.100'
+            includePreviewVersions: true
+
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'build'
+            projects: '**/*.csproj'
+            arguments: '--configuration $(buildConfiguration)'
+
+        - task: DotNetCoreCLI@2
+          displayName: test and cover
+          inputs:
+            testRunTitle: 'run unit tests'
+            command: 'test'
+            projects: '**/*.Tests.csproj'
+
+        - task: DotNetCoreCLI@2
+          displayName: 'Create NuGet Package - Prerelease Version'
+          inputs:
+            command: 'pack'
+            packagesToPack: '**/*.csproj'
+            packDirectory: '$(Build.ArtifactStagingDirectory)/packages/prereleases'
+            arguments: '--configuration $(buildConfiguration)'
+            buildProperties: 'VersionSuffix="$(Build.BuildNumber)"'
+
+        - publish: '$(Build.ArtifactStagingDirectory)/packages'
+          artifact: 'packages'
+
+  - stage: 'PublishPrereleaseNuGetPackage'
+    displayName: 'Publish Prerelease NuGet Package'
+    dependsOn: 'Build'
+    condition: succeeded()
+    jobs:
+    - job:
+      displayName: 'Publish Prerelease NuGet Package'
+      pool:
+        vmImage: 'ubuntu-latest'
+
+      steps:
+      - checkout: none
+
+      - download: current
+        artifact: 'packages'
+
+      - task: NuGetCommand@2
+        displayName: 'Publish Prerelease NuGet Package'
+        inputs:
+          command: 'push'
+          packagesToPush: '$(Pipeline.Workspace)/packages/prereleases/*.nupkg'
+          nuGetFeedType: 'external'
+          publishFeedCredentials: 'nuget ninjatools'
