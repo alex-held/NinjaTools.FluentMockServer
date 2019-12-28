@@ -60,7 +60,7 @@ in the browser!
 
 | Package         | Master |                                                                      Develop                                                                      |
 | --------------- | :----: | :-----------------------------------------------------------------------------------------------------------------------------------------------: |
-| Azure Pipelines |        | ![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/2/dev?style=flat-square) |
+| Azure Pipelines |![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/2/master?label=master&style=flat-square) | ![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/3/develop?label=develop&style=flat-square) |
 
 NinjaTools.FluentMockServer is currently maintained and pull requests are
 actively added into the repository.
