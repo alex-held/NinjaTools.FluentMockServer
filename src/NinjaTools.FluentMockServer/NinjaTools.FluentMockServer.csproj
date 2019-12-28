@@ -30,7 +30,7 @@
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DebugSymbols>true</DebugSymbols>
         <DocumentationFile>bin\Release\HardCoded.MockServer.xml</DocumentationFile>
-        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
         <NoWarn>CS1591;</NoWarn>
     </PropertyGroup>
 
