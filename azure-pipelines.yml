@@ -1,32 +1,71 @@
 trigger:
-- master
+  - master
 
-pool:
-  vmImage: 'ubuntu-latest'
+pr: none
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
+stages:
+  - stage: Build
+    displayName: build and test
+    jobs:
+      - job:
+        pool:
+          vmImage: 'ubuntu-latest'
+        displayName: 'Build & test projects'
+        steps:
+        - task: UseDotNet@2
+          inputs:
+            packageType: 'sdk'
+            version: '3.1.100'
+            includePreviewVersions: true
 
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '3.1.100'
-    includePreviewVersions: true
-    
-- task: DotNetCoreCLI@2
-  displayName: Build projects
-  inputs:
-    command: 'build'
-    projects: '**/*.csproj'
+        - task: DotNetCoreCLI@2
+          inputs:
+            command: 'build'
+            projects: '**/*.csproj'
+            arguments: '--configuration $(buildConfiguration)'
 
-- task: DotNetCoreCLI@2
-  displayName: Run unit tests
-  inputs:
-    command: 'test'
-    projects: 'test/NinjaTools.FluentMockServer.Tests/NinjaTools.FluentMockServer.Tests.csproj'
-    testRunTitle: 'Run unit tests'
-    workingDirectory: '/'
+        - task: DotNetCoreCLI@2
+          displayName: test and cover
+          inputs:
+            testRunTitle: 'run unit tests'
+            command: 'test'
+            projects: '**/*.Tests.csproj'
+
+        - task: DotNetCoreCLI@2
+          displayName: 'Create NuGet Package - release Version'
+          inputs:
+            command: 'pack'
+            packagesToPack: '**/*.csproj'
+            packDirectory: '$(Build.ArtifactStagingDirectory)/packages/releases'
+            nobuild: true
+            versioningScheme: 'off'
+
+        - publish: '$(Build.ArtifactStagingDirectory)/packages'
+          artifact: 'packages'
+
+  - stage: 'PublishReleaseNuGetPackage'
+    displayName: 'Publish Release NuGet Package'
+    dependsOn: 'Build'
+    condition: succeeded()
+    jobs:
+    - job:
+      displayName: 'Publish Release NuGet Package'
+      pool:
+        vmImage: 'ubuntu-latest'
+
+      steps:
+      - checkout: none
+
+      - download: current
+        artifact: 'packages'
+
+      - task: NuGetCommand@2
+        displayName: 'Publish Release NuGet Package'
+        inputs:
+          command: 'push'
+          packagesToPush: '$(Pipeline.Workspace)/packages/releases/*.nupkg'
+          nuGetFeedType: 'external'
+          publishFeedCredentials: 'nuget ninjatools'

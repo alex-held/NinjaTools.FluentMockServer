@@ -1,0 +1,41 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+pr:
+ branches:
+   include:
+     - "*"
+trigger:
+ branches:
+   include:
+     - "*"
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - name: buildConfiguration
+    value: 'Release'
+
+steps:
+
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '3.1.100'
+    includePreviewVersions: true
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: test and cover
+  inputs:
+    testRunTitle: 'run unit tests'
+    command: 'test'
+    projects: '**/*.Tests.csproj'
