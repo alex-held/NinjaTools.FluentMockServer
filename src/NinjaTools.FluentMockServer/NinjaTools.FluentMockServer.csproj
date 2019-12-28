@@ -15,11 +15,11 @@
         <Product>FluentMockServer</Product>
         <PackageLicenseUrl>https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/LICENSE</PackageLicenseUrl>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <AssemblyVersion>1.0.7</AssemblyVersion>
+        <AssemblyVersion>1.0.8</AssemblyVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
-        <VersionPrefix>1.0.7</VersionPrefix>
+        <VersionPrefix>1.0.8</VersionPrefix>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration' == 'Debug' ">
