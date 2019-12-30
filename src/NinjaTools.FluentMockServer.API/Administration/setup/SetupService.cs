@@ -11,6 +11,6 @@ namespace NinjaTools.FluentMockServer.API.Administration.setup
             _repository = repository;
         }
 
-        void Add(Setup setup) => _repository.Add(setup);
+        public void Add(Setup setup) => _repository.Add(setup);
     }
 }
