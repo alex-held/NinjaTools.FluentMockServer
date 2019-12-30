@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Net;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Models;
 using HttpResponse = NinjaTools.FluentMockServer.API.Models.HttpResponse;
@@ -43,12 +43,13 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
         public void Add(Setup setup) => _setups.Add(setup);
 
         /// <inheritdoc />
-        public Setup? TryGetMatchingSetup([NotNull] HttpContext context)
+        [CanBeNull]
+        public Setup TryGetMatchingSetup([System.Diagnostics.CodeAnalysis.NotNull] HttpContext context)
         {
             var request = context.Request;
             var path = request.Path;
 
-            return GetAll().FirstOrDefault(setup => setup.Matcher.Path.Contains(path)) is {} setup
+            return GetAll().FirstOrDefault(s => s.Matcher.Path.Contains(path)) is {} setup
                 ? setup
                 : null;
         }

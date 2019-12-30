@@ -6,6 +6,7 @@ namespace NinjaTools.FluentMockServer.API.Proxy
 {
     public class ProxyMiddleware
     {
+        // ReSharper disable once NotAccessedField.Local
         private readonly RequestDelegate _next;
         private readonly ISetupRepository _setupRepository;
 
@@ -19,7 +20,7 @@ namespace NinjaTools.FluentMockServer.API.Proxy
         {
             if (_setupRepository.TryGetMatchingSetup(context) is {} setup)
             {
-                context.Response.StatusCode = (int) setup.Action.Response.StatusCode;
+                context.Response.StatusCode = setup.Action.Response.StatusCode;
                 await context.Response.WriteAsync(setup.Action.Response.Body);
             }
             else

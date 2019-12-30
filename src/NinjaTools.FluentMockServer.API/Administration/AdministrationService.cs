@@ -23,7 +23,6 @@ namespace NinjaTools.FluentMockServer.API.Administration
         public async Task<HttpContext> HandleAsync(HttpContext context, PathString path)
         {
             var response = context.Response;
-            var request = context.Request;
 
             if (path.StartsWithSegments("/setup", out var setupPath))
             {                               
