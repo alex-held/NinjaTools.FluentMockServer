@@ -19,7 +19,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
         public void When_IsMatch_Returns_True_When_Method_Is_Equal(string  method)
         {
             // Arrange
-            var subject = CreateSubject(method);
+            var subject = CreateSubject(method: method);
             var context = CreateContext(method);
             
             // Act& Assert
@@ -114,7 +114,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
         }
 
 
-        private HttpContext CreateContext(string method = null, string path = null, Dictionary<string, string[]> headers = null, Stream requestBodyStream = null)
+        private HttpContext CreateContext(string method = null, string path = null, Dictionary<string, string[]> headers = null, Stream requestBodyStream = null, QueryString? queryString = null)
         {
             var context = requestBodyStream is null
                 ? new DefaultHttpContext()
@@ -130,6 +130,10 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
              request.Method = method;
              request.Path = new PathString(path);
 
+             if (queryString != null)
+             {
+                 request.QueryString = queryString.Value;
+             }
              foreach (var header in headers ?? new Dictionary<string, string[]>())
              {
                  request.Headers.Add(header.Key, header.Value);
@@ -138,16 +142,28 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
              return context;
          }
 
-        private RequestMatcher CreateSubject(string method = null, string path = null, IDictionary<string, string[]> headers = null, RequestBodyMatcher bodyMatcher = null)
+        private RequestMatcher CreateSubject(string method = null, string path = null, IDictionary<string, string[]> headers = null, RequestBodyMatcher bodyMatcher = null, QueryString? queryString = null)
          {
              return new RequestMatcher
              {
                  Method = method,
                  Path = path,
                  Headers = new Dictionary<string, string[]> (headers ?? new Dictionary<string, string[]>()),
-                 BodyMatcher = bodyMatcher
+                 BodyMatcher = bodyMatcher,
+                 QueryString = queryString
              };
          }
+
+        [Fact]
+        public void IsMatch_Should_Be_False_When_QueryString_Not_Same()
+        {
+            // Arrange
+            var subject = CreateSubject(queryString: new QueryString("?color=green"));
+            var context = CreateContext(queryString: new QueryString("?id=100"));
+            
+            // Act & Assert
+            subject.IsMatch(context).Should().BeFalse();
+        }
 
         [Fact]
         public void IsMatch_Should_Be_False_When_RequestBodyMatcher_IsNotMatch()
@@ -178,6 +194,30 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
             // Arrange
             var subject = CreateSubject();
             var context = CreateContext();
+            
+            // Act & Assert
+            subject.IsMatch(context).Should().BeTrue();
+        }
+
+        [Fact]
+        public void IsMatch_Should_Be_True_When_QueryString_IsMatch()
+        {
+            // Arrange
+            var query = new QueryString("?id=100");
+            var subject = CreateSubject(queryString: query);
+            var context = CreateContext(queryString: query);
+            
+            // Act & Assert
+            subject.IsMatch(context).Should().BeTrue();
+        }
+
+        [Fact]
+        public void IsMatch_Should_Be_True_When_QueryString_Not_Set()
+        {
+            // Arrange
+            var query = new QueryString("?id=100");
+            var subject = CreateSubject();
+            var context = CreateContext(queryString: query);
             
             // Act & Assert
             subject.IsMatch(context).Should().BeTrue();

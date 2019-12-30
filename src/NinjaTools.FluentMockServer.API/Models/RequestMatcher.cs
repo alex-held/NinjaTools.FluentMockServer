@@ -15,19 +15,35 @@ namespace NinjaTools.FluentMockServer.API.Models
         public string Path
         {
             get => _path;
-            set => _path = $"/{value?.TrimStart('/')}";
+            set => _path = value is null
+                ? null
+                : $"/{value.TrimStart('/')}";
         }
 
         public string Method { get; set; }
         public Dictionary<string, string[]> Headers { get; set; }
 
+
+        public QueryString? QueryString { get; set; }
+
         public bool IsMatch(HttpContext context)
         {
             var request = context.Request;
-            return PathMatches(request.Path.Value + request.QueryString.Value)
+            return PathMatches(request.Path.Value)
                    && MethodMatches(request.Method)
-                && HeadersMatching(request.Headers)
-                && BodyMatches(request);
+                   && HeadersMatching(request.Headers)
+                   && BodyMatches(request)
+                   && QueryMatches(request.QueryString);
+        }
+
+        private bool QueryMatches(QueryString requestQueryString)
+        {
+            if (QueryString.HasValue)
+            {
+                return requestQueryString.Value == QueryString.Value.Value;
+            }
+
+            return true;
         }
 
         private bool BodyMatches(HttpRequest httpRequest)
