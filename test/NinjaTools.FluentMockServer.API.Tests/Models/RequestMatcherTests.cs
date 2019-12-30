@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using FluentAssertions;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
@@ -112,9 +114,18 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
         }
 
 
-        private HttpContext CreateContext(string method = null, string path = null, Dictionary<string, string[]> headers = null)
-         {
-             var context = new DefaultHttpContext();
+        private HttpContext CreateContext(string method = null, string path = null, Dictionary<string, string[]> headers = null, Stream requestBodyStream = null)
+        {
+            var context = requestBodyStream is null
+                ? new DefaultHttpContext()
+                : new DefaultHttpContext
+                {
+                    Request =
+                    {
+                        Body = requestBodyStream
+                    }
+                };
+
              var request = context.Request;
              request.Method = method;
              request.Path = new PathString(path);
@@ -127,14 +138,72 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
              return context;
          }
 
-        private RequestMatcher CreateSubject(string method = null, string path = null, IDictionary<string, string[]> headers = null)
+        private RequestMatcher CreateSubject(string method = null, string path = null, IDictionary<string, string[]> headers = null, RequestBodyMatcher bodyMatcher = null)
          {
              return new RequestMatcher
              {
                  Method = method,
                  Path = path,
-                 Headers = new Dictionary<string, string[]> (headers ?? new Dictionary<string, string[]>())
+                 Headers = new Dictionary<string, string[]> (headers ?? new Dictionary<string, string[]>()),
+                 BodyMatcher = bodyMatcher
              };
          }
+
+        [Fact]
+        public void IsMatch_Should_Be_False_When_RequestBodyMatcher_IsNotMatch()
+        {
+            // Arrange
+            var requestBodyContent = "some content";
+            var requestBodyStream = new MemoryStream();
+            var bytes = Encoding.UTF8.GetBytes(requestBodyContent);
+            requestBodyStream.Write(bytes);
+            var bodyMatcher = new RequestBodyMatcher
+            {
+                Content = "hello world",
+                Type = RequestBodyType.Text,
+                MatchExact = true
+            };
+            
+            var subject = CreateSubject(bodyMatcher: bodyMatcher );
+            var context = CreateContext(requestBodyStream: requestBodyStream);
+            
+            // Act & Assert
+            subject.IsMatch(context).Should().BeFalse();
+        }
+
+
+        [Fact]
+        public void IsMatch_Should_Be_True_When_No_RequestBodyMatcher()
+        {
+            // Arrange
+            var subject = CreateSubject();
+            var context = CreateContext();
+            
+            // Act & Assert
+            subject.IsMatch(context).Should().BeTrue();
+        }
+
+
+        [Fact]
+        public void IsMatch_Should_Be_True_When_RequestBodyMatcher_IsMatch()
+        {
+            // Arrange
+            var requestBodyContent = "some content";
+            var requestBodyStream = new MemoryStream();
+            var bytes = Encoding.UTF8.GetBytes(requestBodyContent);
+            requestBodyStream.Write(bytes);
+            var bodyMatcher = new RequestBodyMatcher
+            {
+              Content = requestBodyContent,
+              Type = RequestBodyType.Text,
+              MatchExact = true
+            };
+            
+            var subject = CreateSubject(bodyMatcher: bodyMatcher );
+            var context = CreateContext(requestBodyStream: requestBodyStream);
+            
+            // Act & Assert
+            subject.IsMatch(context).Should().BeTrue();
+        }
     }
 }

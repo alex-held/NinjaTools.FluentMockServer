@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 
 namespace NinjaTools.FluentMockServer.API.Models
@@ -7,6 +9,8 @@ namespace NinjaTools.FluentMockServer.API.Models
     public class RequestMatcher
     {
         private string _path;
+
+        public RequestBodyMatcher BodyMatcher { get; set; }
 
         public string Path
         {
@@ -22,7 +26,19 @@ namespace NinjaTools.FluentMockServer.API.Models
             var request = context.Request;
             return PathMatches(request.Path.Value + request.QueryString.Value)
                    && MethodMatches(request.Method)
-                && HeadersMatching(request.Headers);
+                && HeadersMatching(request.Headers)
+                && BodyMatches(request);
+        }
+
+        private bool BodyMatches(HttpRequest httpRequest)
+        {
+
+            if (BodyMatcher != null)
+            {
+                return BodyMatcher.IsMatch(httpRequest);
+            }
+
+            return true;
         }
 
         private bool PathMatches(string path)
@@ -73,4 +89,37 @@ namespace NinjaTools.FluentMockServer.API.Models
             return true;
         }
     }
+
+    public class RequestBodyMatcher
+    {
+        [CanBeNull]
+        public string Content { get; set; }
+
+        public RequestBodyType  Type { get; set; }
+        public bool MatchExact { get; set; }
+
+
+        public bool IsMatch(HttpRequest request)
+        {
+            request.EnableBuffering();
+            request.Body.Position = 0;
+            using var reader = new StreamReader(request.Body);
+            var content = reader.ReadToEnd();
+
+            if (MatchExact)
+            {
+                return Content == content;
+            }
+
+
+            return content.Contains(Content);
+        }
+    }
+
+    public enum RequestBodyType
+    {
+        Text,
+        Base64
+    }
+    
 }
