@@ -1,9 +1,9 @@
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NinjaTools.FluentMockServer.API.Administration;
 using NinjaTools.FluentMockServer.API.DependencyInjection;
 
 namespace NinjaTools.FluentMockServer.API
@@ -18,10 +18,11 @@ namespace NinjaTools.FluentMockServer.API
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices([NotNull] IServiceCollection services)
         {
-            services.AddMockServer()
-                .AddAdminPath("mock-server");
+            services
+                .AddMockServer()
+                .AddAdminPath();
             
             services.AddControllers();
         }
@@ -39,8 +40,8 @@ namespace NinjaTools.FluentMockServer.API
             app.UseRouting();
 
             app.UseMockServerMiddleware();
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            
+            app.UseMockServerRouting();
         }
     }
 }
