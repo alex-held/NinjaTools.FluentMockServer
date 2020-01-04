@@ -2,10 +2,9 @@ FROM  mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
-EXPOSE 2081
-EXPOSE 2080
+EXPOSE 1080
 
-ENV ASPNETCORE_URLS="http://+:2080;http://+:2081"
+ENV ASPNETCORE_URLS="http://+:80;http://+:1080"
 
 FROM  mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 
