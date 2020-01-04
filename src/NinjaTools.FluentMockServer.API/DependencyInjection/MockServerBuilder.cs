@@ -21,7 +21,8 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
             Services.TryAddScoped<IAdministrationService, AdministrationService>();
             Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             
-            MvcCoreBuilder = Services.AddMvcCore()
+            MvcCoreBuilder = Services
+                .AddMvcCore(options => { options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true; })
                 .AddControllersAsServices()
                 .AddAuthorization()
                 .AddNewtonsoftJson();
