@@ -115,7 +115,7 @@ namespace NinjaTools.FluentMockServer.API.Models
         public bool MatchExact { get; set; }
 
 
-        public bool IsMatch(HttpRequest request)
+        public bool IsMatch([NotNull] HttpRequest request)
         {
             request.EnableBuffering();
             request.Body.Position = 0;
