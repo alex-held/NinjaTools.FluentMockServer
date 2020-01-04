@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
+using NinjaTools.FluentMockServer.API.Models;
 
-namespace NinjaTools.FluentMockServer.API.Models
+namespace NinjaTools.FluentMockServer.API.Infrastructure
 {
     public interface ISetupRepository
     {
@@ -9,6 +10,6 @@ namespace NinjaTools.FluentMockServer.API.Models
 
         void Add(Setup setup);
 
-        public Setup TryGetMatchingSetup(HttpContext context);
+        public Setup? TryGetMatchingSetup(HttpContext context);
     }
 }

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace NinjaTools.FluentMockServer.API.Administration
+namespace NinjaTools.FluentMockServer.API.Services
 {
     public interface IAdministrationService
     {

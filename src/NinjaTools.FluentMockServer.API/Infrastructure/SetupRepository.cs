@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Models;
 using HttpResponse = NinjaTools.FluentMockServer.API.Models.HttpResponse;
 
-namespace NinjaTools.FluentMockServer.API.DependencyInjection
+namespace NinjaTools.FluentMockServer.API.Infrastructure
 {
     internal sealed class SetupRepository : ISetupRepository
     {
@@ -44,12 +44,9 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
 
         /// <inheritdoc />
         [CanBeNull]
-        public Setup TryGetMatchingSetup([System.Diagnostics.CodeAnalysis.NotNull] HttpContext context)
+        public Setup? TryGetMatchingSetup([NotNull] HttpContext context)
         {
-            var request = context.Request;
-            var path = request.Path;
-
-            return GetAll().FirstOrDefault(s => s.Matcher.Path.Contains(path)) is {} setup
+            return GetAll().FirstOrDefault(s => s.Matcher.IsMatch(context)) is {} setup
                 ? setup
                 : null;
         }

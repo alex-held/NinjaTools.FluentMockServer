@@ -1,24 +1,24 @@
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
-using NinjaTools.FluentMockServer.API.Models;
+using NinjaTools.FluentMockServer.API.Services;
 
 namespace NinjaTools.FluentMockServer.API.Proxy
 {
     public class ProxyMiddleware
     {
-        // ReSharper disable once NotAccessedField.Local
         private readonly RequestDelegate _next;
-        private readonly ISetupRepository _setupRepository;
+        private readonly ISetupService _setupService;
 
-        public ProxyMiddleware(RequestDelegate next, ISetupRepository setupRepository)
+        public ProxyMiddleware(RequestDelegate next, ISetupService setupService)
         {
             _next = next;
-            _setupRepository = setupRepository;
+            _setupService = setupService;
         }
 
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync([NotNull] HttpContext context)
         {
-            if (_setupRepository.TryGetMatchingSetup(context) is {} setup)
+            if (_setupService.TryGetMatchingSetup(context, out var setup))
             {
                 context.Response.StatusCode = setup.Action.Response.StatusCode;
                 await context.Response.WriteAsync(setup.Action.Response.Body);
@@ -31,4 +31,5 @@ namespace NinjaTools.FluentMockServer.API.Proxy
             }
         }
     }
+
 }
