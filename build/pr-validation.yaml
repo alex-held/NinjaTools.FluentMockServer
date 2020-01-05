@@ -1,0 +1,48 @@
+# Pull request validation against the `developer` and `master` branches
+# References:
+# yaml schema:  https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema
+# triggers: https://docs.microsoft.com/en-us/azure/devops/pipelines/build/triggers?tabs=yaml&view=azure-devops#pr-triggers
+
+trigger:
+  branches:
+    include:
+    - master
+    - release/*
+    - develop
+    - feature/*
+  paths:
+    exclude:
+    - docs/*
+    - README.md
+    - '*.md'
+
+pr:
+  autoCancel: true
+  branches:
+    include: [develop, master]
+  paths:
+    exclude:
+    - docs/*
+    - README.md
+    - '*.md'
+
+name: $(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)
+
+variables:
+  vmImage: "ubuntu-latest"
+  sdkVersion: "3.1.100"
+
+jobs:
+  - template: templates/build.yaml
+    parameters:
+      vmImage: $(vmImage)
+      buildConfiguration: "Release"
+      projects: "src/**/*.csproj"
+      sdkVersion: $(sdkVersion)
+
+  - template: templates/test-cover.yaml
+    parameters:
+      vmImage: $(vmImage)
+      buildConfiguration: "Debug"
+      sdkVersion: $(sdkVersion)
+      projects: "test/**/*.csproj"
