@@ -17,13 +17,14 @@
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <AssemblyVersion>1.0.8</AssemblyVersion>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <TargetFrameworks>netstandard2.1;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+        <TargetFrameworks>netstandard2.1;netcoreapp3.0</TargetFrameworks>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
         <VersionPrefix>1.0.8</VersionPrefix>
     </PropertyGroup>
     
     <PropertyGroup Condition=" '$(Configuration' == 'Debug' ">
         <DocumentationFile>bin\Debug\NinjaTools.FluentMockServer.xml</DocumentationFile>
+         <NoWarn>1701;1702;1591;</NoWarn>
     </PropertyGroup>
 
 
