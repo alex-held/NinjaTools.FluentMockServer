@@ -18,6 +18,10 @@ ProjectSection(SolutionItems) = preProject
 	scripts\docker-compore.dependencies.yml = scripts\docker-compore.dependencies.yml
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.API", "src\NinjaTools.FluentMockServer.API\NinjaTools.FluentMockServer.API.csproj", "{C60E5A2A-4391-420B-8FBC-D7E941EEF286}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.API.Tests", "test\NinjaTools.FluentMockServer.API.Tests\NinjaTools.FluentMockServer.API.Tests.csproj", "{175B41A0-DF12-499C-AD27-9E4EC09A82DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,11 +44,21 @@ Global
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C60E5A2A-4391-420B-8FBC-D7E941EEF286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C60E5A2A-4391-420B-8FBC-D7E941EEF286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C60E5A2A-4391-420B-8FBC-D7E941EEF286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C60E5A2A-4391-420B-8FBC-D7E941EEF286}.Release|Any CPU.Build.0 = Release|Any CPU
+		{175B41A0-DF12-499C-AD27-9E4EC09A82DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{175B41A0-DF12-499C-AD27-9E4EC09A82DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{175B41A0-DF12-499C-AD27-9E4EC09A82DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{175B41A0-DF12-499C-AD27-9E4EC09A82DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4E080C86-373B-47ED-81C3-2B8CD0A424D7} = {1BBF6811-5858-47A7-A382-29D777150068}
 		{E9883692-C8F8-4CA9-8EDB-7859809D8DB8} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
 		{4E051198-705E-4605-8EEE-951D05E4B860} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37} = {1BBF6811-5858-47A7-A382-29D777150068}
+		{C60E5A2A-4391-420B-8FBC-D7E941EEF286} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
+		{175B41A0-DF12-499C-AD27-9E4EC09A82DA} = {1BBF6811-5858-47A7-A382-29D777150068}
 	EndGlobalSection
 EndGlobal
