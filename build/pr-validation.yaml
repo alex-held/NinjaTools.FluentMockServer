@@ -30,21 +30,19 @@ name: $(Year:yyyy).$(Month).$(DayOfMonth)$(Rev:.r)
 
 variables:
   vmImage: "ubuntu-latest"
-  buildConfiguration: "Release"
-  projects: "**/*.csproj"
   sdkVersion: "3.1.100"
 
 jobs:
   - template: templates/build.yaml
     parameters:
       vmImage: $(vmImage)
-      buildConfiguration: $(buildConfiguration)
-      projects: $(projects)
+      buildConfiguration: "Release"
+      projects: "src/**/*.csproj"
       sdkVersion: $(sdkVersion)
 
   - template: templates/test-cover.yaml
     parameters:
       vmImage: $(vmImage)
-      buildConfiguration: $(buildConfiguration)
-      projects: $(projects)
+      buildConfiguration: "Debug"
       sdkVersion: $(sdkVersion)
+      projects: "test/**/*.csproj"
