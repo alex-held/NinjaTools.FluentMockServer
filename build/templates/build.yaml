@@ -1,0 +1,27 @@
+parameters:
+  name: 'Build'
+  vmImage: 'ubuntu-latest'
+  buildConfiguration: 'Release'
+  projects: '**/*.csproj'
+  sdkVersion: '3.1.100'
+
+jobs:
+  - job: ${{ parameters.name }}
+    displayName: '⚙️ Build 🔧'
+    pool:
+      vmImage: ${{ parameters.vmImage }}
+    steps:
+      - checkout: self
+        clean: false
+        submodules: recursive
+        persistCredentials: true
+      - task: UseDotNet@2
+        inputs:
+          packageType: 'sdk'
+          version: ${{ parameters.sdkVersion }}
+          includePreviewVersions: true
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'build'
+          projects: ${{ parameters.projects }}
+          arguments: '--configuration ${{ parameters.buildConfiguration }}'

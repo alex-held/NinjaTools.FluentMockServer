@@ -1,0 +1,64 @@
+# See https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema for reference
+
+trigger:
+  branches:
+    include:
+      - refs/tags/*
+
+pr: none
+
+variables:
+  sdkVersion: "3.1.100"
+  buildConfiguration: "Release"
+
+jobs:
+  - job: Pack
+    displayName: "🎁 Pack 📦"
+    steps:
+      - task: UseDotNet@2
+        inputs:
+          packageType: "sdk"
+          version: $(sdkVersion)
+          includePreviewVersions: true
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: "build"
+          projects: "src/**/*.csproj"
+          arguments: "--configuration $(buildConfiguration)"
+      - task: DotNetCoreCLI@2
+        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
+        displayName: "Stable"
+        inputs:
+          command: "pack"
+          packagesToPack: "**/*.csproj"
+          packDirectory: "$(Build.ArtifactStagingDirectory)/packages/releases"
+          nobuild: true
+          versioningScheme: "off"
+      - task: DotNetCoreCLI@2
+        displayName: "Prerelease"
+        condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
+        inputs:
+          command: "pack"
+          packagesToPack: "**/*.csproj"
+          packDirectory: "$(Build.ArtifactStagingDirectory)/packages/prereleases"
+          arguments: "--configuration $(buildConfiguration)"
+          buildProperties: 'VersionSuffix="$(Build.BuildNumber)"'
+      - publish: "$(Build.ArtifactStagingDirectory)/packages"
+        artifact: "packages"
+        condition: succeeded()
+
+  - job: Push
+    displayName: "🚀 Push 📨"
+    dependsOn: Pack
+    condition: succeeded()
+    steps:
+      - checkout: none
+      - download: current
+        artifact: "packages"
+      - task: NuGetCommand@2
+        displayName: "Publish Prerelease NuGet Package"
+        inputs:
+          command: "push"
+          packagesToPush: "$(Pipeline.Workspace)/packages/**/*.nupkg"
+          nuGetFeedType: "external"
+          publishFeedCredentials: "nuget ninjatools"
