@@ -1,11 +1,12 @@
-parameters: 
+parameters:
+  name: 'Build'
   vmImage: 'ubuntu-latest'
   buildConfiguration: 'Release'
   projects: '**/*.csproj'
   sdkVersion: '3.1.100'
 
 jobs:
-  - job: Build
+  - job: ${{ parameters.name }}
     displayName: '⚙️ Build 🔧'
     pool:
       vmImage: ${{ parameters.vmImage }}
