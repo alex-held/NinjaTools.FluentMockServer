@@ -12,22 +12,19 @@ variables:
   buildConfiguration: "Release"
 
 jobs:
-  - template: templates/build.yaml
-    parameters:
-      buildConfiguration: $(buildConfiguration)
-      sdkVersion: $(sdkVersion)
-      name: Build
-
   - job: Pack
     displayName: "🎁 Pack 📦"
-    dependsOn: Build
-    condition: succeeded()
     steps:
       - task: UseDotNet@2
         inputs:
           packageType: "sdk"
           version: $(sdkVersion)
           includePreviewVersions: true
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: "build"
+          projects: "src/**/*.csproj"
+          arguments: "--configuration $(buildConfiguration)"
       - task: DotNetCoreCLI@2
         condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
         displayName: "Stable"
