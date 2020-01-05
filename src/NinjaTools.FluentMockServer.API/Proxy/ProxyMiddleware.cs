@@ -22,7 +22,7 @@ namespace NinjaTools.FluentMockServer.API.Proxy
 
         public async Task InvokeAsync([NotNull] HttpContext context)
         {
-            if (context.Request.Host.Port.HasValue && context.Request.Host.Port.Value == _adminOptions.Value.Port)
+            if (context.Connection.LocalPort ==  _adminOptions.Value.Port)
             {
                 await _next.Invoke(context);
                 return;

@@ -1,7 +1,4 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using NinjaTools.FluentMockServer.API.Administration;
 using NinjaTools.FluentMockServer.API.Proxy;
 
 namespace NinjaTools.FluentMockServer.API.DependencyInjection
@@ -22,8 +19,7 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
         {
             app.UseEndpoints(endpoints =>
             {
-                var administrationOptions = app.ApplicationServices.GetRequiredService<IOptions<AdminOptions>>().Value;
-                endpoints.MapControllers().RequireHost($"*:{administrationOptions.Port.ToString()}");
+                endpoints.MapControllers();
             });
         }
     }
