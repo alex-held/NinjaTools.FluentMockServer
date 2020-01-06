@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <LangVersion>Preview</LangVersion>
+        <LangVersion>8.0</LangVersion>
         <Title>NinjaTools.FluentMockServer.TestContainers</Title>
         <Authors>Alexander Held</Authors>
         <Description>In memory docker container runner for NinjaTools.FluentMockServer</Description>
@@ -34,7 +34,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Ductus.FluentDocker" Version="2.7.38-beta0072" />
+      <PackageReference Include="Ductus.FluentDocker" Version="2.7.3" />
         <PackageReference Include="xunit" Version="2.4.1" />
     </ItemGroup>
 

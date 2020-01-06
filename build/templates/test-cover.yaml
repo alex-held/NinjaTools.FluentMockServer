@@ -1,0 +1,25 @@
+parameters:
+  name: 'Test'
+  vmImage: "ubuntu-latest"
+  buildConfiguration: "Release"
+  projects: "**/*.Tests.csproj"
+  sdkVersion: '3.1.100'
+
+jobs:
+  - job: ${{ parameters.name }}
+    displayName: '🚦 Test 🧩'
+    steps:
+      - checkout: self
+        clean: false
+        submodules: recursive
+        persistCredentials: true
+      - task: UseDotNet@2
+        inputs:
+          packageType: 'sdk'
+          version: ${{ parameters.sdkVersion }}
+          includePreviewVersions: true
+      - task: DotNetCoreCLI@2
+        inputs:
+          testRunTitle: "run unit tests"
+          command: "test"
+          projects: ${{ parameters.projects }}
