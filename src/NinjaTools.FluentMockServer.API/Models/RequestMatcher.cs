@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using JetBrains.Annotations;
@@ -6,7 +7,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace NinjaTools.FluentMockServer.API.Models
 {
-    public class RequestMatcher
+  [DebuggerDisplay("{" + nameof(Path) + "} ({" + nameof(Method) + "})" )]
+  public class RequestMatcher
     {
         private string _path;
 
