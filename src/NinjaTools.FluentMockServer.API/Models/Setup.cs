@@ -1,8 +1,10 @@
 using System;
+using System.Diagnostics;
 using JetBrains.Annotations;
 
 namespace NinjaTools.FluentMockServer.API.Models
 {
+  [DebuggerDisplay("{" + nameof(Id) + "} ({" + nameof(RequestMatcher) + "})" )]
     public class Setup
     {
         public Setup(Guid id) => Id = id;
