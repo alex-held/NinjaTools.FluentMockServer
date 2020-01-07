@@ -25,15 +25,6 @@ namespace NinjaTools.FluentMockServer.Tests.TestHelpers
         {
            var dump = $"{Dump(expected, header: "Expected")}\n{Dump(actual, header: "Actual")}";
            return dump;
-           // Dump(actual, header: "Actual");
-
-           // var sb = new StringBuilder();
-           // sb.AppendLine($"{Dump(expected, header: "Expected", writeToConsole: false)}");
-           // sb.AppendLine($"{Dump(actual, header: "Actual", writeToConsole: false)}");
-           //
-           // var dump = sb.ToString();
-           // Output.WriteLine(dump);
-           // return dump;
         }
         
         [NotNull]

@@ -150,7 +150,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
                  Path = path,
                  Headers = new Dictionary<string, string[]> (headers ?? new Dictionary<string, string[]>()),
                  BodyMatcher = bodyMatcher,
-                 QueryString = queryString
+                 QueryString = queryString?.Value
              };
          }
 

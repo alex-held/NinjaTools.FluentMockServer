@@ -1,4 +1,3 @@
-using System;
 using FluentAssertions;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
@@ -37,7 +36,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Services
             // Arrange
             var repo = new Mock<ISetupRepository>();
             var subject  = new SetupService(repo.Object);
-            var setup = new Setup(Guid.NewGuid());
+            var setup = new Setup();
             
             // Act
             subject.Add(setup);

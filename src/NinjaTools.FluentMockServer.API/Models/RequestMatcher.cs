@@ -25,8 +25,7 @@ namespace NinjaTools.FluentMockServer.API.Models
         public string Method { get; set; }
         public Dictionary<string, string[]> Headers { get; set; }
 
-
-        public QueryString? QueryString { get; set; }
+        public string? QueryString { get; set; }
 
         public bool IsMatch(HttpContext context)
         {
@@ -40,9 +39,9 @@ namespace NinjaTools.FluentMockServer.API.Models
 
         private bool QueryMatches(QueryString requestQueryString)
         {
-            if (QueryString.HasValue)
+            if (!string.IsNullOrWhiteSpace(QueryString))
             {
-                return requestQueryString.Value == QueryString.Value.Value;
+                return requestQueryString.Value == QueryString;
             }
 
             return true;

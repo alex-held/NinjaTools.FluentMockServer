@@ -4,9 +4,10 @@ using Newtonsoft.Json.Converters;
 namespace NinjaTools.FluentMockServer.API.Configuration
 {
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum ConfigurationFileType : ushort
+    public enum ConfigurationFileType : int
     {
-        Yaml = 1,
-        Json = 2
+        yaml = 1,
+        yml = 1,
+        json = 2
     }
 }
