@@ -29,6 +29,12 @@ jobs:
           packageType: 'sdk'
           version: ${{ parameters.sdkVersion }}
           includePreviewVersions: true
+          
+      - task: UseDotNet@2
+        inputs:
+          packageType: 'sdk'
+          version: '2.0.0' # SonarCloud 
+          includePreviewVersions: true
 
       - task: DotNetCoreCLI@2
         inputs:
