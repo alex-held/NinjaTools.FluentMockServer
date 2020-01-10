@@ -13,13 +13,37 @@ jobs:
         clean: false
         submodules: recursive
         persistCredentials: true
+
+      - task: SonarCloudPrepare@1
+        inputs:
+          SonarCloud: 'SonarCloud'
+          organization: 'alex-held'
+          scannerMode: 'MSBuild'
+          projectKey: 'alex-held_NinjaTools.FluentMockServer'
+          projectName: 'NinjaTools.FluentMockServer'
+          extraProperties: |
+            sonar.exclusions=**/obj/**,**/*.dll
+            sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/coverage.opencover.xml
+            sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
+
+
       - task: UseDotNet@2
         inputs:
           packageType: 'sdk'
           version: ${{ parameters.sdkVersion }}
           includePreviewVersions: true
+
+      - task: UseDotNet@2
+        inputs:
+          packageType: 'sdk'
+          version: '2.0.0' # SonarCloud
+          includePreviewVersions: true
+
       - task: DotNetCoreCLI@2
         inputs:
           testRunTitle: "run unit tests"
           command: "test"
           projects: ${{ parameters.projects }}
+          arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger trx'
+
+      - task: SonarCloudAnalyze@1
