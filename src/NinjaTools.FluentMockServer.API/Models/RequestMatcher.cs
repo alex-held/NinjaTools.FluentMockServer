@@ -2,14 +2,47 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace NinjaTools.FluentMockServer.API.Models
 {
-  [DebuggerDisplay("{" + nameof(Path) + "} ({" + nameof(Method) + "})" )]
-  public class RequestMatcher
+    [DebuggerDisplay("{DebuggerDisplay()}")]
+    public class RequestMatcher
     {
+        public string DebuggerDisplay()
+        {
+            var path = Path + QueryString ?? "";
+            var sb = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(Method))
+            {
+                sb.Append($"Method={Method}; ");
+            }
+
+            if (!string.IsNullOrEmpty(Path))
+            {
+                sb.Append($"Path={Path}; ");
+            }
+
+            if (!string.IsNullOrEmpty(QueryString))
+            {
+                sb.Append($"Query={QueryString}; ");
+            }
+
+            sb.Append($"Headers={Headers?.Count ?? 0};\n");
+
+            if (BodyMatcher != null)
+            {
+                sb.AppendLine(BodyMatcher.DebuggerDisplay());
+            }
+
+            return sb.ToString();
+        }
+
         private string _path;
 
         public RequestBodyMatcher BodyMatcher { get; set; }
@@ -24,7 +57,6 @@ namespace NinjaTools.FluentMockServer.API.Models
 
         public string Method { get; set; }
         public Dictionary<string, string[]> Headers { get; set; }
-
         public string? QueryString { get; set; }
 
         public bool IsMatch(HttpContext context)
@@ -107,11 +139,15 @@ namespace NinjaTools.FluentMockServer.API.Models
         }
     }
 
+    [DebuggerDisplay("{DebuggerDisplay()}")]
     public class RequestBodyMatcher
     {
-        [CanBeNull]
-        public string Content { get; set; }
+        public string DebuggerDisplay()
+        {
+            return $"Type={Type.ToString()}; MatchExact={MatchExact.ToString()}; Content={Content ?? "<null>"}";
+        }
 
+        public string? Content { get; set; }
         public RequestBodyType  Type { get; set; }
         public bool MatchExact { get; set; }
 
@@ -133,10 +169,10 @@ namespace NinjaTools.FluentMockServer.API.Models
         }
     }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum RequestBodyType
     {
         Text,
         Base64
     }
-    
 }
