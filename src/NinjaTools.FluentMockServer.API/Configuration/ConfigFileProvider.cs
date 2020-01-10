@@ -15,7 +15,7 @@ namespace NinjaTools.FluentMockServer.API.Configuration
     /// </summary>
     public class MockServerOptions
     {
-        public string ConfigFilePath { get; set; } = "/var/mock-server/config/";
+        public string ConfigFilePath { get; set; } = "/etc/mock-server/config/";
     }
 
     public interface IConfigFileProvider
@@ -34,6 +34,11 @@ namespace NinjaTools.FluentMockServer.API.Configuration
             _fs = fs;
             _logger = logger;
             _options = options.Value;
+        }
+
+        public ConfigFileProvider( ILogger<ConfigFileProvider> logger, IOptions<MockServerOptions> options)
+            : this(new FileSystem(), logger, options)
+        {
         }
 
 

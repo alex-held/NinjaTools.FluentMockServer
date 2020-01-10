@@ -20,6 +20,7 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
             Services.TryAddSingleton<ISetupRepository, SetupRepository>();
             Services.TryAddSingleton<ISetupService, SetupService>();
             Services.TryAddSingleton<IConfigurationService, ConfigurationService>();
+            Services.TryAddSingleton<IConfigFileProvider, ConfigFileProvider>();
             Services.TryAddScoped<IAdministrationService, AdministrationService>();
             Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             

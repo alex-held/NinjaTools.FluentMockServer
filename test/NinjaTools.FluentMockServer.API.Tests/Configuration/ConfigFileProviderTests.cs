@@ -12,7 +12,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
 {
     public class ConfigurationProviderTests : XUnitTestBase<ConfigurationProviderTests>
     {
-        private static IOptions<MockServerOptions> GetOptions(string configFilePath = "/var/mock-server/config") => Options.Create(new MockServerOptions
+        private static IOptions<MockServerOptions> GetOptions(string configFilePath = "/etc/mock-server/config") => Options.Create(new MockServerOptions
         {
             ConfigFilePath = configFilePath
         });
@@ -29,14 +29,14 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
             // Arrange
             var fs = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { "/var/mock-server/config/a.yaml", new MockFileData(@"
+                { "/etc/mock-server/config/a.yaml", new MockFileData(@"
 - Action:
     Response:
       StatusCode: 200
       Body: ""some body \n over \n multiple \nlines""
 ")},
 
-                 { "/var/mock-server/config/b.yml", new MockFileData(@"
+                 { "/etc/mock-server/config/b.yml", new MockFileData(@"
 - Matcher:
     Path: /some/path
     Method: POST
@@ -60,14 +60,14 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
             // Assert
             configurations.Count().Should().Be(2);
 
-            configurations[0].Path.Should().Be("/var/mock-server/config/a.yaml");
+            configurations[0].Path.Should().Be("/etc/mock-server/config/a.yaml");
             configurations[0].FileType.Should().Be(ConfigurationFileType.yaml);
             configurations[0].Configurations.Should().HaveCount(1);
             var setupA = configurations[0].Configurations.First();
             setupA.Action.Response.StatusCode.Should().Be(200);
             setupA.Matcher.Should().BeNull();
 
-            configurations[1].Path.Should().Be("/var/mock-server/config/b.yml");
+            configurations[1].Path.Should().Be("/etc/mock-server/config/b.yml");
             configurations[1].FileType.Should().Be(ConfigurationFileType.yml);
             configurations[1].Configurations.Should().HaveCount(2);
             var setupB = configurations[1].Configurations.First();
@@ -90,7 +90,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
             // Arrange
             var fs = new MockFileSystem(new Dictionary<string, MockFileData>
             {
-                { "/var/mock-server/config/a.json", new MockFileData(@"
+                { "/etc/mock-server/config/a.json", new MockFileData(@"
 [
   {
     ""Action"": {
@@ -103,7 +103,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
 ]
 ")},
 
-                 { "/var/mock-server/config/b.json", new MockFileData(@"
+                 { "/etc/mock-server/config/b.json", new MockFileData(@"
 [
   {
     ""Matcher"": {
@@ -140,14 +140,14 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
             // Assert
             configurations.Count().Should().Be(2);
 
-            configurations[0].Path.Should().Be("/var/mock-server/config/a.json");
+            configurations[0].Path.Should().Be("/etc/mock-server/config/a.json");
             configurations[0].FileType.Should().Be(ConfigurationFileType.json);
             configurations[0].Configurations.Should().HaveCount(1);
             var setupA = configurations[0].Configurations.First();
             setupA.Action.Response.StatusCode.Should().Be(200);
             setupA.Matcher.Should().BeNull();
 
-            configurations[1].Path.Should().Be("/var/mock-server/config/b.json");
+            configurations[1].Path.Should().Be("/etc/mock-server/config/b.json");
             configurations[1].FileType.Should().Be(ConfigurationFileType.json);
             configurations[1].Configurations.Should().HaveCount(2);
             var setupB = configurations[1].Configurations.First();
@@ -165,7 +165,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
 
         public static IEnumerable<object[]> GetFakeFileSystemConfigData()
         {
-            var directory = @"/var/mock-server/config";
+            var directory = @"/etc/mock-server/config";
 
             yield return new object[]
             {

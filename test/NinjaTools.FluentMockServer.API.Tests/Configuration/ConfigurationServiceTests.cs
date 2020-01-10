@@ -31,7 +31,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
             var subject = CreateSubject(out var provider, out var setupService);
             provider.Setup(m => m.GetConfigFiles()).Returns(new List<IConfigFile>
             {
-                new ConfigFile("/var/mock-server/config/config.yaml", new[] {new Setup(), new Setup()})
+                new ConfigFile("/etc/mock-server/config/config.yaml", new[] {new Setup(), new Setup()})
             });
 
             // Act
