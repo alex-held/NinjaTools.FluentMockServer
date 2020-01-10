@@ -57,9 +57,7 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mock-Server API v1");
-
-                // https://github.com/ostranme/swagger-ui-themes/blob/develop/themes/3.x/theme-material.css
-                // c.InjectStylesheet();
+                c.InjectStylesheet("https://raw.githubusercontent.com/ostranme/swagger-ui-themes/develop/themes/3.x/theme-material.css");
             });
 
             app.UseMockServerRouting();
