@@ -77,7 +77,7 @@ namespace NinjaTools.FluentMockServer.Tests.TestHelpers
         [NotNull]
         public ILogger<TCategory> CreateLogger<TCategory>() => Output.CreateLogger<TCategory>();
 
-        protected XUnitTestBase(ITestOutputHelper output) : base(output)
+        public XUnitTestBase(ITestOutputHelper output) : base(output)
         {
             Logger = Output.CreateLogger<T>();
         }

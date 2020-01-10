@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using NinjaTools.FluentMockServer.API.Configuration;
 using NinjaTools.FluentMockServer.API.Infrastructure;
 using NinjaTools.FluentMockServer.API.Services;
 
@@ -18,6 +19,7 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
 
             Services.TryAddSingleton<ISetupRepository, SetupRepository>();
             Services.TryAddSingleton<ISetupService, SetupService>();
+            Services.TryAddSingleton<IConfigurationService, ConfigurationService>();
             Services.TryAddScoped<IAdministrationService, AdministrationService>();
             Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             
@@ -29,15 +31,21 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
 
             Services.AddMiddlewareAnalysis();
             Services.AddLogging();
+            Services.AddInitializers();
+
+            Services.Configure<MockServerOptions>(opt =>
+            {
+
+            });
         }
 
         public IServiceProvider ServiceProvider => Services.BuildServiceProvider();
 
 
+        /// <inheritdoc />
+        public IMvcCoreBuilder MvcCoreBuilder { get; }
         public IServiceCollection Services { get; }
         public IConfiguration Configuration { get; }
 
-        /// <inheritdoc />
-        public IMvcCoreBuilder MvcCoreBuilder { get; }
     }
 }

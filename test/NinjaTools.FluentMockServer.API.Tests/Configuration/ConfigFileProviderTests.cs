@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using FluentAssertions;
+using Microsoft.Extensions.Options;
 using NinjaTools.FluentMockServer.API.Configuration;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;
@@ -9,10 +10,15 @@ using Xunit.Abstractions;
 
 namespace NinjaTools.FluentMockServer.API.Tests.Configuration
 {
-    public class ProviderTests : XUnitTestBase<ProviderTests>
+    public class ConfigurationProviderTests : XUnitTestBase<ConfigurationProviderTests>
     {
+        private static IOptions<MockServerOptions> GetOptions(string configFilePath = "/var/mock-server/config") => Options.Create(new MockServerOptions
+        {
+            ConfigFilePath = configFilePath
+        });
+
         /// <inheritdoc />
-        public ProviderTests(ITestOutputHelper output) : base(output)
+        public ConfigurationProviderTests(ITestOutputHelper output) : base(output)
         {
         }
 
@@ -46,10 +52,10 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
       Content-Length:
         - 105
 ")}});
-            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>());
+            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>(), GetOptions());
 
             // Act
-            var configurations = sut.GetConfigFiles("/var/mock-server/config").ToArray();
+            var configurations = sut.GetConfigFiles().ToArray();
 
             // Assert
             configurations.Count().Should().Be(2);
@@ -126,10 +132,10 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
   }
 ]
 ")}});
-            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>());
+            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>(), GetOptions());
 
             // Act
-            var configurations = sut.GetConfigFiles("/var/mock-server/config").ToArray();
+            var configurations = sut.GetConfigFiles().ToArray();
 
             // Assert
             configurations.Count().Should().Be(2);

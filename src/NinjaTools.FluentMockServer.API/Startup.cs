@@ -39,9 +39,7 @@ namespace NinjaTools.FluentMockServer.API
 
             app.UseRouting();
 
-            app.UseMockServerMiddleware();
-            
-            app.UseMockServerRouting();
+            app.UseMockServer();
         }
     }
 }
