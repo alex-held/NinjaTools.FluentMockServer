@@ -23,7 +23,9 @@ namespace NinjaTools.FluentMockServer.API
             services
                 .AddMockServer()
                 .AddAdminPath();
-            
+
+            services.AddSwagger();
+
             services.AddControllers();
         }
 
@@ -34,6 +36,8 @@ namespace NinjaTools.FluentMockServer.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 
