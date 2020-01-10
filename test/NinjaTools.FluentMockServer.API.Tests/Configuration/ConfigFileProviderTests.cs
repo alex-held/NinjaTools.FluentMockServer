@@ -27,7 +27,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
         public void Returns_ConfigurationFile_When_Only_One_Yaml_File()
         {
             // Arrange
-            var fs = new MockFileSystem(new Dictionary<string, MockFileData>()
+            var fs = new MockFileSystem(new Dictionary<string, MockFileData>
             {
                 { "/var/mock-server/config/a.yaml", new MockFileData(@"
 - Action:
@@ -88,7 +88,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
         public void Returns_ConfigurationFile_When_Only_Only_JSON_Files()
         {
             // Arrange
-            var fs = new MockFileSystem(new Dictionary<string, MockFileData>()
+            var fs = new MockFileSystem(new Dictionary<string, MockFileData>
             {
                 { "/var/mock-server/config/a.json", new MockFileData(@"
 [

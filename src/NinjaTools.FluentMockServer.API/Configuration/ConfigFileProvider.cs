@@ -49,7 +49,9 @@ namespace NinjaTools.FluentMockServer.API.Configuration
                 if (Enum.TryParse<ConfigurationFileType>(fileExtension, out var fileType))
                 {
                     foreach (var configFile in ParseConfigFile(fileType, file))
+                    {
                         yield return configFile;
+                    }
                 }
                 else
                 {
@@ -78,14 +80,13 @@ namespace NinjaTools.FluentMockServer.API.Configuration
 
         private IEnumerable<IConfigFile> ParseConfigFile(ConfigurationFileType fileType, string file)
         {
-            switch (fileType)
+            if (fileType == ConfigurationFileType.yaml)
             {
-                case ConfigurationFileType.yaml:
-                    yield return ParseYaml(file);
-                    break;
-                case ConfigurationFileType.json:
-                    yield return ParseJson(file);
-                    break;
+                yield return ParseYaml(file);
+            }
+            else if (fileType == ConfigurationFileType.json)
+            {
+                yield return ParseJson(file);
             }
         }
     }

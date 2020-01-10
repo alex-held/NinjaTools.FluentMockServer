@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
+using System.Globalization;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 using NinjaTools.FluentMockServer.API.Models;
@@ -16,7 +17,7 @@ namespace NinjaTools.FluentMockServer.API.Configuration
         {
             Path = path;
 
-            var fileExtension = System.IO.Path.GetExtension(Path).TrimStart('.').ToLower();
+            var fileExtension = System.IO.Path.GetExtension(Path).TrimStart('.').ToLower(CultureInfo.InvariantCulture);
             if (Enum.TryParse<ConfigurationFileType>(fileExtension, out var fileType))
             {
                 FileType = fileType;

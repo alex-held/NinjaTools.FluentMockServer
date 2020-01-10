@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Microsoft.Extensions.Options;
 using Moq;
 using NinjaTools.FluentMockServer.API.Configuration;
 using NinjaTools.FluentMockServer.API.Models;
@@ -19,11 +18,6 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
 
         private IConfigurationService CreateSubject(out Mock<IConfigFileProvider> provider, out Mock<ISetupService> setupService)
         {
-            var options = Options.Create(new MockServerOptions
-            {
-                ConfigFilePath = "/var/mock-server/config"
-            });
-
             provider = new Mock<IConfigFileProvider>();
             setupService =  new Mock<ISetupService>();
 
