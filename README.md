@@ -43,6 +43,12 @@ in the browser!
 ![Azure DevOps builds (master)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/5/master?style=flat-square)
 ![Azure DevOps builds (develop)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/5/develop?style=flat-square)
 
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=alex-held_NinjaTools.FluentMockServer)
+
+![Sonar Tech Debt](https://img.shields.io/sonar/tech_debt/alex-held_NinjaTools.FluentMockServer?server=https%3A%2F%2Fsonarcloud.io&style=flat-square)
+![Sonar Coverage](https://img.shields.io/sonar/coverage/alex-held_NinjaTools.FluentMockServer?server=https%3A%2F%2Fsonarcloud.io&style=flat-square)
+
 [![CodeFactor](https://www.codefactor.io/repository/github/alex-held/ninjatools.fluentmockserver/badge)](https://www.codefactor.io/repository/github/alex-held/ninjatools.fluentmockserver)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e0e21ac86f80480d8a806b98acb57b0f)](https://www.codacy.com/manual/git_36/NinjaTools.FluentMockServer?utm_source=github.com&utm_medium=referral&utm_content=alex-held/NinjaTools.FluentMockServer&utm_campaign=Badge_Grade)
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/alex-held/NinjaTools.FluentMockServer)
