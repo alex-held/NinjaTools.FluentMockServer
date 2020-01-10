@@ -1,25 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <ProjectGuid>BBF0E4BA-E43E-4628-B0C6-2DF1AAA5A705</ProjectGuid>
+        <AssemblyVersion>1.0.8</AssemblyVersion>
+        <TargetFrameworks>netstandard2.1;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
+        <NullableContext>Enabled</NullableContext>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+        <PackageTags>docker, container, mock, test, server, mockserver</PackageTags>
+        <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+        <VersionPrefix>1.0.8</VersionPrefix>
+    </PropertyGroup>
+
+    <PropertyGroup>
         <Title>NinjaTools.FluentMockServer.TestContainers</Title>
         <Authors>Alexander Held</Authors>
         <Description>In memory docker container runner for NinjaTools.FluentMockServer</Description>
         <Copyright>Alexander Held © 2019</Copyright>
         <PackageProjectUrl>https://github.com/alex-held/NinjaTools.FluentMockServer</PackageProjectUrl>
         <RepositoryUrl>https://github.com/alex-held/NinjaTools.FluentMockServer</RepositoryUrl>
+        <PackageLicenseUrl>https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/LICENSE</PackageLicenseUrl>
         <RepositoryType>github</RepositoryType>
         <Company>AlexanderHeld</Company>
-        <PackageTags>docker, container, mock, test, server, mockserver</PackageTags>
         <Product>FluentMockServer.TestContainers</Product>
-        <PackageLicenseUrl>https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/LICENSE</PackageLicenseUrl>
-        <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-        <AssemblyVersion>1.0.8</AssemblyVersion>
-        <IsPackable>true</IsPackable>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <VersionPrefix>1.0.8</VersionPrefix>
-        <TargetFrameworks>netstandard2.1;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
-        <VersionSuffix>$(VersionSuffix)</VersionSuffix>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
