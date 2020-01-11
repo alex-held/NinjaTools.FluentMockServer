@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using FluentAssertions;
-using Microsoft.Extensions.Options;
 using NinjaTools.FluentMockServer.API.Configuration;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;
@@ -12,11 +11,6 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
 {
     public class ConfigurationProviderTests : XUnitTestBase<ConfigurationProviderTests>
     {
-        private static IOptions<MockServerOptions> GetOptions(string configFilePath = "/etc/mock-server/config") => Options.Create(new MockServerOptions
-        {
-            ConfigFilePath = configFilePath
-        });
-
         /// <inheritdoc />
         public ConfigurationProviderTests(ITestOutputHelper output) : base(output)
         {
@@ -52,7 +46,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
       Content-Length:
         - 105
 ")}});
-            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>(), GetOptions());
+            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>());
 
             // Act
             var configurations = sut.GetConfigFiles().ToArray();
@@ -132,7 +126,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
   }
 ]
 ")}});
-            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>(), GetOptions());
+            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>());
 
             // Act
             var configurations = sut.GetConfigFiles().ToArray();

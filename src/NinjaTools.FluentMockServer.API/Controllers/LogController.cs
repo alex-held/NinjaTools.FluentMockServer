@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +12,7 @@ namespace NinjaTools.FluentMockServer.API.Controllers
     {
         private readonly ILogService _logService;
 
+        /// <inheritdoc />
         public LogController(ILogService logService)
         {
             _logService = logService;
@@ -25,16 +25,36 @@ namespace NinjaTools.FluentMockServer.API.Controllers
         /// <returns>A list of <see cref="ILogItem"/> matching on your query.</returns>
         [HttpGet("list")]
         [ProducesResponseType(typeof(IEnumerable<ILogItem>), 200)]
-        public Task<IEnumerable<ILogItem>> List([FromQuery] string? type)
+        public Task<IEnumerable<ILogItem>> List([FromQuery] LogType? type)
         {
-            if (Enum.TryParse<LogType>(type, out var logType))
+            if (type.HasValue)
             {
-                var logs = _logService.OfType(logType);
+                var logs = _logService.OfType(type.Value);
                 return Task.FromResult(logs);
             }
             else
             {
                 var logs = _logService.Get();
+                return Task.FromResult(logs);
+            }
+        }
+
+        /// <summary>
+        /// Resets all logs.
+        /// </summary>
+        /// <returns>A list of <see cref="ILogItem"/> which have been deleted.</returns>
+        [HttpGet("prune")]
+        [ProducesResponseType(typeof(IEnumerable<ILogItem>), 200)]
+        public Task<IEnumerable<ILogItem>> Prune([FromQuery] LogType? type)
+        {
+            if (type.HasValue)
+            {
+                var logs = _logService.Prune(type.Value);
+                return Task.FromResult(logs);
+            }
+            else
+            {
+                var logs = _logService.Prune();
                 return Task.FromResult(logs);
             }
         }
@@ -63,16 +83,6 @@ namespace NinjaTools.FluentMockServer.API.Controllers
             return Task.FromResult<IEnumerable<ILogItem>>(logs);
         }
 
-        /// <summary>
-        /// Resets all logs.
-        /// </summary>
-        /// <returns>A list of <see cref="ILogItem"/> which have been deleted.</returns>
-        [HttpPost("prune")]
-        [ProducesResponseType(typeof(IEnumerable<ILogItem>), 200)]
-        public Task<IEnumerable<ILogItem>> Prune()
-        {
-            var logs = _logService.Prune();
-            return Task.FromResult(logs);
-        }
+
     }
 }
