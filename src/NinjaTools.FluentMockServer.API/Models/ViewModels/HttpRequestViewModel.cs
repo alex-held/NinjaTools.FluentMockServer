@@ -50,7 +50,9 @@ namespace NinjaTools.FluentMockServer.API.Models.ViewModels
             try
             {
                 if (!stream.CanRead || !stream.CanSeek || stream.Length <= 0)
+                {
                     return null;
+                }
 
                 Request.EnableBuffering();
                 stream.Seek(0, SeekOrigin.Begin);
