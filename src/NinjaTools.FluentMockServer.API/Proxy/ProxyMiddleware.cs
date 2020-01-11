@@ -10,7 +10,7 @@ namespace NinjaTools.FluentMockServer.API.Proxy
         private readonly ISetupService _setupService;
         private readonly ILogService _logService;
 
-        public ProxyMiddleware(ISetupService setupService, ILogService logService)
+        public ProxyMiddleware(RequestDelegate next, ISetupService setupService, ILogService logService)
         {
             _setupService = setupService;
             _logService = logService;
