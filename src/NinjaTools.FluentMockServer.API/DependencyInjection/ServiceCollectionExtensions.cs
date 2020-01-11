@@ -28,8 +28,6 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
             return AddMockServer(services, config);
         }
 
-
-
         internal static IServiceCollection AddInitializers(this IServiceCollection services)
         {
             services.TryAddSingleton<IStartupInitializer>(sp =>
@@ -43,8 +41,6 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
 
             return services;
         }
-
-
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
             return services.AddSwaggerGen(o =>

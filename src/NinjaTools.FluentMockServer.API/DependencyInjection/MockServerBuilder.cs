@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using NinjaTools.FluentMockServer.API.Configuration;
 using NinjaTools.FluentMockServer.API.Infrastructure;
 using NinjaTools.FluentMockServer.API.Services;
@@ -19,16 +21,22 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
 
             Services.TryAddSingleton<ISetupRepository, SetupRepository>();
             Services.TryAddSingleton<ISetupService, SetupService>();
-            Services.TryAddSingleton<IConfigurationService, ConfigurationService>();
-            Services.TryAddSingleton<IConfigFileProvider, ConfigFileProvider>();
             Services.TryAddScoped<IAdministrationService, AdministrationService>();
             Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            
+            Services.TryAddSingleton<IConfigurationService, ConfigurationService>();
+            Services.TryAddSingleton<IConfigFileProvider, ConfigFileProvider>();
+            Services.TryAddSingleton<ILogService, LogService>();
+
             MvcCoreBuilder = Services
                 .AddMvcCore(options => { options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true; })
                 .AddControllersAsServices()
                 .AddAuthorization()
-                .AddNewtonsoftJson();
+                .AddNewtonsoftJson(opt =>
+                {
+                    opt.SerializerSettings.Formatting = Formatting.Indented;
+                    opt.SerializerSettings.Converters.Add(new StringEnumConverter());
+                    opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                });
 
             Services.AddMiddlewareAnalysis();
             Services.AddLogging();
@@ -36,7 +44,7 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
 
             Services.Configure<MockServerOptions>(opt =>
             {
-
+                opt.ConfigFilePath = "/etc/mock-server/config/";
             });
         }
 

@@ -1,5 +1,4 @@
 using FluentAssertions;
-using JsonPrettyPrinterPlus;
 using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Helper;
 using NinjaTools.FluentMockServer.API.Models;
@@ -160,7 +159,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models.Logging
         {
             // Act
             var formatted = log.ToFormattedString();
-            formatted.PrettyPrintJson();
+
             Dump(expected, formatted);
             
             // Assert
