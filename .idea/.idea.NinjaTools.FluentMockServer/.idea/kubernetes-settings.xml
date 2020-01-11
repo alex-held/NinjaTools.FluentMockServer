@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="KubernetesSettings">
+    <specSources>
+      <SpecSource>
+        <option name="pathOrUrl" value="https://dashboard.white.servicefabric.emea.igus.net" />
+      </SpecSource>
+      <SpecSource>
+        <option name="pathOrUrl" value="https://kubernetes.docker.internal:6443" />
+      </SpecSource>
+    </specSources>
+  </component>
+</project>
