@@ -1,15 +1,12 @@
 # NinjaTools.FluentMockServer
 
-**Easy integration testing:** For an overview of the development workflow see
-[DEVELOPMENT.md](https://github.com/alex-held/NinjaTools.FluentMockServer/blob/aphrodite/DEVELOPMENT.md).
-
 FluentMockServer is an heavily inspired by providing additional tooling for
-setting up the MockServer via c# code.
+setting up the MockServer via code.
 
 The project was inspired by other MockServers such as
 [mockserver](https://github.com/jamesdbloom/mockservice).
 
-See the Roadmap blogpost for an overview of planned features.
+See the [ROADMAP.md](https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/ROADMAP.md) for an overview of planned features.
 
 ## Getting Started
 
@@ -40,11 +37,10 @@ in the browser!
 
 ## Status
 
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=alex-held_NinjaTools.FluentMockServer)
+
 ![Azure DevOps builds (master)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/5/master?style=flat-square)
 ![Azure DevOps builds (develop)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/5/develop?style=flat-square)
-
-
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=alex-held_NinjaTools.FluentMockServer)
 
 ![Sonar Tech Debt](https://img.shields.io/sonar/tech_debt/alex-held_NinjaTools.FluentMockServer?server=https%3A%2F%2Fsonarcloud.io&style=flat-square)
 ![Sonar Coverage](https://img.shields.io/sonar/coverage/alex-held_NinjaTools.FluentMockServer?server=https%3A%2F%2Fsonarcloud.io&style=flat-square)
@@ -90,11 +86,11 @@ actively added into the repository.
   - Verify if has been matched
   - Verify how often
 
-### Planned Features
+### How to contribute
 
-- Admin UI
-- Configuration via json/yaml files
-- Support for var
+An contibution is welcome. For more information check out [CONTRIBUTING.md](https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/CONTRIBUTING.md).
+
+If you have any questions feel free to contact me or join our [Discord](https://discord.gg/NHSgRyx).
 
 ### Requirements
 
