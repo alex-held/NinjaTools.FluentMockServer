@@ -21,13 +21,11 @@ namespace NinjaTools.FluentMockServer.API.Models.Logging
         [JsonProperty(Order = 2)]
         public T Content { get; }
 
-
-        public LogItem(string id, T content)
+        protected LogItem(string id, T content)
         {
             Content = content;
             Id = id;
         }
-
 
         protected virtual string FormatContent()
         {

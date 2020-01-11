@@ -29,7 +29,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Extensions
         {
             [Description(DogDescription)]
             Dog,
-            [Description()]
+            [Description]
             Cat,
             Fish
         }

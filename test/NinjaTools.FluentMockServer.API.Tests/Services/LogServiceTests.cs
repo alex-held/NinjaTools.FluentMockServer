@@ -48,7 +48,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Services
 
         private ILogService CreateSeededLogService()
         {
-            var context = new DefaultHttpContext()
+            var context = new DefaultHttpContext
             {
                 Request = { Method = "POST", Path = "/another/path"}
             };

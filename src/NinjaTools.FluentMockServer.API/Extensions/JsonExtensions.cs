@@ -24,7 +24,7 @@ namespace NinjaTools.FluentMockServer.API.Extensions
             {
                 try
                 {
-                    var obj = JToken.Parse(text);
+                    JToken.Parse(text);
                     return true;
                 }
                 catch(Exception) {

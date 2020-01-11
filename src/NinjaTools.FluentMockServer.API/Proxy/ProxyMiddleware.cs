@@ -24,8 +24,6 @@ namespace NinjaTools.FluentMockServer.API.Proxy
 
         public async Task InvokeAsync([NotNull] HttpContext context)
         {
-            var path = context.Request.Path;
-            var method = context.Request.Method;
             if (context.Connection.LocalPort ==  _adminOptions.Value.Port)
             {
                 await _next.Invoke(context);

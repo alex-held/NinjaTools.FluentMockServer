@@ -15,7 +15,6 @@ namespace NinjaTools.FluentMockServer.API.Models
     {
         public string DebuggerDisplay()
         {
-            var path = Path + QueryString ?? "";
             var sb = new StringBuilder();
 
             if (!string.IsNullOrEmpty(Method))

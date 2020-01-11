@@ -12,12 +12,12 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models.Logging
 {
     public class LogItemTestData : TheoryData<ILogItem,  string>
     {
-        public static HttpContext Context = new DefaultHttpContext()
+        private static readonly HttpContext Context = new DefaultHttpContext
         {
             Request = { Path = "/request/path",Method = "PUT" }
         };
 
-        public static readonly Setup DefaultSetup = new Setup
+        private static readonly Setup DefaultSetup = new Setup
         {
             Action = new ResponseAction
             {
