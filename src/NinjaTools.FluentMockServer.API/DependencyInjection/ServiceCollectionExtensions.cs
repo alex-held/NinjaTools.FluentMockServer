@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.IO.Abstractions;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NinjaTools.FluentMockServer.API.Configuration;
+using NinjaTools.FluentMockServer.API.Logging;
 using NinjaTools.FluentMockServer.API.Services;
 using NinjaTools.FluentMockServer.API.Types;
 
@@ -27,10 +29,11 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
         {
             services.TryAddSingleton<IStartupInitializer>(sp =>
             {
-                var logger = sp.GetRequiredService<ILogger<StartupInitializer>>();
-                var startupInitializer = new StartupInitializer(logger);
+                var logger = sp.GetRequiredService<ILoggerFactory>();
+                var startupInitializer = new StartupInitializer(logger.CreateLogger<StartupInitializer>());
 
                 startupInitializer.AddInitializer(new ConfigurationInitializer(sp.GetRequiredService<IConfigurationService>()));
+                startupInitializer.AddInitializer(new LoggingInitializer(new FileSystem()));
                 return startupInitializer;
             });
 

@@ -25,6 +25,7 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
             Services.TryAddSingleton<IConfigurationService, ConfigurationService>();
             Services.TryAddSingleton<IConfigFileProvider, ConfigFileProvider>();
             Services.TryAddSingleton<ILogService, LogService>();
+            Services.TryAddSingleton<ILogRepository, LogRepository>();
 
             MvcCoreBuilder = Services
                 .AddMvcCore(options => { options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true; })
@@ -40,11 +41,6 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
             Services.AddMiddlewareAnalysis();
             Services.AddLogging();
             Services.AddInitializers();
-
-            Services.Configure<MockServerOptions>(opt =>
-            {
-                opt.ConfigFilePath = "/etc/mock-server/config/";
-            });
         }
 
         public IServiceProvider ServiceProvider => Services.BuildServiceProvider();

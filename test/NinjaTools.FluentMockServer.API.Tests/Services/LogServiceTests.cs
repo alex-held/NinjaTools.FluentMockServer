@@ -1,6 +1,6 @@
-using System.Linq;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Moq;
 using NinjaTools.FluentMockServer.API.Helper;
 using NinjaTools.FluentMockServer.API.Models;
 using NinjaTools.FluentMockServer.API.Models.Logging;
@@ -18,14 +18,16 @@ namespace NinjaTools.FluentMockServer.API.Tests.Services
         {
         }
 
-        private ILogService CreateSubject(GenerateId idGenerator = null)
+        private ILogService CreateSubject(out Mock<ILogRepository> repo, GenerateId idGenerator = null)
         {
+            repo = new Mock<ILogRepository>();
+
             if (idGenerator != null)
             {
-                return new LogService(CreateLogger<LogService>(), new LogFactory(idGenerator));
+                return new LogService(CreateLogger<LogService>(),repo.Object ,new LogFactory(idGenerator));
             }
 
-            return new LogService(CreateLogger<LogService>());
+            return new LogService(CreateLogger<LogService>(), repo.Object);
         }
 
         public const string Id = "1234";
@@ -34,16 +36,14 @@ namespace NinjaTools.FluentMockServer.API.Tests.Services
         public void Log_Should_Create_LogItem()
         {
             // Arrange
-            var sut = CreateSubject(() => Id);
+            var sut = CreateSubject(out var repo,() => Id);
             var setup = new Setup();
 
             // Act
             sut.Log(l => l.SetupCreated(setup));
 
             // Assert
-            var log = (SetupLog) sut.Get().Single();
-            log.Id.Should().Be(Id);
-            log.Content.Should().Be(setup);
+            repo.Verify(m => m.AddOrUpdate(It.Is<SetupLog>(l => l.Content == setup)));
         }
 
         private ILogService CreateSeededLogService()
@@ -52,7 +52,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Services
             {
                 Request = { Method = "POST", Path = "/another/path"}
             };
-            var sut = CreateSubject();
+            var sut = CreateSubject(out var repo);
             sut.Log(l => l.SetupCreated(new Setup
             {
                 Matcher = new RequestMatcher {Path = "/path"}

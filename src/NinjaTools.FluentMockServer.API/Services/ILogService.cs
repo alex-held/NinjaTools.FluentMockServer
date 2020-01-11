@@ -17,6 +17,7 @@ namespace NinjaTools.FluentMockServer.API.Services
         IEnumerable<T> OfType<T>() where T : class, ILogItem => Get().OfType<T>();
 
         IEnumerable<ILogItem> Prune();
+        IEnumerable<ILogItem> Prune(LogType type);
         IEnumerable<ILogItem> Get();
     }
 }

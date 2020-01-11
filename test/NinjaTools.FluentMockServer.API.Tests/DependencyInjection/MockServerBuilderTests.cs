@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using NinjaTools.FluentMockServer.API.Configuration;
 using NinjaTools.FluentMockServer.API.DependencyInjection;
 using NinjaTools.FluentMockServer.API.Infrastructure;
@@ -54,6 +52,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.DependencyInjection
             var sut = CreateSubject().Services.BuildServiceProvider();
 
             // Assert
+            sut.EnsureRegistered<ILogRepository>();
             sut.EnsureRegistered<ISetupRepository>();
             sut.EnsureRegistered<ISetupService>();
             sut.EnsureRegistered<IHttpContextAccessor>();
@@ -62,7 +61,6 @@ namespace NinjaTools.FluentMockServer.API.Tests.DependencyInjection
             sut.EnsureRegistered<ILogService>();
 
             sut.EnsureRegistered<IStartupInitializer>();
-            sut.EnsureRegistered<IOptions<MockServerOptions>>().Value.Should().NotBeNull();
             sut.EnsureRegistered<ILogger<MockServerBuilderTests>>();
         }
 
@@ -94,7 +92,6 @@ namespace NinjaTools.FluentMockServer.API.Tests.DependencyInjection
             sp.EnsureRegistered<ILogService>();
 
             sp.EnsureRegistered<IStartupInitializer>();
-            sp.EnsureRegistered<IOptions<MockServerOptions>>().Value.Should().NotBeNull();
             sp.EnsureRegistered<ILogger<MockServerBuilderTests>>();
         }
 
