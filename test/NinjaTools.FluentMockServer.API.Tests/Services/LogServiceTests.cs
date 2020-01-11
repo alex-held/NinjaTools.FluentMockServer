@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Moq;
@@ -52,20 +53,25 @@ namespace NinjaTools.FluentMockServer.API.Tests.Services
             {
                 Request = { Method = "POST", Path = "/another/path"}
             };
+            var factory = new LogFactory();
             var sut = CreateSubject(out var repo);
-            sut.Log(l => l.SetupCreated(new Setup
-            {
-                Matcher = new RequestMatcher {Path = "/path"}
-            }));
-            sut.Log(l => l.SetupDeleted(new Setup
-            {
-                Matcher = new RequestMatcher {Method = "POST"}
-            }));
-            sut.Log(l => l.RequestUnmatched(context));
-            sut.Log(l => l.RequestMached(context, new Setup
-            {
-                Matcher = new RequestMatcher {Method = "POST"}
-            }));
+            repo.Setup(m => m.Get())
+                .Returns(new List<ILogItem>
+                {
+                    factory.SetupCreated(new Setup
+                    {
+                        Matcher = new RequestMatcher {Path = "/path"}
+                    }),
+                    factory.SetupDeleted(new Setup
+                    {
+                        Matcher = new RequestMatcher {Method = "POST"}
+                    }),
+                    factory.RequestUnmatched(context),
+                    factory.RequestMached(context, new Setup
+                    {
+                        Matcher = new RequestMatcher {Method = "POST"}
+                    })
+                });
 
             return sut;
         }
@@ -98,11 +104,12 @@ namespace NinjaTools.FluentMockServer.API.Tests.Services
         public void Prune_Clears_All_Logs()
         {
             // Arrange
-            var sut = CreateSeededLogService();
+            var repo = new Mock<ILogRepository>();
+            var sut = new LogService(CreateLogger<LogService>(), repo.Object);
 
             // Act & Assert
             sut.Prune();
-            sut.Get().Should().BeEmpty();
+            repo.Verify(m => m.Prune(), Times.Once);
         }
 
 
