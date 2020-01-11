@@ -1,43 +1,11 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
-using Newtonsoft.Json.Linq;
 
 namespace NinjaTools.FluentMockServer.API.Extensions
 {
     public static class JsonExtensions
     {
-        public static bool IsNullOrEmpty(this JToken token)
-        {
-            return (token == null) ||
-                   (token.Type == JTokenType.Array && !token.HasValues) ||
-                   (token.Type == JTokenType.Object && !token.HasValues) ||
-                   (token.Type == JTokenType.String && token.ToString() == String.Empty) ||
-                   (token.Type == JTokenType.Null);
-        }
-
-        public static bool IsValidJson(this string text)
-        {
-            text = text.Trim();
-            if ((text.StartsWith("{") && text.EndsWith("}")) || //For object
-                (text.StartsWith("[") && text.EndsWith("]"))) //For array
-            {
-                try
-                {
-                    JToken.Parse(text);
-                    return true;
-                }
-                catch(Exception) {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-
         public static string GetDescription<T>(this T e) where T : Enum, IConvertible
         {
 

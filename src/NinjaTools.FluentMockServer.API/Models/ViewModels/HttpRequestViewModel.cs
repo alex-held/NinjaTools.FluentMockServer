@@ -43,36 +43,24 @@ namespace NinjaTools.FluentMockServer.API.Models.ViewModels
         public Dictionary<string, string> Cookies { get; }
         public bool IsHttps { get; }
 
-        private string ReadBody()
+        private string? ReadBody()
         {
             var stream = Request.Body;
 
             try
             {
-                if (stream.CanRead && stream.CanSeek && stream.Length > 0)
-                {
-                    Request.EnableBuffering();
-                    stream.Seek(0, SeekOrigin.Begin);
-                    using var reader = new StreamReader(stream);
-                    var body = reader.ReadToEndAsync().GetAwaiter().GetResult();
+                if (!stream.CanRead || !stream.CanSeek || stream.Length <= 0)
+                    return null;
 
-                    if (body == string.Empty)
-                    {
-                        return null;
-                    }
-
-                    return body;
-                }
-
-                return null;
-            }
-            catch (NotSupportedException e) when (e.Message == "Specified method is not supported.")
-            {
-                return null;
+                Request.EnableBuffering();
+                stream.Seek(0, SeekOrigin.Begin);
+                using var reader = new StreamReader(stream);
+                var body = reader.ReadToEndAsync().GetAwaiter().GetResult();
+                return body != string.Empty ? body : null;
             }
             catch (Exception e)
             {
-                return e.Message;
+                return null;
             }
         }
     }

@@ -15,7 +15,6 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
             app.UseMockServerAdminBranch();
 
             app.UseMockServerMiddleware();
-            app.UseMockServerRouting();
 
             var initializer = app.ApplicationServices.GetRequiredService<IStartupInitializer>();
             initializer.InitializeAsync().GetAwaiter().GetResult();
@@ -23,13 +22,8 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
 
         private static void UseMockServerMiddleware(this IApplicationBuilder app)
         {
-            app.UseMockServerProxyMiddleware();
-        }
-
-
-        private static void UseMockServerProxyMiddleware(this IApplicationBuilder app)
-        {
             app.UseMiddleware<ProxyMiddleware>();
+            app.UseMockServerRouting();
         }
 
 
