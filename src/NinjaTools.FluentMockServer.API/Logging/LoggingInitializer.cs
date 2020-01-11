@@ -7,7 +7,7 @@ namespace NinjaTools.FluentMockServer.API.Logging
 {
     public static class MockServerPaths
     {
-        public const string LogRoot = "/var/log/mock-server";
+        private const string LogRoot = "/var/log/mock-server";
 
         public static class Logs
         {
@@ -15,10 +15,11 @@ namespace NinjaTools.FluentMockServer.API.Logging
             public static readonly string Requests = Path.Combine(LogRoot, "requests");
         }
 
-        public static string Configs  = "/etc/mock-server/config/";
+        public static string Configs { get; } = "/etc/mock-server/config/";
     }
 
 
+    /// <inheritdoc />
     public class LoggingInitializer : IInitializer
     {
         private readonly IFileSystem _fileSystem;
