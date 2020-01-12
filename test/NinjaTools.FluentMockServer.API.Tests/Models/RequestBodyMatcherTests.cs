@@ -43,7 +43,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
         }
 
         [NotNull]
-        private RequestBodyMatcher CreateSubject(RequestBodyType type, bool matchExact, string content)
+        private RequestBodyMatcher CreateSubject(RequestBodyKind type, bool matchExact, string content)
         {
             return new RequestBodyMatcher
             {
@@ -58,7 +58,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
         {
             // Arrange
             const string content = "{\"hello\":\"world!\"}";
-            var subject = CreateSubject(RequestBodyType.Text, true, content);
+            var subject = CreateSubject(RequestBodyKind.Text, true, content);
             var context = CreateContext(content);
             
             // Act & Assert
@@ -70,7 +70,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
         {
             // Arrange
             const string content = "{\"hello\":\"world!\"}";
-            var subject = CreateSubject(RequestBodyType.Text, false, "world!\"}");
+            var subject = CreateSubject(RequestBodyKind.Text, false, "world!\"}");
             var context = CreateContext(content);
             
             // Act & Assert
@@ -81,7 +81,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
         public void Should_Not_Match_Exact_String_Body_When_Not_Exact_Same_String_Content()
         {
             // Arrange
-            var subject = CreateSubject(RequestBodyType.Text, true,  "{\"hello\":\"car!\"}");
+            var subject = CreateSubject(RequestBodyKind.Text, true,  "{\"hello\":\"car!\"}");
             var context = CreateContext("{\"hello\":\"world!\"}");
             
             // Act & Assert
@@ -93,7 +93,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models
         {
             // Arrange
             const string content = "{\"hello\":\"world!\"}";
-            var subject = CreateSubject(RequestBodyType.Text, false, "car!\"}");
+            var subject = CreateSubject(RequestBodyKind.Text, false, "car!\"}");
             var context = CreateContext(content);
             
             // Act & Assert

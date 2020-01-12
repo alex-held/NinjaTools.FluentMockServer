@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
-using NinjaTools.FluentMockServer.API.Helper;
-using NinjaTools.FluentMockServer.API.Models.Logging;
+using NinjaTools.FluentMockServer.API.Infrastructure;
+using NinjaTools.FluentMockServer.API.Logging.Models;
+using NinjaTools.FluentMockServer.API.Services;
 
-namespace NinjaTools.FluentMockServer.API.Services
+namespace NinjaTools.FluentMockServer.API.Logging
 {
     internal sealed class LogService : ILogService
     {

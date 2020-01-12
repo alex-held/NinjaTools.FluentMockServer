@@ -1,9 +1,9 @@
 using System;
 using Moq;
-using NinjaTools.FluentMockServer.API.Helper;
 using NinjaTools.FluentMockServer.API.Infrastructure;
+using NinjaTools.FluentMockServer.API.Logging;
+using NinjaTools.FluentMockServer.API.Logging.Models;
 using NinjaTools.FluentMockServer.API.Models;
-using NinjaTools.FluentMockServer.API.Models.Logging;
 using NinjaTools.FluentMockServer.API.Services;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;

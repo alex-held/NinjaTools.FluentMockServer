@@ -15,7 +15,6 @@
     <e p="$APPLICATION_CONFIG_DIR$/Extensions" t="IncludeRecursive" />
     <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
-      <e p=".git/info/exclude" t="IncludeRecursive" />
       <e p="docs" t="Include">
         <e p="1.puml" t="Include" />
       </e>
@@ -131,7 +130,7 @@
           </e>
           <e p="Dockerfile" t="Include" />
           <e p="Extensions" t="Include">
-            <e p="JsonExtensions.cs" t="Include" />
+            <e p="StringExtensions.cs" t="Include" />
           </e>
           <e p="Infrastructure" t="Include">
             <e p="ILogRepository.cs" t="Include" />
@@ -175,6 +174,32 @@
             <e p="launchSettings.json" t="Include" />
           </e>
           <e p="Proxy" t="Include">
+            <e p="Evaluation" t="Include">
+              <e p="EvaluationContext.cs" t="Include" />
+              <e p="EvaluationPipeline.cs" t="Include" />
+              <e p="Evaluators" t="Include">
+                <e p="EvaluationWeight.cs" t="Include" />
+                <e p="EvaluatorBase.cs" t="Include" />
+                <e p="HttpBodyEvaluator.cs" t="Include" />
+                <e p="HttpCookieEvaluator.cs" t="Include" />
+                <e p="HttpHeaderEvaluator.cs" t="Include" />
+                <e p="HttpMethodEvaluator.cs" t="Include" />
+                <e p="HttpPathEvaluator.cs" t="Include" />
+                <e p="QueryStringEvaluator.cs" t="Include" />
+              </e>
+              <e p="HttpRequestEvaluator.cs" t="Include" />
+              <e p="IEvaluator.cs" t="Include" />
+              <e p="Models" t="Include">
+                <e p="EvaluationMessages.cs" t="Include" />
+                <e p="EvaluationResultBase.cs" t="Include" />
+                <e p="EvaluationScore.cs" t="Include" />
+                <e p="EvaluationSuccessfulResult.cs" t="Include" />
+                <e p="EvaluationUnsuccessfulResult.cs" t="Include" />
+                <e p="IEvaluationResult.cs" t="Include" />
+                <e p="NormalizedMatcher.cs" t="Include" />
+                <e p="Rating.cs" t="Include" />
+              </e>
+            </e>
             <e p="ProxyMiddleware.cs" t="Include" />
           </e>
           <e p="Services" t="Include">
@@ -184,6 +209,7 @@
           </e>
           <e p="Startup.cs" t="Include" />
           <e p="Types" t="Include">
+            <e p="ChainElement.cs" t="Include" />
             <e p="IInitializer.cs" t="Include" />
             <e p="IStartupInitializer.cs" t="Include" />
             <e p="StartupInitializer.cs" t="Include" />
@@ -233,6 +259,11 @@
               <e p="netcoreapp3.1" t="Include">
                 <e p="NinjaTools.FluentMockServer.API.Tests.AssemblyInfo.cs" t="Include" />
               </e>
+            </e>
+          </e>
+          <e p="Proxy" t="Include">
+            <e p="Matchers" t="Include">
+              <e p="EvaluatorTests.cs" t="Include" />
             </e>
           </e>
           <e p="Services" t="Include">

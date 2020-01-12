@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NinjaTools.FluentMockServer.API.Configuration;
 using NinjaTools.FluentMockServer.API.Infrastructure;
+using NinjaTools.FluentMockServer.API.Logging;
 using NinjaTools.FluentMockServer.API.Services;
 
 namespace NinjaTools.FluentMockServer.API.DependencyInjection

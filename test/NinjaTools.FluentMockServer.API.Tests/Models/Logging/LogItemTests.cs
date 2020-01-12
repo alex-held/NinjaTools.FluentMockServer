@@ -1,8 +1,8 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Http;
-using NinjaTools.FluentMockServer.API.Helper;
+using NinjaTools.FluentMockServer.API.Logging;
+using NinjaTools.FluentMockServer.API.Logging.Models;
 using NinjaTools.FluentMockServer.API.Models;
-using NinjaTools.FluentMockServer.API.Models.Logging;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;
 using Xunit.Abstractions;

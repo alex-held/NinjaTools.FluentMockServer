@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NinjaTools.FluentMockServer.API.Extensions;
 
-namespace NinjaTools.FluentMockServer.API.Models.Logging
+namespace NinjaTools.FluentMockServer.API.Logging.Models
 {
     [DebuggerDisplay("{DebuggerDisplay(),nq}")]
     public abstract class LogItem<T> : ILogItem

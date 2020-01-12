@@ -1,6 +1,6 @@
 using NinjaTools.FluentMockServer.API.Types;
 
-namespace NinjaTools.FluentMockServer.API.Models.Logging
+namespace NinjaTools.FluentMockServer.API.Logging.Models
 {
     public interface ILogItem : IIdentifable<string>
     {

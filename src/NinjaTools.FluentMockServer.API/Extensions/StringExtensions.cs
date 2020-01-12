@@ -1,11 +1,28 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace NinjaTools.FluentMockServer.API.Extensions
 {
-    public static class JsonExtensions
+    public static class StringExtensions
     {
+        public static bool IsValidRegex(this string pattern)
+        {
+            if (string.IsNullOrEmpty(pattern)) return false;
+
+            try
+            {
+                Regex.Match("", pattern);
+            }
+            catch (ArgumentException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public static string GetDescription<T>(this T e) where T : Enum, IConvertible
         {
 

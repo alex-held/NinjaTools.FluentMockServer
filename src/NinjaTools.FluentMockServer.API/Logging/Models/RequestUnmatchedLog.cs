@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Models.ViewModels;
 
-namespace NinjaTools.FluentMockServer.API.Models.Logging
+namespace NinjaTools.FluentMockServer.API.Logging.Models
 {
     public class RequestUnmatchedLog : LogItem<HttpRequestViewModel>
     {

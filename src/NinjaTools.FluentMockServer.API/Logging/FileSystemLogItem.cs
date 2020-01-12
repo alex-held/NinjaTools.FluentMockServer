@@ -1,7 +1,7 @@
 using System.Diagnostics;
-using NinjaTools.FluentMockServer.API.Models.Logging;
+using NinjaTools.FluentMockServer.API.Logging.Models;
 
-namespace NinjaTools.FluentMockServer.API.Services
+namespace NinjaTools.FluentMockServer.API.Logging
 {
     [DebuggerDisplay("Type={LogType}; Path={Path}; Log={Log};")]
     public class FileSystemLogItem

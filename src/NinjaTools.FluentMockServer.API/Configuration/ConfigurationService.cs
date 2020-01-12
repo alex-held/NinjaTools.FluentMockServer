@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using NinjaTools.FluentMockServer.API.Configuration;
+using NinjaTools.FluentMockServer.API.Services;
 
-namespace NinjaTools.FluentMockServer.API.Services
+namespace NinjaTools.FluentMockServer.API.Configuration
 {
     public interface IConfigurationService
     {

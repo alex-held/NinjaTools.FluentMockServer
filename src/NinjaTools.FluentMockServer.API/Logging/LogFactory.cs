@@ -1,9 +1,9 @@
 using System;
 using Microsoft.AspNetCore.Http;
+using NinjaTools.FluentMockServer.API.Logging.Models;
 using NinjaTools.FluentMockServer.API.Models;
-using NinjaTools.FluentMockServer.API.Models.Logging;
 
-namespace NinjaTools.FluentMockServer.API.Helper
+namespace NinjaTools.FluentMockServer.API.Logging
 {
     public delegate string GenerateId();
 

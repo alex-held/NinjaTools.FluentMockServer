@@ -538,6 +538,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Extensions/StringExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Factories/HttpResponseFactory.cs">
           <value>
             <set />
@@ -708,6 +713,71 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/EvaluationPipeline.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/EvaluationUnsuccessfulResult.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/HttpMethodEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/HttpRequestEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/IEvalualtor.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/MockServerEvaluations.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/EvaluationScore.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/EvaluationSuccessfulResult.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/IEvaluationResult.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/NormalizedMatcher.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/Rating.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/NormalizedMatcher.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Rating.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/ProxyMiddleware.cs">
           <value>
             <set />
@@ -784,6 +854,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Startup.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Types/ChainElement.cs">
           <value>
             <set />
           </value>
@@ -1004,6 +1079,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/NinjaTools.FluentMockServer.API.Tests.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Proxy/Matchers/EvaluatorTests.cs">
           <value>
             <set />
           </value>

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using NinjaTools.FluentMockServer.API.Models.Logging;
+using NinjaTools.FluentMockServer.API.Logging.Models;
 using NinjaTools.FluentMockServer.API.Services;
 
 namespace NinjaTools.FluentMockServer.API.Controllers

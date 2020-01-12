@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
-using NinjaTools.FluentMockServer.API.Logging;
-using NinjaTools.FluentMockServer.API.Models.Logging;
+using NinjaTools.FluentMockServer.API.Infrastructure;
+using NinjaTools.FluentMockServer.API.Logging.Models;
 
-namespace NinjaTools.FluentMockServer.API.Services
+namespace NinjaTools.FluentMockServer.API.Logging
 {
     /// <inheritdoc />
     public class LogRepository : ILogRepository

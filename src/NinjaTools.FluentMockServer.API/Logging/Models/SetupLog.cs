@@ -1,4 +1,6 @@
-namespace NinjaTools.FluentMockServer.API.Models.Logging
+using NinjaTools.FluentMockServer.API.Models;
+
+namespace NinjaTools.FluentMockServer.API.Logging.Models
 {
     public sealed class SetupLog : LogItem<Setup>
     {

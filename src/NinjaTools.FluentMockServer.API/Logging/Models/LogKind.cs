@@ -2,7 +2,7 @@ using System.ComponentModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace NinjaTools.FluentMockServer.API.Models.Logging
+namespace NinjaTools.FluentMockServer.API.Logging.Models
 {
     [JsonConverter(typeof(StringEnumConverter))]
     public enum LogType

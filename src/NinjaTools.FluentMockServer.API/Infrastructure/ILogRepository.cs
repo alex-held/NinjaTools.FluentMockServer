@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using NinjaTools.FluentMockServer.API.Models.Logging;
+using NinjaTools.FluentMockServer.API.Logging.Models;
 
-namespace NinjaTools.FluentMockServer.API.Services
+namespace NinjaTools.FluentMockServer.API.Infrastructure
 {
     public interface ILogRepository
     {

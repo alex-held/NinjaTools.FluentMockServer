@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using NinjaTools.FluentMockServer.API.Helper;
-using NinjaTools.FluentMockServer.API.Models.Logging;
+using NinjaTools.FluentMockServer.API.Logging;
+using NinjaTools.FluentMockServer.API.Logging.Models;
 
 namespace NinjaTools.FluentMockServer.API.Services
 {

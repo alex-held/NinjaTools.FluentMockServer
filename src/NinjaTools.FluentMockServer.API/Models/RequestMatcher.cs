@@ -10,6 +10,7 @@ using Newtonsoft.Json.Converters;
 
 namespace NinjaTools.FluentMockServer.API.Models
 {
+
     [DebuggerDisplay("{DebuggerDisplay()}")]
     public class RequestMatcher
     {
@@ -55,7 +56,11 @@ namespace NinjaTools.FluentMockServer.API.Models
         }
 
         public string Method { get; set; }
-        public Dictionary<string, string[]> Headers { get; set; }
+
+        public Dictionary<string, string[]>? Headers { get; set; }
+        public Dictionary<string, string>? Cookies { get; set; }
+
+
         public string? QueryString { get; set; }
 
         public bool IsMatch(HttpContext context)
@@ -147,7 +152,7 @@ namespace NinjaTools.FluentMockServer.API.Models
         }
 
         public string? Content { get; set; }
-        public RequestBodyType  Type { get; set; }
+        public RequestBodyKind  Type { get; set; }
         public bool MatchExact { get; set; }
 
 
@@ -169,7 +174,7 @@ namespace NinjaTools.FluentMockServer.API.Models
     }
 
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum RequestBodyType
+    public enum RequestBodyKind
     {
         Text,
         Base64
