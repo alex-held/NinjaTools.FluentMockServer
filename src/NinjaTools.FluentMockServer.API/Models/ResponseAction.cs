@@ -16,11 +16,7 @@ namespace NinjaTools.FluentMockServer.API.Models
     [DebuggerDisplay("{DebuggerDisplay()}")]
     public class HttpResponse
     {
-        public string DebuggerDisplay()
-        {
-            return $"Status={StatusCode}; Body={Body}";
-        }
-
+        public string DebuggerDisplay() => $"Status={StatusCode}; Body={Body}";
         public int StatusCode { get; set; }
         public string Body { get; set; }
     }

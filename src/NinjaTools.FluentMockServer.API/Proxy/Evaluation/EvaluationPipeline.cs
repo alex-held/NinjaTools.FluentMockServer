@@ -69,7 +69,7 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation
                     .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.BodyMatcher.Content))
                     .ForMember(dest => dest.MatchExact, opt => opt.MapFrom(src => src.BodyMatcher.MatchExact))
                     .ForMember(dest => dest.BodyKind, opt => opt.MapFrom(src => src.BodyMatcher.Type))
-                    .ForMember(dest => dest.Query, opt => opt.MapFrom(src => src.QueryString))
+                    .ForMember(dest => dest.Query, opt => opt.MapFrom(src => src.Query))
                     .ReverseMap();
             }
 

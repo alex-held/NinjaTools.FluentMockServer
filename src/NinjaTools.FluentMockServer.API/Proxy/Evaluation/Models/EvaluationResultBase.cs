@@ -10,21 +10,21 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Models
         {
             Messages = context.Messages.Messages;
             Errors = context.Messages.Exceptions;
-            Score = context.Ratings.Score;
+            Ratings = context.Ratings;
         }
 
         /// <inheritdoc />
         public abstract bool IsMatch { get; }
+
         /// <inheritdoc />
-        public uint Score { get; }
+        public EvaluationRatings Ratings { get; }
+
+        public long Score => Ratings.Score;
 
         /// <inheritdoc />
         public IReadOnlyList<string> Messages { get; }
 
         /// <inheritdoc />
         public IReadOnlyList<Exception> Errors { get; }
-
-        /// <inheritdoc />
-        public int ErrorCount => Errors.Count;
     }
 }

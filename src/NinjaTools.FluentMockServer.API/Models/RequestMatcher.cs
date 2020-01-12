@@ -1,18 +1,18 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using NinjaTools.FluentMockServer.API.Proxy.Evaluation.Visitors;
 
 namespace NinjaTools.FluentMockServer.API.Models
 {
 
     [DebuggerDisplay("{DebuggerDisplay()}")]
-    public class RequestMatcher
+    public class RequestMatcher : IRequest
     {
         public string DebuggerDisplay()
         {
@@ -28,9 +28,9 @@ namespace NinjaTools.FluentMockServer.API.Models
                 sb.Append($"Path={Path}; ");
             }
 
-            if (!string.IsNullOrEmpty(QueryString))
+            if (!string.IsNullOrEmpty(Query))
             {
-                sb.Append($"Query={QueryString}; ");
+                sb.Append($"Query={Query}; ");
             }
 
             sb.Append($"Headers={Headers?.Count ?? 0};\n");
@@ -61,7 +61,7 @@ namespace NinjaTools.FluentMockServer.API.Models
         public Dictionary<string, string>? Cookies { get; set; }
 
 
-        public string? QueryString { get; set; }
+        public string? Query { get; set; }
 
         public bool IsMatch(HttpContext context)
         {
@@ -75,9 +75,9 @@ namespace NinjaTools.FluentMockServer.API.Models
 
         private bool QueryMatches(QueryString requestQueryString)
         {
-            if (!string.IsNullOrWhiteSpace(QueryString))
+            if (!string.IsNullOrWhiteSpace(Query))
             {
-                return requestQueryString.Value == QueryString;
+                return requestQueryString.Value == Query;
             }
 
             return true;
@@ -141,35 +141,25 @@ namespace NinjaTools.FluentMockServer.API.Models
 
             return true;
         }
-    }
 
-    [DebuggerDisplay("{DebuggerDisplay()}")]
-    public class RequestBodyMatcher
-    {
-        public string DebuggerDisplay()
+        /// <inheritdoc />
+        public void Accept(Func<IRequestMatcherEvaluatorVistor> visitorFactory)
         {
-            return $"Type={Type.ToString()}; MatchExact={MatchExact.ToString()}; Content={Content ?? "<null>"}";
+            var visitor = visitorFactory();
+            visitor.VisitHeaders(Headers);
+            visitor.VisitMethod(Method);
+            visitor.VisitPath(Path);
+            visitor.VisitQuery(Query);
+            visitor.VisitCookies(Cookies);
+            visitor.VisitBody(BodyMatcher);
         }
 
-        public string? Content { get; set; }
-        public RequestBodyKind  Type { get; set; }
-        public bool MatchExact { get; set; }
-
-
-        public bool IsMatch([NotNull] HttpRequest request)
+        /// <inheritdoc />
+        public T Accept<T>(Func<IRequestMatcherEvaluatorVistor<T>> visitorFactory)
         {
-            request.EnableBuffering();
-            request.Body.Position = 0;
-            using var reader = new StreamReader(request.Body);
-            var content = reader.ReadToEnd();
-
-            if (MatchExact)
-            {
-                return Content == content;
-            }
-
-
-            return content.Contains(Content);
+            var visitor = visitorFactory();
+            var result = visitor.Evaluate();
+            return result;
         }
     }
 

@@ -130,6 +130,7 @@
           </e>
           <e p="Dockerfile" t="Include" />
           <e p="Extensions" t="Include">
+            <e p="EvaluationExtensions.cs" t="Include" />
             <e p="StringExtensions.cs" t="Include" />
           </e>
           <e p="Infrastructure" t="Include">
@@ -153,6 +154,7 @@
             </e>
           </e>
           <e p="Models" t="Include">
+            <e p="RequestBodyMatcher.cs" t="Include" />
             <e p="RequestMatcher.cs" t="Include" />
             <e p="ResponseAction.cs" t="Include" />
             <e p="Setup.cs" t="Include" />
@@ -178,7 +180,6 @@
               <e p="EvaluationContext.cs" t="Include" />
               <e p="EvaluationPipeline.cs" t="Include" />
               <e p="Evaluators" t="Include">
-                <e p="EvaluationWeight.cs" t="Include" />
                 <e p="EvaluatorBase.cs" t="Include" />
                 <e p="HttpBodyEvaluator.cs" t="Include" />
                 <e p="HttpCookieEvaluator.cs" t="Include" />
@@ -191,13 +192,22 @@
               <e p="IEvaluator.cs" t="Include" />
               <e p="Models" t="Include">
                 <e p="EvaluationMessages.cs" t="Include" />
+                <e p="EvaluationRatings.cs" t="Include" />
                 <e p="EvaluationResultBase.cs" t="Include" />
-                <e p="EvaluationScore.cs" t="Include" />
                 <e p="EvaluationSuccessfulResult.cs" t="Include" />
                 <e p="EvaluationUnsuccessfulResult.cs" t="Include" />
+                <e p="EvaluationWeight.cs" t="Include" />
                 <e p="IEvaluationResult.cs" t="Include" />
                 <e p="NormalizedMatcher.cs" t="Include" />
                 <e p="Rating.cs" t="Include" />
+              </e>
+              <e p="Visitors" t="Include">
+                <e p="IPartialVisitor.cs" t="Include" />
+                <e p="IRequest.cs" t="Include" />
+                <e p="IRequestBody.cs" t="Include" />
+                <e p="IRequestMatcherEvaluatorVistor.cs" t="Include" />
+                <e p="IVisitor.cs" t="Include" />
+                <e p="RequestEvaluatorVistor.cs" t="Include" />
               </e>
             </e>
             <e p="ProxyMiddleware.cs" t="Include" />

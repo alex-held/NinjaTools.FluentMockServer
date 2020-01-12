@@ -79,7 +79,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy.Matchers
                     {
                         {"abcd", "application/json"}
                     },
-                    QueryString =  "?id=0",
+                    Query =  "?id=0",
                     Method = "GET",
                     Headers = new Dictionary<string, string[]>
                     {
@@ -104,7 +104,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy.Matchers
                 var reqA = new RequestMatcher
                 {
                     Path = "/x&/y(",
-                    QueryString = "?id=123"
+                    Query = "?id=123"
                 };
                 var evalA = Eval(6);
                 var ctxA = GetContext(r => { });
@@ -194,7 +194,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy.Matchers
                     {
                         {"abcd", "application/json"}
                     };
-                    less.QueryString = "?id=0";
+                    less.Query = "?id=0";
                     less.Method = "GET";
                     less.Headers = new Dictionary<string, string[]>
                     {

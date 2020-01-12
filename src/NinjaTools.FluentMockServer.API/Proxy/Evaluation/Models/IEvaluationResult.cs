@@ -5,10 +5,10 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Models
 {
     public interface IEvaluationResult
     {
-        uint Score { get; }
+        long Score { get; }
         bool IsMatch { get; }
         IReadOnlyList<string> Messages { get; }
         IReadOnlyList<Exception> Errors { get; }
-        int ErrorCount { get; }
+        int ErrorCount => Errors.Count;
     }
 }
