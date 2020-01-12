@@ -7,12 +7,8 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Evaluators
     [DebuggerDisplay("{Name}; IsLast={IsLast};", Name = "Evaluator")]
     public abstract class EvaluatorBase : IEvaluator
     {
-        protected virtual string FormatMatched(string subjectName, object match) => $"Matched {subjectName}. Value={match};";
-
+        public string Name => GetType().Name;
         protected abstract void EvaluateMember(EvaluationContext context);
-
-
-        public virtual string Name => GetType().Name;
         public bool IsLast => _next is null;
 
         private IEvaluator? _next;
@@ -27,24 +23,8 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Evaluators
         /// <inheritdoc />
         public virtual IEvaluationResult Evaluate(EvaluationContext context)
         {
-            if (_next == null)
-            {
-                goto skip;
-            }
-
-            try
-            {
-                EvaluateMember(context);
-                return _next.Evaluate(context);
-            }
-            catch (Exception e)
-            {
-                context.LogError(e);
-            }
-
-            skip:
-
-            return context switch
+            EvaluateMember(context);
+            return _next != null ?  _next.Evaluate(context) : context switch
             {
                 { IsMatch: true } ctx => new EvaluationSuccessfulResult(ctx),
                 { } ctx => new EvaluationUnsuccessfulResult(ctx)

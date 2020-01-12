@@ -179,15 +179,6 @@
             <e p="Evaluation" t="Include">
               <e p="EvaluationContext.cs" t="Include" />
               <e p="EvaluationPipeline.cs" t="Include" />
-              <e p="Evaluators" t="Include">
-                <e p="EvaluatorBase.cs" t="Include" />
-                <e p="HttpBodyEvaluator.cs" t="Include" />
-                <e p="HttpCookieEvaluator.cs" t="Include" />
-                <e p="HttpHeaderEvaluator.cs" t="Include" />
-                <e p="HttpMethodEvaluator.cs" t="Include" />
-                <e p="HttpPathEvaluator.cs" t="Include" />
-                <e p="QueryStringEvaluator.cs" t="Include" />
-              </e>
               <e p="HttpRequestEvaluator.cs" t="Include" />
               <e p="IEvaluator.cs" t="Include" />
               <e p="Models" t="Include">
