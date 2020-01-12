@@ -8,7 +8,7 @@ using NinjaTools.FluentMockServer.API.Proxy.Evaluation.Models;
 
 namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Visitors
 {
-    public class RequestEvaluatorVistor  : IRequestMatcherEvaluatorVistor<IEvaluationResult>
+    internal class RequestEvaluatorVistor  : IRequestMatcherEvaluatorVistor<EvaluationResultBase>
     {
 
         private readonly EvaluationContext _evaluationContext;
@@ -20,7 +20,19 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Visitors
         }
 
         /// <inheritdoc />
-        public IEvaluationResult Evaluate()
+        public void Visit(RequestMatcher matcher)
+        {
+            VisitHeaders(matcher.Headers);
+            VisitMethod(matcher.Method);
+            VisitPath(matcher.Path);
+            VisitQuery(matcher.Query);
+            VisitCookies(matcher.Cookies);
+            VisitBody(matcher.BodyMatcher);
+            matcher.Accept(() => this);
+        }
+
+        /// <inheritdoc />
+        public EvaluationResultBase Evaluate()
         {
             return _evaluationContext switch
             {
@@ -52,7 +64,7 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Visitors
         {
             if (_evaluationContext.EnsureNotNull(HttpRequest.Headers, headers) is {} httpRequestMember)
             {
-                if (headers.Except(httpRequestMember.ToDictionary(k => k.Key, v => v.Value.ToArray())).Any())
+                if (headers.Except(httpRequestMember?.ToDictionary(k => k.Key, v => v.Value.ToArray())).Any())
                 {
                     _evaluationContext.Fail(httpRequestMember, headers);
                 }
@@ -112,7 +124,16 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Visitors
         }
 
         /// <inheritdoc />
-        public void VisitBody(string? requestBody, bool exactMatch, RequestBodyKind kind)
+        public void VisitBody(RequestBodyMatcher? bodyMatcher)
+        {
+            if (bodyMatcher != null)
+            {
+                VisitBody(bodyMatcher.Content, bodyMatcher.MatchExact, bodyMatcher.Type);
+            }
+        }
+
+        /// <inheritdoc />
+        private void VisitBody(string? requestBody, bool exactMatch, RequestBodyKind kind)
         {
             HttpRequest.EnableBuffering();
             if (_evaluationContext.EnsureNotNull(HttpRequest.Body, requestBody) is { } httpBodyStream && httpBodyStream.CanSeek)
@@ -134,5 +155,7 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Visitors
                 }
             }
         }
+
+
     }
 }

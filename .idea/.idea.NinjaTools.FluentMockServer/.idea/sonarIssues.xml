@@ -748,7 +748,32 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/HttpBodyEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/HttpCookieEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/HttpHeaderEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/HttpMethodEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/HttpPathEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/QueryStringEvaluator.cs">
           <value>
             <set />
           </value>
@@ -814,6 +839,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Visitors/IEvaluationVisitor.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Visitors/IPartialVisitor.cs">
           <value>
             <set />
           </value>

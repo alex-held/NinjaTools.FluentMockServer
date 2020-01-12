@@ -1,6 +1,3 @@
-using System.Reflection;
-using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Extensions;
 
 namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Evaluators
@@ -11,23 +8,16 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Evaluators
         /// <inheritdoc />
         protected override void EvaluateMember(EvaluationContext context)
         {
-            var request = context.HttpContext.Request;
-            var requestPath = request.Path.Value;
             var path = context.Matcher.Path;
-
-            if (path is null)
+            if (context.EnsureNotNull(context.HttpContext.Request.Path.Value, path) is {} httpPath)
             {
-                context.Matches(EvaluationWeight.Low);
-                return;
+                if (path is null)
+                {
+                    context.Match(httpPath, path);
+                    return;
+                }
+                context.Fail(httpPath, path);
             }
-
-            if (path.IsValidRegex() &&Regex.IsMatch(requestPath, path, RegexOptions.Singleline | RegexOptions.IgnorePatternWhitespace))
-            {
-                context.Matches(EvaluationWeight.High);
-                return;
-            }
-
-            context.LogError(new AmbiguousMatchException($"{nameof(HttpRequest.Path)}-Regex '{path}' did not match. Actual={requestPath};"));;
         }
     }
 }

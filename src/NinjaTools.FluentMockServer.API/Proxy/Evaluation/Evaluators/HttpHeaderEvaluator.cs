@@ -1,8 +1,5 @@
 using System.Linq;
-using System.Reflection;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using NinjaTools.FluentMockServer.API.Extensions;
 
 namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Evaluators
 {
@@ -11,26 +8,21 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Evaluators
         /// <inheritdoc />
         protected override void EvaluateMember(EvaluationContext context)
         {
-            var request = context.HttpContext.Request;
-            var requestHeaderDictionary = request.Headers;
-            var headers = context.Matcher.Headers;
-
-            if (headers is null)
+            var header = context.Matcher.Headers;
+            if (context.EnsureNotNull(context.HttpContext.Request.Headers, header) is {} httpHeader)
             {
-                context.Matches(EvaluationWeight.Low);
-                return;
+                var unsatisfiedHeaders = header.Except(httpHeader
+                    .ToDictionary(k => k.Key, v => v.Value.ToArray()));
+
+
+                if (unsatisfiedHeaders.Any() != true)
+                {
+                    context.Match(httpHeader, header);
+                    return;
+                }
+
+                context.Fail(httpHeader, header);
             }
-
-            var requestHeaders = requestHeaderDictionary.ToDictionary(key => key.Key, val => val.Value.ToArray());
-            var unsatisfiedHeaders = headers.Except(requestHeaders).ToList();
-
-            if (!unsatisfiedHeaders.Any())
-            {
-                context.Matches(EvaluationWeight.Max);
-                return;
-            }
-
-            context.LogError(new AmbiguousMatchException($"{nameof(HttpRequest)} didn't contain all configured Headers. {unsatisfiedHeaders.Count} Remaining={JObject.FromObject(headers).ToString(Formatting.Indented)};"));
         }
     }
 }

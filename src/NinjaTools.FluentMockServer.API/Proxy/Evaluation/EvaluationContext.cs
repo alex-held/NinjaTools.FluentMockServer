@@ -7,10 +7,9 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation
     [DebuggerDisplay("{IsMatch} {Ratings} |  Messages={Messages}; Matcher={Matcher};", Name = "EvaluatingContext")]
     public class EvaluationContext
     {
-        public EvaluationContext(HttpContext httpContext, NormalizedMatcher matcher)
+        public EvaluationContext(HttpContext httpContext)
         {
             HttpContext = httpContext;
-            Matcher = matcher;
             Messages = new EvaluationMessages();
             Ratings = new EvaluationRatings();
             IsMatch = true;

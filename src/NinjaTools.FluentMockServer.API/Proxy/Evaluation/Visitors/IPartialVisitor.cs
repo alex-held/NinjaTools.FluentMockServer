@@ -11,7 +11,6 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Visitors
         void VisitMethod(string? method);
         void VisitQuery(string? query);
 
-        void VisitBody(RequestBodyMatcher? bodyMatcher) => VisitBody(bodyMatcher.Content, bodyMatcher.MatchExact, bodyMatcher.Type);
-        void VisitBody(string? requestBody, bool exactMatch, RequestBodyKind kind);
+        void VisitBody(RequestBodyMatcher? bodyMatcher);// => VisitBody(bodyMatcher.Content, bodyMatcher.MatchExact, bodyMatcher.Type);
     }
 }

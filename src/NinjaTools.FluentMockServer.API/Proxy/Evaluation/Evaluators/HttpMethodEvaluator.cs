@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
-using NinjaTools.FluentMockServer.API.Models;
+using NinjaTools.FluentMockServer.API.Extensions;
 
 namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Evaluators
 {
@@ -9,20 +7,15 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Evaluators
         /// <inheritdoc />
         protected override void EvaluateMember(EvaluationContext context)
         {
-            var request = context.HttpContext.Request;
             var method = context.Matcher.Method;
-
-            if (method is null)
+            if (context.EnsureNotNull(context.HttpContext.Request.Method, method) is {} httpMethod)
             {
-                context.Matches(EvaluationWeight.Low, $"Matched {nameof(RequestMatcher.Method)}. Value={method};");
-            }
-            else if (method == request.Method)
-            {
-                context.Matches(EvaluationWeight.Max, $"Matched {nameof(RequestMatcher.Method)}. Value={method};");
-            }
-            else
-            {
-                context.LogError(new ValidationException($"{nameof(HttpRequest.Method)} '{request.Method}' did not match setup. Expected={method ?? "*"}"));
+                if (method is null)
+                {
+                    context.Match(httpMethod, method);
+                    return;
+                }
+                context.Fail(httpMethod, method);
             }
         }
     }

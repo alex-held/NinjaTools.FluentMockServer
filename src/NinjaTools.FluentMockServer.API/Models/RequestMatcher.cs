@@ -146,20 +146,23 @@ namespace NinjaTools.FluentMockServer.API.Models
         public void Accept(Func<IRequestMatcherEvaluatorVistor> visitorFactory)
         {
             var visitor = visitorFactory();
+           this.BodyMatcher.Accept(() => visitor);
+
             visitor.VisitHeaders(Headers);
             visitor.VisitMethod(Method);
             visitor.VisitPath(Path);
             visitor.VisitQuery(Query);
             visitor.VisitCookies(Cookies);
             visitor.VisitBody(BodyMatcher);
+            visitor.Visit(this);
         }
 
         /// <inheritdoc />
         public T Accept<T>(Func<IRequestMatcherEvaluatorVistor<T>> visitorFactory)
         {
-            var visitor = visitorFactory();
-            var result = visitor.Evaluate();
-            return result;
+            var  visitor = visitorFactory();
+            Accept(()  => (IRequestMatcherEvaluatorVistor) visitor);
+            return visitor.Evaluate();
         }
     }
 

@@ -1,4 +1,4 @@
-using System.Reflection;
+using NinjaTools.FluentMockServer.API.Extensions;
 
 namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Evaluators
 {
@@ -7,22 +7,16 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Evaluation.Evaluators
         /// <inheritdoc />
         protected override void EvaluateMember(EvaluationContext context)
         {
-            var request = context.HttpContext.Request;
-            var requestQueryString = request.QueryString;
             var query = context.Matcher.Query;
-
-            if (query is null)
+            if (context.EnsureNotNull(context.HttpContext.Request.QueryString.Value, query) is {} httpQuery)
             {
-                context.Matches(EvaluationWeight.Low);
-                return;
+                if (query is null)
+                {
+                    context.Match(httpQuery, query);
+                    return;
+                }
+                context.Fail(httpQuery, query);
             }
-            else if(query == request.QueryString.ToString())
-            {
-                context.Matches(EvaluationWeight.Max);
-                return;
-            }
-
-            context.LogError(new AmbiguousMatchException($"Actual QueryString '{requestQueryString.ToString()}' didn't match. Expected={query};"));
         }
     }
 }

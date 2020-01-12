@@ -10,9 +10,11 @@
     </PropertyGroup>
 
 
-    <ItemGroup>
-        <Compile Remove="**\**\Evaluators\*.cs" />
-    </ItemGroup>
+<!--    <ItemGroup>-->
+<!--        <Compile Remove="**\**\Evaluators\*.cs" />-->
+<!--    </ItemGroup>-->
+<!--    -->
+    
     
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <DocumentationFile>bin\Release\NinjaTools.FluentMockServer.API.xml</DocumentationFile>

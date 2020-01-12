@@ -14,7 +14,7 @@ namespace NinjaTools.FluentMockServer.API.Extensions
             where TMockMember : class
             where  THttpRequestMember : class
         {
-            if (item is null && httpRequestMember is  null)
+            if (item is null && httpRequestMember !=  null)
             {
                 var rating = new Rating(1, EvaluationWeight.Low)
                 {
@@ -23,6 +23,11 @@ namespace NinjaTools.FluentMockServer.API.Extensions
                 };
 
                 context.Ratings.Append(rating);
+                return null;
+            }
+            else if(item != null && httpRequestMember == null)
+            {
+                context.Fail(httpRequestMember, item);
                 return null;
             }
 

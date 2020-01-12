@@ -40,7 +40,7 @@ namespace NinjaTools.FluentMockServer.API.Models
         public void Accept(Func<IPartialVisitor> visitorFactory)
         {
             var visitor = visitorFactory();
-            visitor.VisitBody(Content, MatchExact, Type);
+            visitor.VisitBody(this);
         }
     }
 }
