@@ -1,3 +1,38 @@
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=alex-held_NinjaTools.FluentMockServer)
+
+![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/5/master?label=master&logo=git&style=for-the-badge)
+![Azure DevOps builds (develop)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/5/develop?label=develop&logo=git&style=for-the-badge)
+
+---
+
+![Nuget (stable)](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer?label=stable&logo=nuget&style=for-the-badge)
+
+![Nuget](https://img.shields.io/nuget/vpre/NinjaTools.FluentMockServer?label=Prerelease&logo=nuget&style=for-the-badge)
+
+---
+
+![Sonar Tech Debt](https://img.shields.io/sonar/tech_debt/alex-held_NinjaTools.FluentMockServer?server=https%3A%2F%2Fsonarcloud.io&logo=sonarcloud&style=for-the-badge)
+![Sonar Coverage](https://img.shields.io/sonar/coverage/alex-held_NinjaTools.FluentMockServer?server=https%3A%2F%2Fsonarcloud.io&logo=sonarcloud&style=for-the-badge)
+![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/alex-held/NinjaTools.FluentMockServer?logo=codefactor&style=for-the-badge)
+![Codacy grade](https://img.shields.io/codacy/grade/e0e21ac86f80480d8a806b98acb57b0f?color=brightgreen&logo=codacy&style=for-the-badge)
+
+
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/gitpod-Ready%20to%20code-blue?logo=gitpod&style=for-the-badge)](https://gitpod.io/#https://github.com/alex-held/NinjaTools.FluentMockServer)
+
+---
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/alex-held/NinjaTools.FluentMockServer?logo=when-i-work&style=for-the-badge&logoColor=white)
+
+
+[![GitHub](https://img.shields.io/badge/github-issues-red.svg?maxAge=60&style=for-the-badge)](https://github.com/alex-held/NinjaTools.FluentMockServer/issues)
+[![GitHub Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60&style=for-the-badge)](https://github.com/alex-held/NinjaTools.FluentMockServer)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/alex-held/NinjaTools.FluentMockServer?logo=GitHub&style=for-the-badge)
+
+---
+
+[![Copyright 2019-2020](https://img.shields.io/badge/copyright-2019-blue.svg?maxAge=60&style=for-the-badge)](https://github.com/alex-held/FluentMockServer)
+[![GNU GPL v3](https://img.shields.io/badge/license-GNU%20GPL%20v3-blue.svg?maxAge=60&style=for-the-badge)](http://www.gnu.org/licenses/gpl.html)
+
+
 # NinjaTools.FluentMockServer
 
 FluentMockServer is an heavily inspired by providing additional tooling for
@@ -8,12 +43,13 @@ The project was inspired by other MockServers such as
 
 See the [ROADMAP.md](https://github.com/alex-held/NinjaTools.FluentMockServer/blob/master/ROADMAP.md) for an overview of planned features.
 
+NinjaTools.FluentMockServer is currently maintained and pull requests are actively added into the repository.
+
+
 ## Getting Started
 
-[![Installation](https://img.shields.io/badge/wiki-installation-brightgreen.svg?maxAge=60&style=flat-square)](https://github.com/alex-held/NinjaTools.FluentMockServer/wiki/Installation)
-[![FAQ](https://img.shields.io/badge/wiki-FAQ-BF55EC.svg?maxAge=60&style=flat-square)](https://github.com/alex-held/NinjaTools.FluentMockServer/wiki/FAQ)
-
-## Workflows
+[![Installation](https://img.shields.io/badge/wiki-installation-brightgreen.svg?maxAge=60&style=for-the-badge)](https://github.com/alex-held/NinjaTools.FluentMockServer/wiki/Installation)
+[![FAQ](https://img.shields.io/badge/wiki-FAQ-BF55EC.svg?maxAge=60&style=for-the-badge)](https://github.com/alex-held/NinjaTools.FluentMockServer/wiki/FAQ)
 
 You can choose between or combine different mode of operations
 
@@ -27,45 +63,8 @@ You can choose between or combine different mode of operations
 [Try it out](https://gitpod.io/#https://github.com/alex-held/NinjaTools.FluentMockServer)
 in the browser!
 
-## Support
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/alex-held/NinjaTools.FluentMockServer)
 
-[![Board Status](https://dev.azure.com/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/2988ffdd-29c2-4467-8dc7-7d9e5282e656/_apis/work/boardbadge/368471de-1e1a-4156-a50b-83b04b735f1c?columnOptions=1)](https://dev.azure.com/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/_boards/board/t/2988ffdd-29c2-4467-8dc7-7d9e5282e656/Microsoft.RequirementCategory/)
-
-[![GitHub](https://img.shields.io/badge/github-issues-red.svg?maxAge=60&style=flat-square)](https://github.com/alex-held/NinjaTools.FluentMockServer/issues)
-[![GitHub Wiki](https://img.shields.io/badge/github-wiki-181717.svg?maxAge=60&style=flat-square)](https://github.com/alex-held/NinjaTools.FluentMockServer)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/alex-held/NinjaTools.FluentMockServer?logo=GitHub&style=flat-square)
-
-## Status
-
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=alex-held_NinjaTools.FluentMockServer)
-
-![Azure DevOps builds (master)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/5/master?style=flat-square)
-![Azure DevOps builds (develop)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/5/develop?style=flat-square)
-
-![Sonar Tech Debt](https://img.shields.io/sonar/tech_debt/alex-held_NinjaTools.FluentMockServer?server=https%3A%2F%2Fsonarcloud.io&style=flat-square)
-![Sonar Coverage](https://img.shields.io/sonar/coverage/alex-held_NinjaTools.FluentMockServer?server=https%3A%2F%2Fsonarcloud.io&style=flat-square)
-
-[![CodeFactor](https://www.codefactor.io/repository/github/alex-held/ninjatools.fluentmockserver/badge)](https://www.codefactor.io/repository/github/alex-held/ninjatools.fluentmockserver)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e0e21ac86f80480d8a806b98acb57b0f)](https://www.codacy.com/manual/git_36/NinjaTools.FluentMockServer?utm_source=github.com&utm_medium=referral&utm_content=alex-held/NinjaTools.FluentMockServer&utm_campaign=Badge_Grade)
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/alex-held/NinjaTools.FluentMockServer)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/w/alex-held/NinjaTools.FluentMockServer?color=bright-green&label=Changelog&logo=GitHub)
-
-[![Copyright 2019-2020](https://img.shields.io/badge/copyright-2019-blue.svg?maxAge=60&style=flat-square)](https://github.com/alex-held/FluentMockServer)
-[![GNU GPL v3](https://img.shields.io/badge/license-GNU%20GPL%20v3-blue.svg?maxAge=60&style=flat-square)](http://www.gnu.org/licenses/gpl.html)
-
-## Releases
-
-| Package                                    |                                                         Master                                                          |                                                          Develop                                                           |
-| ------------------------------------------ | :---------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------: |
-| NinjaTools.FluentMockServer                | ![NinjaTools.FluentMockServer](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer?logo=nuget&style=flat-square) | ![NinjaTools.FluentMockServer](https://img.shields.io/nuget/vpre/NinjaTools.FluentMockServer?logo=nuget&style=flat-square) |
-| NinjaTools.FluentMockServer.TestContainers |    ![Nuget](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer.TestContainers?logo=nuget&style=flat-square)     |    ![Nuget](https://img.shields.io/nuget/vpre/NinjaTools.FluentMockServer.TestContainers?logo=nuget&style=flat-square)     |
-
-| Package         |                                                                              Master                                                                               |                                                                               Develop                                                                               |
-| --------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| Azure Pipelines | ![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/6/master?label=master&style=flat-square) | ![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/6/develop?label=develop&style=flat-square) |
-
-NinjaTools.FluentMockServer is currently maintained and pull requests are
-actively added into the repository.
 
 ## Features
 
