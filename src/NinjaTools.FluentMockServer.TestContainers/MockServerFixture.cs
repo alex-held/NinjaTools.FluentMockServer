@@ -1,28 +1,51 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
+using JetBrains.Annotations;
 using Xunit;
 
 namespace NinjaTools.FluentMockServer.TestContainers
 {
     /// <summary>
-    /// A TestFixture exposing a <see cref="MockServerClient"/>.
+    /// An <see cref="IClassFixture{MockServerFixture}"/> exposing a <see cref="MockServerClient"/>.
     /// </summary>
     public class MockServerFixture : IDisposable, IAsyncLifetime
     {
         /// <summary>
-        /// The MockServerClient
+        /// Gets the <see cref="MockServerClient"/>.
         /// </summary>
-        public MockServerClient Client { get; }
-        
+        [NotNull]
+        public MockServerClient MockClient { get; }
+
+        /// <summary>
+        /// Gets the <see cref="System.Net.Http.HttpClient"/> of the <see cref="MockClient"/>.
+        /// </summary>
+
+        public HttpClient HttpClient => MockClient.HttpClient;
+
+        /// <summary>
+        /// The port used to connect the <see cref="MockClient"/>.
+        /// </summary>
+        public int MockServerPort => Container.HostPort;
+
+        /// <summary>
+        /// The host used to connect the <see cref="MockClient"/>.
+        /// </summary>
+        public string MockServerBaseUrl => Container.MockServerBaseUrl;
+
         /// <summary>
         /// Handle to the <see cref="MockServerContainer"/>.
         /// </summary>
+        [NotNull]
         protected MockServerContainer Container { get; }
          
+        /// <summary>
+        ///
+        /// </summary>
         public MockServerFixture()
         {
             Container = new MockServerContainer();
-            Client = new MockServerClient(Container.MockServerBaseUrl);
+            MockClient = new MockServerClient(Container.MockServerBaseUrl);
         }
         
         /// <inheritdoc />
@@ -40,7 +63,7 @@ namespace NinjaTools.FluentMockServer.TestContainers
         /// <inheritdoc />
         public Task DisposeAsync()
         {
-            Client.Dispose();
+            MockClient.Dispose();
             return Container.StopAsync();
         }
     }

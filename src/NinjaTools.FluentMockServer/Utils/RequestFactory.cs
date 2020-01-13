@@ -16,16 +16,16 @@ namespace NinjaTools.FluentMockServer.Utils
     {
         
         [NotNull]
-        public static HttpRequestMessage Reset() => new HttpRequestMessage(HttpMethod.Put, MockServerEndpoints.Reset);
+        public static HttpRequestMessage GetResetMessage() => new HttpRequestMessage(HttpMethod.Put, MockServerEndpoints.Reset);
         
         [NotNull]
-        public static HttpRequestMessage Verify([NotNull] Verify verify) =>  new HttpRequestMessage(HttpMethod.Put, MockServerEndpoints.Verify)
+        public static HttpRequestMessage GetVerifyRequest([NotNull] Verify verify) =>  new HttpRequestMessage(HttpMethod.Put, MockServerEndpoints.Verify)
         {
             Content = new JsonContent(verify)
         };
         
         [NotNull]
-        public static HttpRequestMessage Expectation([NotNull] Expectation expectation) =>  new HttpRequestMessage(HttpMethod.Put, MockServerEndpoints.Expectations)
+        public static HttpRequestMessage GetExpectationMessage([NotNull] Expectation expectation) =>  new HttpRequestMessage(HttpMethod.Put, MockServerEndpoints.Expectations)
         {
             Content = new JsonContent(expectation)
         };
