@@ -13,16 +13,14 @@ using Xunit.Abstractions;
 
 namespace NinjaTools.FluentMockServer.TestContainers.Tests
 {
-    public class SoapServiceTests : XUnitTestBase<SoapServiceTests>, IClassFixture<MockServerFixture>
+    public class SoapServiceTests : MockServerTestBase
     {
-        private readonly MockServerFixture _fixture;
-
-        public SoapServiceTests(ITestOutputHelper output, MockServerFixture fixture) : base(output)
+        /// <inheritdoc />
+        public SoapServiceTests(MockServerFixture fixture, ITestOutputHelper output) : base(fixture, output)
         {
-            _fixture = fixture;
         }
 
-        public MockServerClient MockedServer => _fixture.Client;
+        public MockServerClient MockedServer => Fixture.MockClient;
 
         [Fact]
         public async Task Should_Setup_Expectation_With_Xml_Body_When_Setup_Using_Predefined_Setup()
@@ -132,5 +130,7 @@ namespace NinjaTools.FluentMockServer.TestContainers.Tests
                         .Setup()
             );
         }
+
+
     }
 }
