@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Xunit;
 
-namespace NinjaTools.FluentMockServer.TestContainers
+namespace NinjaTools.FluentMockServer.Xunit
 {
     /// <summary>
     /// An <see cref="IClassFixture{MockServerFixture}"/> exposing a <see cref="MockServerClient"/>.

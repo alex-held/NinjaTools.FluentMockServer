@@ -7,11 +7,11 @@ using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
-using NinjaTools.FluentMockServer.Tests.TestHelpers;
+using NinjaTools.FluentMockServer.Xunit;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace NinjaTools.FluentMockServer.TestContainers.Tests
+namespace NinjaTools.FluentMockServer.Tests.Xunit
 {
     public class SoapServiceTests : MockServerTestBase
     {
