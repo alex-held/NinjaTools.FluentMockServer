@@ -10,11 +10,11 @@ using NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Serialization;
-using NinjaTools.FluentMockServer.Tests.TestHelpers;
+using NinjaTools.FluentMockServer.Xunit;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace NinjaTools.FluentMockServer.TestContainers.Tests
+namespace NinjaTools.FluentMockServer.Tests.Xunit
 {
     public class MockServerFixtureTests  : MockServerTestBase
     {
