@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <ProjectGuid>36A37D14-D7FC-4E32-8F48-5FB606818757</ProjectGuid>
-        <AssemblyVersion>1.0.9</AssemblyVersion>
+        <AssemblyVersion>1.1.0</AssemblyVersion>
         <TargetFrameworks>netstandard2.1;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
         <NullableContext>Enabled</NullableContext>
@@ -14,7 +14,7 @@
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageTags>mockserver, test, mock, docker, xunit, api, soap, rest</PackageTags>
         <VersionSuffix>$(VersionSuffix)</VersionSuffix>
-        <VersionPrefix>1.0.9</VersionPrefix>
+        <VersionPrefix>1.1.0</VersionPrefix>
     </PropertyGroup>
 
 
