@@ -16,6 +16,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.API.Tests", "test\NinjaTools.FluentMockServer.API.Tests\NinjaTools.FluentMockServer.API.Tests.csproj", "{175B41A0-DF12-499C-AD27-9E4EC09A82DA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{4B00F08C-15F0-4A37-8A23-95EFDDC85C93}"
+ProjectSection(SolutionItems) = preProject
+	build\nuget-pack.yaml = build\nuget-pack.yaml
+	build\build.csx = build\build.csx
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

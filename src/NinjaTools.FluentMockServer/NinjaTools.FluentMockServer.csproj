@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <ProjectGuid>36A37D14-D7FC-4E32-8F48-5FB606818757</ProjectGuid>
@@ -13,8 +13,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
         <PackageTags>mockserver, test, mock, docker, xunit, api, soap, rest</PackageTags>
-        <VersionSuffix>$(VersionSuffix)</VersionSuffix>
-        <VersionPrefix>1.1.0</VersionPrefix>
+        <Version>1.1.0</Version>
     </PropertyGroup>
 
 
