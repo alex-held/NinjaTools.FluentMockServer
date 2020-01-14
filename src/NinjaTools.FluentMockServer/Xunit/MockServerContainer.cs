@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 using Ductus.FluentDocker.Builders;
 using Ductus.FluentDocker.Services;
 
-
-namespace NinjaTools.FluentMockServer.TestContainers
+namespace NinjaTools.FluentMockServer.Xunit
 {
     /// <summary>
     /// The InMemory handle to the MockServer Docker Container

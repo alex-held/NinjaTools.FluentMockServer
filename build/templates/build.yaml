@@ -15,11 +15,13 @@ jobs:
         clean: false
         submodules: recursive
         persistCredentials: true
+
       - task: UseDotNet@2
         inputs:
           packageType: 'sdk'
           version: ${{ parameters.sdkVersion }}
           includePreviewVersions: true
+
       - task: DotNetCoreCLI@2
         inputs:
           command: 'build'

@@ -2,6 +2,8 @@
 using System.ComponentModel.DataAnnotations;
 using JetBrains.Annotations;
 
+// ReSharper disable NonReadonlyMemberInGetHashCode
+
 namespace NinjaTools.FluentMockServer.Models
 {
     /// <summary>
@@ -11,7 +13,7 @@ namespace NinjaTools.FluentMockServer.Models
     {
         /// <inheritdoc />
         public int Id { get; set; }
-        
+
         /// <inheritdoc />
         public DateTime CreatedOn { get;  set; } = DateTime.UtcNow;
 
@@ -21,8 +23,8 @@ namespace NinjaTools.FluentMockServer.Models
         /// <inheritdoc />
         [Timestamp]
         public byte[] Timestamp { get; set; }
-        
-        
+
+
         /// <inheritdoc />
         public bool Equals(Expectation other)
         {
