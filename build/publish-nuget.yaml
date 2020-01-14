@@ -3,7 +3,8 @@
 trigger:
   branches:
     include:
-      - refs/tags/*
+      - release/*
+      - master
 
 pr: none
 
