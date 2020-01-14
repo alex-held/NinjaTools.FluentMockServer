@@ -3,6 +3,8 @@
 ![Azure DevOps builds (branch)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/5/master?label=master&logo=git&style=for-the-badge)
 ![Azure DevOps builds (develop)](https://img.shields.io/azure-devops/build/alex-held/1f2ebed6-22af-4c25-93d3-fb706aa677ca/5/develop?label=develop&logo=git&style=for-the-badge)
 
+![Azure DevOps tests (branch)](https://img.shields.io/azure-devops/tests/alex-held/NinjaTools.FluentMockServer/4/develop?logo=azure-pipelines&logoColor=white&style=for-the-badge)
+
 ---
 
 ![Nuget (stable)](https://img.shields.io/nuget/v/NinjaTools.FluentMockServer?label=stable&logo=nuget&style=for-the-badge)
