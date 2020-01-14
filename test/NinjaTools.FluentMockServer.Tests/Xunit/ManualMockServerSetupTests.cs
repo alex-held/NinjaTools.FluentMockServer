@@ -68,15 +68,12 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
             response.EnsureSuccessStatusCode();
 
             // Act
-            var builder = new FluentHttpRequestBuilder();
-            builder.WithMethod(HttpMethod.Get).WithPath("test");
-
-            // Act
-            var verification = Verify.Once(builder.Build());
-            response = await MockClient.VerifyAsync(verification);
+            var (isValid, responseMessage) = await MockClient.VerifyAsync(v => v
+                .WithMethod(HttpMethod.Get)
+                .WithPath("test"), VerificationTimes.Once);
             
             // Assert
-            response.StatusCode.Should().Be(HttpStatusCode.Accepted);
+            isValid.Should().BeTrue();
         }
 
     }

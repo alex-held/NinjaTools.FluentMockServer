@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using NinjaTools.FluentMockServer.Xunit;
 using Xunit;
@@ -23,8 +24,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
 
             // Act
             var (isValid, responseMessage) = await MockClient.VerifyAsync(v => v
-                .Verify(b => b.WithPath("test"))
-                .Once());
+                .WithPath("test"), VerificationTimes.Once);
 
             // Assert
             Output.WriteLine(responseMessage);
@@ -37,8 +37,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
         {
             // Act
             var (isValid, responseMessage) = await MockClient.VerifyAsync(v => v
-                .Verify(b => b.WithPath("test"))
-                .Once());
+                .WithPath("test"), VerificationTimes.Once);
 
             // Assert
             Output.WriteLine(responseMessage);

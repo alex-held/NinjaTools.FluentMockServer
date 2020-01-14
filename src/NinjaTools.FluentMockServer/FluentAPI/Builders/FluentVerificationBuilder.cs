@@ -7,7 +7,7 @@ using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.FluentAPI.Builders
 {
-    internal class FluentVerificationBuilder : IFluentVerificationBuilder, IFluentVerificationBuilder.IWithRequest
+    internal class FluentVerificationBuilder : IFluentVerificationBuilder, IWithVerify
     {
         private HttpRequest _httpRequest;
         private VerificationTimes _verificationTimes;
@@ -23,7 +23,7 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders
 
         /// <inheritdoc />
         [NotNull]
-        public IFluentVerificationBuilder.IWithRequest  Verify([NotNull] Action<IFluentHttpRequestBuilder> request)
+        public IWithVerify  Verify([NotNull] Action<IFluentHttpRequestBuilder> request)
         {
             var builder = new FluentHttpRequestBuilder();
             request(builder);
@@ -63,6 +63,12 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders
         public void Twice()
         {
             _verificationTimes = VerificationTimes.Twice;
+        }
+
+        /// <inheritdoc />
+        public void Times(VerificationTimes times)
+        {
+            _verificationTimes = times;
         }
     }
   

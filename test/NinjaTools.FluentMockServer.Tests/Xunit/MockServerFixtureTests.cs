@@ -7,7 +7,6 @@ using FluentAssertions;
 using NinjaTools.FluentMockServer.FluentAPI;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
 using NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities;
-using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Serialization;
 using NinjaTools.FluentMockServer.Xunit;
@@ -102,12 +101,11 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
                 builder.WithMethod(HttpMethod.Get).WithPath("/test");
                 
                 // Act
-                var verification =Verify.Once(builder.Build());
-                
-                var response = await MockClient.VerifyAsync(verification);
+                var (isValid, response) = await MockClient.VerifyAsync( v => v
+                     .WithPath("/test").WithMethod(HttpMethod.Get), VerificationTimes.Once);
 
                 // Assert
-                response.StatusCode.Should().Be(HttpStatusCode.Accepted);
+                isValid.Should().BeTrue();
         }
     }
 }
