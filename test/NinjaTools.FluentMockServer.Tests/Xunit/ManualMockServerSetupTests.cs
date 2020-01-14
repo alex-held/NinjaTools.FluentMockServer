@@ -3,8 +3,6 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities;
-using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Xunit;
 using Xunit;
@@ -59,7 +57,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
         {
             // Act
             await MockClient.SetupAsync(exp =>
-                exp.OnHandling(HttpMethod.Get, req => req.WithPath("/test"))
+                exp.OnHandling(HttpMethod.Get, req => req.WithPath("test"))
                     .RespondOnce(201, resp => resp.WithDelay(50, TimeUnit.Milliseconds))
                     .Setup());
 
