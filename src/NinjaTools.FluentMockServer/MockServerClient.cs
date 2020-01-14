@@ -7,6 +7,7 @@ using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.FluentAPI;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
 using NinjaTools.FluentMockServer.Models;
+using NinjaTools.FluentMockServer.Models.ValueTypes;
 using static NinjaTools.FluentMockServer.Utils.RequestFactory;
 
 namespace NinjaTools.FluentMockServer
@@ -71,32 +72,40 @@ namespace NinjaTools.FluentMockServer
             return response;
         }
 
-        public async Task<HttpResponseMessage> VerifyAsync(Verify verify)
+        [NotNull]
+        public async Task<(bool isValid, string responseMessage)> VerifyAsync([NotNull] Action<IFluentHttpRequestBuilder> verify, [CanBeNull] VerificationTimes times = null)
         {
-            var request = GetVerifyRequest(verify);
-            var response = await HttpClient.SendAsync(request);
-            return response;
-        }
-
-        public async Task<(bool isValid, string responseMessage)> VerifyAsync(Action<IFluentVerificationBuilder> verify)
-        {
-            var response = await Verify(verify);
+            var response = await Verify(v =>
+            {
+                if (times != null)
+                {
+                    v.Verify(verify).Times(times);
+                }
+                else
+                {
+                    v.Verify(verify);
+                }
+            });
             var responseMessage = await response.Content.ReadAsStringAsync();
             return (response.StatusCode == HttpStatusCode.Accepted, responseMessage);
         }
 
-        public Task<HttpResponseMessage> Verify(Action<IFluentVerificationBuilder> verify)
+        [NotNull]
+        public async Task<HttpResponseMessage> Verify(Action<IFluentVerificationBuilder> verify)
         {
             var builder = new FluentVerificationBuilder();
             verify(builder);
             var verification = builder.Build();
-            return VerifyAsync(verification);
+            var request = GetVerifyRequest(verification);
+            var response = await HttpClient.SendAsync(request);
+            return response;
         }
-        
+
         /// <inheritdoc />
         public void Dispose()
         {
             HttpClient?.Dispose();
+            // ReSharper disable once AssignNullToNotNullAttribute
             HttpClient = null;
         }
 
