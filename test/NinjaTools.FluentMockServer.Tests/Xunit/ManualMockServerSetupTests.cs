@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
@@ -11,7 +12,6 @@ using Xunit.Abstractions;
 [assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly, DisableTestParallelization = true)]
 namespace NinjaTools.FluentMockServer.Tests.Xunit
 {
-    
     public class ManualMockServerSetupTests : MockServerTestBase
     {
         /// <inheritdoc />
@@ -55,20 +55,14 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
         [Fact]
         public async Task Should_Verify_Expecation_Was_Met_On_MockServer()
         {
-            // Act
-            await MockClient.SetupAsync(exp =>
-                exp.OnHandling(HttpMethod.Get, req => req.WithPath("test"))
-                    .RespondOnce(201, resp => resp.WithDelay(50, TimeUnit.Milliseconds))
-                    .Setup());
-
+            // Arrange
             var request = new HttpRequestMessage(HttpMethod.Get, new Uri("test", UriKind.Relative));
-            var response = await MockClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
+            await HttpClient.SendAsync(request);
 
             // Act
             var (isValid, responseMessage) = await MockClient.VerifyAsync(v => v
                 .WithMethod(HttpMethod.Get)
-                .WithPath("test"), VerificationTimes.Once);
+                .WithPath("test"));
             
             // Assert
             isValid.Should().BeTrue();

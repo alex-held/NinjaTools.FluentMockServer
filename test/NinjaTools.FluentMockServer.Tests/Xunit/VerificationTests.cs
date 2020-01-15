@@ -1,4 +1,5 @@
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
@@ -57,6 +58,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
         protected MockServerTestBase(MockServerFixture fixture, ITestOutputHelper output) : base(output)
         {
             Fixture = fixture;
+            Thread.Sleep(200);
         }
     }
 }
