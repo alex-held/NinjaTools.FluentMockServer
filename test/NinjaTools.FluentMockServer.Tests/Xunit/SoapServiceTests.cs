@@ -7,22 +7,20 @@ using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
-using NinjaTools.FluentMockServer.Tests.TestHelpers;
+using NinjaTools.FluentMockServer.Xunit;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace NinjaTools.FluentMockServer.TestContainers.Tests
+namespace NinjaTools.FluentMockServer.Tests.Xunit
 {
-    public class SoapServiceTests : XUnitTestBase<SoapServiceTests>, IClassFixture<MockServerFixture>
+    public class SoapServiceTests : MockServerTestBase
     {
-        private readonly MockServerFixture _fixture;
-
-        public SoapServiceTests(ITestOutputHelper output, MockServerFixture fixture) : base(output)
+        /// <inheritdoc />
+        public SoapServiceTests(MockServerFixture fixture, ITestOutputHelper output) : base(fixture, output)
         {
-            _fixture = fixture;
         }
 
-        public MockServerClient MockedServer => _fixture.Client;
+        public MockServerClient MockedServer => Fixture.MockClient;
 
         [Fact]
         public async Task Should_Setup_Expectation_With_Xml_Body_When_Setup_Using_Predefined_Setup()
@@ -132,5 +130,7 @@ namespace NinjaTools.FluentMockServer.TestContainers.Tests
                         .Setup()
             );
         }
+
+
     }
 }

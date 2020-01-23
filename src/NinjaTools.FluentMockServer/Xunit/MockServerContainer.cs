@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 using Ductus.FluentDocker.Builders;
 using Ductus.FluentDocker.Services;
 
-
-namespace NinjaTools.FluentMockServer.TestContainers
+namespace NinjaTools.FluentMockServer.Xunit
 {
     /// <summary>
     /// The InMemory handle to the MockServer Docker Container
@@ -92,19 +91,23 @@ namespace NinjaTools.FluentMockServer.TestContainers
             var httpClient = new HttpClient();
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            await Task.Delay(5000);
-            
+
             while (stopwatch.IsRunning && stopwatch.Elapsed < TimeSpan.FromMinutes(2))
             {
-                var request = new HttpRequestMessage(HttpMethod.Put, MockServerBaseUrl + "/mockserver/status");
-                var response = await httpClient.SendAsync(request);
-                if (response.IsSuccessStatusCode)
+                try
                 {
-                    httpClient.Dispose();
-                    return;
+                    var request = new HttpRequestMessage(HttpMethod.Put, MockServerBaseUrl + "/mockserver/status");
+                    var response = await httpClient.SendAsync(request);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        httpClient.Dispose();
+                        return;
+                    }
                 }
-
-                await Task.Delay(TimeSpan.FromSeconds(5));
+                catch (Exception e)
+                {
+                    await Task.Delay(TimeSpan.FromMilliseconds(100));
+                }
             }
 
             httpClient.Dispose();

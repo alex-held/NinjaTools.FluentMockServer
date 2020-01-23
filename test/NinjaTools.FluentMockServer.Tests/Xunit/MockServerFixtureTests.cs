@@ -7,42 +7,36 @@ using FluentAssertions;
 using NinjaTools.FluentMockServer.FluentAPI;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
 using NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities;
-using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Serialization;
-using NinjaTools.FluentMockServer.Tests.TestHelpers;
+using NinjaTools.FluentMockServer.Xunit;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace NinjaTools.FluentMockServer.TestContainers.Tests
+namespace NinjaTools.FluentMockServer.Tests.Xunit
 {
-    public class MockServerFixtureTests : XUnitTestBase< MockServerFixtureTests>, IClassFixture<MockServerFixture>
+    public class MockServerFixtureTests  : MockServerTestBase
     {
         /// <inheritdoc />
-        public  MockServerFixtureTests(ITestOutputHelper output, MockServerFixture fixture) : base(output)
+        public MockServerFixtureTests(MockServerFixture fixture, ITestOutputHelper output) : base(fixture, output)
         {
-            _fixture = fixture;
         }
-        
-        private readonly MockServerFixture _fixture;
-        private MockServerClient Client => _fixture.Client;
-        
-        
+
         [Fact]
         public async Task Should_Reset_Expectation_On_MockServer()
         {
             
             // Arrange
-           await Client.SetupAsync(exp =>
+           await MockClient.SetupAsync(exp =>
                     exp.OnHandling(HttpMethod.Get, req => req.WithPath("/test"))
                         .RespondOnce(201, resp => resp.WithDelay(50, TimeUnit.Milliseconds))
                         .Setup());
             // Act
-            await Client.ResetAsync();
+            await MockClient.ResetAsync();
 
                 // Assert
                 var request = new HttpRequestMessage(HttpMethod.Get, new Uri("test", UriKind.Relative));
-                var response = await Client.SendAsync(request);
+                var response = await MockClient.SendAsync(request);
 
                 response.StatusCode.Should().Be(HttpStatusCode.NotFound);
             
@@ -53,13 +47,13 @@ namespace NinjaTools.FluentMockServer.TestContainers.Tests
         {
             // Arrange
           
-                await Client.SetupAsync(exp =>
+                await MockClient.SetupAsync(exp =>
                     exp.OnHandling(HttpMethod.Get, req => req.WithPath("/test"))
                         .RespondOnce(201, resp => resp.WithDelay(50, TimeUnit.Milliseconds))
                         .Setup());
 
             var request = new HttpRequestMessage(HttpMethod.Get, new Uri("test", UriKind.Relative));
-            var response = await Client.SendAsync(request);
+            var response = await MockClient.SendAsync(request);
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
 
@@ -85,10 +79,10 @@ namespace NinjaTools.FluentMockServer.TestContainers.Tests
             var expectation = factory(builder).Expectations.First();
             Output.WriteLine(Serializer.Serialize(expectation));
 
-            await Client.SetupAsync(factory);
+            await MockClient.SetupAsync(factory);
 
             var request = new HttpRequestMessage(HttpMethod.Get, new Uri("/test", UriKind.Relative));
-            var response = await Client.SendAsync(request);
+            var response = await MockClient.SendAsync(request);
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
 
@@ -96,23 +90,22 @@ namespace NinjaTools.FluentMockServer.TestContainers.Tests
         public async Task Should_Verify_Expectation_Was_Met_On_MockServer()
         {
             // Arrange
-            await Client.SetupAsync(exp =>
+            await MockClient.SetupAsync(exp =>
                     exp.OnHandling(HttpMethod.Get, req => req.WithPath("/test"))
                         .RespondOnce(201, resp => resp.WithDelay(50, TimeUnit.Milliseconds))
                         .Setup());
 
                 var request = new HttpRequestMessage(HttpMethod.Get, new Uri("test", UriKind.Relative));
-                await Client.SendAsync(request);
+                await MockClient.SendAsync(request);
                 var builder = new FluentHttpRequestBuilder();
                 builder.WithMethod(HttpMethod.Get).WithPath("/test");
                 
                 // Act
-                var verification =Verify.Once(builder.Build());
-                
-                var response = await Client.VerifyAsync(verification);
+                var (isValid, response) = await MockClient.VerifyAsync( v => v
+                     .WithPath("/test").WithMethod(HttpMethod.Get), VerificationTimes.Once);
 
                 // Assert
-                response.StatusCode.Should().Be(HttpStatusCode.Accepted);
+                isValid.Should().BeTrue();
         }
     }
 }

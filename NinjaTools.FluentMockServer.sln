@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer", "src\NinjaTools.FluentMockServer\NinjaTools.FluentMockServer.csproj", "{E9883692-C8F8-4CA9-8EDB-7859809D8DB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.TestContainers", "src\NinjaTools.FluentMockServer.TestContainers\NinjaTools.FluentMockServer.TestContainers.csproj", "{4E051198-705E-4605-8EEE-951D05E4B860}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{1BBF6811-5858-47A7-A382-29D777150068}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.TestContainers.Tests", "test\NinjaTools.FluentMockServer.TestContainers.Tests\NinjaTools.FluentMockServer.TestContainers.Tests.csproj", "{4E080C86-373B-47ED-81C3-2B8CD0A424D7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{820DD7E9-2777-4D4B-93E0-59711107B4EF}"
 EndProject
@@ -22,6 +18,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{760EDB36-07F6-4BB1-B026-FB517F921820}"
 ProjectSection(SolutionItems) = preProject
 	docs\1.puml = docs\1.puml
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{4B00F08C-15F0-4A37-8A23-95EFDDC85C93}"
+ProjectSection(SolutionItems) = preProject
+	build\nuget-pack.yaml = build\nuget-pack.yaml
+	build\build.csx = build\build.csx
 EndProjectSection
 EndProject
 Global
@@ -35,14 +35,6 @@ Global
 		{E9883692-C8F8-4CA9-8EDB-7859809D8DB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9883692-C8F8-4CA9-8EDB-7859809D8DB8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E9883692-C8F8-4CA9-8EDB-7859809D8DB8}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{4E051198-705E-4605-8EEE-951D05E4B860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E051198-705E-4605-8EEE-951D05E4B860}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E051198-705E-4605-8EEE-951D05E4B860}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E051198-705E-4605-8EEE-951D05E4B860}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E051198-705E-4605-8EEE-951D05E4B860}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{4E080C86-373B-47ED-81C3-2B8CD0A424D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E080C86-373B-47ED-81C3-2B8CD0A424D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E080C86-373B-47ED-81C3-2B8CD0A424D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -56,9 +48,7 @@ Global
 		{175B41A0-DF12-499C-AD27-9E4EC09A82DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{4E080C86-373B-47ED-81C3-2B8CD0A424D7} = {1BBF6811-5858-47A7-A382-29D777150068}
 		{E9883692-C8F8-4CA9-8EDB-7859809D8DB8} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
-		{4E051198-705E-4605-8EEE-951D05E4B860} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
 		{72FDC041-D690-45C9-9B3A-A48EC676DC37} = {1BBF6811-5858-47A7-A382-29D777150068}
 		{C60E5A2A-4391-420B-8FBC-D7E941EEF286} = {820DD7E9-2777-4D4B-93E0-59711107B4EF}
 		{175B41A0-DF12-499C-AD27-9E4EC09A82DA} = {1BBF6811-5858-47A7-A382-29D777150068}
