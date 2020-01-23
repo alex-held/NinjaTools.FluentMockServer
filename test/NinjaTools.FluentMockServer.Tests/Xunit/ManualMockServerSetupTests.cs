@@ -1,7 +1,6 @@
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
@@ -62,7 +61,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
             // Act
             var (isValid, responseMessage) = await MockClient.VerifyAsync(v => v
                 .WithMethod(HttpMethod.Get)
-                .WithPath("test"));
+                .WithPath("test"), VerificationTimes.MoreThan(1));
             
             // Assert
             isValid.Should().BeTrue();
