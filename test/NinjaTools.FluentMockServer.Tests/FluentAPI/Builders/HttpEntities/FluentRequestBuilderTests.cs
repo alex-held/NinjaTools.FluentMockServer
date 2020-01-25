@@ -22,7 +22,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders.HttpEntities
             var builder = new FluentHttpRequestBuilder();
             
             // Act
-            var result = builder.EnableEncryption().Build().AsJson();
+            var result = Serializer.Serialize(builder.EnableEncryption().Build());
             Logger.LogResult("JSON", result);
             
             // Assert
@@ -41,7 +41,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders.HttpEntities
                 .AddContentType(CommonContentType.Soap12)
                 .Build();
 
-            Logger.LogResult("JSON ", result.AsJson());
+            Logger.LogResult("JSON ", Serializer.Serialize(result));
             
             // Assert
             // TODO:reactive
@@ -55,7 +55,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders.HttpEntities
             var builder = new FluentHttpRequestBuilder();
             
             // Act
-            var result = builder.KeepConnectionAlive().Build().AsJson();
+            var result = Serializer.Serialize(builder.KeepConnectionAlive().Build());
             Logger.LogResult("JSON", result);
             
             // Assert
@@ -72,7 +72,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders.HttpEntities
             var builder = new FluentHttpRequestBuilder();
             
             // Act
-            var result = builder.WithPath(inputPath).Build().AsJson();
+            var result = Serializer.Serialize(builder.WithPath(inputPath).Build());
             Logger.LogResult("JSON", result);
             
             // Assert

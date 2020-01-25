@@ -6,26 +6,23 @@
         <LangVersion>Preview</LangVersion>
         <IsPackable>false</IsPackable>
         <Nullable>enable</Nullable>
+        <Nullable>Enable</Nullable>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
     </PropertyGroup>
     
     <ItemGroup>
         <PackageReference Include="AutoFixture" Version="4.11.0" />
-        <PackageReference Include="AutoFixture.Xunit2" Version="4.11.0" />
         <PackageReference Include="Bogus" Version="28.4.4" />
-        <PackageReference Include="coverlet.msbuild" Version="2.8.0">
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-          <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
-        <PackageReference Include="DeepCloner" Version="0.10.2" />
         <PackageReference Include="FluentAssertions" Version="5.10.0" />
         <PackageReference Include="FluentAssertions.Json" Version="5.3.1" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.1" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+        <PackageReference Include="Moq" Version="4.13.1" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
         <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.13" />
+        <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.11" />
         <PackageReference Include="xunit" Version="2.4.1" />
         <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1" />
-        <PackageReference Include="coverlet.collector" Version="1.2.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -41,16 +38,6 @@
         <Content Include="TestHelpers\Data\WithError.xml" />
         <Content Include="TestHelpers\Data\WithOrderId.xml" />
         <Content Include="TestHelpers\Data\WithoutOrderId.xml" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="FluentAPI" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Server.Kestrel.Core, Version=3.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
-        <HintPath>..\..\..\..\..\..\..\usr\local\share\dotnet\packs\Microsoft.AspNetCore.App.Ref\3.1.0\ref\netcoreapp3.1\Microsoft.AspNetCore.Server.Kestrel.Core.dll</HintPath>
-      </Reference>
     </ItemGroup>
 
 </Project>

@@ -64,14 +64,14 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
 }";
             var builder = new FluentHttpRequestBuilder()
                 .WithPath("/some/path");
-            
+
             var expected = FluentExpectationBuilder.Create(
-                httpRequest: builder.Build(),
-                httpResponse:  HttpResponse.Create(
-                    statusCode:201,
-                    delay: new Delay(TimeUnit.Milliseconds, 1)),
-                times: Times.Once
-            );
+                builder.Build(),
+                new HttpResponse
+                {
+                    StatusCode = 201, Delay = new Delay(TimeUnit.Milliseconds, 1),
+                },
+                times: Times.Once);
 
             // Act
             var jsonReader = new JsonTextReader(new StringReader(json));

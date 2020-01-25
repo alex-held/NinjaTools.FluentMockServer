@@ -30,21 +30,22 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
                 .WithPath("")
                 .WithMethod(HttpMethod.Post)
                 .WithContent(body => body.WithoutXmlContent("<xml here>"));
-         
-            var expectation = FluentExpectationBuilder.Create(
-                httpRequest: builder.Build(),
-                httpResponse: HttpResponse.Create(headers: new Dictionary<string, string[]>
+
+            var expectation = FluentExpectationBuilder.Create(builder.Build(), new HttpResponse
+                {
+                    Headers = new Dictionary<string, string[]>
                     {
                         {"Content-Type", new[] {"xml"}}
                     },
-                    body: new JValue("some xml response"),
-                    delay: new Delay(TimeUnit.Milliseconds, 50),
-                    statusCode: 200)
+                    Body = new JValue("some xml response"),
+                    Delay = new Delay(TimeUnit.Milliseconds, 50),
+                    StatusCode = 200
+                }
             );
             
             
             // Act
-            var jo = expectation.AsJObject();
+            var jo = Serializer.SerializeJObject(expectation);
             var json = Serializer.Serialize(expectation);
 
             Logger.LogInformation("JSON", json);

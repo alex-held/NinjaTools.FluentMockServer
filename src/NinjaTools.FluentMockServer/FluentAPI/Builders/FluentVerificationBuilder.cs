@@ -11,7 +11,6 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders
     {
         private HttpRequest _httpRequest;
         private VerificationTimes _verificationTimes;
-            
 
         /// <inheritdoc />
         [NotNull]

@@ -33,14 +33,16 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
                 .Replace("{Id1}", id1)
                 .Replace("{Id2}",   id2);
 
-            var httpResponse = HttpResponse.Create(
-                body: new JValue(response),
-                delay: new Delay(TimeUnit.Milliseconds, 50),
-                headers: new Dictionary<string, string[]>
+            var httpResponse = new HttpResponse
+            {
+                Body = new JValue(response),
+                Delay = new Delay(TimeUnit.Milliseconds, 50),
+                Headers = new Dictionary<string, string[]>
                 {
                     {"Content-Type", new[] {$"text/xml; charset=utf-8"}}
-                });
-            
+                }
+            };
+
             var expectation = FluentExpectationBuilder.Create(httpResponse: httpResponse);
 
             var responseJson = JsonConvert.SerializeObject(httpResponse);

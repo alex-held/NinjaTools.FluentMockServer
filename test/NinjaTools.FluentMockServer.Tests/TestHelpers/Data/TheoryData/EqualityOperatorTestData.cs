@@ -38,8 +38,14 @@ namespace NinjaTools.FluentMockServer.Tests.TestHelpers.Data.TheoryData
             else if (typeof(Expectation) == dataType)
             {
                 AddTestData(
-                    FluentExpectationBuilder.Create(times: Times.Once, httpResponse: HttpResponse.Create(statusCode: 200)),
-                    FluentExpectationBuilder.Create(HttpRequest.Create(method: "GET", path: "/test"), httpResponse: HttpResponse.Create(statusCode: 200)));
+                    FluentExpectationBuilder.Create(times: Times.Once, httpResponse: new HttpResponse {StatusCode = 200}),
+                    FluentExpectationBuilder.Create(new HttpRequest
+                        {
+                            Method = "GET",
+                            Path = "/test"
+                        },
+                        new HttpResponse {StatusCode = 200}
+                    ));
             }
             else
                 AddTestData(InstanceFactoryCreator.CreateDefault<T>(), InstanceFactoryCreator.CreateRandom<T>());

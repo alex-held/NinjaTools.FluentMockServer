@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
+using NinjaTools.FluentMockServer.Serialization;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -22,19 +23,19 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
         public void Should_Verify_HttpRequest()
         {
             // Arrange
-            var expected = new JObject
+            var expected = Serializer.Serialize(new JObject
             {
                 ["httpRequest"] = new JObject
                 {
                     ["path"] = "/some/path"
                 }
-            }.AsJson();
+            });
             
             var builder = new FluentVerificationBuilder();
             
             // Act
             builder.Verify(request => request.WithPath("some/path"));
-            var result = builder.Build().AsJson();
+            var result = Serializer.Serialize(builder.Build());
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -63,7 +64,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).Once();
-            var result = builder.Build().AsJson();
+            var result = Serializer.Serialize(builder.Build());
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -92,7 +93,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).Twice();
-            var result = builder.Build().AsJson();
+            var result = Serializer.Serialize(builder.Build());
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -117,7 +118,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).Between(1, 2);
-            var result = builder.Build().AsJson();
+            var result = Serializer.Serialize(builder.Build());
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -144,7 +145,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).AtMost(5);
-            var result = builder.Build().AsJson();
+            var result = Serializer.Serialize(builder.Build());
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -154,7 +155,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
         [Fact]
         public void Should_Verify_AtLeast()
         {
-            var expected = new JObject
+            var expected = Serializer.Serialize(new JObject
             {
                 ["httpRequest"] = new JObject
                 {
@@ -164,12 +165,12 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
                 {
                     ["atLeast"] = 5
                 }
-            }.AsJson();
+            });
             var builder = new FluentVerificationBuilder();
             
             // Act
             builder.Verify(request => request.WithPath("some/path")).AtLeast(5);
-            var result = builder.Build().AsJson();
+            var result = Serializer.Serialize(builder.Build());
             
             // Assert
             _outputHelper.WriteLine(result);
