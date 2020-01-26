@@ -41,6 +41,22 @@
       <PackageReference Include="YamlDotNet" Version="8.1.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Proxy\Evaluation\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Proxy\Evaluation\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Proxy\Evaluation\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Proxy\Evaluation\**" />
+    </ItemGroup>
+
 
 
 

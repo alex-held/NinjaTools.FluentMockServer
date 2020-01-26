@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
@@ -31,9 +32,10 @@ namespace NinjaTools.FluentMockServer.API.Infrastructure
         [CanBeNull]
         public Setup? TryGetMatchingSetup([NotNull] HttpContext context)
         {
-            return GetAll().FirstOrDefault(s => s.Matcher?.IsMatch(context) ?? false) is {} setup
-                ? setup
-                : null;
+            throw new  NotImplementedException();
+            // return GetAll().FirstOrDefault(s => s.Matcher?.IsMatch(context) ?? false) is {} setup
+            //     ? setup
+            //     : null;
         }
     }
 
