@@ -17,8 +17,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Services
     {
         /// <inheritdoc />
         public LogServiceTests(ITestOutputHelper output) : base(output)
-        {
-        }
+        { }
 
         private ILogService CreateSubject(out Mock<ILogRepository> repo, GenerateId idGenerator = null)
         {
@@ -61,16 +60,16 @@ namespace NinjaTools.FluentMockServer.API.Tests.Services
                 {
                     factory.SetupCreated(new Setup
                     {
-                        Matcher = new RequestMatcher {Path = "/path"}
+                        Matcher = new RequestMatcher {Path = new Path("/path")}
                     }),
                     factory.SetupDeleted(new Setup
                     {
-                        Matcher = new RequestMatcher {Method = "POST"}
+                        Matcher = new RequestMatcher {Method = new Method("POST")}
                     }),
                     factory.RequestUnmatched(context),
                     factory.RequestMached(context, new Setup
                     {
-                        Matcher = new RequestMatcher {Method = "POST"}
+                        Matcher = new RequestMatcher {Method = new Method("POST")}
                     })
                 });
 

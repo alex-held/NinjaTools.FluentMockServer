@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 using NinjaTools.FluentMockServer.API.Logging;
 using NinjaTools.FluentMockServer.API.Models;
+using NinjaTools.FluentMockServer.API.Serialization.Converters;
 using YamlDotNet.Serialization;
 
 namespace NinjaTools.FluentMockServer.API.Configuration
@@ -16,7 +17,7 @@ namespace NinjaTools.FluentMockServer.API.Configuration
         IEnumerable<IConfigFile> GetConfigFiles();
     }
 
-   public class ConfigFileProvider : IConfigFileProvider
+    public class ConfigFileProvider : IConfigFileProvider
     {
         private readonly IFileSystem _fs;
         private readonly ILogger<ConfigFileProvider> _logger;
@@ -28,8 +29,7 @@ namespace NinjaTools.FluentMockServer.API.Configuration
         }
 
         public ConfigFileProvider(ILogger<ConfigFileProvider> logger) : this(new FileSystem(), logger)
-        {
-        }
+        { }
 
 
         public IEnumerable<IConfigFile> GetConfigFiles()
@@ -55,18 +55,24 @@ namespace NinjaTools.FluentMockServer.API.Configuration
             }
         }
 
-        private  ConfigFile ParseJson(string path)
+        private ConfigFile ParseJson(string path)
         {
-            var jo = JArray.Parse(_fs.File.ReadAllText(path));
-            var setups = jo.ToObject<List<Setup>>();
-
+            var text = _fs.File.ReadAllText(path);
+            var setups = JsonConvert.DeserializeObject<List<Setup>>(text);
             return new ConfigFile(path, setups.ToArray());
         }
 
-        private  IConfigFile ParseYaml(string path)
+        private IConfigFile ParseYaml(string path)
         {
             using var reader = new StringReader(_fs.File.ReadAllText(path));
-            var deserializer = new DeserializerBuilder().Build();
+
+            var deserializer = new DeserializerBuilder()
+                .IgnoreFields()
+                .IgnoreUnmatchedProperties()
+                .WithTypeConverter(new MethodConverter())
+                .WithTypeConverter(new HeadersConverter())
+                .WithTypeConverter(new PathConverter())
+                .Build();
 
             var setups = deserializer.Deserialize<List<Setup>>(reader);
             return new ConfigFile(path, setups.ToArray());

@@ -14,7 +14,11 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models.Logging
     {
         private static readonly HttpContext Context = new DefaultHttpContext
         {
-            Request = { Path = "/request/path",Method = "PUT" }
+            Request =
+            {
+                Path = new PathString("/request/path"),
+                Method = "PUT"
+            }
         };
 
         private static readonly Setup DefaultSetup = new Setup
@@ -29,8 +33,8 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models.Logging
             },
             Matcher = new RequestMatcher
             {
-                Method = "POST",
-                Path = "/test/path"
+                Method = new Method("POST"),
+                Path = new Path( "/test/path")
             }
         };
 
@@ -114,6 +118,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models.Logging
         }
     }
 
+
     public class LogItemTests : XUnitTestBase<LogItemTests>
     {
 
@@ -160,7 +165,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models.Logging
             // Act
             var formatted = log.ToFormattedString();
 
-            Dump(expected, formatted);
+           // Dump(expected, formatted);
             
             // Assert
             formatted.Should().Be(expected);

@@ -2,19 +2,13 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <Nullable>enable</Nullable>
+        <Nullable>Enable</Nullable>
         <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
-        <LangVersion>preview</LangVersion>
+        <LangVersion>Preview</LangVersion>
         <AssemblyVersion>1.0.0</AssemblyVersion>
         <FileVersion>1.0.0</FileVersion>
     </PropertyGroup>
 
-
-<!--    <ItemGroup>-->
-<!--        <Compile Remove="**\**\Evaluators\*.cs" />-->
-<!--    </ItemGroup>-->
-<!--    -->
-    
     
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
       <DocumentationFile>bin\Release\NinjaTools.FluentMockServer.API.xml</DocumentationFile>
@@ -26,39 +20,20 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Ardalis.GuardClauses" Version="1.3.3" />
       <PackageReference Include="AutoMapper" Version="9.0.0" />
       <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
-      <PackageReference Include="Microsoft.AspNetCore.MiddlewareAnalysis" Version="3.1.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.1" />
       <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="3.5.0-beta1-final" />
-      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.0" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.0" />
-      <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.0" />
-      <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.1" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.1" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.1" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.1" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-      <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc5" />
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
       <PackageReference Include="System.IO.Abstractions" Version="8.0.3" />
       <PackageReference Include="YamlDotNet" Version="8.1.0" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Compile Remove="Proxy\Evaluation\**" />
-    </ItemGroup>
 
-    <ItemGroup>
-      <EmbeddedResource Remove="Proxy\Evaluation\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Proxy\Evaluation\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Remove="Proxy\Evaluation\**" />
-    </ItemGroup>
-
-
-
-
-    
 </Project>

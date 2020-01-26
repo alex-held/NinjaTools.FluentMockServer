@@ -1,40 +1,34 @@
-using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using Ardalis.GuardClauses;
 using Microsoft.AspNetCore.Http;
+using NinjaTools.FluentMockServer.API.Extensions;
 using NinjaTools.FluentMockServer.API.Models;
-using NinjaTools.FluentMockServer.API.Proxy.Visitors.Collections;
-using QueryCollection = NinjaTools.FluentMockServer.API.Proxy.Visitors.Collections.QueryCollection;
-// ReSharper disable PossibleLossOfFraction
+using Path = NinjaTools.FluentMockServer.API.Models.Path;
 
 namespace NinjaTools.FluentMockServer.API.Proxy.Visitors
 {
-    public class ComparasionVisitor : IVisitor,
+    /// <inheritdoc cref="IVisitor" />
+    public sealed class ComparasionVisitor : IVisitor,
         IVisitor<RequestMatcher>,
-        IVisitor<HeaderDictionary>,
-        IVisitor<CookieCollection>,
-        IVisitor<PathCollection>,
-        IVisitor<QueryCollection>,
-        IVisitor<HttpMethodWrapper>,
+        IVisitor<Headers>,
+        IVisitor<Cookies>,
+        IVisitor<Path>,
+        IVisitor<Query>,
+        IVisitor<Method>,
         IVisitor<RequestBodyMatcher>
     {
-        protected HttpContext HttpContext { get; }
-        protected HttpRequest HttpRequest => HttpContext.Request;
+        private HttpContext HttpContext { get; }
+        private HttpRequest HttpRequest => HttpContext.Request;
         public bool IsSuccess { get; set; } = true;
-        public double Score { get; set; }  = 0;
+        public double Score { get; set; }
+        private static double Pass() => 1;
 
-
-        protected virtual void Fail()
+        private double Fail()
         {
             IsSuccess = false;
-            //throw new ExecutionEngineException("FAIL");
-        }
-
-        protected virtual double? Pass()
-        {
-            Score += 1;
-            return Score;
+            return 0;
         }
 
         public ComparasionVisitor(HttpContext httpContext)
@@ -42,180 +36,135 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Visitors
             HttpContext = httpContext;
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="IVisitor{TVisitable}" />
         /// <remarks> ✅ Entrypoint ✅ </remarks>
-        public void Visit(RequestMatcher visitable, CancellationToken token = default)
+        public double Visit(RequestMatcher visitable, CancellationToken token = default)
         {
-            Visit(visitable.Cookies);
-            Visit(visitable.Headers);
-            Visit(visitable.Query);
-            Visit(visitable.Path);
-            Visit(visitable.Method);
-            Visit(visitable.BodyMatcher);
+            Score += Visit(visitable.Cookies);
+            Score += Visit(visitable.Headers);
+            Score += Visit(visitable.Query);
+            Score += Visit(visitable.Path);
+            Score += Visit(visitable.Method);
+            Score += Visit(visitable.BodyMatcher);
+            return Score;
         }
 
         /// <inheritdoc />
-        public void Visit(RequestBodyMatcher visitable, CancellationToken token = default)
+        public double Visit(RequestBodyMatcher? visitable, CancellationToken token = default)
         {
             token.ThrowIfCancellationRequested();
+            if (!visitable?.IsEnabled() ?? true)
+                return Pass();
 
-            if (visitable is null || string.IsNullOrWhiteSpace(visitable.Content))
-            {
-                Pass();
-                return;
-            }
-
+            Guard.Against.Null(visitable, nameof(visitable) + nameof(RequestBodyMatcher));
             if (HttpRequest.Body is null)
-            {
-                Fail();
-                return;
-            }
+                return Fail();
 
             HttpRequest.EnableBuffering();
             HttpRequest.Body.Seek(0, SeekOrigin.Begin);
             using var reader = new StreamReader(HttpRequest.Body);
             var httpBody = reader.ReadToEnd();
 
-            if (visitable.MatchExact && httpBody == visitable.Content)
-            {
-                Pass();
-                return;
-            }
+            if (visitable.MatchExact.HasValue && visitable.MatchExact.Value  && httpBody == visitable.Content)
+                return Pass();
 
-            Fail();
-
+            return Fail();
         }
 
         /// <inheritdoc />
-        public void Visit(HeaderDictionary visitable, CancellationToken token = default)
+        public double Visit(Headers? visitable, CancellationToken token = default)
         {
             token.ThrowIfCancellationRequested();
 
-            if (visitable is null)
-            {
-                Pass();
-                return;
-            }
+            if (!visitable?.Any() ?? true)
+                return Pass();
 
-            if (HttpRequest.Headers is null && visitable is { } v && v.Any())
+            Guard.Against.NullOrEmpty(visitable.Header, nameof(visitable) + nameof(Headers));
+
+            if (HttpRequest.Headers is null && visitable.Header.EnsureNotNullNotEmpty() is { })
+                return Fail();
+
+            var success = visitable.Header.Where(v =>
             {
+                if (!HttpContext.Request.Headers.TryGetValue(v.Key, out var value))
+                    return false;
+
+                return !value.Except(v.Value).Any();
+
+            }).Any();
+
+            return success ? Pass() : Fail();
+        }
+
+
+        /// <inheritdoc />
+        public double Visit(Cookies? visitable, CancellationToken token = default)
+        {
+            token.ThrowIfCancellationRequested();
+            if (!visitable?.Any() ?? true)
+                return Pass();
+
+            Guard.Against.NullOrEmpty(visitable.Cookie, nameof(visitable) + nameof(Cookies));
+
+            if (HttpRequest.Cookies is null && visitable.Cookie.EnsureNotNullNotEmpty().Any())
                 Fail();
-                return;
-            }
 
-            var rest = visitable?.Except(HttpRequest.Headers);
+            if (visitable.Cookie.Except(HttpContext.Request.Cookies).EnsureNotNullNotEmpty().Any())
+                return Fail();
 
-            if (rest is {} r && r.Any() )
-            {
-                Fail();
-                return;
-            }
-
-            Pass();
-            return;
-
+            return Pass();
         }
 
         /// <inheritdoc />
-        public void Visit(CookieCollection visitable, CancellationToken token = default)
+        public double Visit(Query visitable, CancellationToken token = default)
         {
             token.ThrowIfCancellationRequested();
+            if (!visitable?.IsEnabled() ?? true)
+                return Pass();
 
-            if (visitable is null)
-            {
-                Pass();
-                return;
-            }
-            if (HttpRequest.Cookies is null && visitable is { } v && v.Any())
-            {
-                Fail();
-                return;
-            }
+            Guard.Against.NullOrEmpty(visitable.QueryString.Value, nameof(visitable) + nameof(Query));
+            if (!HttpRequest.QueryString.HasValue && visitable.QueryString.HasValue)
+                return Fail();
 
-            var rest = visitable?.Except(HttpRequest.Cookies);
+            if (visitable.QueryString.Value == HttpRequest.QueryString.Value)
+                return Pass();
 
-            if (rest is {} r && r.Any() )
-            {
-                Fail();
-                return;
-            }
-            Pass();
-            return;
+            return Fail();
         }
 
         /// <inheritdoc />
-        public void Visit(QueryCollection visitable, CancellationToken token = default)
+        public double Visit(Path? visitable, CancellationToken token = default)
         {
             token.ThrowIfCancellationRequested();
+            if (!visitable?.IsEnabled() ?? true)
+                return Pass();
 
-            if (visitable is null)
-            {
-                Pass();
-                return;
-            }
+            Guard.Against.NullOrWhiteSpace(visitable, nameof(visitable) + nameof(Path));
 
-            if (!HttpRequest.QueryString.HasValue && visitable is { } v && v.QuryString.HasValue)
-            {
-                Fail();
-                return;
-            }
-            if (visitable?.Query == HttpRequest.QueryString.Value)
-            {
-                Pass();
-                return;
-            }
+            if (!HttpRequest.Path.HasValue && visitable is { } v && v.PathString.HasValue)
+                return  Fail();
 
-            Fail();
+            if (visitable.ToPath() == HttpRequest.Path.Value)
+                return Pass();
+
+            return  Fail();
         }
 
         /// <inheritdoc />
-        public void Visit(PathCollection visitable, CancellationToken token = default)
+        public double Visit(Method? visitable, CancellationToken token = default)
         {
             token.ThrowIfCancellationRequested();
+            if (!visitable?.IsEnabled() ?? true)
+                return Pass();
 
-            if (visitable is null)
-            {
-                Pass();
-                return;
-            }
-             if (!HttpRequest.Path.HasValue && visitable is { } v && v.PathString.HasValue)
-            {
-                Fail();
-                return;
-            }
-             if (visitable?.Path == HttpRequest.Path.Value)
-            {
-                Pass();
-                return;
-            }
+            Guard.Against.NullOrEmpty(visitable, nameof(visitable) + nameof(Method));
+            if (string.IsNullOrWhiteSpace(HttpRequest.Method) && visitable is { } v && !string.IsNullOrWhiteSpace(v.MethodString))
+                return Fail();
 
-             Fail();
-             return;
+            if (visitable.MethodString == HttpRequest.Method)
+                return Pass();
 
-        }
-
-        /// <inheritdoc />
-        public void Visit(HttpMethodWrapper visitable, CancellationToken token = default)
-        {
-            token.ThrowIfCancellationRequested();
-
-            if (visitable is null)
-            {
-                Pass();
-                return;
-            }
-             if (string.IsNullOrWhiteSpace(HttpRequest.Method) && visitable is { } v && !string.IsNullOrWhiteSpace(v.MethodString))
-            {
-                Fail();
-                return;
-            }
-             if (visitable.MethodString == HttpRequest.Method)
-            {
-                Pass();
-                return;
-            }
-
-                Fail();
+            return Fail();
         }
     }
 }

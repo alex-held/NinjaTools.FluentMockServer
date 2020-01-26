@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using NinjaTools.FluentMockServer.API.Extensions;
 
 namespace NinjaTools.FluentMockServer.API.Logging.Models
@@ -35,11 +34,16 @@ namespace NinjaTools.FluentMockServer.API.Logging.Models
 
         protected string Serialize(object obj)
         {
+            if (obj is null)
+            {
+                return string.Empty;
+            }
+
             return JsonConvert.SerializeObject(obj, new JsonSerializerSettings
             {
                 Formatting = Formatting.Indented,
-                Converters = {new StringEnumConverter()},
-                NullValueHandling = NullValueHandling.Ignore
+                NullValueHandling = NullValueHandling.Ignore,
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             });
         }
 

@@ -25,7 +25,6 @@ namespace NinjaTools.FluentMockServer.API.Extensions
 
         public static string GetDescription<T>(this T e) where T : Enum, IConvertible
         {
-
             var type = typeof(T);
             var values = Enum.GetValues(type);
 

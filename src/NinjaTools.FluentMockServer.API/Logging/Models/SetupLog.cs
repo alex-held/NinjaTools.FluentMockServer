@@ -2,6 +2,7 @@ using NinjaTools.FluentMockServer.API.Models;
 
 namespace NinjaTools.FluentMockServer.API.Logging.Models
 {
+    /// <inheritdoc />
     public sealed class SetupLog : LogItem<Setup>
     {
         /// <inheritdoc />
@@ -10,6 +11,7 @@ namespace NinjaTools.FluentMockServer.API.Logging.Models
             Kind = kind;
         }
 
+        /// <inheritdoc />
         public override LogKind Kind { get; }
     }
 }

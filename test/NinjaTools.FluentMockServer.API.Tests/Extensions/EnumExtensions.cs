@@ -48,8 +48,6 @@ namespace NinjaTools.FluentMockServer.API.Tests.Extensions
             invocation.Should().ThrowExactly<InvalidOperationException>();
         }
 
-
-
         [Fact]
         public void GetDescription_Should_Return_DescriptionValue_When_EnumValue_Contains_Description_Attribute()
         {

@@ -1,8 +1,10 @@
+using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Models.ViewModels;
 
 namespace NinjaTools.FluentMockServer.API.Logging.Models
 {
+    /// <inheritdoc />
     public class RequestUnmatchedLog : LogItem<HttpRequestViewModel>
     {
         /// <inheritdoc />
@@ -10,10 +12,10 @@ namespace NinjaTools.FluentMockServer.API.Logging.Models
 
         /// <inheritdoc />
         public RequestUnmatchedLog(string id, HttpContext content) : base(id,new HttpRequestViewModel(content.Request))
-        {
-        }
+        { }
 
         /// <inheritdoc />
+        [NotNull]
         protected override string FormatHeader()
         {
             var request = Content;

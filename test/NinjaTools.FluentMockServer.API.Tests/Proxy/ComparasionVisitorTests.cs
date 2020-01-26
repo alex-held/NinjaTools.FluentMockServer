@@ -6,10 +6,10 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Models;
 using NinjaTools.FluentMockServer.API.Proxy.Visitors;
-using NinjaTools.FluentMockServer.API.Proxy.Visitors.Collections;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;
 using Xunit.Abstractions;
+using Path = NinjaTools.FluentMockServer.API.Models.Path;
 
 namespace NinjaTools.FluentMockServer.API.Tests.Proxy
 {
@@ -27,14 +27,14 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
         public void When_IsMatch_Returns_True_When_Method_Is_Equal(string method)
         {
             // Arrange
-            var compare =  new HttpMethodWrapper(method);
+            var compare =  new Method(method);
             var context = CreateContext(method);
             var subject = new ComparasionVisitor(context);
 
             // Act& Assert
-            subject.Visit(compare);
+            var score = subject.Visit(compare);
             subject.IsSuccess.Should().BeTrue();
-            subject.Score.Should().Be(1);
+            score.Should().Be(1);
         }
 
         [Theory]
@@ -45,14 +45,14 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
         public void When_IsMatch_Returns_True_When_Path_Is_Match(string path)
         {
             // Arrange
-            var compare = CreateObject(path: path);
+            var compare = new Path(path);
             var context = CreateContext(path: path);
             var subject = new ComparasionVisitor(context);
 
             // Act& Assert
-            subject.Visit(compare);
+            var score = subject.Visit(compare);
             subject.IsSuccess.Should().BeTrue();
-            subject.Score.Should().BeGreaterThan(1);
+            score.Should().Be(1);
         }
 
         [Theory]
@@ -60,14 +60,14 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
         public void When_IsMatch_Returns_True_When_Headers_Are_Equal(Dictionary<string, string[]> request, Dictionary<string, string[]> contextHeaders, bool isValid)
         {
             // Arrange
-            var compare = new HeaderCollection(request);
+            var compare = new Headers(request);
             var context = CreateContext(headers: contextHeaders);
             var subject = new ComparasionVisitor(context);
 
             // Act& Assert
-            subject.Visit(compare);
+            var score = subject.Visit(compare);
             subject.IsSuccess.Should().Be(isValid);
-            subject.Score.Should().Be(isValid ? 1 : 0);
+            score.Should().Be(isValid ? 1 : 0);
         }
 
         [ItemNotNull]
@@ -149,31 +149,33 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
 
             if (queryString != null)
             {
-                request.QueryString = queryString.Value;
+                request.QueryString = new QueryString(queryString.Value.Value);
             }
 
-            foreach (var header in headers ?? new Dictionary<string, string[]>())
+            if (headers != null)
             {
-                request.Headers.Add(header.Key, header.Value);
+                foreach (var (key, value) in headers)
+                {
+                    request.Headers.Add(key, value);
+                }
             }
-
             return context;
         }
 
         private RequestMatcher CreateObject(
             string method = null,
             string path = null,
-            Dictionary<string, string[]> headers = null,
+            IDictionary<string, string[]> headers = null,
             RequestBodyMatcher bodyMatcher = null,
-            QueryString? queryString = null)
+            QueryString? queryString = null )
         {
             return new RequestMatcher
             {
-                Method = method,
-                Path = path,
-                Headers = headers,
+                Method = new Method(method),
+                Path = new Path(path),
+                Headers = new Headers(headers),
                 BodyMatcher = bodyMatcher,
-                Query = queryString
+                Query = new Query(queryString.HasValue ? queryString.Value : QueryString.Empty)
             };
         }
 
@@ -181,12 +183,13 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
         public void IsMatch_Should_Be_False_When_QueryString_Not_Same()
         {
             // Arrange
-            var context = CreateContext(queryString: new QueryString("?id=100"));
+            var context = CreateContext(queryString: new QueryString());
             var sut = new ComparasionVisitor(context);
 
             // Act & Assert
-            sut.Visit(new QueryString("?color=green"));
+            var score = sut.Visit(new Query(new QueryString("?id=100")));
             sut.IsSuccess.Should().BeFalse();
+            score.Should().Be(0);
         }
 
         [Fact]
@@ -208,9 +211,9 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             var subject = new ComparasionVisitor(context);
 
             // Act& Assert
-            subject.Visit(bodyMatcher);
+            var score =  subject.Visit(bodyMatcher);
             subject.IsSuccess.Should().BeFalse();
-            subject.Score.Should().Be(0);
+            score.Should().Be(0);
         }
 
 
@@ -222,9 +225,9 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             var subject = new ComparasionVisitor(context);
 
             // Act& Assert
-            subject.Visit((RequestBodyMatcher) null);
+            var score = subject.Visit((RequestBodyMatcher) null);
             subject.IsSuccess.Should().BeTrue();
-            subject.Score.Should().Be(1);
+            score.Should().Be(1);
         }
 
         [Fact]
@@ -236,9 +239,9 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             var subject = new ComparasionVisitor(context);
 
             // Act& Assert
-            subject.Visit(query);
+            var score = subject.Visit(new Query(query));
             subject.IsSuccess.Should().BeTrue();
-            subject.Score.Should().Be(1);
+            score.Should().Be(1);
         }
 
         [Fact]
@@ -249,9 +252,9 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             var subject = new ComparasionVisitor(context);
 
             // Act& Assert
-            subject.Visit((API.Proxy.Visitors.Collections.QueryCollection) null);
+            var score =  subject.Visit((Query) null);
             subject.IsSuccess.Should().BeTrue();
-            subject.Score.Should().Be(1);
+            score.Should().Be(1);
         }
 
 
@@ -274,9 +277,9 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             var subject = new ComparasionVisitor(context);
 
             // Act& Assert
-            subject.Visit(bodyMatcher);
+            var score = subject.Visit(bodyMatcher);
             subject.IsSuccess.Should().BeTrue();
-            subject.Score.Should().Be(1);
+            score.Should().Be(1);
         }
     }
 }

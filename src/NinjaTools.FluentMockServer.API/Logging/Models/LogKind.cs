@@ -4,6 +4,7 @@ using Newtonsoft.Json.Converters;
 
 namespace NinjaTools.FluentMockServer.API.Logging.Models
 {
+    /// <inheritdoc />
     [JsonConverter(typeof(StringEnumConverter))]
     public enum LogType
     {
@@ -12,6 +13,7 @@ namespace NinjaTools.FluentMockServer.API.Logging.Models
     }
 
 
+    /// <inheritdoc />
     [JsonConverter(typeof(StringEnumConverter))]
     public enum LogKind
     {

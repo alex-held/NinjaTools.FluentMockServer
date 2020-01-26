@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Logging.Models;
 using NinjaTools.FluentMockServer.API.Models;
+using NinjaTools.FluentMockServer.API.Models.ViewModels;
 
 namespace NinjaTools.FluentMockServer.API.Logging
 {
@@ -9,7 +10,6 @@ namespace NinjaTools.FluentMockServer.API.Logging
 
     public interface ILogFactory
     {
-
         string GenerateId();
         SetupLog SetupCreated(Setup setup);
         SetupLog SetupDeleted(Setup setup);
@@ -31,9 +31,24 @@ namespace NinjaTools.FluentMockServer.API.Logging
             _idGenerator = idGenerator;
         }
 
-        public SetupLog SetupCreated(Setup setup) => new SetupLog(_idGenerator(), setup, LogKind.SetupCreated);
-        public SetupLog SetupDeleted(Setup setup) => new SetupLog(_idGenerator(), setup, LogKind.SetupDeleted);
-        public RequestMatchedLog RequestMached(HttpContext context, Setup setup) => new RequestMatchedLog(_idGenerator(), (context, setup));
-        public RequestUnmatchedLog RequestUnmatched(HttpContext context) => new RequestUnmatchedLog(_idGenerator(), context);
+        public SetupLog SetupCreated(Setup setup)
+        {
+            return new SetupLog(_idGenerator(), setup, LogKind.SetupCreated);
+        }
+
+        public SetupLog SetupDeleted(Setup setup)
+        {
+            return new SetupLog(_idGenerator(), setup, LogKind.SetupDeleted);
+        }
+
+        public RequestMatchedLog RequestMached(HttpContext context, Setup setup)
+        {
+            return new RequestMatchedLog(_idGenerator(), new MatchedRequest(context, setup));
+        }
+
+        public RequestUnmatchedLog RequestUnmatched(HttpContext context)
+        {
+            return new RequestUnmatchedLog(_idGenerator(), context);
+        }
     }
 }

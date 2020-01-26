@@ -32,7 +32,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Infrastructure
             {
                 Matcher = new RequestMatcher
                 {
-                    Path = "/some/path"
+                    Path =  new Path("/some/path")
                 }
             };
 

@@ -151,6 +151,7 @@
           <e p="Dockerfile" t="Include" />
           <e p="extensions" t="Include">
             <e p="EvaluationExtensions.cs" t="Include" />
+            <e p="LINQ.cs" t="Include" />
             <e p="StringExtensions.cs" t="Include" />
           </e>
           <e p="Infrastructure" t="Include">
@@ -164,6 +165,7 @@
             <e p="LoggingInitializer.cs" t="Include" />
             <e p="LogRepository.cs" t="Include" />
             <e p="LogService.cs" t="Include" />
+            <e p="MockServerPaths.cs" t="Include" />
             <e p="Models" t="Include">
               <e p="ILogItem.cs" t="Include" />
               <e p="LogItem.cs" t="Include" />
@@ -174,6 +176,12 @@
             </e>
           </e>
           <e p="Models" t="Include">
+            <e p="Cookies.cs" t="Include" />
+            <e p="Headers.cs" t="Include" />
+            <e p="Method.cs" t="Include" />
+            <e p="Path.cs" t="Include" />
+            <e p="Query.cs" t="Include" />
+            <e p="RequestBodyKind.cs" t="Include" />
             <e p="RequestBodyMatcher.cs" t="Include" />
             <e p="RequestMatcher.cs" t="Include" />
             <e p="ResponseAction.cs" t="Include" />
@@ -198,11 +206,16 @@
           <e p="Proxy" t="Include">
             <e p="ProxyMiddleware.cs" t="Include" />
             <e p="Visitors" t="Include">
-              <e p="Collections" t="Include">
-                <e p="HeadersCollection.cs" t="Include" />
-              </e>
               <e p="ComparasionVisitor.cs" t="Include" />
+              <e p="IVisitable.cs" t="Include" />
               <e p="IVisitor.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Serialization" t="Include">
+            <e p="Converters" t="Include">
+              <e p="HeadersConverter.cs" t="Include" />
+              <e p="MethodConverter.cs" t="Include" />
+              <e p="PathConverter.cs" t="Include" />
             </e>
           </e>
           <e p="Services" t="Include">
@@ -213,6 +226,7 @@
           <e p="Startup.cs" t="Include" />
           <e p="Types" t="Include">
             <e p="ChainElement.cs" t="Include" />
+            <e p="IDontRenderWhenEmpty.cs" t="Include" />
             <e p="IInitializer.cs" t="Include" />
             <e p="IStartupInitializer.cs" t="Include" />
             <e p="StartupInitializer.cs" t="Include" />
@@ -255,6 +269,9 @@
             <e p="Matchers" t="Include">
               <e p="EvaluatorTests.cs" t="Include" />
             </e>
+          </e>
+          <e p="Serilization" t="Include">
+            <e p="HeadersTests.cs" t="Include" />
           </e>
           <e p="Services" t="Include">
             <e p="LogServiceTests.cs" t="Include" />

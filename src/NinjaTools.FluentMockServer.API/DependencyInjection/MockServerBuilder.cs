@@ -39,7 +39,6 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
                     opt.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
 
-            Services.AddMiddlewareAnalysis();
             Services.AddLogging();
             Services.AddInitializers();
         }

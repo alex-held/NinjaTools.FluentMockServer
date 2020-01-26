@@ -67,7 +67,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Services
             {
                 Matcher = new RequestMatcher
                 {
-                    Path = "/some/path"
+                    Path = new Path("/some/path")
                 }
             };
             

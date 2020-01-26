@@ -78,15 +78,6 @@ namespace NinjaTools.FluentMockServer.Serialization
                     Console.WriteLine(e);
                 }
             }
-//            if (token.SelectToken("httpRequest", false) is {} httpRequest)
-//                try
-//                {
-//                    expectation.HttpRequest = httpRequest.ToObject<HttpRequest>();
-//                }
-//                catch (Exception e)
-//                {
-//                    Console.WriteLine(e);
-//                }
 
             return expectation;
         }

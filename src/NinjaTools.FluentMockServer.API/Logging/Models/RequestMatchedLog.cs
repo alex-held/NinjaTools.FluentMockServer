@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-using NinjaTools.FluentMockServer.API.Models;
 using NinjaTools.FluentMockServer.API.Models.ViewModels;
 
 namespace NinjaTools.FluentMockServer.API.Logging.Models
@@ -10,15 +8,14 @@ namespace NinjaTools.FluentMockServer.API.Logging.Models
         public override LogKind Kind => LogKind.RequestMatched;
 
         /// <inheritdoc />
-        public RequestMatchedLog(string id, (HttpContext, Setup) content) : base(id, content)
-        {
-        }
+        public RequestMatchedLog(string id, MatchedRequest content) : base(id, content)
+        { }
 
         /// <inheritdoc />
         protected override string FormatHeader()
         {
             var request = Content.Context.Request;
-            var requestLiteral = $"{request.Method} {request.Path}";
+            var requestLiteral = $"{request.Method} {request.Path.Value}";
             return string.Format(base.FormatHeader(), requestLiteral);
         }
     }

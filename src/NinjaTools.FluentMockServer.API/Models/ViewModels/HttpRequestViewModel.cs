@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 
 namespace NinjaTools.FluentMockServer.API.Models.ViewModels
 {
-    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore, ItemRequired = Required.AllowNull)]
     public class HttpRequestViewModel
     {
-        [JsonIgnore] public HttpRequest Request { get; }
+        [JsonIgnore]
+        public HttpRequest Request { get; }
 
         public HttpRequestViewModel(HttpRequest request)
         {

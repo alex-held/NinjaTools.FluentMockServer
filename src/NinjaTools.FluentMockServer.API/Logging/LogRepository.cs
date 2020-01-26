@@ -16,14 +16,14 @@ namespace NinjaTools.FluentMockServer.API.Logging
         private static readonly string RequestLogDirectory = MockServerPaths.Logs.Requests;
         private static readonly string SetupLogDirectory = MockServerPaths.Logs.Setups;
 
+        public LogRepository() : this(new FileSystem())
+        { }
+
         public LogRepository(IFileSystem fileSystem)
         {
             _fileSystem = fileSystem;
             _logItems = new List<FileSystemLogItem>();
         }
-
-        public LogRepository() : this(new FileSystem())
-        { }
 
         /// <inheritdoc />
         public IEnumerable<ILogItem> Get()

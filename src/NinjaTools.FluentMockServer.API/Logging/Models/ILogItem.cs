@@ -2,6 +2,7 @@ using NinjaTools.FluentMockServer.API.Types;
 
 namespace NinjaTools.FluentMockServer.API.Logging.Models
 {
+    /// <inheritdoc />
     public interface ILogItem : IIdentifable<string>
     {
         public string ToFormattedString();
