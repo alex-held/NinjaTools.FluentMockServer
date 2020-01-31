@@ -284,3 +284,5 @@ TestResults.xml
 stryker-config.json
 **/Stryker*/*.*
 **/.DS_Store
+
+!.idea/

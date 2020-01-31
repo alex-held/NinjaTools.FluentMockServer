@@ -8,7 +8,6 @@ using NinjaTools.FluentMockServer.Xunit;
 using Xunit;
 using Xunit.Abstractions;
 
-[assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly, DisableTestParallelization = true)]
 namespace NinjaTools.FluentMockServer.Tests.Xunit
 {
     public class ManualMockServerSetupTests : MockServerTestBase

@@ -1,10 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Models;
-using HttpResponse = NinjaTools.FluentMockServer.API.Models.HttpResponse;
+using NinjaTools.FluentMockServer.API.Proxy.Visitors;
+using NinjaTools.FluentMockServer.API.Services;
 
 namespace NinjaTools.FluentMockServer.API.Infrastructure
 {
@@ -12,43 +13,33 @@ namespace NinjaTools.FluentMockServer.API.Infrastructure
     {
         private readonly List<Setup> _setups;
 
-        public SetupRepository()
+        private readonly ILogService _logService;
+
+        public SetupRepository(ILogService logService)
         {
-#if DEBUG
-            _setups = new List<Setup>()
-            {
-                new Setup
-                {
-                    Matcher = new RequestMatcher
-                    {
-                        Path = "/some/test"
-                    },
-                    Action = new ResponseAction
-                    {
-                      Response = new HttpResponse()
-                      {
-                          StatusCode = (int) HttpStatusCode.Accepted,
-                          Body = "hello world!"
-                      }
-                    }
-                }
-            };
-#else
+            _logService = logService;
             _setups = new List<Setup>();
-#endif
         }
 
         public IEnumerable<Setup> GetAll() => _setups;
 
-        public void Add(Setup setup) => _setups.Add(setup);
+        public void Add(Setup setup)
+        {
+            _setups.Add(setup);
+            _logService.Log(log => log.SetupCreated(setup));
+        }
 
         /// <inheritdoc />
         [CanBeNull]
         public Setup? TryGetMatchingSetup([NotNull] HttpContext context)
         {
-            return GetAll().FirstOrDefault(s => s.Matcher.IsMatch(context)) is {} setup
-                ? setup
-                : null;
+            return GetAll().FirstOrDefault(s =>
+            {
+                var visitor = new ComparasionVisitor(context);
+                visitor.Visit(s.Matcher);
+                return visitor.IsSuccess;
+            });
         }
     }
+
 }

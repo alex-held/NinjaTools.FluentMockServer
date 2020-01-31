@@ -1,0 +1,8 @@
+{
+  "uri": "http://localhost:1080/log/list",
+  "method": "GET",
+  "body": "",
+  "headers": {
+    "Content-Type": "*/*"
+  }
+}

@@ -1,0 +1,1279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="issues">
+    <option name="index">
+      <map>
+        <entry key="/C# Console">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/Dummy.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/Dummy.txt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/.dotfiles/zsh/zshrc.symlink">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$USER_HOME$/.software/CodeTime.txt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.groovy">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.js">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/idea.properties">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5C08179E-C4E8-4F6D-A18C-50577EE535C9/af/e846ccdf/MockHttpService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/scratches/Mock-Server.http">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/scratches/Test.http">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/scratches/bash.sh">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/scratches/config.csx">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/scratches/interactive_1578342737016.csx">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/scratches/rest-api.http">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/scratches/scratch.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/scratches/scratch.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$APPLICATION_CONFIG_DIR$/scratches/scratch.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../Prioritizr/Prioritizr/Prioritizr/Prioritizr.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../Prioritizr/Prioritizr/Prioritizr/Program.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../../Prioritizr/Prioritizr/Prioritizr/RequestMatcher.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/bootstrap.sh">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/docker-compose.local.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/k8s/deployment.white.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/src/iERP.Gateway.Ax40.Consumer/EventHandler/CustomerPaymentCreatedEventHandler.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/src/iERP.Gateway.Ax40.Consumer/EventHandler/OrderPlacedEventHandler.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/src/iERP.Gateway.Ax40.Consumer/appsettings.white.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/src/iERP.Gateway.Ax40.Infrastructure/Repositories/PlacedOrderRepository.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/src/iERP.Gateway.Ax40/ServiceStartup.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/test/iERP.Gateway.Ax40.Services.IntegrationTests/Services/AxSoapService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/test/iERP.Gateway.Ax40.Services.IntegrationTests/When_AX_Provides_An_OrderNumber.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/test/iERP.Gateway.Ax40.Services.UnitTests/Core/PersistOrderCommandTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Gateway.Ax40.Services/test/iERP.Gateway.Ax40.Services.UnitTests/Domain/PlacedOrderTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.automerge.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.gitattributes">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.github/workflows/dotnetcore.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/.idea.NinjaTools.FluentMockServer/.idea/contentModel.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/.idea.NinjaTools.FluentMockServer/.idea/debugger.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/.idea.NinjaTools.FluentMockServer/.idea/misc.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/.idea.NinjaTools.FluentMockServer/.idea/options/debugger.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/.idea.NinjaTools.FluentMockServer/.idea/sonarIssues.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/.idea.NinjaTools.FluentMockServer/.idea/vcs.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/.idea.NinjaTools.FluentMockServer/.idea/workspace.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/.idea/SonarCloud.RuleSet.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/NinjaTools.FluentMockServer.sln">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/README.md">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/build/Build.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/build/azure-pipelines-develop.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/build/publish-coverage-codacy.sh">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/build/templates/build.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/build/templates/test-cover.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/docs/1.puml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/docs/http-requests/create-setup.http">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/docs/http-requests/list-logs.http">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/docs/http-requests/use-library.http">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/API/Properties/launchSettings.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/API/Startup.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Abstractions/IInitializer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Administration/AdminOptions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Administration/AdminPath.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Administration/AdministrationMiddleware.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Administration/AdministrationService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Administration/ApplicationBuilderExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Administration/IAdminPath.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Administration/IAdministrationService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Administration/MockServerBuilderExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Administration/setup/SetupService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Cache/InMemoryCache.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/ConfigFile.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/ConfigFileProvider.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/ConfigFileSerializer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/ConfigurationCollection.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/ConfigurationFile.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/ConfigurationFileProvider.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/ConfigurationFileType.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/ConfigurationInitializer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/ConfigurationOptions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/ConfigurationSerializerBase.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/Converter/ConfigFileConverter.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/DownstreamContext.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/EnvironmentVariableConfig.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/IAdministrationPath.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/IConfigurationFile.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/IConfigurationFileSerializer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/JsonConfigurationFileSerializer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/MockServerBuilder.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/MockServerConstants.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/MockServerPipelineBuilder.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/Visitor/IBase.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/Visitor/IClient.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Configuration/YamlConfigurationFileSerializer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Controllers/ExpectationController.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Controllers/LogController.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Controllers/SetupController.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Data/ExpectationDBContext.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/DependencyInjection/ApplicationBuilderExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/DependencyInjection/IMockServerBuilder.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/DependencyInjection/MockServerBuilder.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/DependencyInjection/MockServerBuilderExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/DependencyInjection/ServiceCollectionExtension+Administration.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/DependencyInjection/ServiceCollectionExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/DependencyInjection/SetupRepository.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Dockerfile">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Downstream/HttpRequestMessageFactory.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Extensions/EvaluationExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Extensions/HttpContextExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Extensions/JsonExtennsions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Extensions/JsonExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Extensions/StringExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Factories/HttpResponseFactory.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Helper/LogFactory.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Infrastructure/ISetupRepository.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Infrastructure/LogRepository.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Infrastructure/SetupRepository.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/ILog.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/ILogItem.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/ILogService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/LogFactory.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/LogItem.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/LogKind.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/LogRepository.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/LogService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/LoggingInitializer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/RequestLog.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/RequestMatchedLogEntry.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/RequestUnmatchedLog.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Logging/SetupLog.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Middleware/AdministrationMiddleware.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Middleware/HandleProxyRequest.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Middleware/IAdministrationService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Middleware/ProxyMiddleware.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Models/ISetupRepository.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Models/Logging/LogItem.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Models/Logging/RequestMatchedLog.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Models/Logging/RequestUnmatchedLog.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Models/Logging/SetupLog.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Models/RequestBodyMatcher.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Models/RequestMatcher.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Models/ResponseAction.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Models/Setup.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Models/ViewModels/HttpRequestViewModel.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/NinjaTools.FluentMockServer.API.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Program.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Properties/launchSettings.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/EvaluationContext.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/EvaluationPipeline.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/EvaluationUnsuccessfulResult.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/EvaluationWeight.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/EvaluatorBase.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/HttpBodyEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/HttpCookieEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/HttpHeaderEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/HttpMethodEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/HttpPathEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Evaluators/QueryStringEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/HttpRequestEvaluator.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/IEvalualtor.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/MockServerEvaluations.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/EvaluationRatings.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/EvaluationResultBase.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/EvaluationScore.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/EvaluationSuccessfulResult.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/IEvaluationResult.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/NormalizedMatcher.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Models/Rating.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/NormalizedMatcher.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Rating.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Visitors/IEvaluationVisitor.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Visitors/IPartialVisitor.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Visitors/IVisitor.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/Evaluation/Visitors/RequestEvaluatorVistor.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Proxy/ProxyMiddleware.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/RequestMatcherExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Responses/ErrorResponse.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Services/AdministrationService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Services/ConfigurationService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Services/ExpectationService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Services/IAdministrationService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Services/ILogService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Services/ISetupRepository.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Services/ISetupService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Services/LogService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Services/ProxyService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Services/SetupRepository.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Services/SetupService.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/SetupController.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Startup.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Types/ChainElement.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Types/IInitializer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Types/IStartupInitializer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.API/Types/StartupInitializer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.Domain/Models/IIdentifiable.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.Domain/Models/ValueTypes/Body.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.Domain/NinjaTools.FluentMockServer.Domain.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.Domain/ReSharperAnnotations/Annotations.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.Domain/Serialization/JsonContent.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.TestContainers/AssemblyInfo.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.TestContainers/MockServerContainer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.TestContainers/MockServerFixture.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer.TestContainers/NinjaTools.FluentMockServer.TestContainers.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer/Annotations/JetBrains.Annotations.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer/Annotations/Jetbrains.Annotations">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer/Annotations/e.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer/AssemblyInfo.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer/FluentAPI/IFluentVerificationBuilder.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer/MockServerClient.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer/Models/Expectation.Equality.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer/Models/HttpEntities/HttpResponse.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/src/NinjaTools.FluentMockServer/NinjaTools.FluentMockServer.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FlAPIuentMockServer.API/Models/RequestMatcherTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FlAPIuentMockServer.API/NinjaTools.FlAPIuentMockServer.API.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Exclude.Tests/Downstream/Email.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests.Exclude/DependencyInjection/ApplicationBuilderExtensionsTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests.Exclude/Factories/HttpResponseFactoryTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests.Exclude/Middleware/AdministrationMiddlewareTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests.Exclude/Middleware/ProxyMiddlewareTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests.Exclude/NinjaTools.FluentMockServer.API.Tests.Exclude.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Configuration/ConfigFileProviderTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Configuration/ConfigurationFileProviderTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Configuration/ConfigurationFileTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Configuration/ConfigurationServiceTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Configuration/ProviderTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Configuration/Serializer.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Configuration/ValidConfigurationFileData.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/DependencyInjection/MockServerBuilder.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/DependencyInjection/MockServerBuilderTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Extensions/EnumExtensions.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Infrastructure/SetupRepositoryTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Models/Logging/LogItemTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Models/RequestBodyMatcherTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Models/RequestMatcherTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/NinjaTools.FluentMockServer.API.Tests.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Proxy/Matchers/EvaluatorTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Services/LogServiceTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Services/SetupServiceTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Types.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/Types/InitializerTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/config.csx.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/data/1.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/data/1.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/data/1.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/data/2.json">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/data/2.yaml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.API.Tests/data/2.yaml.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.TestContainers.Tests/ManualMockServerSetupTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.TestContainers.Tests/NinjaTools.FluentMockServer.TestContainers.Tests.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.TestHelper/NinjaTools.FluentMockServer.TestHelper.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.Tests/Builders/FluentRequestBuilderTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.Tests/Contracts/CommonContentTypeTests.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.Tests/NinjaTools.FluentMockServer.Tests.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.Tests/TestHelpers/XUnitTestBase.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/NinjaTools.FluentMockServer.UnitTests/NinjaTools.FluentMockServer.UnitTests.csproj">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../Ocelot/src/Ocelot/Middleware/Pipeline/OcelotPipelineBuilder.cs">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/fragment.java">
+          <value>
+            <set />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

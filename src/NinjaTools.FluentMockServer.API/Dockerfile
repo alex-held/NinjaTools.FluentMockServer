@@ -1,12 +1,15 @@
 FROM  mcr.microsoft.com/dotnet/core/aspnet:3.1 AS base
 WORKDIR /app
+
 EXPOSE 80
 EXPOSE 443
 EXPOSE 1080
+
 RUN mkdir /etc/mock-server
 RUN mkdir /etc/mock-server/config
-RUN chmod -R a+x /etc/mock-server
-
+RUN mkdir /var/log/mock-server
+RUN chmod -R 777 /etc/mock-server
+RUN chmod -R 777 /var/log/mock-server
 
 ENV ASPNETCORE_URLS="http://+:80;http://+:1080"
 

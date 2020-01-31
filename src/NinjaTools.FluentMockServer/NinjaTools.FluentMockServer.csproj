@@ -3,8 +3,8 @@
     <PropertyGroup>
         <ProjectGuid>36A37D14-D7FC-4E32-8F48-5FB606818757</ProjectGuid>
         <AssemblyVersion>1.1.0</AssemblyVersion>
-        <TargetFrameworks>netstandard2.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
         <LangVersion>8.0</LangVersion>
+        <TargetFrameworks>netcoreapp3.1;</TargetFrameworks>
         <NullableContext>Enabled</NullableContext>
     </PropertyGroup>
 
@@ -39,11 +39,13 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DebugSymbols>true</DebugSymbols>
+        <TargetFrameworks>netstandard2.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
         <DocumentationFile>bin\Release\HardCoded.MockServer.xml</DocumentationFile>
         <NoWarn>CS1591;</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Ardalis.GuardClauses" Version="1.3.3" />
         <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
         <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
         <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />

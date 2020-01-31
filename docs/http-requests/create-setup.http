@@ -1,0 +1,23 @@
+
+
+POST http://localhost:1080/setup/create
+Content-Type: application/json
+
+{
+  "matcher":{
+    "path":"/some/path"
+  },
+  "action":{
+    "response":{
+      "statusCode":200,
+      "body":"aaa!"
+    }
+  }
+}
+
+> {% client.test("Create Setup", () =>  {
+client.assert(response.status === 200, "Response code is not 200.");
+});
+%}
+
+###

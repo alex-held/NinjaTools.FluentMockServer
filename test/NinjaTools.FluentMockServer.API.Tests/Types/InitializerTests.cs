@@ -1,7 +1,6 @@
 using System.Threading.Tasks;
 using Moq;
 using NinjaTools.FluentMockServer.API.Configuration;
-using NinjaTools.FluentMockServer.API.Services;
 using NinjaTools.FluentMockServer.API.Types;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;

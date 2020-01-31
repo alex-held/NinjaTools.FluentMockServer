@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.gitignore_global" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.4.0/build/netcoreapp2.1" t="Include">
+      <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
+    </e>
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.1/build/netcoreapp1.0/xunit.runner.reporters.netcoreapp10.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.1/build/netcoreapp1.0/xunit.runner.utility.netcoreapp10.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.1/build/netcoreapp1.0/xunit.runner.visualstudio.dotnetcore.testadapter.dll" t="Include" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/Library/Caches/Rider2019.3/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_NinjaTools.FluentMockServer.529394079.00" t="ExcludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/consoles/db" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/consoles/ide" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/extensions" t="IncludeRecursive" />
+    <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="&quot;build&quot;, &quot;build&quot;, &quot;{4B00F08C-15F0-4A37-8A23-95EFDDC85C93}&quot;" t="Include" />
+      <e p=".git/info/exclude" t="IncludeRecursive" />
+      <e p="build/build.csx" t="Include" />
+      <e p="build/nuget-pack.yaml" t="Include" />
+      <e p="docs" t="Include">
+        <e p="1.puml" t="Include" />
+      </e>
+      <e p="NinjaTools.FluentMockServer.sln" t="IncludeFlat" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="preProject" t="Include" />
+      <e p="scripts" t="Include" />
+      <e p="src" t="Include">
+        <e p="NinjaTools.FluentMockServer" t="IncludeRecursive">
+          <e p="AssemblyInfo.cs" t="Include" />
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="extensions" t="Include">
+            <e p="JsonExtensions.cs" t="Include" />
+            <e p="StringExtensions.cs" t="Include" />
+          </e>
+          <e p="FluentAPI" t="Include">
+            <e p="Builders" t="Include">
+              <e p="FluentExpectationBuilder.cs" t="Include" />
+              <e p="FluentVerificationBuilder.cs" t="Include" />
+              <e p="HttpEntities" t="Include">
+                <e p="FluentHttpRequestBuilder.cs" t="Include" />
+                <e p="FluentHttpResponseBuilder.cs" t="Include" />
+              </e>
+              <e p="ValueObjects" t="Include">
+                <e p="FluentBodyBuilder.cs" t="Include" />
+                <e p="FluentConnectionOptionsBuilder.cs" t="Include" />
+                <e p="FluentDelayBuilder.cs" t="Include" />
+                <e p="FluentHeaderBuilder.cs" t="Include" />
+              </e>
+            </e>
+            <e p="IFluentBodyBuilder.cs" t="Include" />
+            <e p="IFluentBuilder.cs" t="Include" />
+            <e p="IFluentConnectionOptionsBuilder.cs" t="Include" />
+            <e p="IFluentDelayBuilder.cs" t="Include" />
+            <e p="IFluentExpectationBuilder.cs" t="Include" />
+            <e p="IFluentHeaderBuilder.cs" t="Include" />
+            <e p="IFluentHttpRequestBuilder.cs" t="Include" />
+            <e p="IFluentHttpResponseBuilder.cs" t="Include" />
+            <e p="IFluentInterface.cs" t="Include" />
+            <e p="IFluentVerificationBuilder.cs" t="Include" />
+          </e>
+          <e p="MockServerClient.cs" t="Include" />
+          <e p="MockServerSetup.cs" t="Include" />
+          <e p="Models" t="Include">
+            <e p="Expectation.cs" t="Include" />
+            <e p="Expectation.Equality.cs" t="Include" />
+            <e p="HttpEntities" t="Include">
+              <e p="HttpError.cs" t="Include" />
+              <e p="HttpForward.cs" t="Include" />
+              <e p="HttpRequest.cs" t="Include" />
+              <e p="HttpResponse.cs" t="Include" />
+              <e p="HttpTemplate.cs" t="Include" />
+            </e>
+            <e p="IIdentifiable.cs" t="Include" />
+            <e p="ValueTypes" t="Include">
+              <e p="Body.cs" t="Include" />
+              <e p="ConnectionOptions.cs" t="Include" />
+              <e p="Content.cs" t="Include" />
+              <e p="Delay.cs" t="Include" />
+              <e p="LifeTime.cs" t="Include" />
+              <e p="Times.cs" t="Include" />
+              <e p="TimeUnit.cs" t="Include" />
+              <e p="VerificationTimes.cs" t="Include" />
+            </e>
+            <e p="Verify.cs" t="Include" />
+          </e>
+          <e p="NinjaTools.FluentMockServer.csproj" t="IncludeRecursive" />
+          <e p="NinjaTools.FluentMockServer.csproj.DotSettings" t="Include" />
+          <e p="obj" t="ExcludeRecursive">
+            <e p="Debug" t="Include">
+              <e p="netcoreapp3.1" t="Include">
+                <e p="NinjaTools.FluentMockServer.AssemblyInfo.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Serialization" t="Include">
+            <e p="CommonContentType.cs" t="Include" />
+            <e p="ContractResolver.cs" t="Include" />
+            <e p="ExpectationConverter.cs" t="Include" />
+            <e p="JsonConfig.cs" t="Include" />
+            <e p="JsonContent.cs" t="Include" />
+            <e p="Serializer.cs" t="Include" />
+          </e>
+          <e p="Utils" t="Include">
+            <e p="Headers.cs" t="Include" />
+            <e p="RequestFactory.cs" t="Include" />
+          </e>
+          <e p="Xunit" t="Include">
+            <e p="MockServerContainer.cs" t="Include" />
+            <e p="MockServerFixture.cs" t="Include" />
+          </e>
+        </e>
+        <e p="NinjaTools.FluentMockServer.API" t="IncludeRecursive">
+          <e p="Administration" t="Include">
+            <e p="AdminOptions.cs" t="Include" />
+          </e>
+          <e p="appsettings.json" t="Include" />
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="Configuration" t="Include">
+            <e p="ConfigFile.cs" t="Include" />
+            <e p="ConfigFileProvider.cs" t="Include" />
+            <e p="ConfigurationCollection.cs" t="Include" />
+            <e p="ConfigurationFileType.cs" t="Include" />
+            <e p="ConfigurationInitializer.cs" t="Include" />
+            <e p="ConfigurationService.cs" t="Include" />
+            <e p="IConfigFile.cs" t="Include" />
+          </e>
+          <e p="Controllers" t="Include">
+            <e p="LogController.cs" t="Include" />
+            <e p="SetupController.cs" t="Include" />
+          </e>
+          <e p="DependencyInjection" t="Include">
+            <e p="ApplicationBuilderExtensions.cs" t="Include" />
+            <e p="IMockServerBuilder.cs" t="Include" />
+            <e p="MockServerBuilder.cs" t="Include" />
+            <e p="MockServerBuilderExtensions.cs" t="Include" />
+            <e p="ServiceCollectionExtensions.cs" t="Include" />
+          </e>
+          <e p="Dockerfile" t="Include" />
+          <e p="extensions" t="Include">
+            <e p="LINQ.cs" t="Include" />
+            <e p="StringExtensions.cs" t="Include" />
+          </e>
+          <e p="Infrastructure" t="Include">
+            <e p="ILogRepository.cs" t="Include" />
+            <e p="ISetupRepository.cs" t="Include" />
+            <e p="SetupRepository.cs" t="Include" />
+          </e>
+          <e p="Logging" t="Include">
+            <e p="FileSystemLogItem.cs" t="Include" />
+            <e p="LogFactory.cs" t="Include" />
+            <e p="LoggingInitializer.cs" t="Include" />
+            <e p="LogRepository.cs" t="Include" />
+            <e p="LogService.cs" t="Include" />
+            <e p="MockServerPaths.cs" t="Include" />
+            <e p="Models" t="Include">
+              <e p="ILogItem.cs" t="Include" />
+              <e p="LogItem.cs" t="Include" />
+              <e p="LogKind.cs" t="Include" />
+              <e p="RequestMatchedLog.cs" t="Include" />
+              <e p="RequestUnmatchedLog.cs" t="Include" />
+              <e p="SetupLog.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Models" t="Include">
+            <e p="Cookies.cs" t="Include" />
+            <e p="Headers.cs" t="Include" />
+            <e p="Method.cs" t="Include" />
+            <e p="Path.cs" t="Include" />
+            <e p="Query.cs" t="Include" />
+            <e p="RequestBodyKind.cs" t="Include" />
+            <e p="RequestBodyMatcher.cs" t="Include" />
+            <e p="RequestMatcher.cs" t="Include" />
+            <e p="ResponseAction.cs" t="Include" />
+            <e p="Setup.cs" t="Include" />
+            <e p="ViewModels" t="Include">
+              <e p="HttpRequestViewModel.cs" t="Include" />
+              <e p="MatchedRequest.cs" t="Include" />
+            </e>
+          </e>
+          <e p="NinjaTools.FluentMockServer.API.csproj" t="IncludeRecursive" />
+          <e p="obj" t="ExcludeRecursive">
+            <e p="Debug" t="Include">
+              <e p="netcoreapp3.1" t="Include">
+                <e p="NinjaTools.FluentMockServer.API.AssemblyInfo.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Program.cs" t="Include" />
+          <e p="Properties" t="Include">
+            <e p="launchSettings.json" t="Include" />
+          </e>
+          <e p="Proxy" t="Include">
+            <e p="ProxyMiddleware.cs" t="Include" />
+            <e p="Visitors" t="Include">
+              <e p="ComparasionVisitor.cs" t="Include" />
+              <e p="IVisitable.cs" t="Include" />
+              <e p="IVisitor.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Serialization" t="Include">
+            <e p="Converters" t="Include">
+              <e p="HeadersConverter.cs" t="Include" />
+              <e p="MethodConverter.cs" t="Include" />
+              <e p="PathConverter.cs" t="Include" />
+            </e>
+          </e>
+          <e p="Services" t="Include">
+            <e p="ILogService.cs" t="Include" />
+            <e p="ISetupService.cs" t="Include" />
+            <e p="SetupService.cs" t="Include" />
+          </e>
+          <e p="Startup.cs" t="Include" />
+          <e p="Types" t="Include">
+            <e p="IDontRenderWhenEmpty.cs" t="Include" />
+            <e p="IInitializer.cs" t="Include" />
+            <e p="IStartupInitializer.cs" t="Include" />
+            <e p="StartupInitializer.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="test" t="Include">
+        <e p="NinjaTools.FluentMockServer.API.Tests" t="IncludeRecursive">
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="Configuration" t="Include">
+            <e p="ConfigFileProviderTests.cs" t="Include" />
+            <e p="ConfigurationServiceTests.cs" t="Include" />
+          </e>
+          <e p="DependencyInjection" t="Include">
+            <e p="MockServerBuilderTests.cs" t="Include" />
+          </e>
+          <e p="extensions" t="Include">
+            <e p="EnumExtensions.cs" t="Include" />
+          </e>
+          <e p="Infrastructure" t="Include">
+            <e p="SetupRepositoryTests.cs" t="Include" />
+          </e>
+          <e p="Models" t="Include">
+            <e p="Logging" t="Include">
+              <e p="LogItemTests.cs" t="Include" />
+            </e>
+          </e>
+          <e p="NinjaTools.FluentMockServer.API.Tests.csproj" t="IncludeRecursive" />
+          <e p="obj" t="ExcludeRecursive">
+            <e p="Debug" t="Include">
+              <e p="netcoreapp3.1" t="Include">
+                <e p="NinjaTools.FluentMockServer.API.Tests.AssemblyInfo.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Proxy" t="Include">
+            <e p="ComparasionVisitorTests.cs" t="Include" />
+          </e>
+          <e p="Serilization" t="Include">
+            <e p="HeadersTests.cs" t="Include" />
+          </e>
+          <e p="Services" t="Include">
+            <e p="LogServiceTests.cs" t="Include" />
+            <e p="SetupServiceTests.cs" t="Include" />
+          </e>
+          <e p="Types" t="Include">
+            <e p="InitializerTests.cs" t="Include" />
+          </e>
+        </e>
+        <e p="NinjaTools.FluentMockServer.Tests" t="IncludeRecursive">
+          <e p="bin" t="ExcludeRecursive" />
+          <e p="FluentAPI" t="Include">
+            <e p="Builders" t="Include">
+              <e p="FluentExpectationBuilderTests.cs" t="Include" />
+              <e p="FluentVerificationBuilderTests.cs" t="Include" />
+              <e p="HttpEntities" t="Include">
+                <e p="FluentRequestBuilderTests.cs" t="Include" />
+                <e p="FluentResponseBuilderTests.cs" t="Include" />
+              </e>
+              <e p="ValueObjects" t="Include">
+                <e p="FluentBodyBuilderTests.cs" t="Include" />
+                <e p="FluentConnectionBuilderTests.cs" t="Include" />
+                <e p="FluentDelayBuilderTests.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Models" t="Include">
+            <e p="Equality" t="Include">
+              <e p="BodyEqualityTests.cs" t="Include" />
+              <e p="ConnectionOptionsEqualityTests.cs" t="Include" />
+              <e p="DelayEqualityTests.cs" t="Include" />
+              <e p="EqualityTestBase.cs" t="Include" />
+              <e p="ExpectationEqualityTests.cs" t="Include" />
+              <e p="HttpErrorEqualityTests.cs" t="Include" />
+              <e p="HttpForwardEqualityTests.cs" t="Include" />
+              <e p="HttpRequestEqualityTests.cs" t="Include" />
+              <e p="HttpResponseEqualityTests.cs" t="Include" />
+              <e p="HttpTemplateEqualityTests.cs" t="Include" />
+              <e p="LifeTimeEqualityTests.cs" t="Include" />
+              <e p="TimesEqualityTests.cs" t="Include" />
+              <e p="VerificationTimesEqualityTests.cs" t="Include" />
+              <e p="VerifyEqualityTests.cs" t="Include" />
+            </e>
+          </e>
+          <e p="NinjaTools.FluentMockServer.Tests.csproj" t="IncludeRecursive" />
+          <e p="NinjaTools.FluentMockServer.Tests.csproj.DotSettings" t="Include" />
+          <e p="obj" t="ExcludeRecursive">
+            <e p="Debug" t="Include">
+              <e p="netcoreapp3.1" t="Include">
+                <e p="NinjaTools.FluentMockServer.Tests.AssemblyInfo.cs" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="Serialization" t="Include">
+            <e p="ContentSerializationTests.cs" t="Include" />
+            <e p="ContractResolverTests" t="Include">
+              <e p="ContractResolverTests.cs" t="Include" />
+            </e>
+            <e p="ExpectationConverterTests.cs" t="Include" />
+            <e p="ExpectationSerializationTests.cs" t="Include" />
+            <e p="HttpRequesttSerializationTeszs.cs" t="Include" />
+            <e p="HttpResponseSerializationTests.cs" t="Include" />
+            <e p="UpperCaseEnumConverterTests.cs" t="Include" />
+          </e>
+          <e p="TestHelpers" t="Include">
+            <e p="Data" t="Include">
+              <e p="FluentExpectationBuilder_Schema_1.json" t="Include" />
+              <e p="FluentResponseBuilder_Schema1.json" t="Include" />
+              <e p="Random" t="Include">
+                <e p="BogusWebExtensions.cs" t="Include" />
+                <e p="InstanceFactory.cs" t="Include" />
+              </e>
+              <e p="TheoryData" t="Include">
+                <e p="EqualityOperatorTestData.cs" t="Include" />
+                <e p="HttpMethodTestData.cs" t="Include" />
+                <e p="NotEqualData.cs" t="Include" />
+                <e p="RandomHttpRequestData.cs" t="Include" />
+              </e>
+              <e p="Types" t="Include">
+                <e p="Gender.cs" t="Include" />
+                <e p="RandRecord.cs" t="Include" />
+                <e p="RantCollection.cs" t="Include" />
+              </e>
+              <e p="WithError.xml" t="Include" />
+              <e p="WithOrderId.xml" t="Include" />
+              <e p="WithoutOrderId.xml" t="Include" />
+            </e>
+            <e p="FileSystem.cs" t="Include" />
+            <e p="Mocks" t="Include">
+              <e p="MockHandler.cs" t="Include" />
+            </e>
+            <e p="ProsaTests.cs" t="Include" />
+            <e p="XunitLogger.cs" t="Include" />
+            <e p="XUnitTestBase.cs" t="Include" />
+          </e>
+          <e p="Xunit" t="Include">
+            <e p="ManualMockServerSetupTests.cs" t="Include" />
+            <e p="MockServerFixtureTests.cs" t="Include" />
+            <e p="SoapServiceTests.cs" t="Include" />
+            <e p="VerificationTests.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+    </e>
+  </component>
+</project>

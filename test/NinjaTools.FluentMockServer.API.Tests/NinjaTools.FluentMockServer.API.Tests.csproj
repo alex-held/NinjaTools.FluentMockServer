@@ -2,8 +2,9 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-
         <IsPackable>false</IsPackable>
+        <LangVersion>preview</LangVersion>
+        <Nullable>enable</Nullable>
     </PropertyGroup>
 
     <ItemGroup>
@@ -24,5 +25,7 @@
       <ProjectReference Include="..\..\src\NinjaTools.FluentMockServer\NinjaTools.FluentMockServer.csproj" />
       <ProjectReference Include="..\NinjaTools.FluentMockServer.Tests\NinjaTools.FluentMockServer.Tests.csproj" />
     </ItemGroup>
+
+    
 
 </Project>

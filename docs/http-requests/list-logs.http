@@ -1,0 +1,17 @@
+### List all Logs
+GET http://localhost:1080/log/list
+
+> {%
+client.test("List all Logs", () => {
+   client.assert(response.status === 200, "");
+});
+%}
+
+
+### List Request Logs
+GET http://localhost:1080/log/list?type=Request
+
+### List Setup Logs
+GET http://localhost:1080/log/list?type=Request
+
+###

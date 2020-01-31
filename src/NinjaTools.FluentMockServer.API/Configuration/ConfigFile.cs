@@ -9,7 +9,7 @@ using YamlDotNet.Serialization;
 
 namespace NinjaTools.FluentMockServer.API.Configuration
 {
-    [DebuggerDisplay("{DebuggerDisplay(), nq}")]
+    [DebuggerDisplay("{DebuggerDisplay()}")]
     public class ConfigFile : IConfigFile
     {
         [JsonConstructor]
