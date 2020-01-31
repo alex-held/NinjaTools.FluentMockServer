@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <Nullable>Enable</Nullable>
+        <Nullable>warnings</Nullable>
         <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
         <LangVersion>Preview</LangVersion>
         <AssemblyVersion>1.0.0</AssemblyVersion>
