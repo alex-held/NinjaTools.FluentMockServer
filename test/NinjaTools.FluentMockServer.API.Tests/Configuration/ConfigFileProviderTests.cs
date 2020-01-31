@@ -70,7 +70,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
 
 
             var setupC = configurations[1].Configurations.ElementAt(1);
-          //  Dump(setupC, "Setup - C");
+              Dump(setupC, "Setup - C");
             setupC.Matcher.Headers.Header.Should().HaveCount(2);
             setupC.Matcher.Path.ToPath().Should().Be("/");
             setupC.Action.Should().BeNull();
@@ -159,7 +159,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
 
         public static IEnumerable<object[]> GetFakeFileSystemConfigData()
         {
-            var directory = @"/etc/mock-server/config";
+            var directory = "/etc/mock-server/config";
 
             yield return new object[]
             {

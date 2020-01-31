@@ -65,10 +65,25 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Visitors
             using var reader = new StreamReader(HttpRequest.Body);
             var httpBody = reader.ReadToEnd();
 
-            if (visitable.MatchExact.HasValue && visitable.MatchExact.Value  && httpBody == visitable.Content)
-                return Pass();
+            if (visitable.IsExactMatch)
+            {
+                if (visitable.Content is {} body && body == httpBody)
+                {
+                    return Pass();
+                }
 
-            return Fail();
+                return Fail();
+            }
+
+            else
+            {
+                if (visitable.Content is {} body && httpBody.Contains(body))
+                {
+                    return Pass();
+                }
+
+                return Fail();
+            }
         }
 
         /// <inheritdoc />
@@ -116,10 +131,10 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Visitors
         }
 
         /// <inheritdoc />
-        public double Visit(Query visitable, CancellationToken token = default)
+        public double Visit(Query? visitable, CancellationToken token = default)
         {
             token.ThrowIfCancellationRequested();
-            if (!visitable?.IsEnabled() ?? true)
+            if (visitable is null || !visitable.IsEnabled())
                 return Pass();
 
             Guard.Against.NullOrEmpty(visitable.QueryString.Value, nameof(visitable) + nameof(Query));

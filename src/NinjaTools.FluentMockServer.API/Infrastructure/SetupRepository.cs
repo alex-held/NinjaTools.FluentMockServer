@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Models;
+using NinjaTools.FluentMockServer.API.Proxy.Visitors;
 using NinjaTools.FluentMockServer.API.Services;
 
 namespace NinjaTools.FluentMockServer.API.Infrastructure
@@ -31,10 +33,12 @@ namespace NinjaTools.FluentMockServer.API.Infrastructure
         [CanBeNull]
         public Setup? TryGetMatchingSetup([NotNull] HttpContext context)
         {
-            throw new  NotImplementedException();
-            // return GetAll().FirstOrDefault(s => s.Matcher?.IsMatch(context) ?? false) is {} setup
-            //     ? setup
-            //     : null;
+            return GetAll().FirstOrDefault(s =>
+            {
+                var visitor = new ComparasionVisitor(context);
+                visitor.Visit(s.Matcher);
+                return visitor.IsSuccess;
+            });
         }
     }
 

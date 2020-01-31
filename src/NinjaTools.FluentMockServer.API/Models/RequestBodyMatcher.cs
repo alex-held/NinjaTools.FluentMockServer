@@ -8,6 +8,8 @@ namespace NinjaTools.FluentMockServer.API.Models
         public RequestBodyKind?  Kind { get; set; }
         public bool? MatchExact { get; set; }
 
+        public bool IsExactMatch => MatchExact != null && MatchExact == true;
+
         /// <inheritdoc />
         public bool IsEnabled() => !string.IsNullOrWhiteSpace(Content) || Kind.HasValue || MatchExact.HasValue;
     }
