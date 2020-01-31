@@ -165,9 +165,9 @@ namespace NinjaTools.FluentMockServer.API.Tests.Models.Logging
             // Act
             var formatted = log.ToFormattedString();
 
-           // Dump(expected, formatted);
-            
+
             // Assert
+            Dump(expected, formatted);
             formatted.Should().Be(expected);
         }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,7 +48,12 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
         }
     }
 
-    public abstract class MockServerTestBase : XUnitTestBase, IClassFixture<MockServerFixture>
+    [CollectionDefinition(nameof(MockServerCollectionFixture), DisableParallelization = true)]
+    public class MockServerCollectionFixture : ICollectionFixture<MockServerFixture>
+    { }
+
+    [Collection(nameof(MockServerCollectionFixture))]
+    public abstract class MockServerTestBase : XUnitTestBase, IDisposable
     {
         public MockServerFixture Fixture { get; }
 
@@ -59,6 +65,12 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
         {
             Fixture = fixture;
             Thread.Sleep(200);
+        }
+
+        /// <inheritdoc />
+        public void Dispose()
+        {
+            MockClient.ResetAsync().GetAwaiter().GetResult();
         }
     }
 }

@@ -16,6 +16,7 @@
     <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="&quot;build&quot;, &quot;build&quot;, &quot;{4B00F08C-15F0-4A37-8A23-95EFDDC85C93}&quot;" t="Include" />
+      <e p=".git/info/exclude" t="IncludeRecursive" />
       <e p="build/build.csx" t="Include" />
       <e p="build/nuget-pack.yaml" t="Include" />
       <e p="docs" t="Include">
@@ -88,19 +89,7 @@
           <e p="NinjaTools.FluentMockServer.csproj.DotSettings" t="Include" />
           <e p="obj" t="ExcludeRecursive">
             <e p="Debug" t="Include">
-              <e p="netcoreapp2.1" t="Include">
-                <e p="NinjaTools.FluentMockServer.AssemblyInfo.cs" t="Include" />
-              </e>
-              <e p="netcoreapp2.2" t="Include">
-                <e p="NinjaTools.FluentMockServer.AssemblyInfo.cs" t="Include" />
-              </e>
-              <e p="netcoreapp3.0" t="Include">
-                <e p="NinjaTools.FluentMockServer.AssemblyInfo.cs" t="Include" />
-              </e>
               <e p="netcoreapp3.1" t="Include">
-                <e p="NinjaTools.FluentMockServer.AssemblyInfo.cs" t="Include" />
-              </e>
-              <e p="netstandard2.1" t="Include">
                 <e p="NinjaTools.FluentMockServer.AssemblyInfo.cs" t="Include" />
               </e>
             </e>
@@ -150,7 +139,6 @@
           </e>
           <e p="Dockerfile" t="Include" />
           <e p="extensions" t="Include">
-            <e p="EvaluationExtensions.cs" t="Include" />
             <e p="LINQ.cs" t="Include" />
             <e p="StringExtensions.cs" t="Include" />
           </e>
@@ -225,7 +213,6 @@
           </e>
           <e p="Startup.cs" t="Include" />
           <e p="Types" t="Include">
-            <e p="ChainElement.cs" t="Include" />
             <e p="IDontRenderWhenEmpty.cs" t="Include" />
             <e p="IInitializer.cs" t="Include" />
             <e p="IStartupInitializer.cs" t="Include" />
@@ -253,8 +240,6 @@
             <e p="Logging" t="Include">
               <e p="LogItemTests.cs" t="Include" />
             </e>
-            <e p="RequestBodyMatcherTests.cs" t="Include" />
-            <e p="RequestMatcherTests.cs" t="Include" />
           </e>
           <e p="NinjaTools.FluentMockServer.API.Tests.csproj" t="IncludeRecursive" />
           <e p="obj" t="ExcludeRecursive">
@@ -266,9 +251,6 @@
           </e>
           <e p="Proxy" t="Include">
             <e p="ComparasionVisitorTests.cs" t="Include" />
-            <e p="Matchers" t="Include">
-              <e p="EvaluatorTests.cs" t="Include" />
-            </e>
           </e>
           <e p="Serilization" t="Include">
             <e p="HeadersTests.cs" t="Include" />
