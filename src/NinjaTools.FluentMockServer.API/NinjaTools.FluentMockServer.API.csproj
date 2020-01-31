@@ -3,7 +3,6 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <Nullable>warnings</Nullable>
-        <WarningsAsErrors>CS8600;CS8602;CS8603</WarningsAsErrors>
         <LangVersion>Preview</LangVersion>
         <AssemblyVersion>1.0.0</AssemblyVersion>
         <FileVersion>1.0.0</FileVersion>
@@ -16,7 +15,7 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
       <DocumentationFile>bin\Debug\NinjaTools.FluentMockServer.API.xml</DocumentationFile>
-      <WarningsAsErrors>NU1605;CS8600</WarningsAsErrors>
+      <WarningsAsErrors>NU1605;</WarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>
