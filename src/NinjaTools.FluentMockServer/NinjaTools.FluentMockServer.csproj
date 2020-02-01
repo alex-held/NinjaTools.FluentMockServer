@@ -3,11 +3,9 @@
 
     <PropertyGroup>
         <ProjectGuid>36A37D14-D7FC-4E32-8F48-5FB606818757</ProjectGuid>
-        <AssemblyVersion>1.1.0</AssemblyVersion>
-        <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+        <AssemblyVersion>1.1.1</AssemblyVersion>
         <LangVersion>8.0</LangVersion>
         <TargetFrameworks>netcoreapp3.1;</TargetFrameworks>
-        <NullableContext>Enabled</NullableContext>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 

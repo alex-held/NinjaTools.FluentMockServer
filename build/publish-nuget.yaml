@@ -50,7 +50,7 @@ jobs:
       - download: current
         artifact: "packages"
       - task: NuGetCommand@2
-        displayName: "Publish Prerelease NuGet Package"
+        displayName: "Publish NuGet Package"
         inputs:
           command: "push"
           packagesToPush: "$(Pipeline.Workspace)/packages/**/*.nupkg"
