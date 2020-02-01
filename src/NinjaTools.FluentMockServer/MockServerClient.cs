@@ -1,17 +1,21 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
 using NinjaTools.FluentMockServer.Exceptions;
 using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.FluentAPI;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
+using NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities;
 using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Serialization;
 using NinjaTools.FluentMockServer.Utils;
 using static NinjaTools.FluentMockServer.Utils.RequestFactory;
 
@@ -103,7 +107,7 @@ namespace NinjaTools.FluentMockServer
         /// <summary>
         ///     Configures the MockServer Client using a predefined <see cref="MockServerSetup" />.
         /// </summary>
-        /// <exception cref="MockServerOperationFailedException">Cannot establish connecct</exception>
+        /// <exception cref="MockServerOperationFailedException"></exception>
         /// <param name="setup"> </param>
         private async Task SetupInternal(MockServerSetup setup)
         {
@@ -153,6 +157,7 @@ namespace NinjaTools.FluentMockServer
             await VerifyInternal(verification);
         }
 
+        /// <exception cref="MockServerOperationFailedException" />
         private async Task VerifyInternal(Verify verify)
         {
             var request = GetVerifyRequest(verify);
@@ -163,6 +168,60 @@ namespace NinjaTools.FluentMockServer
                 var responseMessage = await response.Content.ReadAsStringAsync();
                 throw new MockServerVerificationException(responseMessage, verify.HttpRequest);
             }
+        }
+
+        /// <summary>
+        /// Retrieves a list of active <see cref="Expectation"/> from the MockServer.
+        /// <exception cref="MockServerOperationFailedException" />
+        /// </summary>
+        /// <exception cref="MockServerOperationFailedException" />
+        [PublicAPI]
+        [ItemNotNull]
+        public async Task<IReadOnlyList<Expectation>> ListSetupsAsync()
+        {
+            var requestMessage = new HttpRequestMessage(HttpMethod.Put, "mockserver/retrieve?type=ACTIVE_EXPECTATIONS");
+            var response = await HttpClient.SendAsync(requestMessage);
+            response.EnsureSuccessfulMockServerOperation();
+            var stringContent = await response.Content.ReadAsStringAsync();
+            var setups = Serializer.Deserialize<List<Expectation>>(stringContent);
+            return setups;
+        }
+
+        /// <summary>
+        /// Retrieves a list of active <see cref="HttpRequest"/> from the MockServer.
+        /// <exception cref="MockServerOperationFailedException" />
+        /// </summary>
+        /// <exception cref="MockServerOperationFailedException" />
+        [PublicAPI]
+        [ItemNotNull]
+        public async Task<IReadOnlyList<HttpRequest>> ListRequestsAsync()
+        {
+            var requestMessage = new HttpRequestMessage(HttpMethod.Put, "mockserver/retrieve?type=REQUESTS");
+            var response = await HttpClient.SendAsync(requestMessage);
+            response.EnsureSuccessfulMockServerOperation();
+            var stringContent = await response.Content.ReadAsStringAsync();
+            var setups = Serializer.Deserialize<List<HttpRequest>>(stringContent);
+            return setups;
+        }
+
+        /// <summary>
+        /// Removes all <see cref="Expectation"/> on the MockServer that define a matching <see cref="HttpRequest"/>.
+        /// </summary>
+        /// <exception cref="MockServerOperationFailedException" />
+        [PublicAPI]
+        public async Task RemoveSetupsAsync(Action<IFluentHttpRequestBuilder> action)
+        {
+            var builder = new FluentHttpRequestBuilder();
+            action(builder);
+            var request = builder.Build();
+
+            var requestMessage = new HttpRequestMessage(HttpMethod.Put, "clear")
+            {
+                Content = new JsonContent(request)
+            };
+
+            var response = await HttpClient.SendAsync(requestMessage);
+            response.EnsureSuccessfulMockServerOperation();
         }
 
         /// <inheritdoc />

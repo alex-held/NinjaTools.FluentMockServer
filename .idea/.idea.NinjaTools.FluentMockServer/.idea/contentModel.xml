@@ -346,6 +346,7 @@
           <e p="Xunit" t="Include">
             <e p="LoggerTests.cs" t="Include" />
             <e p="ManualMockServerSetupTests.cs" t="Include" />
+            <e p="MockServerClientTests.cs" t="Include" />
             <e p="MockServerContextTests.cs" t="Include" />
             <e p="MockServerFixtureTests.cs" t="Include" />
             <e p="MockServerTestBase.cs" t="Include" />
