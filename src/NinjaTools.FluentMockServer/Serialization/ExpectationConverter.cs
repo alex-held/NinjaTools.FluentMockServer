@@ -10,7 +10,7 @@ using NinjaTools.FluentMockServer.Models;
 
 namespace NinjaTools.FluentMockServer.Serialization
 {
-    public class ExpectationConverter : JsonConverter<Expectation>
+    internal class ExpectationConverter : JsonConverter<Expectation>
     {
         private static readonly object Sync = new object();
 

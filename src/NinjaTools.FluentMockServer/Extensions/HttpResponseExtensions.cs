@@ -4,7 +4,7 @@ using NinjaTools.FluentMockServer.Exceptions;
 
 namespace NinjaTools.FluentMockServer.Extensions
 {
-    public static class HttpResponseExtensions
+    internal static class HttpResponseExtensions
     {
         /// <summary>
         /// Ensures that the operation on the MockServer attempted, was successful.

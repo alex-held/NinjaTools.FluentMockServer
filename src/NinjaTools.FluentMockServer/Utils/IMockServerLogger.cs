@@ -10,7 +10,7 @@ namespace NinjaTools.FluentMockServer.Utils
         void Error([JetBrains.Annotations.NotNull] string message, params object[] args);
     }
 
-    public class MockServerTestLogger : IMockServerLogger
+    internal class MockServerTestLogger : IMockServerLogger
     {
         /// <summary>
         /// Gets the default <see cref="MockServerTestLogger"/>.

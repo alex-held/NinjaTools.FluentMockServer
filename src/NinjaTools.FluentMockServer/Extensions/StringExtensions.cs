@@ -1,6 +1,6 @@
 namespace NinjaTools.FluentMockServer.Extensions
 {
-    public static class StringExtensions
+    internal static class StringExtensions
     {
         public static bool StartsWithEither(this string @string, params char[] chars)
         {
