@@ -7,7 +7,6 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Visitors
 
     public interface IVisitor<in TVisitable>
     {
-        void Visit(TVisitable visitable) => Visit(visitable,default);
-        double Visit(TVisitable visitable, CancellationToken token);
+        int Visit(TVisitable visitable, CancellationToken token = default);
     }
 }

@@ -21,7 +21,7 @@ namespace NinjaTools.FluentMockServer.API.Proxy
             if (_setupService.TryGetMatchingSetup(context, out var setup))
             {
                 _logService.Log(fac => fac.RequestMached(context, setup));
-                context.Response.StatusCode = setup.Action.Response.StatusCode;
+                context.Response.StatusCode = setup.Action.Response.StatusCode.GetValueOrDefault();
 
                 if (setup.Action.Response.Body is {} body)
                 {

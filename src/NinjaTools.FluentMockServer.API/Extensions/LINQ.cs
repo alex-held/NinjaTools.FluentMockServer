@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
 using NinjaTools.FluentMockServer.API.Models;
 
 namespace NinjaTools.FluentMockServer.API.Extensions
 {
     public static class LINQ
     {
-
-
-        public static Dictionary<string, string[]> ToDictionary<T>(this T headers) where T : IHeaderDictionary
+        /// <summary>
+        /// Returns the input <see cref="IEnumerable{T}"/> without elements equal to <c>null</c> or <![CDATA[default{T}]]>.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">The parameter <param name="input"/> was null.</exception>
+        public static IEnumerable<T> SkipNullOrDefault<T>([CanBeNull] this IEnumerable<T>? input)
         {
-            return headers.ToDictionary(
-                k => k.Key,
-                v => v.Value.ToArray());
+            return (input ?? throw new ArgumentNullException(nameof(input)))
+                .TakeWhile(value => !(value is null) && !value.Equals(default(T)));
         }
 
         [NotNull]
@@ -33,28 +33,33 @@ namespace NinjaTools.FluentMockServer.API.Extensions
             return collection;
         }
 
-        public static Headers ToHeaderCollection<T>(this T headers) where T : IHeaderDictionary
+        public static Headers ToHeaders<T>(this T headers) where T : IHeaderDictionary
         {
             return new Headers(headers.ToDictionary(
                 k => k.Key,
                 v => v.Value.ToArray()));
         }
 
-        public static HeaderDictionary ToHeaderCollection(this IDictionary<string, string[]> headers)
+        public static Headers? ToHeadersOrDefault<T>(this T headers) where T : IHeaderDictionary
         {
-            return new HeaderDictionary(headers.ToDictionary(k => k.Key,
-                v => new StringValues(v.Value)));
+            return headers?.Any() ?? false
+                   ? headers.ToHeaders()
+                   : null;
         }
 
-        public static HeaderDictionary ToHeaderCollection(this IDictionary<string, StringValues> headers)
+        public static Cookies ToCookies<T>([CanBeNull] this T cookies) where T : IRequestCookieCollection
         {
-            return new HeaderDictionary(headers.ToDictionary(k => k.Key, v => v.Value));
+            return new Cookies((cookies ?? throw new ArgumentNullException(nameof(cookies)))
+                .Select(k => (k.Key, k.Value))
+                .ToArray()
+            );
         }
 
-
-        public static Dictionary<string, string[]> ToDictionary(this IDictionary<string, StringValues> headers)
+        public static Cookies? ToCookiesOrDefault<T>([CanBeNull] this T cookies) where T : IRequestCookieCollection
         {
-            return headers.ToDictionary(k => k.Key, v => v.Value.ToArray());
+            return cookies?.Any() ?? false
+                ? cookies.ToCookies()
+                : null;
         }
     }
 }
