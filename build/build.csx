@@ -45,8 +45,7 @@ public string GetVersion(string project)
     var minor = int.Parse(match.Groups["minor"].Value);
     var patch = int.Parse(match.Groups["patch"].Value);
 
-    var head = File.ReadAllText(Path.Combine(rootPath, ".git", "HEAD"));
-    if(head.Contains("refs/heads/master") || Args.Count() < 2 )
+    if(Args[2] == "refs/heads/master")
     {
         Console.WriteLine($"[{project}] Using stable version: {version}");
         return version;
@@ -68,9 +67,9 @@ private void CreateNuGetPackage(string project)
     var version = GetVersion(project);
     var projectPath = GetProjectPath(project);
 
-    if(Args.Count() == 3)
+    if(Args.Count() == 4)
     {
-        var output = Args[2];
+        var output = Args[3];
         Command.Execute("dotnet", $"pack {projectPath} --no-build -p:Version={version} -c Release --output {output} -v d /nologo");
     }
     else
