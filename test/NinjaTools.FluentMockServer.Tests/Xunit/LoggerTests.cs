@@ -1,11 +1,8 @@
 using System;
-using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
 using JetBrains.Annotations;
-using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Xunit;
-using NinjaTools.FluentMockServer.Xunit.Attributes;
 using Xunit;
 using Xunit.Abstractions;
 
