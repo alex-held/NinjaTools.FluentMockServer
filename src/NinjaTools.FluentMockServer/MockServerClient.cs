@@ -157,6 +157,7 @@ namespace NinjaTools.FluentMockServer
             await VerifyInternal(verification);
         }
 
+        /// <exception cref="MockServerOperationFailedException" />
         private async Task VerifyInternal(Verify verify)
         {
             var request = GetVerifyRequest(verify);
@@ -173,6 +174,7 @@ namespace NinjaTools.FluentMockServer
         /// Retrieves a list of active <see cref="Expectation"/> from the MockServer.
         /// <exception cref="MockServerOperationFailedException" />
         /// </summary>
+        /// <exception cref="MockServerOperationFailedException" />
         [PublicAPI]
         [ItemNotNull]
         public async Task<IReadOnlyList<Expectation>> ListSetupsAsync()
@@ -189,6 +191,7 @@ namespace NinjaTools.FluentMockServer
         /// Retrieves a list of active <see cref="HttpRequest"/> from the MockServer.
         /// <exception cref="MockServerOperationFailedException" />
         /// </summary>
+        /// <exception cref="MockServerOperationFailedException" />
         [PublicAPI]
         [ItemNotNull]
         public async Task<IReadOnlyList<HttpRequest>> ListRequestsAsync()
@@ -201,6 +204,25 @@ namespace NinjaTools.FluentMockServer
             return setups;
         }
 
+        /// <summary>
+        /// Removes all <see cref="Expectation"/> on the MockServer that define a matching <see cref="HttpRequest"/>.
+        /// </summary>
+        /// <exception cref="MockServerOperationFailedException" />
+        [PublicAPI]
+        public async Task RemoveSetupsAsync(Action<IFluentHttpRequestBuilder> action)
+        {
+            var builder = new FluentHttpRequestBuilder();
+            action(builder);
+            var request = builder.Build();
+
+            var requestMessage = new HttpRequestMessage(HttpMethod.Put, "clear")
+            {
+                Content = new JsonContent(request)
+            };
+
+            var response = await HttpClient.SendAsync(requestMessage);
+            response.EnsureSuccessfulMockServerOperation();
+        }
 
         /// <inheritdoc />
         public void Dispose()

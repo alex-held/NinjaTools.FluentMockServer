@@ -11,7 +11,7 @@ using Xunit.Abstractions;
 
 namespace NinjaTools.FluentMockServer.Tests.Xunit
 {
-    public class MockServerClientTests : MockServerTestBase, IDisposable
+    public class MockServerClientTests : MockServerTestBase
     {
         /// <inheritdoc />
         public MockServerClientTests(MockServerFixture fixture, ITestOutputHelper output) : base(fixture, output)
@@ -66,6 +66,26 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
             var c  = response.Last();
             c.Path.Should().Be("/c");
             c.Method.Should().Be("GET");
+        }
+
+
+        [Fact]
+        public async Task RemoveSetupsAsync_Removes_Active_Setups_When_Match()
+        {
+            // Arrange
+            await MockClient.SetupAsync(_ => _.
+                OnHandlingAny(HttpMethod.Get).RespondOnce(HttpStatusCode.OK)
+                .And
+                .OnHandlingAny(HttpMethod.Post).RespondOnce(HttpStatusCode.NoContent)
+                .Setup());
+
+            // Act
+            await MockClient.RemoveSetupsAsync(_ => _.WithMethod(HttpMethod.Get));
+
+            // Assert
+            var response = await MockClient.ListSetupsAsync();
+            response.Should().ContainSingle();
+            response.Single().HttpRequest.Method.Should().Be("POST");
         }
     }
 }
