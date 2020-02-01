@@ -1,19 +1,62 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 using NinjaTools.FluentMockServer.API.Proxy.Visitors;
+using NinjaTools.FluentMockServer.API.Types;
 
 namespace NinjaTools.FluentMockServer.API.Models
 {
 
     [JsonDictionary]
-    public class Headers : IVisitable, IDictionary<string, string[]>
+    public class Headers : IVisitable, IDictionary<string, string[]>, IContentValidatable, IScoreable, IEquatable<Headers>
     {
-        public Headers()
+        #region IEquality
+
+        /// <inheritdoc />
+        public bool Equals(Headers? other)
         {
-            Header = new Dictionary<string, string[]>();
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Header.Equals(other.Header);
         }
 
+        /// <inheritdoc />
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Headers) obj);
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            return Header.GetHashCode();
+        }
+
+        public static bool operator ==(Headers? left, Headers? right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Headers? left, Headers? right)
+        {
+            return !Equals(left, right);
+        }
+
+        #endregion
+
+        /// <inheritdoc />
+        public bool HasContent() => Header.Any();
+
+        /// <inheritdoc />
+        [JsonIgnore]
+        public int Score => HasContent() ? Header.Count : 0;
+
+        public Headers() => Header = new Dictionary<string, string[]>();
         public IDictionary<string, string[]> Header { get; }
 
         /// <inheritdoc cref="Headers()" />
@@ -32,8 +75,6 @@ namespace NinjaTools.FluentMockServer.API.Models
                 Header.Add(k, v);
         }
 
-
-
         /// <inheritdoc />
         public void Accept(IVisitor visitor)
         {
@@ -42,6 +83,8 @@ namespace NinjaTools.FluentMockServer.API.Models
                 typed.Visit(this);
             }
         }
+
+        #region Implementation of IDictionary
 
         /// <inheritdoc />
         public IEnumerator<KeyValuePair<string, string[]>> GetEnumerator()
@@ -127,5 +170,8 @@ namespace NinjaTools.FluentMockServer.API.Models
 
         /// <inheritdoc />
         public ICollection<string[]> Values => Header.Values;
+
+        #endregion
+
     }
 }
