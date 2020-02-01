@@ -1,15 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.FluentAPI.Builders;
-using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Xunit;
 using Xunit;

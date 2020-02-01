@@ -4,7 +4,6 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Moq;
 using NinjaTools.FluentMockServer.FluentAPI;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
