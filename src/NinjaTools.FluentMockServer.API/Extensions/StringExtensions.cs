@@ -13,6 +13,7 @@ namespace NinjaTools.FluentMockServer.API.Extensions
 
             try
             {
+                // ReSharper disable once ReturnValueOfPureMethodIsNotUsed
                 Regex.Match("", pattern);
             }
             catch (ArgumentException)

@@ -12,7 +12,7 @@ namespace NinjaTools.FluentMockServer.Xunit
     /// <summary>
     /// The InMemory handle to the MockServer Docker Container
     /// </summary>
-    public class MockServerContainer : IDisposable
+    internal class MockServerContainer : IDisposable
     {
         /// <summary>
         /// Gets the Port exposed to the Host.
@@ -104,7 +104,7 @@ namespace NinjaTools.FluentMockServer.Xunit
                         return;
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(100));
                 }

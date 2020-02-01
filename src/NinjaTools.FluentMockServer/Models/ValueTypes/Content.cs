@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
-    public class BinaryContent
+    internal class BinaryContent
     {
         public const string Type = "BINARY";
 

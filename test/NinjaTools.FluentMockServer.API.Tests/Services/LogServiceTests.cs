@@ -23,12 +23,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Services
         {
             repo = new Mock<ILogRepository>();
 
-            if (idGenerator != null)
-            {
-                return new LogService(CreateLogger<LogService>(),repo.Object ,new LogFactory(idGenerator));
-            }
-
-            return new LogService(CreateLogger<LogService>(), repo.Object);
+            return idGenerator != null ? new LogService(CreateLogger<LogService>(),repo.Object ,new LogFactory(idGenerator)) : new LogService(CreateLogger<LogService>(), repo.Object);
         }
 
         public const string Id = "1234";

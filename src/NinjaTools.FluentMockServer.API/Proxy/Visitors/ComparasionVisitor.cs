@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -10,6 +11,7 @@ using Path = NinjaTools.FluentMockServer.API.Models.Path;
 namespace NinjaTools.FluentMockServer.API.Proxy.Visitors
 {
     /// <inheritdoc cref="IVisitor" />
+    [SuppressMessage("ReSharper", "ConvertIfStatementToReturnStatement")]
     public sealed class ComparasionVisitor : IVisitor,
         IVisitor<RequestMatcher>,
         IVisitor<Headers>,

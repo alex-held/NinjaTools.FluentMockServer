@@ -1,8 +1,10 @@
+using JetBrains.Annotations;
 using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Serialization;
 
 namespace NinjaTools.FluentMockServer.FluentAPI
 {
+    [PublicAPI]
     public interface IFluentBodyBuilder : IFluentBuilder<JToken>
     {
         void WithBinary(string base64);

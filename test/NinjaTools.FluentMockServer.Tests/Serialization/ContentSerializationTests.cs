@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Serialization;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -23,13 +24,15 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
         public void Should_Serialize_Binary_Content()
         {
             // Arrange
-            var httpResponse = HttpResponse.Create(
-                body: new BinaryContent("iVBORw0KGgoAAAANSUhEUgAAAqwAAAApCAIAAAB"), 
-                delay: new Delay(TimeUnit.Milliseconds, 50));
-        
+            var httpResponse = new HttpResponse
+            {
+                Body = new BinaryContent("iVBORw0KGgoAAAANSUhEUgAAAqwAAAApCAIAAAB"),
+                Delay = new Delay(TimeUnit.Milliseconds, 50)
+            };
+
             // Act
-            httpResponse.AsJObject();
-            var json = httpResponse.AsJson();
+            Serializer.SerializeJObject(httpResponse);
+            var json = Serializer.Serialize(httpResponse);
             
             Output.WriteLine(json);
 

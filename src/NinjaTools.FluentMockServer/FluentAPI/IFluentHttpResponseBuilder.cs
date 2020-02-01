@@ -8,6 +8,7 @@ namespace NinjaTools.FluentMockServer.FluentAPI
 {
     /// <summary>
     /// </summary>
+    [PublicAPI]
     public interface IFluentHttpResponseBuilder : IFluentInterface
     {
         [NotNull]

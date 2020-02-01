@@ -30,10 +30,7 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
         private static void UseMockServerRouting(this IApplicationBuilder app)
         {
             app.UseRouting();
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
 
         private static void UseMockServerAdminBranch(this IApplicationBuilder app)

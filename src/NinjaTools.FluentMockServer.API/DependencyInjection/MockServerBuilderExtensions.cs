@@ -9,7 +9,7 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
         [NotNull]
         public static IMockServerBuilder AddAdminPath([NotNull] this IMockServerBuilder builder, int port = 1080)
         {
-            builder.Services.Configure<AdminOptions>(opt => { opt.Port = port; });
+            builder.Services.Configure<AdminOptions>(opt => opt.Port = port);
 
             return builder;
         }

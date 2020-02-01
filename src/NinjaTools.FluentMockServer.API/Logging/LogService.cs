@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 using NinjaTools.FluentMockServer.API.Infrastructure;
 using NinjaTools.FluentMockServer.API.Logging.Models;
@@ -26,7 +25,7 @@ namespace NinjaTools.FluentMockServer.API.Logging
         }
 
         /// <inheritdoc />
-        public void Log<T>([NotNull] Func<LogFactory, LogItem<T>> logFactory)
+        public void Log<T>(Func<LogFactory, LogItem<T>> logFactory)
         {
             var logItem = logFactory(_factory);
             _logger.LogInformation(logItem.ToFormattedString());

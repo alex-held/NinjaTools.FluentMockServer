@@ -6,7 +6,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace NinjaTools.FluentMockServer.Serialization
 {
-    public class ContractResolver : CamelCasePropertyNamesContractResolver
+    internal class ContractResolver : CamelCasePropertyNamesContractResolver
     {
         private static readonly Lazy<ContractResolver> Lazy = new Lazy<ContractResolver>(() => new ContractResolver());
 

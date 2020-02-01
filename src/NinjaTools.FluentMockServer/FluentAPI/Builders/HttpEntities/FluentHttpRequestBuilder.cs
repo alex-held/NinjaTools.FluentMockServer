@@ -17,10 +17,9 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities
         [CanBeNull] private string _path;
         private bool? _secure;
         private bool? _keepAlive;
-        
-        // TODO: Add Builder Methods
-        // ReSharper disable once UnusedAutoPropertyAccessor.Local
-        [CanBeNull] private Dictionary<string, string> Cookies { get; set; }
+
+        [CanBeNull]
+        private Dictionary<string, string> Cookies { get; }
 
         /// <inheritdoc />
         public IFluentHttpRequestBuilder WithMethod(HttpMethod method)

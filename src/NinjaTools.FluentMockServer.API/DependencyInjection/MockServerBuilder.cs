@@ -29,7 +29,7 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
             Services.TryAddSingleton<ILogRepository, LogRepository>();
 
             MvcCoreBuilder = Services
-                .AddMvcCore(options => { options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true; })
+                .AddMvcCore(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true)
                 .AddControllersAsServices()
                 .AddAuthorization()
                 .AddNewtonsoftJson(opt =>

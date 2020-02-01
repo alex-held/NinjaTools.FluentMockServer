@@ -67,7 +67,7 @@ namespace NinjaTools.FluentMockServer.API.Logging.Models
                 var header = FormatHeader();
                 return header;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return GetType().Name;
             }

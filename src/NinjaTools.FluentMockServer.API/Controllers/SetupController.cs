@@ -37,7 +37,7 @@ namespace NinjaTools.FluentMockServer.API.Controllers
         /// Configures a new <see cref="Setup"/> on the Mock-Server.
         /// </summary>
         /// <param name="setup"></param>
-        /// <returns>The configured <see cref="Setup"./></returns>
+        /// <returns>The configured <see cref="Setup"/></returns>
         [HttpPost("create")]
         public Task<Setup> Create([NotNull] Setup setup)
         {

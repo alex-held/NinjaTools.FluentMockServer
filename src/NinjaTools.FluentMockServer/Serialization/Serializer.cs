@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace NinjaTools.FluentMockServer.Serialization
 {
-    public static class Serializer
+    internal static class Serializer
     {
         private static Lazy<ProxySerializer> _lazy = new Lazy<ProxySerializer>(() => new ProxySerializer());
 

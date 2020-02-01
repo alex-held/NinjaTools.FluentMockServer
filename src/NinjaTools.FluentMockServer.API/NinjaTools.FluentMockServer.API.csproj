@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <Nullable>warnings</Nullable>
+        <Nullable>enable</Nullable>
         <LangVersion>Preview</LangVersion>
         <AssemblyVersion>1.0.0</AssemblyVersion>
         <FileVersion>1.0.0</FileVersion>
@@ -10,7 +10,7 @@
 
     
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DocumentationFile>bin\Release\NinjaTools.FluentMockServer.API.xml</DocumentationFile>
+        <DocumentationFile>bin\Release\NinjaTools.FluentMockServer.API.xml</DocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -27,6 +27,10 @@
       <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.1" />
       <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.1" />
       <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.1" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.0" />
+      <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="3.1.0" />
       <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.1" />
       <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />

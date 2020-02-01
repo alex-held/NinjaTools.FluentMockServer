@@ -2,13 +2,16 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using NinjaTools.FluentMockServer.Utils;
 using Xunit;
 
 namespace NinjaTools.FluentMockServer.Xunit
 {
+    /// <inheritdoc cref="IAsyncLifetime" />
     /// <summary>
-    /// An <see cref="IClassFixture{MockServerFixture}"/> exposing a <see cref="MockServerClient"/>.
+    /// An <see cref="T:Xunit.IClassFixture`1" /> exposing a <see cref="T:NinjaTools.FluentMockServer.MockServerClient" />.
     /// </summary>
+    [PublicAPI]
     public class MockServerFixture : IDisposable, IAsyncLifetime
     {
         /// <summary>
@@ -37,7 +40,7 @@ namespace NinjaTools.FluentMockServer.Xunit
         /// Handle to the <see cref="MockServerContainer"/>.
         /// </summary>
         [NotNull]
-        protected MockServerContainer Container { get; }
+        internal MockServerContainer Container { get; }
          
         /// <summary>
         ///
@@ -45,7 +48,7 @@ namespace NinjaTools.FluentMockServer.Xunit
         public MockServerFixture()
         {
             Container = new MockServerContainer();
-            MockClient = new MockServerClient(Container.MockServerBaseUrl);
+            MockClient = new MockServerClient(Container.MockServerBaseUrl, MockServerTestLogger.Instance);
         }
         
         /// <inheritdoc />

@@ -4,14 +4,16 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Newtonsoft.Json;
-using NinjaTools.FluentMockServer.Extensions;
+using Moq;
 using NinjaTools.FluentMockServer.FluentAPI;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
+using NinjaTools.FluentMockServer.Serialization;
 using NinjaTools.FluentMockServer.Tests.TestHelpers.Mocks;
+using NinjaTools.FluentMockServer.Utils;
 using Xunit;
 using Xunit.Abstractions;
+using Times = NinjaTools.FluentMockServer.Models.ValueTypes.Times;
 
 namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
 {
@@ -36,30 +38,14 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
             // Act
             fac(builder);
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.AsJson(); 
+            var result = Serializer.Serialize(expectation);
             
             // Assert
             _outputHelper.WriteLine(result);
             result.Should()
                     .MatchRegex(@"(?m)\s*""times"":\s*\{\s*""remainingTimes"":\s*1,\s*""unlimited"":\s*false\s*}");
         }
-        
-        [Fact]
-        public void Should_Set_BaseUrl()
-        {
-            // Arrange
-            const string baseUrl = "http://example.com";
-            var builder = new FluentExpectationBuilder();
-            builder.WithBaseUrl(baseUrl);
-            
-            // Act
-            var setup = builder.Setup();
-            
-            // Assert
-            _outputHelper.WriteLine(JsonConvert.SerializeObject(setup, Formatting.Indented));
-            setup.BaseUrl.Should().Be(baseUrl);
-        }
-        
+
         [Fact]
         public void Should_Set_Times_Always()
         {
@@ -70,7 +56,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
                 .Setup();
             
             // Act
-            var result =   setup .Expectations.First().AsJson();
+            var result = Serializer.Serialize(setup.Expectations.First());
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -88,7 +74,8 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
             var builder = new FluentExpectationBuilder();
             
             // Act
-            var result = builder.RespondTimes(times, 200).Setup().Expectations.First().AsJson();
+            var result = Serializer.Serialize((builder
+                    .RespondTimes(times, 200).Setup().Expectations.First()));
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -104,14 +91,13 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
             var builder = new FluentExpectationBuilder();
             
             // Act
-            var result = builder
+            var result = Serializer.Serialize(builder
                 .OnHandlingAny()
                 .RespondWith(HttpStatusCode.OK)
                 .WhichIsValidFor(10)
                 .Setup()
-                .Expectations.First()
-                .AsJson();
-            
+                .Expectations.First());
+
             // Assert
             _outputHelper.WriteLine(result);
             result.Should().MatchRegex(@"(?m)\s*""timeToLive"":\s*\{\s*""timeUnit"":\s*""SECONDS""\s*,\s*""timeToLive"":\s*10\s*,\s*""unlimited""\s*:\s*false\s*}");
@@ -129,7 +115,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
             
             // Act
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.AsJson();
+            var result = Serializer.Serialize(expectation);
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -148,7 +134,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
             
             // Act
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.AsJson();
+            var result = Serializer.Serialize(expectation);
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -168,7 +154,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
             builder.OnHandling(new HttpMethod(method))
                 .RespondWith(HttpStatusCode.Created);
             var expectation = builder.Setup().Expectations.First();
-            var result = expectation.AsJson();
+            var result = Serializer.Serialize(expectation);
             
             // Assert
             _outputHelper.WriteLine(result);
@@ -180,7 +166,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
         {
             // Arrange
             var handler = new MockHandler(_outputHelper);
-            var mockServerClient = new MockServerClient(new HttpClient(handler));
+            var mockServerClient = new MockServerClient(new HttpClient(handler),"http://localhost:9000" , Mock.Of<IMockServerLogger>());
             
             // Act
             await mockServerClient.SetupAsync(

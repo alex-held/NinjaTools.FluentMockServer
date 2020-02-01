@@ -34,7 +34,6 @@ namespace NinjaTools.FluentMockServer.API.Configuration
         [YamlIgnore]
         public ConfigurationFileType? FileType { get; }
 
-        [NotNull]
         [Required]
         [JsonRequired]
         public ConfigurationCollection Configurations { get; }

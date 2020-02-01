@@ -11,7 +11,6 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders
     {
         private HttpRequest _httpRequest;
         private VerificationTimes _verificationTimes;
-            
 
         /// <inheritdoc />
         [NotNull]
@@ -31,6 +30,11 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders
             return this;
         }
 
+        /// <inheritdoc />
+        public void AtLeastOnce()
+        {
+            _verificationTimes = VerificationTimes.MoreThan(1);
+        }
 
         /// <inheritdoc />
         public void AtLeast(int value)
