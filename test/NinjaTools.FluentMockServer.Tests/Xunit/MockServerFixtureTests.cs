@@ -31,7 +31,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
             // Arrange
            await MockClient.SetupAsync(exp =>
                     exp.OnHandling(HttpMethod.Get, req => req.WithPath("/test"))
-                        .RespondOnce(201, resp => resp.WithDelay(50, TimeUnit.Milliseconds))
+                        .RespondOnce(HttpStatusCode.Created, resp => resp.WithDelay(50, TimeUnit.Milliseconds))
                         .Setup());
             // Act
             await MockClient.ResetAsync();
@@ -49,7 +49,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
             // Arrange
             await MockClient.SetupAsync(exp =>
                 exp.OnHandling(HttpMethod.Get, req => req.WithPath("/test"))
-                    .RespondOnce(201, resp => resp.WithDelay(50, TimeUnit.Milliseconds))
+                    .RespondOnce(HttpStatusCode.Created, resp => resp.WithDelay(50, TimeUnit.Milliseconds))
                     .Setup());
 
             var response = await HttpClient.GetAsync("test");
@@ -90,7 +90,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
             // Arrange
             await MockClient.SetupAsync(exp =>
                     exp.OnHandling(HttpMethod.Get, req => req.WithPath("/test"))
-                        .RespondOnce(201, resp => resp.WithDelay(50, TimeUnit.Milliseconds))
+                        .RespondOnce(HttpStatusCode.Created, resp => resp.WithDelay(50, TimeUnit.Milliseconds))
                         .Setup());
 
                 await HttpClient.GetAsync("test");

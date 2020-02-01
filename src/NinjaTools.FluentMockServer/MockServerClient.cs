@@ -83,7 +83,7 @@ namespace NinjaTools.FluentMockServer
             var builder = new FluentExpectationBuilder(new MockServerSetup());
             var setup = setupFactory(builder);
 
-            return SetupAsync(setup);
+            return SetupInternal(setup);
         }
 
 
@@ -96,15 +96,16 @@ namespace NinjaTools.FluentMockServer
             var builder = new FluentExpectationBuilder(new MockServerSetup());
             setupFactory(builder);
             var setup = builder.Setup();
-            return SetupAsync(setup);
+            return SetupInternal(setup);
         }
 
 
         /// <summary>
         ///     Configures the MockServer Client using a predefined <see cref="MockServerSetup" />.
         /// </summary>
+        /// <exception cref="MockServerOperationFailedException">Cannot establish connecct</exception>
         /// <param name="setup"> </param>
-        public async Task SetupAsync(MockServerSetup setup)
+        private async Task SetupInternal(MockServerSetup setup)
         {
             foreach (var request in setup.Expectations.Select(GetExpectationMessage))
             {
