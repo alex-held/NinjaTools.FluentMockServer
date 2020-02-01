@@ -20,7 +20,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
         {
         }
 
-        public MockServerClient MockedServer => Fixture.MockClient;
+        public MockServerClient MockedServer => MockClient;
 
         [Fact]
         public async Task Should_Setup_Expectation_With_Xml_Body_When_Setup_Using_Predefined_Setup()

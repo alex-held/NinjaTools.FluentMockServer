@@ -14,6 +14,10 @@ namespace NinjaTools.FluentMockServer.Xunit
     /// </summary>
     internal class MockServerContainer : IDisposable
     {
+        public const string Prefix = "NinjaTools-FluentMockServer";
+        public const string Suffix = "netcore-xunit-background-runner";
+        public static string ContainerName = $"{Prefix}-{Suffix}";
+
         /// <summary>
         /// Gets the Port exposed to the Host.
         /// </summary>
@@ -55,13 +59,29 @@ namespace NinjaTools.FluentMockServer.Xunit
 
         public MockServerContainer()
         {
-            HostPort = GetAvailablePort(3000);
+            var hosts = new Hosts().Discover(true);
+            var docker = hosts.FirstOrDefault(x => x.IsNative) ?? hosts.FirstOrDefault(x => x.Name == "default");
 
-            ContainerService = new Builder()
-                .UseContainer()
-                .UseImage(ContainerImage)
-                .ExposePort(HostPort, ContainerPort)
-                .Build();
+            if (docker?.GetRunningContainers().FirstOrDefault(c => c.Name == ContainerName) is {} container)
+            {
+                ContainerService = container;
+                if (ContainerService.GetConfiguration().NetworkSettings.Ports.TryGetValue("1080/tcp", out var endpoints))
+                {
+                    HostPort = int.Parse(endpoints.First().HostPort);
+                }
+            }
+            else
+            {
+                HostPort = GetAvailablePort(3000);
+
+                ContainerService = new Builder()
+                    .UseContainer()
+                    .ReuseIfExists()
+                    .WithName(ContainerName)
+                    .UseImage(ContainerImage)
+                    .ExposePort(HostPort, ContainerPort)
+                    .Build();
+            }
         }
 
 
@@ -117,10 +137,10 @@ namespace NinjaTools.FluentMockServer.Xunit
         /// <summary>
         /// Starts the MockServer.
         /// </summary>
-        public async Task StartAsync()
+        public Task StartAsync()
         {
             ContainerService.Start();
-            await WaitUntilContainerStarted();
+            return WaitUntilContainerStarted();
         }
 
         /// <summary>
@@ -135,7 +155,6 @@ namespace NinjaTools.FluentMockServer.Xunit
         /// <inheritdoc />
         public void Dispose()
         {
-            ContainerService.Dispose();
         }
     }
 }

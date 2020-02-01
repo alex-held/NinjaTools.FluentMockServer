@@ -37,13 +37,31 @@ namespace NinjaTools.FluentMockServer
     {
         private readonly IMockServerLogger _logger;
 
+        [NotNull]
+        public HttpClient HttpClient
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Context))
+                {
+                    _httpClient.DefaultRequestHeaders.Add(HttpExtensions.MockContextHeaderKey, Context);
+                }
+
+                return _httpClient;
+            }
+        }
+
+        private readonly HttpClient _httpClient;
+
+        public string? Context { get; internal set; }
+
         public MockServerClient([NotNull] HttpClient client, [NotNull] string hostname, [NotNull] IMockServerLogger logger, string? context = null)
         {
             _logger = logger;
             client.BaseAddress = new Uri(hostname);
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Host = null;
-            HttpClient = client;
+            _httpClient = client;
             Context = context;
         }
 
@@ -52,10 +70,6 @@ namespace NinjaTools.FluentMockServer
             : this(new HttpClient(), mockServerEndpoint, logger, context)
         {
         }
-
-        public HttpClient HttpClient { get; }
-
-        public string? Context { get; }
 
 
         /// <summary>
