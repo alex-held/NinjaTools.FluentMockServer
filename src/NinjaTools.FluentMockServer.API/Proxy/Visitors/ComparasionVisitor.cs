@@ -101,16 +101,19 @@ namespace NinjaTools.FluentMockServer.API.Proxy.Visitors
             if (HttpRequest.Headers is null && visitable.Header.EnsureNotNullNotEmpty() is { })
                 return Fail();
 
-            var success = visitable.Header.Where(v =>
-            {
-                if (!HttpContext.Request.Headers.TryGetValue(v.Key, out var value))
-                    return false;
+            var success = visitable.Header
+                .Select(h =>
+                {
+                    if (!HttpContext.Request.Headers.TryGetValue(h.Key, out var value))
+                        return 0;
 
-                return !value.Except(v.Value).Any();
+                    return !value.Except(h.Value).Any() ? 1 : 0;
+                })
+                .Sum();
 
-            }).Any();
-
-            return success ? Pass() : Fail();
+            return success > 0
+                ? success
+                : Fail();
         }
 
 

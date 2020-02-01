@@ -70,6 +70,32 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             score.Should().Be(isValid ? 1 : 0);
         }
 
+        [Fact]
+        public void Score_Should_Be_5_When_5_Headers_Match()
+        {
+            // Arrange
+            var headers = new Dictionary<string, string[]>
+            {
+                {"a", new []{"a"}},
+                {"b", new []{"b"}},
+                {"c", new []{"c"}},
+                {"d", new []{"d"}},
+                {"e", new []{"e"}},
+            };
+
+            var compare = new Headers(headers);
+            var context = CreateContext(headers: headers);
+            var subject = new ComparasionVisitor(context);
+
+            // Act
+            var score = subject.Visit(compare);
+
+            // Assert
+            subject.IsSuccess.Should().BeTrue();
+            score.Should().Be(5);
+        }
+
+
         [ItemNotNull]
         public static IEnumerable<object[]> GetHeaderTestData()
         {
