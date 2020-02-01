@@ -185,6 +185,22 @@ namespace NinjaTools.FluentMockServer
             return setups;
         }
 
+        /// <summary>
+        /// Retrieves a list of active <see cref="HttpRequest"/> from the MockServer.
+        /// <exception cref="MockServerOperationFailedException" />
+        /// </summary>
+        [PublicAPI]
+        [ItemNotNull]
+        public async Task<IReadOnlyList<HttpRequest>> ListRequestsAsync()
+        {
+            var requestMessage = new HttpRequestMessage(HttpMethod.Put, "mockserver/retrieve?type=REQUESTS");
+            var response = await HttpClient.SendAsync(requestMessage);
+            response.EnsureSuccessfulMockServerOperation();
+            var stringContent = await response.Content.ReadAsStringAsync();
+            var setups = Serializer.Deserialize<List<HttpRequest>>(stringContent);
+            return setups;
+        }
+
 
         /// <inheritdoc />
         public void Dispose()

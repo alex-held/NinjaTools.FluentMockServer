@@ -31,5 +31,41 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
             // Assert
             response.Should().ContainSingle().Subject.HttpRequest.Method.Should().Be("PATCH");
         }
+
+
+        [Fact]
+        public async Task ListRequestsAsync_Returns_All_Requests_The_MockServer_Received()
+        {
+            // Arrange
+            await HttpClient.GetAsync("a");
+            await HttpClient.PostAsync("b", new JsonContent(new
+            {
+                Type = "Request",
+                Value = 1
+            }));
+            await HttpClient.GetAsync("c");
+
+            // Act
+            var response = await MockClient.ListRequestsAsync();
+
+            // Assert
+            response.Should().HaveCount(3);
+
+            var a = response.First();
+            a.Path.Should().Be("/a");
+            a.Method.Should().Be("GET");
+
+            var b  = response.ElementAt(1);
+            Dump(b, "B");
+            b.Path.Should().Be("/b");
+            b.Method.Should().Be("POST");
+            b.Body.Value<string>("type").Should().Be("STRING");
+            var bodyValue = b.Body.Value<string>("string");
+            bodyValue.Should().Be("{\n  \"type\": \"Request\",\n  \"value\": 1\n}");
+
+            var c  = response.Last();
+            c.Path.Should().Be("/c");
+            c.Method.Should().Be("GET");
+        }
     }
 }
