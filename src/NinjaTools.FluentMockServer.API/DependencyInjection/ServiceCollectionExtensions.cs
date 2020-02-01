@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.IO.Abstractions;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using NinjaTools.FluentMockServer.API.Configuration;
-using NinjaTools.FluentMockServer.API.Services;
+using NinjaTools.FluentMockServer.API.Logging;
 using NinjaTools.FluentMockServer.API.Types;
 
 namespace NinjaTools.FluentMockServer.API.DependencyInjection
@@ -16,35 +17,29 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
     public static class ServiceCollectionExtensions
     {
         [NotNull]
-        public static IMockServerBuilder AddMockServer([NotNull] this IServiceCollection services, [NotNull] IConfiguration configuration)
-        {
-            return new MockServerBuilder(services, configuration);
-        }
-
-        [NotNull]
         public static IMockServerBuilder AddMockServer([NotNull] this IServiceCollection services)
         {
             var config = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-            return AddMockServer(services, config);
+            return new MockServerBuilder(services, config);
         }
 
-
-
+        [NotNull]
         internal static IServiceCollection AddInitializers(this IServiceCollection services)
         {
             services.TryAddSingleton<IStartupInitializer>(sp =>
             {
-                var logger = sp.GetRequiredService<ILogger<StartupInitializer>>();
-                var startupInitializer = new StartupInitializer(logger);
+                var logger = sp.GetRequiredService<ILoggerFactory>();
+                var startupInitializer = new StartupInitializer(logger.CreateLogger<StartupInitializer>());
 
                 startupInitializer.AddInitializer(new ConfigurationInitializer(sp.GetRequiredService<IConfigurationService>()));
+                startupInitializer.AddInitializer(new LoggingInitializer(new FileSystem()));
                 return startupInitializer;
             });
 
             return services;
         }
 
-
+        [NotNull]
         public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
             return services.AddSwaggerGen(o =>

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using FluentAssertions;
-using Microsoft.Extensions.Options;
 using NinjaTools.FluentMockServer.API.Configuration;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;
@@ -12,15 +11,9 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
 {
     public class ConfigurationProviderTests : XUnitTestBase<ConfigurationProviderTests>
     {
-        private static IOptions<MockServerOptions> GetOptions(string configFilePath = "/etc/mock-server/config") => Options.Create(new MockServerOptions
-        {
-            ConfigFilePath = configFilePath
-        });
-
         /// <inheritdoc />
         public ConfigurationProviderTests(ITestOutputHelper output) : base(output)
-        {
-        }
+        { }
 
 
         [Fact]
@@ -52,7 +45,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
       Content-Length:
         - 105
 ")}});
-            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>(), GetOptions());
+            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>());
 
             // Act
             var configurations = sut.GetConfigFiles().ToArray();
@@ -72,13 +65,14 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
             configurations[1].Configurations.Should().HaveCount(2);
             var setupB = configurations[1].Configurations.First();
             setupB.Action.Response.StatusCode.Should().Be(201);
-            setupB.Matcher.Path.Should().Be("/some/path");
-            setupB.Matcher.Method.Should().Be("POST");
+            setupB.Matcher.Path.ToPath().Should().Be("/some/path");
+            setupB.Matcher.Method.MethodString.Should().Be("POST");
 
 
             var setupC = configurations[1].Configurations.ElementAt(1);
-            setupC.Matcher.Headers.Should().HaveCount(2);
-            setupC.Matcher.Path.Should().Be("/");
+              Dump(setupC, "Setup - C");
+            setupC.Matcher.Headers.Header.Should().HaveCount(2);
+            setupC.Matcher.Path.ToPath().Should().Be("/");
             setupC.Action.Should().BeNull();
         }
 
@@ -132,7 +126,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
   }
 ]
 ")}});
-            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>(), GetOptions());
+            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>());
 
             // Act
             var configurations = sut.GetConfigFiles().ToArray();
@@ -152,20 +146,20 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
             configurations[1].Configurations.Should().HaveCount(2);
             var setupB = configurations[1].Configurations.First();
             setupB.Action.Response.StatusCode.Should().Be(201);
-            setupB.Matcher.Path.Should().Be("/some/path");
-            setupB.Matcher.Method.Should().Be("POST");
+            setupB.Matcher.Path.ToPath().Should().Be("/some/path");
+            setupB.Matcher.Method.MethodString.Should().Be("POST");
 
 
             var setupC = configurations[1].Configurations.ElementAt(1);
-            setupC.Matcher.Headers.Should().HaveCount(2);
-            setupC.Matcher.Path.Should().Be("/");
+            setupC.Matcher.Headers.Header.Should().HaveCount(2);
+            setupC.Matcher.Path.ToPath().Should().Be("/");
             setupC.Action.Should().BeNull();
         }
 
 
         public static IEnumerable<object[]> GetFakeFileSystemConfigData()
         {
-            var directory = @"/etc/mock-server/config";
+            var directory = "/etc/mock-server/config";
 
             yield return new object[]
             {

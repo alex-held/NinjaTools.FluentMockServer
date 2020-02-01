@@ -93,10 +93,12 @@ namespace NinjaTools.FluentMockServer.Tests.TestHelpers.Data.TheoryData
 
             // 2) The RequestBody
             var faker = new Faker<HttpRequest>()
-                .CustomInstantiator(f => HttpRequest.Create(
-                    method: f.Internet.RandomHttpMethod().ToString(),
-                    path: f.Internet.UrlWithPath(),
-                    body: GetRandomRequestBody()));
+                .CustomInstantiator(f => new HttpRequest
+                {
+                    Method = f.Internet.RandomHttpMethod().ToString(),
+                    Path = f.Internet.UrlWithPath(),
+                    Body = GetRandomRequestBody()
+                });
 
             return faker.Generate();
         }

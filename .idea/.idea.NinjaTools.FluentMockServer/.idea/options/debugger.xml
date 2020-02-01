@@ -1,0 +1,32 @@
+<application>
+    <component name="XDebuggerSettings">
+        <data-views>
+            <option name="showLibraryStackFrames" value="false" />
+            <option name="valueLookupDelay" value="150" />
+        </data-views>
+        <general>
+            <confirm-breakpoint-removal>true</confirm-breakpoint-removal>
+            <option name="hideDebuggerOnProcessTermination" value="true" />
+            <scroll-to-center>true</scroll-to-center>
+        </general>
+        <debuggers>
+            <debugger id="dotnet_debugger">
+                <configuration>
+                    <option name="breakOnUserUnhandledExceptions" value="true" />
+                    <option name="processExceptionsOutsideMyCode" value="true" />
+                    <option name="showFullyQualifiedTypeNames" value="true" />
+                </configuration>
+            </debugger>
+            <debugger id="javascript">
+                <configuration>
+                    <custom-object-presentation />
+                </configuration>
+            </debugger>
+            <debugger id="oracle">
+                <configuration>
+                    <option name="steppingPauseAtBegin" value="true" />
+                </configuration>
+            </debugger>
+        </debuggers>
+    </component>
+</application>

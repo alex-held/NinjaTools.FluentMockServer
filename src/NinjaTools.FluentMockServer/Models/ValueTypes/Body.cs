@@ -1,42 +1,13 @@
-using System;
-using System.Linq;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
-    public partial class  Body
+    [PublicAPI]
+    public class Body : JObject
     {
-        /// <inheritdoc />
-        public override bool Equals(object obj)
-        {
-            if (!(obj is Body other))
-            {
-                return false;
-            }
-            
-            if (!Children().Any() && !other.Children().Any())
-            {
-                return true;
-            }
-
-            var equals = JToken.DeepEquals(this, other);
-            return equals;
-        }        
-
-        /// <inheritdoc />
-        public override int GetHashCode()
-        {
-           var hashCode =  new JTokenEqualityComparer().GetHashCode(this);
-           return hashCode;
-        }
-    }
-    [Serializable]
-    public partial class Body : JObject
-    {
-     
-
         /// <inheritdoc />
         [JsonConverter(typeof(StringEnumConverter))]
         public enum BodyType

@@ -3,48 +3,38 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using NinjaTools.FluentMockServer.API.Logging;
 using NinjaTools.FluentMockServer.API.Models;
+using NinjaTools.FluentMockServer.API.Serialization.Converters;
 using YamlDotNet.Serialization;
 
 namespace NinjaTools.FluentMockServer.API.Configuration
 {
-    /// <summary>
-    /// Runtime options for the MockServer
-    /// </summary>
-    public class MockServerOptions
-    {
-        public string ConfigFilePath { get; set; } = "/etc/mock-server/config/";
-    }
 
     public interface IConfigFileProvider
     {
         IEnumerable<IConfigFile> GetConfigFiles();
     }
 
-   public class ConfigFileProvider : IConfigFileProvider
+    public class ConfigFileProvider : IConfigFileProvider
     {
         private readonly IFileSystem _fs;
         private readonly ILogger<ConfigFileProvider> _logger;
-        private readonly MockServerOptions _options;
 
-        public ConfigFileProvider(IFileSystem fs, ILogger<ConfigFileProvider> logger, IOptions<MockServerOptions> options)
+        public ConfigFileProvider(IFileSystem fs, ILogger<ConfigFileProvider> logger)
         {
             _fs = fs;
             _logger = logger;
-            _options = options.Value;
         }
 
-        public ConfigFileProvider( ILogger<ConfigFileProvider> logger, IOptions<MockServerOptions> options)
-            : this(new FileSystem(), logger, options)
-        {
-        }
+        public ConfigFileProvider(ILogger<ConfigFileProvider> logger) : this(new FileSystem(), logger)
+        { }
 
 
         public IEnumerable<IConfigFile> GetConfigFiles()
         {
-            var rootDirectory = _options.ConfigFilePath;
+            var rootDirectory = MockServerPaths.Configs;
             var files = _fs.Directory.GetFiles(rootDirectory, "*", SearchOption.AllDirectories);
 
             foreach (var file in files)
@@ -65,18 +55,24 @@ namespace NinjaTools.FluentMockServer.API.Configuration
             }
         }
 
-        private  ConfigFile ParseJson(string path)
+        private ConfigFile ParseJson(string path)
         {
-            var jo = JArray.Parse(_fs.File.ReadAllText(path));
-            var setups = jo.ToObject<List<Setup>>();
-
+            var text = _fs.File.ReadAllText(path);
+            var setups = JsonConvert.DeserializeObject<List<Setup>>(text);
             return new ConfigFile(path, setups.ToArray());
         }
 
-        private  IConfigFile ParseYaml(string path)
+        private IConfigFile ParseYaml(string path)
         {
             using var reader = new StringReader(_fs.File.ReadAllText(path));
-            var deserializer = new DeserializerBuilder().Build();
+
+            var deserializer = new DeserializerBuilder()
+                .IgnoreFields()
+                .IgnoreUnmatchedProperties()
+                .WithTypeConverter(new MethodConverter())
+                .WithTypeConverter(new HeadersConverter())
+                .WithTypeConverter(new PathConverter())
+                .Build();
 
             var setups = deserializer.Deserialize<List<Setup>>(reader);
             return new ConfigFile(path, setups.ToArray());

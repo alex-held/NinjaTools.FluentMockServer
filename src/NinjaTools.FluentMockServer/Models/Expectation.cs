@@ -10,32 +10,29 @@ namespace NinjaTools.FluentMockServer.Models
     ///     Model to set up an Expectation on the MockServer.
     /// </summary>
     [JsonConverter(typeof(ExpectationConverter))]
-    public partial class Expectation
+    [PublicAPI]
+    public class Expectation
     {
-        private Expectation()
-        {
-        }
-        
+        [JsonIgnore]
+        public MockContext? Context { get; set; }
+
         [JsonConstructor]
         public Expectation(
-            [CanBeNull] HttpRequest httpRequest,
-            [CanBeNull] HttpResponse httpResponse,
-            [CanBeNull] HttpTemplate httpResponseTemplate, 
-            [CanBeNull] HttpForward httpForward,
-            [CanBeNull] HttpTemplate httpForwardTemplate,
-            [CanBeNull] HttpError httpError,
-            [CanBeNull] Times times,
-            [CanBeNull] LifeTime timeToLive)
+            HttpRequest? httpRequest,
+            HttpResponse? httpResponse,
+            HttpError? httpError,
+            Times? times,
+            LifeTime? timeToLive,
+            MockContext? context)
         {
             HttpRequest = httpRequest;
             HttpResponse = httpResponse;
-            HttpResponseTemplate = httpResponseTemplate;
-            HttpForward = httpForward;
-            HttpForwardTemplate = httpForwardTemplate;
             HttpError = httpError;
             Times = times;
             TimeToLive = timeToLive;
+            Context = context;
         }
+
 
         /// <summary>
         ///     The <see cref="HttpRequest" /> to match.
@@ -46,15 +43,6 @@ namespace NinjaTools.FluentMockServer.Models
         ///     The <see cref="HttpResponse" /> to respond with.
         /// </summary>
         public HttpResponse HttpResponse { get; private set;}
-
-        public HttpTemplate HttpResponseTemplate { get; private set;}
-
-        /// <summary>
-        ///     The Target specification to forward the matched <see cref="HttpRequest" /> to.
-        /// </summary>
-        public HttpForward HttpForward { get; private set;}
-
-        public HttpTemplate HttpForwardTemplate { get; private set;}
 
         /// <summary>
         ///     An <see cref="HttpError" /> to respond with in case the <see cref="HttpRequest" /> has been matched.

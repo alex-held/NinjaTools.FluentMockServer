@@ -11,6 +11,7 @@ pr: none
 variables:
   sdkVersion: "3.1.100"
   buildConfiguration: "Release"
+  projects: "src/**/*.csproj"
 
 jobs:
   - job: Pack
@@ -27,23 +28,15 @@ jobs:
           projects: "src/**/*.csproj"
           arguments: "--configuration $(buildConfiguration)"
       - task: DotNetCoreCLI@2
-        condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
-        displayName: "Stable"
         inputs:
-          command: "pack"
-          packagesToPack: "**/*.csproj"
-          packDirectory: "$(Build.ArtifactStagingDirectory)/packages/releases"
-          nobuild: true
-          versioningScheme: "off"
+          command: 'custom'
+          custom: 'tool'
+          arguments: 'install -g dotnet-script'
       - task: DotNetCoreCLI@2
-        displayName: "Prerelease"
-        condition: and(succeeded(), ne(variables['Build.SourceBranch'], 'refs/heads/master'))
         inputs:
-          command: "pack"
-          packagesToPack: "**/*.csproj"
-          packDirectory: "$(Build.ArtifactStagingDirectory)/packages/prereleases"
-          arguments: "--configuration $(buildConfiguration)"
-          buildProperties: 'VersionSuffix="$(Build.BuildNumber)"'
+          command: 'custom'
+          custom: 'script'
+          arguments: "/build/build.csx pack $(Build.BuildNumber) $(Build.ArtifactStagingDirectory)/packages/releases"
       - publish: "$(Build.ArtifactStagingDirectory)/packages"
         artifact: "packages"
         condition: succeeded()
@@ -57,7 +50,7 @@ jobs:
       - download: current
         artifact: "packages"
       - task: NuGetCommand@2
-        displayName: "Publish Prerelease NuGet Package"
+        displayName: "Publish NuGet Package"
         inputs:
           command: "push"
           packagesToPush: "$(Pipeline.Workspace)/packages/**/*.nupkg"

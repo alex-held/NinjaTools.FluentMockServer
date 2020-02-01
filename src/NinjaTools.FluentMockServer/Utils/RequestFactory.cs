@@ -5,14 +5,14 @@ using NinjaTools.FluentMockServer.Serialization;
 
 namespace NinjaTools.FluentMockServer.Utils
 {
-    public static class MockServerEndpoints
+    internal static class MockServerEndpoints
     {
         public const string Expectations = "mockserver/expectation";
         public const string Reset  = "mockserver/reset";
         public const string Verify  = "mockserver/verify";
     }
     
-    public static class RequestFactory
+    internal static class RequestFactory
     {
         
         [NotNull]

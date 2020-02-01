@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using Microsoft.Extensions.Logging;
 
 namespace NinjaTools.FluentMockServer.API.Types
@@ -27,7 +26,7 @@ namespace NinjaTools.FluentMockServer.API.Types
         }
 
         /// <inheritdoc />
-        public void AddInitializer<TInitializer>([NotNull] TInitializer initializer) where TInitializer : class, IInitializer
+        public void AddInitializer<TInitializer>(TInitializer initializer) where TInitializer : class, IInitializer
         {
             if (_initializers.Contains(initializer))
             {

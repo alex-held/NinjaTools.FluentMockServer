@@ -10,7 +10,7 @@ using NinjaTools.FluentMockServer.Models;
 
 namespace NinjaTools.FluentMockServer.Serialization
 {
-    public class ExpectationConverter : JsonConverter<Expectation>
+    internal class ExpectationConverter : JsonConverter<Expectation>
     {
         private static readonly object Sync = new object();
 
@@ -78,15 +78,6 @@ namespace NinjaTools.FluentMockServer.Serialization
                     Console.WriteLine(e);
                 }
             }
-//            if (token.SelectToken("httpRequest", false) is {} httpRequest)
-//                try
-//                {
-//                    expectation.HttpRequest = httpRequest.ToObject<HttpRequest>();
-//                }
-//                catch (Exception e)
-//                {
-//                    Console.WriteLine(e);
-//                }
 
             return expectation;
         }

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 namespace NinjaTools.FluentMockServer.Serialization
 {
     /// <inheritdoc />
-    public class JsonConfig : JsonSerializerSettings
+    internal class JsonConfig : JsonSerializerSettings
     {
         public static readonly JsonConfig Instance = new JsonConfig();
 

@@ -8,13 +8,11 @@ namespace NinjaTools.FluentMockServer.API.Configuration
 {
 
     [JsonArray(AllowNullItems = false)]
-    [DebuggerDisplay("{DebuggerDisplay(), nq}")]
+    [DebuggerDisplay("{DebuggerDisplay()}")]
     public class ConfigurationCollection : List<Setup>
     {
         public ConfigurationCollection()
-        {
-
-        }
+        { }
 
         public ConfigurationCollection(params Setup[]? setups) : this()
         {

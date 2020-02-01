@@ -81,7 +81,7 @@ namespace NinjaTools.FluentMockServer.Serialization
             contentType = null;
             var list = ToList();
 
-            if (!list.Any(ct => ct.Name == input)) return false;
+            if (list.All(ct => ct.Name != input)) return false;
             contentType = list.First(ct => ct.Name == input);
             return true;
         }

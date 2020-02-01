@@ -264,6 +264,8 @@ paket-files/
 
 # JetBrains Rider
 .idea/
+**/.idea/contentModel.xml
+**/.idea/workspaceModel.xml
 *.sln.iml
 
 # CodeRush
@@ -284,3 +286,6 @@ TestResults.xml
 stryker-config.json
 **/Stryker*/*.*
 **/.DS_Store
+
+!.idea/
+/.idea/

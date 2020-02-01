@@ -6,6 +6,7 @@ using static NinjaTools.FluentMockServer.Models.ValueTypes.Body;
 
 namespace NinjaTools.FluentMockServer.FluentAPI
 {
+    [PublicAPI]
     public interface IFluentHttpRequestBuilder : IFluentBuilder<HttpRequest>
     {
         [NotNull] IFluentHttpRequestBuilder WithMethod([NotNull] HttpMethod method);

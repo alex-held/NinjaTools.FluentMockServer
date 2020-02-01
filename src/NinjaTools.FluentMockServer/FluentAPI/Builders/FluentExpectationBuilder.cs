@@ -4,36 +4,33 @@ using System.Net;
 using System.Net.Http;
 using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities;
+using NinjaTools.FluentMockServer.Models;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 // ReSharper disable UnusedAutoPropertyAccessor.Local
 
 namespace NinjaTools.FluentMockServer.FluentAPI.Builders
 {
-       internal sealed class FluentExpectationBuilder : IFluentExpectationBuilder
+     internal sealed class FluentExpectationBuilder : IFluentExpectationBuilder
         {
             [NotNull]
-            public static Models.Expectation Create(
-                [CanBeNull] HttpRequest httpRequest = null,
-                [CanBeNull] HttpResponse httpResponse = null,
-                [CanBeNull] HttpTemplate httpResponseTemplate = null,
-                [CanBeNull] HttpForward httpForward = null,
-                [CanBeNull] HttpTemplate httpForwardTemplate = null,
-                [CanBeNull] HttpError httpError = null,
-                [CanBeNull] Times times = null,
-                [CanBeNull] LifeTime timeToLive = null) => new Models.Expectation(httpRequest, httpResponse, httpResponseTemplate, httpForward, httpResponseTemplate, httpError, times, timeToLive);
-        
-            [CanBeNull] private HttpRequest HttpRequest { get; set; }
-            [CanBeNull] private HttpResponse HttpResponse { get; set; }
-            [CanBeNull] private HttpTemplate HttpResponseTemplate { get; set; }
-            [CanBeNull] private HttpForward HttpForward { get; set; }
-            [CanBeNull] private HttpTemplate HttpForwardTemplate { get; set; }
-            [CanBeNull] private HttpError HttpError { get; set; }
-            [CanBeNull] private Times Times { get; set; }
-            [CanBeNull] private LifeTime TimeToLive { get; set; }
-            
+            public static Expectation Create(
+                HttpRequest? httpRequest = null,
+                HttpResponse? httpResponse = null,
+                HttpError? httpError = null,
+                Times? times = null,
+                LifeTime? timeToLive = null,
+                MockContext context = null) => new Expectation(httpRequest, httpResponse, httpError, times, timeToLive, context);
+
+            private MockContext? Context { get; set; }
+            private HttpRequest? HttpRequest { get; set; }
+            private HttpResponse? HttpResponse { get; set; }
+            private HttpError? HttpError { get; set; }
+            private Times? Times { get; set; }
+            private LifeTime? TimeToLive { get; set; }
+
             private readonly MockServerSetup _setup;
-            
+
             public FluentExpectationBuilder() : this(new MockServerSetup())
             {
             }
@@ -44,10 +41,9 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders
             }
 
             /// <inheritdoc />
-            [NotNull]
-            public IBlankExpectation WithBaseUrl(string url)
+            public IBlankExpectation UsingContext(string context)
             {
-                _setup.BaseUrl = url;
+                Context = new MockContext(context);
                 return this;
             }
 
@@ -79,8 +75,16 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders
 
 
             /// <inheritdoc />
-            [NotNull]
-            public IWithResponse RespondWith(int statusCode, [CanBeNull] Action<IFluentHttpResponseBuilder> responseFactory)
+            public IWithResponse RespondWith(Action<IFluentHttpResponseBuilder> responseFactory)
+            {
+                var builder = new FluentHttpResponseBuilder();
+                responseFactory.Invoke(builder);
+                HttpResponse = builder.Build();
+                return this;
+            }
+
+            /// <inheritdoc />
+            public IWithResponse RespondWith(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder>? responseFactory)
             {
                 var builder = new FluentHttpResponseBuilder();
                 responseFactory?.Invoke(builder);
@@ -90,32 +94,24 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders
             }
 
             /// <inheritdoc />
-            [NotNull]
-            public IWithResponse RespondWith(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
+            public IWithResponse RespondOnce(Action<IFluentHttpResponseBuilder> responseFactory)
             {
-                return RespondWith((int) statusCode, responseFactory);
+                Times = Times.Once;
+                return RespondWith(responseFactory);
             }
 
 
             /// <inheritdoc />
             [NotNull]
-            public IWithResponse RespondOnce(int statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
+            public IWithResponse RespondOnce(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder>? responseFactory)
             {
                 Times = Times.Once;
                 return RespondWith(statusCode, responseFactory);
             }
 
-
             /// <inheritdoc />
             [NotNull]
-            public IWithResponse RespondOnce(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory)
-            {
-                return RespondOnce((int) statusCode, responseFactory);
-            }
-
-            /// <inheritdoc />
-            [NotNull]
-            public IWithResponse RespondTimes(int times, int statusCode, [CanBeNull] Action<IFluentHttpResponseBuilder> responseFactory = null)
+            public IWithResponse RespondTimes(int times, int statusCode, Action<IFluentHttpResponseBuilder>? responseFactory = null)
             {
                 Times = new Times(times);
                 var builder = new FluentHttpResponseBuilder();
@@ -124,9 +120,9 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders
                 HttpResponse = builder.Build();
                 return this;
             }
-            
+
             [NotNull]
-            public IWithResponse RespondTimes([NotNull] Expression<Func<Times>> times, int statusCode, [CanBeNull] Action<IFluentHttpResponseBuilder> responseFactory = null)
+            public IWithResponse RespondTimes(Expression<Func<Times>>? times, int statusCode, Action<IFluentHttpResponseBuilder>? responseFactory = null)
             {
                 Times = times.Compile().Invoke();
                 var builder = new FluentHttpResponseBuilder();
@@ -148,16 +144,15 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders
             [NotNull]
             public MockServerSetup Setup()
             {
-                _setup.Expectations.Add(BuildExpectation());
+                if(Context != null)
+                {
+                    HttpRequest = Context.Apply(HttpRequest);
+                }
+
+                var expectation = new Expectation(HttpRequest, HttpResponse, HttpError, Times, TimeToLive, Context);
+                _setup.Expectations.Add(expectation);
                 return _setup;
             }
-
-            [NotNull]
-            public Models.Expectation BuildExpectation()
-            {
-                return new Models.Expectation(HttpRequest, HttpResponse, HttpResponseTemplate, HttpForward, HttpForwardTemplate, HttpError, Times, TimeToLive);
-            }
-
 
             /// <inheritdoc />
             [NotNull]

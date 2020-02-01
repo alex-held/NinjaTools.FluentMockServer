@@ -12,8 +12,12 @@ namespace NinjaTools.FluentMockServer.Xunit
     /// <summary>
     /// The InMemory handle to the MockServer Docker Container
     /// </summary>
-    public class MockServerContainer : IDisposable
+    internal class MockServerContainer : IDisposable
     {
+        public const string Prefix = "NinjaTools-FluentMockServer";
+        public const string Suffix = "netcore-xunit-background-runner";
+        public static readonly string ContainerName = $"{Prefix}-{Suffix}";
+
         /// <summary>
         /// Gets the Port exposed to the Host.
         /// </summary>
@@ -55,13 +59,29 @@ namespace NinjaTools.FluentMockServer.Xunit
 
         public MockServerContainer()
         {
-            HostPort = GetAvailablePort(3000);
+            var hosts = new Hosts().Discover(true);
+            var docker = hosts.FirstOrDefault(x => x.IsNative) ?? hosts.FirstOrDefault(x => x.Name == "default");
 
-            ContainerService = new Builder()
-                .UseContainer()
-                .UseImage(ContainerImage)
-                .ExposePort(HostPort, ContainerPort)
-                .Build();
+            if (docker?.GetRunningContainers().FirstOrDefault(c => c.Name == ContainerName) is {} container)
+            {
+                ContainerService = container;
+                if (ContainerService.GetConfiguration().NetworkSettings.Ports.TryGetValue("1080/tcp", out var endpoints))
+                {
+                    HostPort = int.Parse(endpoints.First().HostPort);
+                }
+            }
+            else
+            {
+                HostPort = GetAvailablePort(3000);
+
+                ContainerService = new Builder()
+                    .UseContainer()
+                    .ReuseIfExists()
+                    .WithName(ContainerName)
+                    .UseImage(ContainerImage)
+                    .ExposePort(HostPort, ContainerPort)
+                    .Build();
+            }
         }
 
 
@@ -91,19 +111,23 @@ namespace NinjaTools.FluentMockServer.Xunit
             var httpClient = new HttpClient();
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            await Task.Delay(5000);
-            
+
             while (stopwatch.IsRunning && stopwatch.Elapsed < TimeSpan.FromMinutes(2))
             {
-                var request = new HttpRequestMessage(HttpMethod.Put, MockServerBaseUrl + "/mockserver/status");
-                var response = await httpClient.SendAsync(request);
-                if (response.IsSuccessStatusCode)
+                try
                 {
-                    httpClient.Dispose();
-                    return;
+                    var request = new HttpRequestMessage(HttpMethod.Put, MockServerBaseUrl + "/mockserver/status");
+                    var response = await httpClient.SendAsync(request);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        httpClient.Dispose();
+                        return;
+                    }
                 }
-
-                await Task.Delay(TimeSpan.FromSeconds(5));
+                catch (Exception)
+                {
+                    await Task.Delay(TimeSpan.FromMilliseconds(100));
+                }
             }
 
             httpClient.Dispose();
@@ -113,10 +137,10 @@ namespace NinjaTools.FluentMockServer.Xunit
         /// <summary>
         /// Starts the MockServer.
         /// </summary>
-        public async Task StartAsync()
+        public Task StartAsync()
         {
             ContainerService.Start();
-            await WaitUntilContainerStarted();
+            return WaitUntilContainerStarted();
         }
 
         /// <summary>
@@ -131,7 +155,6 @@ namespace NinjaTools.FluentMockServer.Xunit
         /// <inheritdoc />
         public void Dispose()
         {
-            ContainerService.Dispose();
         }
     }
 }

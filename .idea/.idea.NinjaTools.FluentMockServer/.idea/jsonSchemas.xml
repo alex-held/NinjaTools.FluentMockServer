@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JsonSchemaMappingsProjectConfiguration">
+    <state>
+      <map>
+        <entry key="OrderPlacedEvemt">
+          <value>
+            <SchemaInfo>
+              <option name="name" value="OrderPlacedEvemt" />
+              <option name="relativePathToSchema" value="../Gateway.Ax40.Services/schemas/OrderPlacedEvent-18-12-5.json" />
+              <option name="schemaVersion" value="JSON schema version 7" />
+            </SchemaInfo>
+          </value>
+        </entry>
+      </map>
+    </state>
+  </component>
+</project>

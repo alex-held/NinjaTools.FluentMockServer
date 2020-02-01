@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Newtonsoft.Json.Serialization;
-using NinjaTools.FluentMockServer.Extensions;
+using NinjaTools.FluentMockServer.Serialization;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -48,7 +48,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization.ContractResolverTests
 
 
             // Act
-            var jo = sut.AsJObject();
+            var jo = Serializer.SerializeJObject(sut);
             
             Output.Dump(jo);
             TraceWriter.GetTraceMessages().ToList().ForEach(m => Output.Dump(m));   

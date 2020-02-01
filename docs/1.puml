@@ -1,0 +1,42 @@
+@startuml
+(*) --> "
+start comparing pick optimized simulation results S1 and S2
+sum(P) - amount of picks
+avg(G) - average amount of aisle per SIAA
+avg(GG) - average amount of aisle groups per SIAA
+"
+--> S1 sum(P) = S2 sum(P) ?
+if "" then
+    --> [yes] "S1 avg(G) = S2 avg(G) ?"
+    if "" then
+        --> [yes] "S1 avg(GG) = S2 avg(GG) ?"
+        if "" then
+            --> [yes] "S1 = S2"
+            --> (*)
+        else
+            --> [no] "S1 avg(GG) < S2 avg(GG) ?"
+            if "" then
+                --> [yes] "S1 better than S2"
+            else
+                --> [no] "S2 better than S2"
+            endif
+        endif
+    else
+        --> [no] "S1 avg(G) < S2 avg(G) ?"
+        if "" then
+            --> [yes] "S1 better than S2"
+        else
+            --> [no] "S2 better than S2"
+        endif
+    endif
+else
+  --> [no] "S1 sum(P) < S2 sum(P) ?"
+  if "" then
+        --> [yes] "S1 better than S2"
+        --> (*)
+  else
+        --> [no] "S2 better than S2"
+        --> (*)
+  endif
+endif
+@enduml

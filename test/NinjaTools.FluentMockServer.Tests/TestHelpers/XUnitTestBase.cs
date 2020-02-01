@@ -36,12 +36,12 @@ namespace NinjaTools.FluentMockServer.Tests.TestHelpers
                 {
                     return str;
                 }
-                
-                return JToken.FromObject(v).ToString(Formatting.Indented);
+
+                return value is null ? $"{typeof(T).Name} is null!" : JToken.FromObject(v).ToString(Formatting.Indented);
             };
             
+
             var sb = new StringBuilder();
-            
             sb.AppendLine(header is null
                 ? $"--- Dump of '{typeof(T).Name}' ---"
                 : $"--- {header} ---");
