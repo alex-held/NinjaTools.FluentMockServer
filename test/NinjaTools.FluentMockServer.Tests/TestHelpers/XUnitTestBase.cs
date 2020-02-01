@@ -37,12 +37,7 @@ namespace NinjaTools.FluentMockServer.Tests.TestHelpers
                     return str;
                 }
 
-                if (value is null)
-                {
-                    return $"{typeof(T).Name} is null!";
-                }
-
-                return JToken.FromObject(v).ToString(Formatting.Indented);
+                return value is null ? $"{typeof(T).Name} is null!" : JToken.FromObject(v).ToString(Formatting.Indented);
             };
             
 

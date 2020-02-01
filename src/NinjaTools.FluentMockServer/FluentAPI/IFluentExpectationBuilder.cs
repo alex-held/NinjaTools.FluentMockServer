@@ -7,6 +7,7 @@ using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.FluentAPI
 {
+    /// <inheritdoc />
     /// <summary>
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
@@ -16,7 +17,8 @@ namespace NinjaTools.FluentMockServer.FluentAPI
         IWithRequest OnHandling(HttpMethod method = null, [CanBeNull] Action<IFluentHttpRequestBuilder> requestFactory = null);
         IWithRequest OnHandlingAny([CanBeNull] HttpMethod method = null);
     }
-    
+
+    /// <inheritdoc cref="IBlankExpectation" />
     /// <summary>
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
@@ -25,6 +27,7 @@ namespace NinjaTools.FluentMockServer.FluentAPI
     {
       
     }
+    /// <inheritdoc />
     /// <summary>
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
@@ -36,6 +39,7 @@ namespace NinjaTools.FluentMockServer.FluentAPI
         MockServerSetup Setup();
     }
         
+    /// <inheritdoc />
     /// <summary>
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]

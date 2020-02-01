@@ -19,7 +19,7 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities
         private bool? _keepAlive;
 
         [CanBeNull]
-        private Dictionary<string, string> Cookies { get; set; }
+        private Dictionary<string, string> Cookies { get; }
 
         /// <inheritdoc />
         public IFluentHttpRequestBuilder WithMethod(HttpMethod method)

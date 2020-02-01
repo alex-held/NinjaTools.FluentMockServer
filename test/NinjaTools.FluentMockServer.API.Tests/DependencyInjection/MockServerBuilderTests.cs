@@ -34,6 +34,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.DependencyInjection
             config = configBuilder.Build();
             var services = new ServiceCollection();
             services.AddSingleton(config);
+            // ReSharper disable once RedundantTypeArgumentsOfMethod
             services.AddSingleton<IConfiguration>(config);
             return services;
         }

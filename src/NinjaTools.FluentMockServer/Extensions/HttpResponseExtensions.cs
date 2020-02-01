@@ -13,9 +13,7 @@ namespace NinjaTools.FluentMockServer.Extensions
         public static void EnsureSuccessfulMockServerOperation(this HttpResponseMessage responseMessage, [CallerMemberName] string caller = null)
         {
             if (!responseMessage.IsSuccessStatusCode)
-            {
                 throw new MockServerOperationFailedException(caller);
-            }
         }
     }
 }

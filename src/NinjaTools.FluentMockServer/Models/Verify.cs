@@ -1,4 +1,3 @@
-using System;
 using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;

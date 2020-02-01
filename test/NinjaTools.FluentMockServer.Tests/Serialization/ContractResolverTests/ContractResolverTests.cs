@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using Newtonsoft.Json.Serialization;
-using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Serialization;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;

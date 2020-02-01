@@ -1,20 +1,13 @@
 using System.Collections.Generic;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Mime;
-using System.Text;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
 using NinjaTools.FluentMockServer.FluentAPI;
 using NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities;
-using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Serialization;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;
 using Xunit.Abstractions;
-using static NinjaTools.FluentMockServer.Tests.TestHelpers.FileSystem;
 
 namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders.HttpEntities
 {
@@ -90,7 +83,7 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders.HttpEntities
                 .Build());
 
 
-            Output.WriteLine("JSON", response.ToString(Formatting.Indented));
+            Dump("JSON", response.ToString(Formatting.Indented));
 
 
             // Assert

@@ -121,10 +121,7 @@ namespace NinjaTools.FluentMockServer
         [NotNull]
         public Task VerifyAsync([NotNull] Action<IFluentHttpRequestBuilder> verify, [CanBeNull] VerificationTimes times = null)
         {
-            if (times is null)
-                return VerifyAsync(v => v.Verify(verify));
-            else
-                return VerifyAsync(v => v.Verify(verify).Times(times));
+            return times is null ? VerifyAsync(v => v.Verify(verify)) : VerifyAsync(v => v.Verify(verify).Times(times));
         }
 
         /// <summary>

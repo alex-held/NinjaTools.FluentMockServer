@@ -9,13 +9,17 @@ namespace NinjaTools.FluentMockServer.API.Logging
     {
         private readonly IFileSystem _fileSystem;
 
-        public LoggingInitializer(IFileSystem fileSystem)
+        /// <summary>
+        /// Initializes a new instance of <see cref="LoggingInitializer"/>.
+        /// </summary>
+        /// <param name="fileSystem"></param>
+        internal LoggingInitializer(IFileSystem fileSystem)
         {
             _fileSystem = fileSystem;
         }
 
         /// <inheritdoc />
-        public async Task InitializeAsync()
+        public Task InitializeAsync()
         {
             var setupLogsPath = MockServerPaths.Logs.Setups;
             var requestLogsPath  = MockServerPaths.Logs.Requests;
@@ -32,6 +36,8 @@ namespace NinjaTools.FluentMockServer.API.Logging
                 _fileSystem.Directory.Delete(requestLogsPath, true);
             }
             _fileSystem.Directory.CreateDirectory(requestLogsPath);
+
+            return Task.CompletedTask;
         }
     }
 }

@@ -104,7 +104,7 @@ namespace NinjaTools.FluentMockServer.Xunit
                         return;
                     }
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     await Task.Delay(TimeSpan.FromMilliseconds(100));
                 }

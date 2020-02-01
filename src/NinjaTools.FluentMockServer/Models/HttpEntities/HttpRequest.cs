@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.Models.HttpEntities
 {

@@ -30,7 +30,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
         }
 
         [Fact]
-        public async Task VerifyAsync_Should_Return_False_When_MockServer_Recieved_No_Matching_Setup()
+        public void VerifyAsync_Should_Return_False_When_MockServer_Recieved_No_Matching_Setup()
         {
             // Act
             Func<Task> action = async () => await MockClient.VerifyAsync(v => v.WithPath("test"), VerificationTimes.Once);

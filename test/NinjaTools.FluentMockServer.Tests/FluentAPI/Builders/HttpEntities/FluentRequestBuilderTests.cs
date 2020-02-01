@@ -1,5 +1,4 @@
 using FluentAssertions;
-using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities;
 using NinjaTools.FluentMockServer.Serialization;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;

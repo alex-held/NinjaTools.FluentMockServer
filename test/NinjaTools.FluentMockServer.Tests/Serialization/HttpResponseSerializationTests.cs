@@ -1,6 +1,5 @@
 using FluentAssertions;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Serialization;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;

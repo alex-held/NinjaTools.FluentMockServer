@@ -1,13 +1,12 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using JetBrains.Annotations;
 
 namespace NinjaTools.FluentMockServer.Utils
 {
     public interface IMockServerLogger
     {
-        void WriteLine([JetBrains.Annotations.NotNull] string message, params object[] args);
-        void Error([JetBrains.Annotations.NotNull] string message, params object[] args);
+        void WriteLine([NotNull] string message, params object[] args);
+        void Error([NotNull] string message, params object[] args);
     }
 
     internal class MockServerTestLogger : IMockServerLogger

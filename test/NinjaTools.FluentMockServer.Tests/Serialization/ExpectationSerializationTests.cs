@@ -3,7 +3,6 @@ using System.Net.Http;
 using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
-using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
 using NinjaTools.FluentMockServer.FluentAPI.Builders.HttpEntities;
 using NinjaTools.FluentMockServer.Models.HttpEntities;

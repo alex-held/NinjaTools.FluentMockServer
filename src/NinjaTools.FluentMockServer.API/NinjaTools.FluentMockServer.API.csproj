@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
-        <Nullable>warnings</Nullable>
+        <Nullable>enable</Nullable>
         <LangVersion>Preview</LangVersion>
         <AssemblyVersion>1.0.0</AssemblyVersion>
         <FileVersion>1.0.0</FileVersion>
@@ -10,7 +10,6 @@
 
     
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-        <TargetFrameworks>netstandard2.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
         <DocumentationFile>bin\Release\NinjaTools.FluentMockServer.API.xml</DocumentationFile>
     </PropertyGroup>
 

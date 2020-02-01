@@ -3,9 +3,9 @@ using JetBrains.Annotations;
 namespace NinjaTools.FluentMockServer.API.Types
 {
     /// <summary>
-    /// Initializes registered <see cref="IInitializer"/> at startup.
+    /// Initializes registered <see cref="T:NinjaTools.FluentMockServer.API.Types.IInitializer" /> at startup.
     /// </summary>
-    public interface IStartupInitializer : IInitializer
+    internal interface IStartupInitializer : IInitializer
     {
         /// <summary>
         /// Registers a <see cref="IInitializer"/>
