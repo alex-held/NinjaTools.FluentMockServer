@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.Xunit.Attributes;
-using NinjaTools.FluentMockServer.Xunit.Attributes.NinjaTools.FluentMockServer.Xunit.Attributes;
 using Xunit;
 
 namespace NinjaTools.FluentMockServer.Xunit
@@ -73,6 +72,6 @@ namespace NinjaTools.FluentMockServer.Xunit
         /// <summary>
         /// Whether the <see cref="GlobalSetup"/> has already been executed.
         /// </summary>
-        public static bool Called;
+        public static bool Called { get; private set; }
     }
 }

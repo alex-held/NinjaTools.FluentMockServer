@@ -1,7 +1,7 @@
 using System;
 using Xunit.Sdk;
 
-namespace NinjaTools.FluentMockServer.Xunit.Attributes.NinjaTools.FluentMockServer.Xunit.Attributes
+namespace NinjaTools.FluentMockServer.Xunit.Attributes
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class MockServerCollectionAttribute : BeforeAfterTestAttribute
@@ -9,7 +9,7 @@ namespace NinjaTools.FluentMockServer.Xunit.Attributes.NinjaTools.FluentMockServ
         public string Id { get; }
 
         /// <inheritdoc />
-        public MockServerCollectionAttribute(string collection) : base()
+        public MockServerCollectionAttribute(string collection)
         {
             Id = collection;
         }

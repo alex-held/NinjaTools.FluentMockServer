@@ -7,12 +7,6 @@ using Xunit.Abstractions;
 
 namespace NinjaTools.FluentMockServer.Tests.Xunit
 {
-
-    // [CollectionDefinition(nameof(MockServerCollectionFixture), DisableParallelization = true)]
-    // public class MockServerCollectionFixture : ICollectionFixture<MockServerFixture>
-    // { }
-
-    // [Collection(nameof(MockServerCollectionFixture))]
     public abstract class MockServerTestBase : XUnitTestBase, IDisposable, IClassFixture<MockServerFixture>
     {
         public MockServerClient MockClient  => Context.MockClient;

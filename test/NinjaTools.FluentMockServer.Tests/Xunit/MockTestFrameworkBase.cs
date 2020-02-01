@@ -10,7 +10,7 @@ using Xunit.Abstractions;
 
 namespace NinjaTools.FluentMockServer.Tests.Xunit
 {
-    public class MockTestFrameworkTests : MockServerTestBase, IDisposable
+    public class MockTestFrameworkTests : MockServerTestBase
     {
         public MockTestFrameworkTests([NotNull] MockServerFixture fixture, ITestOutputHelper outputHelper) : base(fixture, outputHelper)
         { }
@@ -72,11 +72,6 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
         public void Should_Invoke_GlobalSetup()
         {
             GlobalSetup.Called.Should().BeTrue();
-        }
-
-        /// <inheritdoc />
-        public void Dispose()
-        {
         }
     }
 }

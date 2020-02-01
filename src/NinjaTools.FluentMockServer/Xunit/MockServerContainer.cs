@@ -16,7 +16,7 @@ namespace NinjaTools.FluentMockServer.Xunit
     {
         public const string Prefix = "NinjaTools-FluentMockServer";
         public const string Suffix = "netcore-xunit-background-runner";
-        public static string ContainerName = $"{Prefix}-{Suffix}";
+        public static readonly string ContainerName = $"{Prefix}-{Suffix}";
 
         /// <summary>
         /// Gets the Port exposed to the Host.

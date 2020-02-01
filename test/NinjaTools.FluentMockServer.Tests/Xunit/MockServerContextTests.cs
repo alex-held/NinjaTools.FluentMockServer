@@ -3,7 +3,6 @@ using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using NinjaTools.FluentMockServer.Xunit;
 using NinjaTools.FluentMockServer.Xunit.Attributes;
-using NinjaTools.FluentMockServer.Xunit.Attributes.NinjaTools.FluentMockServer.Xunit.Attributes;
 using Xunit;
 using Xunit.Abstractions;
 

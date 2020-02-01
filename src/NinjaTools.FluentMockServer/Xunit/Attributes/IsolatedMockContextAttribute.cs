@@ -12,9 +12,4 @@ namespace NinjaTools.FluentMockServer.Xunit.Attributes
     public class IsolatedMockServerSetupAttribute : BeforeAfterTestAttribute
     {
     }
-
-
-    namespace NinjaTools.FluentMockServer.Xunit.Attributes
-    {
-    }
 }
