@@ -9,7 +9,7 @@ namespace NinjaTools.FluentMockServer.FluentAPI
     public interface IFluentVerificationBuilder : IFluentBuilder<Verify>
     {
         IWithVerify Verify(Action<IFluentHttpRequestBuilder> request);
-
+        IWithVerify VerifyInContext(string context, Action<IFluentHttpRequestBuilder> request);
     }
 
     [PublicAPI]

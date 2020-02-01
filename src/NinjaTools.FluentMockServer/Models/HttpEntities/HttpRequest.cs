@@ -10,10 +10,16 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
     [PublicAPI]
     public class HttpRequest
     {
+        /// <summary>
+        /// Initializes an empty instance of <see cref="HttpRequest"/>.
+        /// </summary>
+        [UsedImplicitly]
         public HttpRequest()
-        {
-        }
+        { }
 
+        /// <summary>
+        /// Initializes a new instance of <see cref="HttpRequest"/>.
+        /// </summary>
         public HttpRequest(string method, Dictionary<string, string[]> headers, Dictionary<string, string> cookies, JToken body, string path, bool? secure, bool? keepAlive)
         {
             Method = method;

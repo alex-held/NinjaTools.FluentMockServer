@@ -166,8 +166,8 @@ namespace NinjaTools.FluentMockServer.Tests.FluentAPI.Builders
         {
             // Arrange
             var handler = new MockHandler(_outputHelper);
-            var mockServerClient = new MockServerClient(new HttpClient(handler),"http://localhost:9000" , Mock.Of<IMockServerLogger>());
-            
+            var mockServerClient = new MockServerClient(new HttpClient(handler),"http://localhost:9000" ,NullMockServerLogger.Instance);
+
             // Act
             await mockServerClient.SetupAsync(
                 builder => builder

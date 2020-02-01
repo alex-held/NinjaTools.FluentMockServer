@@ -1,12 +1,11 @@
 using System;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
 using NinjaTools.FluentMockServer.Exceptions;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
-using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using NinjaTools.FluentMockServer.Xunit;
+using NinjaTools.FluentMockServer.Xunit.Attributes;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -38,31 +37,18 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
             // Assert
             action.Should().ThrowExactly<MockServerVerificationException>();
         }
-    }
 
-    [CollectionDefinition(nameof(MockServerCollectionFixture), DisableParallelization = true)]
-    public class MockServerCollectionFixture : ICollectionFixture<MockServerFixture>
-    { }
 
-    [Collection(nameof(MockServerCollectionFixture))]
-    public abstract class MockServerTestBase : XUnitTestBase, IDisposable
-    {
-        public MockServerFixture Fixture { get; }
-
-        public MockServerClient MockClient => Fixture.MockClient;
-        public HttpClient HttpClient => MockClient.HttpClient;
-
-        /// <inheritdoc />
-        protected MockServerTestBase(MockServerFixture fixture, ITestOutputHelper output) : base(output)
+        [Fact]
+        [IsolatedMockServerSetup]
+        public void VerifyAsync_Should_Return_True_When_MockServer_Recieved_In_Context()
         {
-            Fixture = fixture;
-            Thread.Sleep(200);
-        }
+            // Act
+          // MockClient.SetupAsync()
+            Func<Task> action = async () => await MockClient.VerifyAsync(v => v.WithPath("test"), VerificationTimes.Once);
 
-        /// <inheritdoc />
-        public void Dispose()
-        {
-            MockClient.ResetAsync().GetAwaiter().GetResult();
+            // Assert
+            action.Should().ThrowExactly<MockServerVerificationException>();
         }
     }
 }

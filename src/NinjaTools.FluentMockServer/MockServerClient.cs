@@ -37,13 +37,31 @@ namespace NinjaTools.FluentMockServer
     {
         private readonly IMockServerLogger _logger;
 
+        [NotNull]
+        public HttpClient HttpClient
+        {
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(Context))
+                {
+                    _httpClient.DefaultRequestHeaders.Add(HttpExtensions.MockContextHeaderKey, Context);
+                }
+
+                return _httpClient;
+            }
+        }
+
+        private readonly HttpClient _httpClient;
+
+        public string? Context { get; internal set; }
+
         public MockServerClient([NotNull] HttpClient client, [NotNull] string hostname, [NotNull] IMockServerLogger logger, string? context = null)
         {
             _logger = logger;
             client.BaseAddress = new Uri(hostname);
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Host = null;
-            HttpClient = client;
+            _httpClient = client;
             Context = context;
         }
 
@@ -52,10 +70,6 @@ namespace NinjaTools.FluentMockServer
             : this(new HttpClient(), mockServerEndpoint, logger, context)
         {
         }
-
-        public HttpClient HttpClient { get; }
-
-        public string? Context { get; }
 
 
         /// <summary>
@@ -69,7 +83,7 @@ namespace NinjaTools.FluentMockServer
             var builder = new FluentExpectationBuilder(new MockServerSetup());
             var setup = setupFactory(builder);
 
-            return SetupAsync(setup);
+            return SetupInternal(setup);
         }
 
 
@@ -82,15 +96,16 @@ namespace NinjaTools.FluentMockServer
             var builder = new FluentExpectationBuilder(new MockServerSetup());
             setupFactory(builder);
             var setup = builder.Setup();
-            return SetupAsync(setup);
+            return SetupInternal(setup);
         }
 
 
         /// <summary>
         ///     Configures the MockServer Client using a predefined <see cref="MockServerSetup" />.
         /// </summary>
+        /// <exception cref="MockServerOperationFailedException">Cannot establish connecct</exception>
         /// <param name="setup"> </param>
-        public async Task SetupAsync(MockServerSetup setup)
+        private async Task SetupInternal(MockServerSetup setup)
         {
             foreach (var request in setup.Expectations.Select(GetExpectationMessage))
             {

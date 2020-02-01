@@ -9,19 +9,30 @@ namespace NinjaTools.FluentMockServer.Utils
         void Error([NotNull] string message, params object[] args);
     }
 
-    internal class MockServerTestLogger : IMockServerLogger
+    public class NullMockServerLogger : IMockServerLogger
     {
-        /// <summary>
-        /// Gets the default <see cref="MockServerTestLogger"/>.
-        /// </summary>
-        public static IMockServerLogger Instance => Factory.Value;
+        private static readonly Lazy<IMockServerLogger> _factory = new Lazy<IMockServerLogger>(() => new  NullMockServerLogger());
 
-        private MockServerTestLogger(){}
-        private static readonly Lazy<IMockServerLogger> Factory;
-        static MockServerTestLogger()
+        public static IMockServerLogger Instance => _factory.Value;
+
+        /// <inheritdoc />
+        public void WriteLine(string message, params object[] args)
         {
-            Factory = new Lazy<IMockServerLogger>(() => new MockServerTestLogger());
+            // Null implementation
         }
+
+        /// <inheritdoc />
+        public void Error(string message, params object[] args)
+        {
+            // Null implementation
+        }
+    }
+
+    public class MockServerTestLogger : IMockServerLogger
+    {
+        private static readonly Lazy<IMockServerLogger> _factory = new Lazy<IMockServerLogger>(() => new MockServerTestLogger());
+
+        public static IMockServerLogger Instance => _factory.Value;
 
         /// <inheritdoc />
         public void WriteLine(string message, [CanBeNull] params object[] args)

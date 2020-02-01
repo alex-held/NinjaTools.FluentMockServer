@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
@@ -20,7 +24,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
         {
         }
 
-        public MockServerClient MockedServer => Fixture.MockClient;
+        public MockServerClient MockedServer => MockClient;
 
         [Fact]
         public async Task Should_Setup_Expectation_With_Xml_Body_When_Setup_Using_Predefined_Setup()
@@ -28,42 +32,30 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
             // Arrange
             const string id1 = "IP-100001";
             const string id2 = "10001234";
-
+            const string contentType = "text/xml; charset=utf-8";
             var response = ResponseTemplate
                 .Replace("{Id1}", id1)
                 .Replace("{Id2}",   id2);
 
-            var httpResponse = new HttpResponse
-            {
-                Body = new JValue(response),
-                Delay = new Delay(TimeUnit.Milliseconds, 50),
-                Headers = new Dictionary<string, string[]>
-                {
-                    {"Content-Type", new[] {$"text/xml; charset=utf-8"}}
-                }
-            };
-
-            var expectation = FluentExpectationBuilder.Create(httpResponse: httpResponse);
-
-            var responseJson = JsonConvert.SerializeObject(httpResponse);
-            Output.WriteLine($"responseJson: \n{responseJson}");
-
-            var expectationJson = expectation.ToString();
-            Output.WriteLine($"expectationJson: \n{expectationJson}");
-            
-            var setup = new MockServerSetup();
-            setup.Expectations.Add(expectation);
-
-            var setupJson = JsonConvert.SerializeObject(setup, Formatting.Indented);
-            Output.WriteLine($"Setup json: \n{setupJson}");
-            
-            
             // Act
-           await MockedServer.SetupAsync(setup);
-           await SetupResponseForOrderPlacedRequest(id1, id2);
+            await MockedServer.SetupAsync(_ => _
+                .OnHandlingAny()
+                .RespondWith(r => r
+                    .WithBody(response)
+                    .AddContentType(contentType)
+                    .WithDelay(50, TimeUnit.Milliseconds))
+                .Setup());
 
-           // Assert
-           // TODO: verify setup
+            var responseMessage = await HttpClient.GetAsync("test");
+
+            // Assert
+            var responseContentType = responseMessage.Content.Headers.ContentType.ToString();
+            var responseBody = await responseMessage.Content.ReadAsStringAsync();
+            Dump(responseContentType, "Response Content-Type");
+            Dump(responseBody, "Response Body");
+
+            responseBody.Should().Be(response);
+            responseContentType.Should().Be(contentType);
         }
         
         private async Task SetupResponseForOrderPlacedRequest(string id1, string id2 = null)

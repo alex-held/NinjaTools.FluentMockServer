@@ -36,6 +36,7 @@
             <e p="MockServerVerificationException.cs" t="Include" />
           </e>
           <e p="extensions" t="Include">
+            <e p="HttpExtensions.cs" t="Include" />
             <e p="HttpResponseExtensions.cs" t="Include" />
             <e p="StringExtensions.cs" t="Include" />
           </e>
@@ -74,6 +75,7 @@
               <e p="HttpRequest.cs" t="Include" />
               <e p="HttpResponse.cs" t="Include" />
             </e>
+            <e p="MockContext.cs" t="Include" />
             <e p="ValueTypes" t="Include">
               <e p="Body.cs" t="Include" />
               <e p="ConnectionOptions.cs" t="Include" />
@@ -109,7 +111,14 @@
             <e p="RequestFactory.cs" t="Include" />
           </e>
           <e p="Xunit" t="Include">
+            <e p="Attributes" t="Include">
+              <e p="IsolatedMockContextAttribute.cs" t="Include" />
+              <e p="MockServerCollectionAttribute.cs" t="Include" />
+            </e>
+            <e p="ContextRegistry.cs" t="Include" />
+            <e p="GlobalSetup.cs" t="Include" />
             <e p="MockServerContainer.cs" t="Include" />
+            <e p="MockServerContext.cs" t="Include" />
             <e p="MockServerFixture.cs" t="Include" />
           </e>
         </e>
@@ -335,8 +344,12 @@
             <e p="XUnitTestBase.cs" t="Include" />
           </e>
           <e p="Xunit" t="Include">
+            <e p="LoggerTests.cs" t="Include" />
             <e p="ManualMockServerSetupTests.cs" t="Include" />
+            <e p="MockServerContextTests.cs" t="Include" />
             <e p="MockServerFixtureTests.cs" t="Include" />
+            <e p="MockServerTestBase.cs" t="Include" />
+            <e p="MockTestFrameworkBase.cs" t="Include" />
             <e p="SoapServiceTests.cs" t="Include" />
             <e p="VerificationTests.cs" t="Include" />
           </e>

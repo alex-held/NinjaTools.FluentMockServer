@@ -13,23 +13,26 @@ namespace NinjaTools.FluentMockServer.Models
     [PublicAPI]
     public class Expectation
     {
-        [CanBeNull]
-        public string MockContext { get; set; }
+        [JsonIgnore]
+        public MockContext? Context { get; set; }
 
         [JsonConstructor]
         public Expectation(
-            [CanBeNull] HttpRequest httpRequest,
-            [CanBeNull] HttpResponse httpResponse,
-            [CanBeNull] HttpError httpError,
-            [CanBeNull] Times times,
-            [CanBeNull] LifeTime timeToLive)
+            HttpRequest? httpRequest,
+            HttpResponse? httpResponse,
+            HttpError? httpError,
+            Times? times,
+            LifeTime? timeToLive,
+            MockContext? context)
         {
             HttpRequest = httpRequest;
             HttpResponse = httpResponse;
             HttpError = httpError;
             Times = times;
             TimeToLive = timeToLive;
+            Context = context;
         }
+
 
         /// <summary>
         ///     The <see cref="HttpRequest" /> to match.

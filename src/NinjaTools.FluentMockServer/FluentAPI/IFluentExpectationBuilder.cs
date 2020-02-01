@@ -14,7 +14,13 @@ namespace NinjaTools.FluentMockServer.FluentAPI
     [PublicAPI]
     public interface IBlankExpectation : IFluentInterface
     {
+        [NotNull]
+        IBlankExpectation UsingContext([NotNull] string context);
+
+        [NotNull]
         IWithRequest OnHandling(HttpMethod method = null, [CanBeNull] Action<IFluentHttpRequestBuilder> requestFactory = null);
+
+        [NotNull]
         IWithRequest OnHandlingAny([CanBeNull] HttpMethod method = null);
     }
 
@@ -25,8 +31,8 @@ namespace NinjaTools.FluentMockServer.FluentAPI
     [PublicAPI]
     public interface IFluentExpectationBuilder : IBlankExpectation , IWithRequest, IWithResponse
     {
-      
     }
+
     /// <inheritdoc />
     /// <summary>
     /// </summary>
@@ -34,7 +40,9 @@ namespace NinjaTools.FluentMockServer.FluentAPI
     [PublicAPI]
     public interface IWithResponse : IFluentInterface
     {
+        [NotNull]
         IFluentExpectationBuilder And { get; }
+        [NotNull]
         IWithResponse WhichIsValidFor(int value, TimeUnit timeUnit = TimeUnit.Seconds);
         MockServerSetup Setup();
     }
@@ -46,12 +54,19 @@ namespace NinjaTools.FluentMockServer.FluentAPI
     [PublicAPI]
     public interface IWithRequest : IFluentInterface
     {
-        IWithResponse RespondWith(int statusCode, Action<IFluentHttpResponseBuilder> responseFactory = null);
+        [NotNull]
+        IWithResponse RespondWith(Action<IFluentHttpResponseBuilder> responseFactory);
+
+        [NotNull]
         IWithResponse RespondWith(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory = null);
 
-        IWithResponse RespondOnce(int statusCode, Action<IFluentHttpResponseBuilder> responseFactory = null);
+        [NotNull]
+        IWithResponse RespondOnce(Action<IFluentHttpResponseBuilder> responseFactory);
+
+        [NotNull]
         IWithResponse RespondOnce(HttpStatusCode statusCode, Action<IFluentHttpResponseBuilder> responseFactory = null);
 
+        [NotNull]
         IWithResponse RespondTimes(int times, int statusCode, Action<IFluentHttpResponseBuilder> responseFactory = null);
     }
 }
