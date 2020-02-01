@@ -28,11 +28,14 @@ jobs:
           command: 'custom'
           custom: 'tool'
           arguments: 'install -g dotnet-script'
+
       - task: DotNetCoreCLI@2
+        displayName: "🎁 Pack Stable 📦"
         inputs:
           command: 'custom'
           custom: 'script'
-          arguments: "build/build.csx pack $(Build.BuildNumber) $(Build.ArtifactStagingDirectory)/packages/releases"
+          arguments: "build/build.csx pack $(Build.BuildNumber) $(Build.SourceBranch) $(Build.ArtifactStagingDirectory)/packages/releases"
+
       - publish: "$(Build.ArtifactStagingDirectory)/packages"
         artifact: "packages"
         condition: succeeded()
