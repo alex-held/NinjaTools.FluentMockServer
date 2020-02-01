@@ -12,7 +12,7 @@ namespace NinjaTools.FluentMockServer.Xunit
     /// <summary>
     /// The InMemory handle to the MockServer Docker Container
     /// </summary>
-    public class MockServerContainer : IDisposable
+    internal class MockServerContainer : IDisposable
     {
         /// <summary>
         /// Gets the Port exposed to the Host.

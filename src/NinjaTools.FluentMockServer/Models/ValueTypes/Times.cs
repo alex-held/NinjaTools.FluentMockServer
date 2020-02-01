@@ -1,10 +1,9 @@
-using System;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
-    [Serializable]
+    [PublicAPI]
     public class Times
     {
         [JsonConstructor]

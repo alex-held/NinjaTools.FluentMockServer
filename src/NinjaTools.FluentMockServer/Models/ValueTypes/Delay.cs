@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
@@ -6,6 +7,7 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
     /// <summary>
     ///     Model to configure an optional <see cref="Delay" /> before responding with an action to a matched <see cref="HttpRequest" />.
     /// </summary>
+    [PublicAPI]
     public class Delay
     {
         public Delay(TimeUnit timeUnit, int value)

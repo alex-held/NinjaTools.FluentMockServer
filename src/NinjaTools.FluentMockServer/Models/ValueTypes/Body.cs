@@ -1,11 +1,13 @@
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
+    [PublicAPI]
     public class Body : JObject
     {
         /// <inheritdoc />

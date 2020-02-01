@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
@@ -7,6 +8,7 @@ namespace NinjaTools.FluentMockServer.Models
     /// <summary>
     ///     Model used to describe what to verify.
     /// </summary>
+    [PublicAPI]
     public class Verify
     {
         public Verify(HttpRequest httpRequest, VerificationTimes? times)
@@ -24,10 +26,5 @@ namespace NinjaTools.FluentMockServer.Models
         ///     How many <see cref="Times" /> the request is expected to have occured.
         /// </summary>
         public VerificationTimes? Times { get; }
-
-        public static Verify Once(HttpRequest httpRequest = null)
-        {
-            return new Verify(httpRequest, VerificationTimes.Once);
-        }
     }
 }

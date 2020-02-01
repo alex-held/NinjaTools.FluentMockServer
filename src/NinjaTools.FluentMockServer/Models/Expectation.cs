@@ -10,6 +10,7 @@ namespace NinjaTools.FluentMockServer.Models
     ///     Model to set up an Expectation on the MockServer.
     /// </summary>
     [JsonConverter(typeof(ExpectationConverter))]
+    [PublicAPI]
     public class Expectation
     {
         [CanBeNull]

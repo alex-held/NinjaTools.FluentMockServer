@@ -7,6 +7,7 @@ namespace NinjaTools.FluentMockServer
     /// <summary>
     /// Represents a collection of <see cref="Expectation"/> to be send to the MockServer.
     /// </summary>
+    [PublicAPI]
     public class MockServerSetup
     {
         /// <summary>

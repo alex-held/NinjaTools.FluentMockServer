@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
+    [PublicAPI]
     public class VerificationTimes
     {
         [JsonConstructor]

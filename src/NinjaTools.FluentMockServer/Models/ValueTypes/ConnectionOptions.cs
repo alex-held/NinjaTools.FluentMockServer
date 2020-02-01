@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.Models.HttpEntities;
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
@@ -6,6 +7,7 @@ namespace NinjaTools.FluentMockServer.Models.ValueTypes
     /// <summary>
     ///     Some options regarding a Connection.
     /// </summary>
+    [PublicAPI]
     public class ConnectionOptions
     {
         public ConnectionOptions(bool? closeSocket, long? contentLengthHeaderOverride, bool? suppressContentLengthHeader, bool? suppressConnectionHeader, bool? keepAliveOverride)

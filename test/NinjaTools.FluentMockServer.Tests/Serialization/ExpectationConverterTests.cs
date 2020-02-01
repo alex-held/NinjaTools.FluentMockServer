@@ -28,7 +28,7 @@ namespace NinjaTools.FluentMockServer.Tests.Serialization
             var builder = new FluentHttpRequestBuilder().WithPath("/some/path");
             
             // Act
-            var unused =Verify.Once(builder.Build());
+            var unused = new Verify(builder.Build(), VerificationTimes.Once);
             var expected = FluentExpectationBuilder.Create(httpRequest:builder.Build());
 
             // Act

@@ -9,6 +9,7 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
     /// <summary>
     ///     Model to describe, which request should be matched.
     /// </summary>
+    [PublicAPI]
     public class HttpRequest
     {
         public HttpRequest()

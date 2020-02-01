@@ -1,7 +1,9 @@
 using System;
+using JetBrains.Annotations;
 
 namespace NinjaTools.FluentMockServer.Models.ValueTypes
 {
+    [PublicAPI]
     public class LifeTime
     {
         public LifeTime(int? timeToLive = null, TimeUnit timeUnit = ValueTypes.TimeUnit.Milliseconds)

@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 
 namespace NinjaTools.FluentMockServer.Models.HttpEntities
@@ -6,6 +7,7 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
     /// <summary>
     ///     Model to configure an Error.
     /// </summary>
+    [PublicAPI]
     public class HttpError
     {
         public HttpError(Delay delay, bool? dropConnection, string responseBytes)

@@ -7,9 +7,11 @@ using Xunit;
 
 namespace NinjaTools.FluentMockServer.Xunit
 {
+    /// <inheritdoc cref="IAsyncLifetime" />
     /// <summary>
-    /// An <see cref="IClassFixture{MockServerFixture}"/> exposing a <see cref="MockServerClient"/>.
+    /// An <see cref="T:Xunit.IClassFixture`1" /> exposing a <see cref="T:NinjaTools.FluentMockServer.MockServerClient" />.
     /// </summary>
+    [PublicAPI]
     public class MockServerFixture : IDisposable, IAsyncLifetime
     {
         /// <summary>
@@ -38,7 +40,7 @@ namespace NinjaTools.FluentMockServer.Xunit
         /// Handle to the <see cref="MockServerContainer"/>.
         /// </summary>
         [NotNull]
-        protected MockServerContainer Container { get; }
+        internal MockServerContainer Container { get; }
          
         /// <summary>
         ///

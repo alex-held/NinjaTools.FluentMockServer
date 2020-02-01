@@ -10,6 +10,7 @@ namespace NinjaTools.FluentMockServer.FluentAPI
     /// <summary>
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
+    [PublicAPI]
     public interface IBlankExpectation : IFluentInterface
     {
         IWithRequest OnHandling(HttpMethod method = null, [CanBeNull] Action<IFluentHttpRequestBuilder> requestFactory = null);
@@ -19,6 +20,7 @@ namespace NinjaTools.FluentMockServer.FluentAPI
     /// <summary>
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
+    [PublicAPI]
     public interface IFluentExpectationBuilder : IBlankExpectation , IWithRequest, IWithResponse
     {
       
@@ -26,6 +28,7 @@ namespace NinjaTools.FluentMockServer.FluentAPI
     /// <summary>
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
+    [PublicAPI]
     public interface IWithResponse : IFluentInterface
     {
         IFluentExpectationBuilder And { get; }
@@ -36,6 +39,7 @@ namespace NinjaTools.FluentMockServer.FluentAPI
     /// <summary>
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
+    [PublicAPI]
     public interface IWithRequest : IFluentInterface
     {
         IWithResponse RespondWith(int statusCode, Action<IFluentHttpResponseBuilder> responseFactory = null);

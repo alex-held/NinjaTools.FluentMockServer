@@ -32,6 +32,7 @@ namespace NinjaTools.FluentMockServer
     ///     setting up <see cref="T:NinjaTools.FluentMockServer.Models.Expectation" />  HTTP requests and receiving HTTP responses from a resource identified by a URI.
     /// </summary>
     [DebuggerDisplay("Context={Context}; Host={HttpClient.BaseAddress.Host}")]
+    [PublicAPI]
     public class MockServerClient : IDisposable
     {
         private readonly IMockServerLogger _logger;
@@ -52,7 +53,6 @@ namespace NinjaTools.FluentMockServer
         {
         }
 
-        [PublicAPI]
         public HttpClient HttpClient { get; }
 
         public string? Context { get; }
@@ -64,7 +64,6 @@ namespace NinjaTools.FluentMockServer
         /// <param name="setupFactory"> </param>
         /// <returns> </returns>
         [NotNull]
-        [PublicAPI]
         public Task SetupAsync([NotNull] Func<IFluentExpectationBuilder, MockServerSetup> setupFactory)
         {
             var builder = new FluentExpectationBuilder(new MockServerSetup());
@@ -78,8 +77,6 @@ namespace NinjaTools.FluentMockServer
         ///     Configures the MockServer Client.
         /// </summary>
         /// <param name="setupFactory"> </param>
-        /// <returns> </returns>
-        [PublicAPI]
         public Task SetupAsync(Action<IFluentExpectationBuilder> setupFactory)
         {
             var builder = new FluentExpectationBuilder(new MockServerSetup());
@@ -93,7 +90,6 @@ namespace NinjaTools.FluentMockServer
         ///     Configures the MockServer Client using a predefined <see cref="MockServerSetup" />.
         /// </summary>
         /// <param name="setup"> </param>
-        [PublicAPI]
         public async Task SetupAsync(MockServerSetup setup)
         {
             foreach (var request in setup.Expectations.Select(GetExpectationMessage))
@@ -108,7 +104,6 @@ namespace NinjaTools.FluentMockServer
         /// Resets all <see cref="Expectation"/> on the MockServer.
         /// </summary>
         /// <exception cref="MockServerOperationFailedException"></exception>
-        [PublicAPI]
         public async Task ResetAsync()
         {
             _logger.WriteLine("Resetting MockServer...");
@@ -124,7 +119,6 @@ namespace NinjaTools.FluentMockServer
         /// <param name="times">Configure how many <see cref="VerificationTimes"/> the matched request should have occured.</param>
         /// <exception cref="MockServerVerificationException"></exception>
         [NotNull]
-        [PublicAPI]
         public Task VerifyAsync([NotNull] Action<IFluentHttpRequestBuilder> verify, [CanBeNull] VerificationTimes times = null)
         {
             if (times is null)
@@ -139,7 +133,6 @@ namespace NinjaTools.FluentMockServer
         /// <param name="verify">Configure the matcher for the <see cref="HttpRequest"/>.</param>
         /// <exception cref="MockServerVerificationException"></exception>
         [NotNull]
-        [PublicAPI]
         public async Task VerifyAsync([NotNull] Action<IFluentVerificationBuilder> verify)
         {
             var builder = new FluentVerificationBuilder();

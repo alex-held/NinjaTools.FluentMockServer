@@ -13,6 +13,7 @@ namespace NinjaTools.FluentMockServer.Models.HttpEntities
     /// <summary>
     ///     Model to describe how to respond to a matching <see cref="HttpRequest" />.
     /// </summary>
+    [PublicAPI]
     public class HttpResponse
     {
         public HttpResponse() { }
