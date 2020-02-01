@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using NinjaTools.FluentMockServer.Utils;
 using Xunit;
 
 namespace NinjaTools.FluentMockServer.Xunit
@@ -45,7 +46,7 @@ namespace NinjaTools.FluentMockServer.Xunit
         public MockServerFixture()
         {
             Container = new MockServerContainer();
-            MockClient = new MockServerClient(Container.MockServerBaseUrl);
+            MockClient = new MockServerClient(Container.MockServerBaseUrl, MockServerTestLogger.Instance);
         }
         
         /// <inheritdoc />

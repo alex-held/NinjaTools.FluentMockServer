@@ -13,6 +13,7 @@ namespace NinjaTools.FluentMockServer.FluentAPI
     public interface IWithVerify
     {
         void AtLeast(int value);
+        void AtLeastOnce();
         void AtMost(int value);
         void Between(int min, int max);
         void Once();

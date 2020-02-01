@@ -5,37 +5,36 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using NinjaTools.FluentMockServer.Exceptions;
 using NinjaTools.FluentMockServer.Extensions;
 using NinjaTools.FluentMockServer.FluentAPI;
 using NinjaTools.FluentMockServer.FluentAPI.Builders;
+using NinjaTools.FluentMockServer.Models;
+using NinjaTools.FluentMockServer.Models.HttpEntities;
 using NinjaTools.FluentMockServer.Models.ValueTypes;
 using NinjaTools.FluentMockServer.Utils;
-using NinjaTools.FluentMockServer.Xunit;
 using static NinjaTools.FluentMockServer.Utils.RequestFactory;
 
 namespace NinjaTools.FluentMockServer
 {
+    /// <inheritdoc />
+    /// <summary>
+    ///     Provides a base class for interacting with a MockServer.
+    ///     Following operations are supported:
+    ///     <list type="bullet">
+    ///         <item>
+    ///             <description> Create an <see cref="T:NinjaTools.FluentMockServer.Models.Expectation" />. </description>
+    ///         </item>
+    ///         <item>
+    ///             <description> Verify whether the MockServer received a matching <see cref="T:NinjaTools.FluentMockServer.Models.HttpEntities.HttpRequest" />. </description>
+    ///         </item>
+    ///     </list>
+    ///     setting up <see cref="T:NinjaTools.FluentMockServer.Models.Expectation" />  HTTP requests and receiving HTTP responses from a resource identified by a URI.
+    /// </summary>
     [DebuggerDisplay("Context={Context}; Host={HttpClient.BaseAddress.Host}")]
     public class MockServerClient : IDisposable
     {
         private readonly IMockServerLogger _logger;
-        private readonly HttpClient _httpClient;
-
-        [NotNull]
-        public HttpClient HttpClient
-        {
-            get
-            {
-                if (!string.IsNullOrWhiteSpace(Context))
-                {
-                    _httpClient.DefaultRequestHeaders.Add(HttpExtensions.MockContextHeaderKey, Context);
-                }
-
-                return _httpClient;
-            }
-        }
-
-        public string? Context { get; }
 
         public MockServerClient([NotNull] HttpClient client, [NotNull] string hostname, [NotNull] IMockServerLogger logger, string? context = null)
         {
@@ -43,20 +42,29 @@ namespace NinjaTools.FluentMockServer
             client.BaseAddress = new Uri(hostname);
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Host = null;
-            _httpClient = client;
+            HttpClient = client;
             Context = context;
         }
 
-        public MockServerClient([NotNull] string mockServerEndpoint, [NotNull] IMockServerLogger logger, string? context = null) : this(new HttpClient(), mockServerEndpoint, logger, context)
+        /// <inheritdoc />
+        public MockServerClient([NotNull] string mockServerEndpoint, [NotNull] IMockServerLogger logger, string? context = null)
+            : this(new HttpClient(), mockServerEndpoint, logger, context)
         {
         }
+
+        [PublicAPI]
+        public HttpClient HttpClient { get; }
+
+        public string? Context { get; }
+
 
         /// <summary>
         ///     Configures the MockServer Client.
         /// </summary>
-        /// <param name="setupFactory"></param>
-        /// <returns></returns>
+        /// <param name="setupFactory"> </param>
+        /// <returns> </returns>
         [NotNull]
+        [PublicAPI]
         public Task SetupAsync([NotNull] Func<IFluentExpectationBuilder, MockServerSetup> setupFactory)
         {
             var builder = new FluentExpectationBuilder(new MockServerSetup());
@@ -69,8 +77,9 @@ namespace NinjaTools.FluentMockServer
         /// <summary>
         ///     Configures the MockServer Client.
         /// </summary>
-        /// <param name="setupFactory"></param>
-        /// <returns></returns>
+        /// <param name="setupFactory"> </param>
+        /// <returns> </returns>
+        [PublicAPI]
         public Task SetupAsync(Action<IFluentExpectationBuilder> setupFactory)
         {
             var builder = new FluentExpectationBuilder(new MockServerSetup());
@@ -83,56 +92,72 @@ namespace NinjaTools.FluentMockServer
         /// <summary>
         ///     Configures the MockServer Client using a predefined <see cref="MockServerSetup" />.
         /// </summary>
-        /// <param name="setup"></param>
-        /// <returns></returns>
+        /// <param name="setup"> </param>
+        [PublicAPI]
         public async Task SetupAsync(MockServerSetup setup)
         {
             foreach (var request in setup.Expectations.Select(GetExpectationMessage))
             {
                 var response = await HttpClient.SendAsync(request);
-                response.EnsureSuccessStatusCode();
+                response.EnsureSuccessfulMockServerOperation();
             }
         }
 
 
-        [ItemNotNull]
-        public async Task<HttpResponseMessage> ResetAsync()
+        /// <summary>
+        /// Resets all <see cref="Expectation"/> on the MockServer.
+        /// </summary>
+        /// <exception cref="MockServerOperationFailedException"></exception>
+        [PublicAPI]
+        public async Task ResetAsync()
         {
             _logger.WriteLine("Resetting MockServer...");
             var request = GetResetMessage();
             var response = await HttpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            return response;
+            response.EnsureSuccessfulMockServerOperation();
         }
 
+        /// <summary>
+        /// Verifies that a the MockServer received a matching <see cref="HttpRequest"/>.
+        /// </summary>
+        /// <param name="verify">Configure the matcher for the <see cref="HttpRequest"/>.</param>
+        /// <param name="times">Configure how many <see cref="VerificationTimes"/> the matched request should have occured.</param>
+        /// <exception cref="MockServerVerificationException"></exception>
         [NotNull]
-        public async Task<(bool isValid, string responseMessage)> VerifyAsync([NotNull] Action<IFluentHttpRequestBuilder> verify, [CanBeNull] VerificationTimes times = null)
+        [PublicAPI]
+        public Task VerifyAsync([NotNull] Action<IFluentHttpRequestBuilder> verify, [CanBeNull] VerificationTimes times = null)
         {
-            var response = await Verify(v =>
-            {
-                if (times != null)
-                {
-                    v.Verify(verify).Times(times);
-                }
-                else
-                {
-                    v.Verify(verify);
-                }
-            });
-            var responseMessage = await response.Content.ReadAsStringAsync();
-            return (response.StatusCode == HttpStatusCode.Accepted, responseMessage);
+            if (times is null)
+                return VerifyAsync(v => v.Verify(verify));
+            else
+                return VerifyAsync(v => v.Verify(verify).Times(times));
         }
 
+        /// <summary>
+        /// Verifies that a the MockServer received a matching <see cref="HttpRequest"/>.
+        /// </summary>
+        /// <param name="verify">Configure the matcher for the <see cref="HttpRequest"/>.</param>
+        /// <exception cref="MockServerVerificationException"></exception>
         [NotNull]
-        [ItemNotNull]
-        public async Task<HttpResponseMessage> Verify([NotNull] Action<IFluentVerificationBuilder> verify)
+        [PublicAPI]
+        public async Task VerifyAsync([NotNull] Action<IFluentVerificationBuilder> verify)
         {
             var builder = new FluentVerificationBuilder();
             verify(builder);
             var verification = builder.Build();
-            var request = GetVerifyRequest(verification);
+            await VerifyInternal(verification);
+        }
+
+        private async Task VerifyInternal(Verify verify)
+        {
+            var request = GetVerifyRequest(verify);
             var response = await HttpClient.SendAsync(request);
-            return response;
+
+            if (response.StatusCode != HttpStatusCode.Accepted)
+            {
+                var responseMessage = await response.Content.ReadAsStringAsync();
+                throw new MockServerVerificationException(responseMessage, verify.HttpRequest);
+            }
         }
 
         /// <inheritdoc />
@@ -140,5 +165,6 @@ namespace NinjaTools.FluentMockServer
         {
             HttpClient.Dispose();
         }
+
     }
 }

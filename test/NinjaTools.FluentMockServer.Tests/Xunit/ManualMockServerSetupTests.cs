@@ -27,8 +27,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
                     .Setup());
            
             // Assert
-            var request = new HttpRequestMessage(HttpMethod.Get, new Uri("test", UriKind.Relative));
-            var response = await MockClient.SendAsync(request);
+            var response = await HttpClient.GetAsync("test");
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
         
@@ -45,8 +44,7 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
             await MockClient.ResetAsync();
 
             // Assert
-            var request = new HttpRequestMessage(HttpMethod.Get, new Uri("test", UriKind.Relative));
-            var response = await MockClient.SendAsync(request);
+            var response = await HttpClient.GetAsync("test");
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
@@ -58,12 +56,9 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
             await HttpClient.SendAsync(request);
 
             // Act
-            var (isValid, responseMessage) = await MockClient.VerifyAsync(v => v
+            await MockClient.VerifyAsync(v => v
                 .WithMethod(HttpMethod.Get)
                 .WithPath("test"), VerificationTimes.MoreThan(1));
-            
-            // Assert
-            isValid.Should().BeTrue();
         }
 
     }

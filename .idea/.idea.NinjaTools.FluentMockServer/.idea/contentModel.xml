@@ -30,8 +30,11 @@
         <e p="NinjaTools.FluentMockServer" t="IncludeRecursive">
           <e p="AssemblyInfo.cs" t="Include" />
           <e p="bin" t="ExcludeRecursive" />
+          <e p="Exceptions" t="Include">
+            <e p="MockServerVerificationException.cs" t="Include" />
+          </e>
           <e p="extensions" t="Include">
-            <e p="JsonExtensions.cs" t="Include" />
+            <e p="HttpResponseExtensions.cs" t="Include" />
             <e p="StringExtensions.cs" t="Include" />
           </e>
           <e p="FluentAPI" t="Include">
@@ -64,15 +67,11 @@
           <e p="MockServerSetup.cs" t="Include" />
           <e p="Models" t="Include">
             <e p="Expectation.cs" t="Include" />
-            <e p="Expectation.Equality.cs" t="Include" />
             <e p="HttpEntities" t="Include">
               <e p="HttpError.cs" t="Include" />
-              <e p="HttpForward.cs" t="Include" />
               <e p="HttpRequest.cs" t="Include" />
               <e p="HttpResponse.cs" t="Include" />
-              <e p="HttpTemplate.cs" t="Include" />
             </e>
-            <e p="IIdentifiable.cs" t="Include" />
             <e p="ValueTypes" t="Include">
               <e p="Body.cs" t="Include" />
               <e p="ConnectionOptions.cs" t="Include" />
@@ -104,6 +103,7 @@
           </e>
           <e p="Utils" t="Include">
             <e p="Headers.cs" t="Include" />
+            <e p="IMockServerLogger.cs" t="Include" />
             <e p="RequestFactory.cs" t="Include" />
           </e>
           <e p="Xunit" t="Include">
@@ -139,6 +139,7 @@
           </e>
           <e p="Dockerfile" t="Include" />
           <e p="extensions" t="Include">
+            <e p="HttpContextExtensions.cs" t="Include" />
             <e p="LINQ.cs" t="Include" />
             <e p="StringExtensions.cs" t="Include" />
           </e>
@@ -278,24 +279,6 @@
                 <e p="FluentConnectionBuilderTests.cs" t="Include" />
                 <e p="FluentDelayBuilderTests.cs" t="Include" />
               </e>
-            </e>
-          </e>
-          <e p="Models" t="Include">
-            <e p="Equality" t="Include">
-              <e p="BodyEqualityTests.cs" t="Include" />
-              <e p="ConnectionOptionsEqualityTests.cs" t="Include" />
-              <e p="DelayEqualityTests.cs" t="Include" />
-              <e p="EqualityTestBase.cs" t="Include" />
-              <e p="ExpectationEqualityTests.cs" t="Include" />
-              <e p="HttpErrorEqualityTests.cs" t="Include" />
-              <e p="HttpForwardEqualityTests.cs" t="Include" />
-              <e p="HttpRequestEqualityTests.cs" t="Include" />
-              <e p="HttpResponseEqualityTests.cs" t="Include" />
-              <e p="HttpTemplateEqualityTests.cs" t="Include" />
-              <e p="LifeTimeEqualityTests.cs" t="Include" />
-              <e p="TimesEqualityTests.cs" t="Include" />
-              <e p="VerificationTimesEqualityTests.cs" t="Include" />
-              <e p="VerifyEqualityTests.cs" t="Include" />
             </e>
           </e>
           <e p="NinjaTools.FluentMockServer.Tests.csproj" t="IncludeRecursive" />

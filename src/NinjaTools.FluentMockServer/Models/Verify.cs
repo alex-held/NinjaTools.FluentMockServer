@@ -9,7 +9,7 @@ namespace NinjaTools.FluentMockServer.Models
     /// </summary>
     public class Verify
     {
-        public Verify(HttpRequest httpRequest, VerificationTimes times)
+        public Verify(HttpRequest httpRequest, VerificationTimes? times)
         {
             Times = times;
             HttpRequest = httpRequest;
@@ -23,7 +23,7 @@ namespace NinjaTools.FluentMockServer.Models
         /// <summary>
         ///     How many <see cref="Times" /> the request is expected to have occured.
         /// </summary>
-        public VerificationTimes Times { get; }
+        public VerificationTimes? Times { get; }
 
         public static Verify Once(HttpRequest httpRequest = null)
         {

@@ -30,6 +30,11 @@ namespace NinjaTools.FluentMockServer.FluentAPI.Builders
             return this;
         }
 
+        /// <inheritdoc />
+        public void AtLeastOnce()
+        {
+            _verificationTimes = VerificationTimes.MoreThan(1);
+        }
 
         /// <inheritdoc />
         public void AtLeast(int value)
