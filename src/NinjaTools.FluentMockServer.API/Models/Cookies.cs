@@ -2,26 +2,31 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NinjaTools.FluentMockServer.API.Proxy.Visitors;
+using NinjaTools.FluentMockServer.API.Types;
 
 namespace NinjaTools.FluentMockServer.API.Models
 {
 
     [JsonDictionary]
-    public class Cookies : IVisitable,  IDictionary<string, string>
+    public class Cookies : IVisitable,  IDictionary<string, string>, IRequestCookieCollection, IScoreable, IContentValidatable, IEquatable<Cookies>
     {
-        public IDictionary<string, string> Cookie { get; } = new Dictionary<string, string>();
+        /// <inheritdoc />
+        [JsonIgnore]
+        public int Score => Cookie.Count;
+
+        /// <inheritdoc />
+        public bool HasContent() => Cookie.Any();
+
+        public IDictionary<string, string> Cookie { get; }= new Dictionary<string, string>();
 
         public Cookies(params (string key, string value)[] args)
         {
             foreach (var (k, v) in (args ??= new (string key, string value)[0]))
                 Cookie.Add(k, v);
         }
-
-        public Cookies(IDictionary<string,string> dict) : this(dict?.Select(kvp => (kvp.Key, kvp.Value))?.ToArray())
-        { }
 
         /// <inheritdoc />
         public void Accept(IVisitor visitor)
@@ -32,6 +37,45 @@ namespace NinjaTools.FluentMockServer.API.Models
             }
         }
 
+
+        #region Equals
+
+        /// <inheritdoc />
+        public bool Equals(Cookies? other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Cookie.Equals(other.Cookie);
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object? obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Cookies) obj);
+        }
+
+        /// <inheritdoc />
+        public override int GetHashCode()
+        {
+            return Cookie.GetHashCode();
+        }
+
+        public static bool operator ==(Cookies? left, Cookies? right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Cookies? left, Cookies? right)
+        {
+            return !Equals(left, right);
+        }
+
+        #endregion
+
+        #region Implementation of IDictionary
 
         /// <inheritdoc />
         public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
@@ -75,7 +119,7 @@ namespace NinjaTools.FluentMockServer.API.Models
             return Cookie.Remove(item);
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="Cookie" />
         public int Count => Cookie.Count;
 
         /// <inheritdoc />
@@ -112,32 +156,14 @@ namespace NinjaTools.FluentMockServer.API.Models
             set => Cookie[key] = value;
         }
 
-        /// <inheritdoc />
+        /// <inheritdoc cref="Cookie" />
         public ICollection<string> Keys => Cookie.Keys;
 
         /// <inheritdoc />
         public ICollection<string> Values => Cookie.Values;
-    }
 
-    /// <inheritdoc />
-    public class CookieCollectionConverter : JsonConverter<Cookies>
-    {
-        /// <inheritdoc />
-        public override void WriteJson(JsonWriter writer, Cookies value, JsonSerializer serializer)
-        {
-            var t = JToken.FromObject(value);
-            if (t.Type == JTokenType.Object)
-            {
-                t.WriteTo(writer);
-            }
-        }
+        #endregion
 
-        /// <inheritdoc />
-        public override Cookies ReadJson(JsonReader reader, Type objectType, Cookies existingValue, bool hasExistingValue, JsonSerializer serializer)
-        {
-            var jo = JToken.ReadFrom(reader);
-            var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(jo.ToString());
-            return new Cookies(dict);
-        }
+
     }
 }

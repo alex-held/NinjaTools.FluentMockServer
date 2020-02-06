@@ -24,16 +24,15 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
         [InlineData("POST")]
         [InlineData("PUT")]
         [InlineData("OPTIONS")]
-        public void When_IsMatch_Returns_True_When_Method_Is_Equal(string method)
+        public void When_IsMatch_Returns_1_When_Method_Is_Equal(string method)
         {
             // Arrange
             var compare =  new Method(method);
             var context = CreateContext(method);
-            var subject = new ComparasionVisitor(context);
+            var subject = new RequestMatcherEvaluationVisitor(context);
 
             // Act& Assert
             var score = subject.Visit(compare);
-            subject.IsSuccess.Should().BeTrue();
             score.Should().Be(1);
         }
 
@@ -42,33 +41,56 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
         [InlineData("/some/abc/path")]
         [InlineData("/some/abc/path?query=json")]
         [InlineData("/opt")]
-        public void When_IsMatch_Returns_True_When_Path_Is_Match(string path)
+        public void When_IsMatch_Returns_1_When_Path_Is_Match(string path)
         {
             // Arrange
             var compare = new Path(path);
             var context = CreateContext(path: path);
-            var subject = new ComparasionVisitor(context);
+            var subject = new RequestMatcherEvaluationVisitor(context);
 
             // Act& Assert
             var score = subject.Visit(compare);
-            subject.IsSuccess.Should().BeTrue();
             score.Should().Be(1);
         }
 
         [Theory]
         [MemberData(nameof(GetHeaderTestData))]
-        public void When_IsMatch_Returns_True_When_Headers_Are_Equal(Dictionary<string, string[]> request, Dictionary<string, string[]> contextHeaders, bool isValid)
+        public void When_IsMatch_Returns_1_When_Headers_Are_Equal(Dictionary<string, string[]> request, Dictionary<string, string[]> contextHeaders, bool isValid)
         {
             // Arrange
             var compare = new Headers(request);
             var context = CreateContext(headers: contextHeaders);
-            var subject = new ComparasionVisitor(context);
+            var subject = new RequestMatcherEvaluationVisitor(context);
 
             // Act& Assert
             var score = subject.Visit(compare);
-            subject.IsSuccess.Should().Be(isValid);
             score.Should().Be(isValid ? 1 : 0);
         }
+
+        [Fact]
+        public void Score_Should_Be_5_When_5_Headers_Match()
+        {
+            // Arrange
+            var headers = new Dictionary<string, string[]>
+            {
+                {"a", new []{"a"}},
+                {"b", new []{"b"}},
+                {"c", new []{"c"}},
+                {"d", new []{"d"}},
+                {"e", new []{"e"}},
+            };
+
+            var compare = new Headers(headers);
+            var context = CreateContext(headers: headers);
+            var subject = new RequestMatcherEvaluationVisitor(context);
+
+            // Act
+            var score = subject.Visit(compare);
+
+            // Assert
+            score.Should().Be(5);
+        }
+
 
         [ItemNotNull]
         public static IEnumerable<object[]> GetHeaderTestData()
@@ -164,11 +186,10 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
         {
             // Arrange
             var context = CreateContext(queryString: new QueryString());
-            var sut = new ComparasionVisitor(context);
+            var sut = new RequestMatcherEvaluationVisitor(context);
 
             // Act & Assert
             var score = sut.Visit(new Query(new QueryString("?id=100")));
-            sut.IsSuccess.Should().BeFalse();
             score.Should().Be(0);
         }
 
@@ -188,11 +209,10 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             };
 
             var context = CreateContext(requestBodyStream: requestBodyStream);
-            var subject = new ComparasionVisitor(context);
+            var subject = new RequestMatcherEvaluationVisitor(context);
 
             // Act& Assert
             var score =  subject.Visit(bodyMatcher);
-            subject.IsSuccess.Should().BeFalse();
             score.Should().Be(0);
         }
 
@@ -202,11 +222,10 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
         {
             // Arrange
             var context = CreateContext();
-            var subject = new ComparasionVisitor(context);
+            var subject = new RequestMatcherEvaluationVisitor(context);
 
             // Act& Assert
             var score = subject.Visit((RequestBodyMatcher) null);
-            subject.IsSuccess.Should().BeTrue();
             score.Should().Be(1);
         }
 
@@ -216,11 +235,10 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             // Arrange
             var query = new QueryString("?id=100");
             var context = CreateContext(queryString: query);
-            var subject = new ComparasionVisitor(context);
+            var subject = new RequestMatcherEvaluationVisitor(context);
 
             // Act& Assert
             var score = subject.Visit(new Query(query));
-            subject.IsSuccess.Should().BeTrue();
             score.Should().Be(1);
         }
 
@@ -229,11 +247,10 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
         {
             // Arrange
             var context = CreateContext(queryString: new QueryString("?id=100"));
-            var subject = new ComparasionVisitor(context);
+            var subject = new RequestMatcherEvaluationVisitor(context);
 
             // Act& Assert
             var score =  subject.Visit((Query) null);
-            subject.IsSuccess.Should().BeTrue();
             score.Should().Be(1);
         }
 
@@ -254,11 +271,10 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             };
 
             var context = CreateContext(requestBodyStream: requestBodyStream);
-            var subject = new ComparasionVisitor(context);
+            var subject = new RequestMatcherEvaluationVisitor(context);
 
             // Act& Assert
             var score = subject.Visit(bodyMatcher);
-            subject.IsSuccess.Should().BeTrue();
             score.Should().Be(1);
         }
 
@@ -312,14 +328,13 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             const string content = "{\"hello\":\"world!\"}";
             var subject = CreateSubject(RequestBodyKind.Text, true, content);
             var context = CreateContext(content);
-            var visitor = new ComparasionVisitor(context);
+            var visitor = new RequestMatcherEvaluationVisitor(context);
 
             // Act
             var score = visitor.Visit(subject);
 
             // Assert
             score.Should().BeGreaterThan(0);
-            visitor.IsSuccess.Should().BeTrue();
         }
 
         [Fact]
@@ -329,14 +344,13 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             const string content = "{\"hello\":\"world!\"}";
             var subject = CreateSubject(RequestBodyKind.Text, false, "world!\"}");
             var context = CreateContext(content);
-            var visitor = new ComparasionVisitor(context);
+            var visitor = new RequestMatcherEvaluationVisitor(context);
 
             // Act
             var score = visitor.Visit(subject);
 
             // Assert
             score.Should().BeGreaterThan(0);
-            visitor.IsSuccess.Should().BeTrue();
         }
 
         [Fact]
@@ -345,14 +359,13 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             // Arrange
             var subject = CreateSubject(RequestBodyKind.Text, true,  "{\"hello\":\"car!\"}");
             var context = CreateContext("{\"hello\":\"world!\"}");
-            var visitor = new ComparasionVisitor(context);
+            var visitor = new RequestMatcherEvaluationVisitor(context);
 
             // Act
             var score = visitor.Visit(subject);
 
             //  Assert
             score.Should().Be(0);
-            visitor.IsSuccess.Should().BeFalse();
         }
 
         [Fact]
@@ -362,14 +375,13 @@ namespace NinjaTools.FluentMockServer.API.Tests.Proxy
             const string content = "{\"hello\":\"world!\"}";
             var subject = CreateSubject(RequestBodyKind.Text, false, "car!\"}");
             var context = CreateContext(content);
-            var visitor = new ComparasionVisitor(context);
+            var visitor = new RequestMatcherEvaluationVisitor(context);
 
             // Act
             var score = visitor.Visit(subject);
 
             // Assert
             score.Should().Be(0);
-            visitor.IsSuccess.Should().BeFalse();
         }
     }
     }

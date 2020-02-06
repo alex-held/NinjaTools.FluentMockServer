@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
-        <Nullable>enable</Nullable>
-        <LangVersion>Preview</LangVersion>
+        <TargetFrameworks>netcoreapp3.1;</TargetFrameworks>
+        <Nullable>Enable</Nullable>
+        <LangVersion>latest</LangVersion>
         <AssemblyVersion>1.0.0</AssemblyVersion>
         <FileVersion>1.0.0</FileVersion>
     </PropertyGroup>

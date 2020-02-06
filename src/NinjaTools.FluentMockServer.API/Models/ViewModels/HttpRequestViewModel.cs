@@ -1,47 +1,69 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using NinjaTools.FluentMockServer.API.Extensions;
 
 namespace NinjaTools.FluentMockServer.API.Models.ViewModels
 {
-    public class HttpRequestViewModel
+    public interface IUpstreamRequest
+    {
+        bool WasMatched { get; }
+        HttpRequestViewModel HttpRequest { get; }
+        string? Path => HttpRequest.Path;
+        string? Query => HttpRequest.QueryString;
+        string HttpMethod => HttpRequest.Method;
+        Headers? Headers => HttpRequest.Headers;
+        Cookies? Cookies => HttpRequest.Cookies;
+    }
+
+
+    /// <inheritdoc />
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+    public class UnmatchedRequest : IUpstreamRequest
     {
         [JsonIgnore]
-        public HttpRequest Request { get; }
+        public HttpContext HttpContext { get; }
 
+        public UnmatchedRequest(HttpContext context)
+        {
+            HttpContext = context;
+            HttpRequest = new HttpRequestViewModel(context.Request);
+        }
+
+        /// <inheritdoc />
+        [JsonIgnore]
+        public bool WasMatched => false;
+
+        /// <inheritdoc />
+        [JsonIgnore]
+        public HttpRequestViewModel HttpRequest { get; }
+    }
+
+    [JsonObject(MemberSerialization.OptOut, ItemNullValueHandling = NullValueHandling.Ignore)]
+    public class HttpRequestViewModel
+    {
         public HttpRequestViewModel(HttpRequest request)
         {
             Request = request;
             Body = ReadBody();
-
-            Headers = Request.Headers.Any()
-                ? Request.Headers.ToDictionary(
-                    k => k.Key,
-                    v => v.Value.ToList())
-                : null;
-
-            Cookies = request.Cookies.Any()
-                ? Request.Cookies.ToDictionary(
-                    k => k.Key,
-                    v => v.Value)
-                : null;
-
+            Headers = Request.Headers.ToHeadersOrDefault();
+            Cookies = request.Cookies.ToCookiesOrDefault();
             Method = Request.Method;
-            Path = Request.Path.Value;
+            Path = Request.Path.HasValue ? Request.Path.Value : null;
             QueryString = Request.QueryString.HasValue ? Request.QueryString.Value : null;
             IsHttps = Request.IsHttps;
         }
 
+        [JsonIgnore]
+        public HttpRequest Request { get; }
         public string? Method { get; }
         public string? Path { get; }
         public string? Body { get; }
         public string? QueryString { get; }
-        public Dictionary<string, List<string>> Headers { get; }
-        public Dictionary<string, string> Cookies { get; }
-        public bool IsHttps { get; }
+        public Headers Headers { get; }
+        public Cookies Cookies { get; }
+        public bool? IsHttps { get; }
 
         private string? ReadBody()
         {
@@ -49,10 +71,7 @@ namespace NinjaTools.FluentMockServer.API.Models.ViewModels
 
             try
             {
-                if (!stream.CanRead || !stream.CanSeek || stream.Length <= 0)
-                {
-                    return null;
-                }
+                if (!stream.CanRead || !stream.CanSeek || stream.Length <= 0) return null;
 
                 Request.EnableBuffering();
                 stream.Seek(0, SeekOrigin.Begin);

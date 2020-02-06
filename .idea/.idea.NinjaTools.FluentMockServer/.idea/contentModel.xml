@@ -16,7 +16,6 @@
     <e p="$APPLICATION_CONFIG_DIR$/scratches" t="IncludeRecursive" />
     <e p="$PROJECT_DIR$" t="IncludeFlat">
       <e p="&quot;build&quot;, &quot;build&quot;, &quot;{4B00F08C-15F0-4A37-8A23-95EFDDC85C93}&quot;" t="Include" />
-      <e p=".git/info/exclude" t="IncludeRecursive" />
       <e p="build/build.csx" t="Include" />
       <e p="build/nuget-pack.yaml" t="Include" />
       <e p="docs" t="Include">
@@ -157,6 +156,7 @@
           <e p="Infrastructure" t="Include">
             <e p="ILogRepository.cs" t="Include" />
             <e p="ISetupRepository.cs" t="Include" />
+            <e p="RequestRepository.cs" t="Include" />
             <e p="SetupRepository.cs" t="Include" />
           </e>
           <e p="Logging" t="Include">
@@ -178,6 +178,7 @@
           <e p="Models" t="Include">
             <e p="Cookies.cs" t="Include" />
             <e p="Headers.cs" t="Include" />
+            <e p="HttpResponse.cs" t="Include" />
             <e p="Method.cs" t="Include" />
             <e p="Path.cs" t="Include" />
             <e p="Query.cs" t="Include" />
@@ -206,9 +207,10 @@
           <e p="Proxy" t="Include">
             <e p="ProxyMiddleware.cs" t="Include" />
             <e p="Visitors" t="Include">
-              <e p="ComparasionVisitor.cs" t="Include" />
+              <e p="IRequestMatcherEvaluationVisitor.cs" t="Include" />
               <e p="IVisitable.cs" t="Include" />
               <e p="IVisitor.cs" t="Include" />
+              <e p="RequestMatcherEvaluationVisitor.cs" t="Include" />
             </e>
           </e>
           <e p="Serialization" t="Include">
@@ -225,8 +227,9 @@
           </e>
           <e p="Startup.cs" t="Include" />
           <e p="Types" t="Include">
-            <e p="IDontRenderWhenEmpty.cs" t="Include" />
+            <e p="IContentValidatable.cs" t="Include" />
             <e p="IInitializer.cs" t="Include" />
+            <e p="IScoreable.cs" t="Include" />
             <e p="IStartupInitializer.cs" t="Include" />
             <e p="StartupInitializer.cs" t="Include" />
           </e>
