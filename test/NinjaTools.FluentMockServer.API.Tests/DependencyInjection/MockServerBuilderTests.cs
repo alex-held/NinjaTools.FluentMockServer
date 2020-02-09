@@ -67,7 +67,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.DependencyInjection
             sut.EnsureRegistered<ILogger<MockServerBuilderTests>>();
         }
 
-        [Fact]
+        [Fact(Skip = "disable long running host")]
         public void Startup_Configure_Should_Register_All_Required_Services()
         {
             var host = Program.CreateHostBuilder(null).Build();
