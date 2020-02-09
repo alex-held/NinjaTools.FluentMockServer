@@ -16,26 +16,26 @@ namespace NinjaTools.FluentMockServer.API.Models
     public class RequestMatcher : IEquatable<RequestMatcher>, IScoreable, IContentValidatable
     {
         [YamlMember(SerializeAs = typeof(Dictionary<string, object>))]
-        public RequestBodyMatcher BodyMatcher { get; set; }
+        public RequestBodyMatcher? BodyMatcher { get; set; }
 
         [YamlMember(SerializeAs = typeof(string), ScalarStyle = ScalarStyle.Any)]
-        public Path Path { get; set; }
+        public Path? Path { get; set; }
 
 
         [YamlMember(SerializeAs = typeof(string), ScalarStyle = ScalarStyle.Any)]
-        public Method Method { get; set; }
+        public Method? Method { get; set; }
 
 
         [YamlMember(SerializeAs = typeof(Dictionary<string, string[]>))]
-        public Headers Headers { get; set; }
+        public Headers? Headers { get; set; }
 
 
         [YamlMember(SerializeAs = typeof(Dictionary<string, string>))]
-        public Cookies Cookies { get; set; }
+        public Cookies? Cookies { get; set; }
 
 
         [YamlMember(SerializeAs = typeof(Dictionary<string, string[]>))]
-        public Query Query { get; set; }
+        public Query? Query { get; set; }
 
 
         #region IScoreable

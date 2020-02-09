@@ -9,6 +9,9 @@ namespace NinjaTools.FluentMockServer.API.Models
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
     public class Setup : IEquatable<Setup>, IScoreable, IContentValidatable
     {
+        [JsonIgnore]
+        public string Id { get; set; }
+
         /// <inheritdoc />
         [JsonIgnore]
         public int Score => Matcher?.Score ?? 0;

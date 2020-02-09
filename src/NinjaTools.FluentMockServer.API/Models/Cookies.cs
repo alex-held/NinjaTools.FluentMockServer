@@ -22,10 +22,16 @@ namespace NinjaTools.FluentMockServer.API.Models
 
         public IDictionary<string, string> Cookie { get; }= new Dictionary<string, string>();
 
-        public Cookies(params (string key, string value)[] args)
+        public Cookies() : this(null)
+        { }
+
+        public Cookies(IDictionary<string, string>? cookies)
         {
-            foreach (var (k, v) in (args ??= new (string key, string value)[0]))
-                Cookie.Add(k, v);
+            cookies  ??= new Dictionary<string, string>();
+            foreach (var cookie in cookies)
+            {
+                Cookie.Add(cookie.Key, cookie.Value);
+            }
         }
 
         /// <inheritdoc />

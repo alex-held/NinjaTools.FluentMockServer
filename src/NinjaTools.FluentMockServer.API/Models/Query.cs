@@ -85,7 +85,7 @@ namespace NinjaTools.FluentMockServer.API.Models
         public Query() : this(QueryString.Empty) { }
 
         /// <inheritdoc />
-        public Query(string value) : this(new QueryString($"?{value.TrimStart('?')}")) { }
+        public Query(string value) : this(value == null ? QueryString.Empty : new QueryString($"?{value.TrimStart('?')}")) { }
 
 
         /// <inheritdoc />

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Infrastructure;
@@ -6,7 +7,7 @@ using NinjaTools.FluentMockServer.API.Models;
 
 namespace NinjaTools.FluentMockServer.API.Services
 {
-    public class SetupService : ISetupService
+    internal class SetupService : ISetupService
     {
         private readonly ISetupRepository _repository;
 
@@ -16,7 +17,7 @@ namespace NinjaTools.FluentMockServer.API.Services
         }
 
         /// <inheritdoc />
-        public void Add(Setup setup) => _repository.Add(setup);
+        public Task<Setup> Add(Setup setup) => _repository.Add(setup);
 
         /// <inheritdoc />
         public bool TryGetMatchingSetup(HttpContext context, [CanBeNull] out Setup setup)
@@ -32,6 +33,6 @@ namespace NinjaTools.FluentMockServer.API.Services
         }
 
         /// <inheritdoc />
-        public IEnumerable<Setup> GetAll() => _repository.GetAll();
+        public IAsyncEnumerable<Setup> GetAll() => _repository.GetAllAsync();
     }
 }

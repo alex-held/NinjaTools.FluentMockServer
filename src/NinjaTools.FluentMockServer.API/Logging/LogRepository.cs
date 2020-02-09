@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Abstractions;
 using System.Linq;
+using NinjaTools.FluentMockServer.API.DependencyInjection;
 using NinjaTools.FluentMockServer.API.Infrastructure;
 using NinjaTools.FluentMockServer.API.Logging.Models;
 
@@ -10,19 +11,23 @@ namespace NinjaTools.FluentMockServer.API.Logging
     /// <inheritdoc />
     public class LogRepository : ILogRepository
     {
+        private readonly ServiceConstants _constants;
         private readonly IFileSystem _fileSystem;
         private readonly List<FileSystemLogItem> _logItems;
 
-        private static readonly string RequestLogDirectory = MockServerPaths.Logs.Requests;
-        private static readonly string SetupLogDirectory = MockServerPaths.Logs.Setups;
+        private string RequestLogDirectory => _constants.PATHS.LOG_PATH;
+        private string  SetupLogDirectory => _constants.PATHS.LOG_PATH;
 
-        public LogRepository() : this(new FileSystem())
-        { }
+        public LogRepository(ServiceConstants constants) : this(new FileSystem(), constants)
+        {
+        }
 
-        public LogRepository(IFileSystem fileSystem)
+        public LogRepository(IFileSystem fileSystem, ServiceConstants constants)
         {
             _fileSystem = fileSystem;
             _logItems = new List<FileSystemLogItem>();
+            _constants = constants;
+
         }
 
         /// <inheritdoc />

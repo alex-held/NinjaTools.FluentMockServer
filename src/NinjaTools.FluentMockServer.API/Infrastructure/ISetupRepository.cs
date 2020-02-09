@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Models;
 
@@ -8,9 +9,9 @@ namespace NinjaTools.FluentMockServer.API.Infrastructure
 {
     public interface ISetupRepository
     {
-        IEnumerable<Setup> GetAll();
+        IAsyncEnumerable<Setup> GetAllAsync();
 
-        void Add(Setup setup);
+        Task<Setup>  Add(Setup setup);
 
         public Setup? TryGetMatchingSetup(HttpContext context);
         public IOrderedEnumerable<Match> GetMatches(HttpContext context);

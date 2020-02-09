@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using NinjaTools.FluentMockServer.API.Models;
@@ -16,7 +18,6 @@ namespace NinjaTools.FluentMockServer.API.Infrastructure
 
         public int Count => _setups.Count;
         private readonly List<Setup> _setups;
-
         private readonly ILogService _logService;
 
         public SetupRepository(ILogService logService)
@@ -25,12 +26,18 @@ namespace NinjaTools.FluentMockServer.API.Infrastructure
             _setups = new List<Setup>();
         }
 
-        public IEnumerable<Setup> GetAll() => _setups;
-
-        public void Add(Setup setup)
+        public async IAsyncEnumerable<Setup> GetAllAsync()
         {
-            _setups.Add(setup);
+            foreach (var setup in _setups)
+                yield return await Task.FromResult(setup);
+        }
+
+        public Task<Setup> Add(Setup setup)
+        {
             _logService.Log(log => log.SetupCreated(setup));
+            setup.Id = Guid.NewGuid().ToString("N");
+            _setups.Add(setup);
+            return Task.FromResult(setup);
         }
 
         /// <inheritdoc />

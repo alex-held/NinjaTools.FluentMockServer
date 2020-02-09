@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ContentModelStore">
     <e p="$USER_HOME$/.gitignore_global" t="IncludeRecursive" />
-    <e p="$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.4.0/build/netcoreapp2.1" t="Include">
+    <e p="$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.5.0/build/netcoreapp2.1" t="Include">
       <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
     </e>
     <e p="$USER_HOME$/.nuget/packages/xunit.runner.visualstudio/2.4.1/build/netcoreapp1.0/xunit.runner.reporters.netcoreapp10.dll" t="Include" />
@@ -24,7 +24,9 @@
       <e p="NinjaTools.FluentMockServer.sln" t="IncludeFlat" />
       <e p="packages" t="ExcludeRecursive" />
       <e p="preProject" t="Include" />
-      <e p="scripts" t="Include" />
+      <e p="scripts" t="Include">
+        <e p="docker-compose.yaml" t="Include" />
+      </e>
       <e p="src" t="Include">
         <e p="NinjaTools.FluentMockServer" t="IncludeRecursive">
           <e p="AssemblyInfo.cs" t="Include" />
@@ -123,7 +125,7 @@
         </e>
         <e p="NinjaTools.FluentMockServer.API" t="IncludeRecursive">
           <e p="Administration" t="Include">
-            <e p="AdminOptions.cs" t="Include" />
+            <e p="StartupInitializerOptions.cs" t="Include" />
           </e>
           <e p="appsettings.json" t="Include" />
           <e p="bin" t="ExcludeRecursive" />
@@ -139,13 +141,14 @@
           <e p="Controllers" t="Include">
             <e p="LogController.cs" t="Include" />
             <e p="SetupController.cs" t="Include" />
+            <e p="SetupViewModel.cs" t="Include" />
           </e>
           <e p="DependencyInjection" t="Include">
             <e p="ApplicationBuilderExtensions.cs" t="Include" />
             <e p="IMockServerBuilder.cs" t="Include" />
             <e p="MockServerBuilder.cs" t="Include" />
-            <e p="MockServerBuilderExtensions.cs" t="Include" />
             <e p="ServiceCollectionExtensions.cs" t="Include" />
+            <e p="ServiceConstants.cs" t="Include" />
           </e>
           <e p="Dockerfile" t="Include" />
           <e p="extensions" t="Include">
