@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,8 +13,16 @@ namespace NinjaTools.FluentMockServer.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices([NotNull] IServiceCollection services)
         {
-            services.AddMockServer().AddAdminPath();
-            services.AddSwagger();
+            services.AddMockServer()
+                .AddAdminPath()
+                .AddSwagger()
+                .AddInitializers(opt =>
+                {
+                    if (!opt.IsRunningInDocker) return;
+                    opt.EnableConfigInitializer = true;
+                    opt.EnableLoggingInitializer = true;
+                });
+
             services.AddControllers();
         }
 
@@ -28,7 +37,8 @@ namespace NinjaTools.FluentMockServer.API
             app.UseStaticFiles();
 
             app.UseHttpsRedirection();
-
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseRouting();
 
             app.UseMockServer();

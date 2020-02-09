@@ -1,11 +1,19 @@
 using System.IO.Abstractions;
 using System.Threading.Tasks;
+using NinjaTools.FluentMockServer.API.DependencyInjection;
 using NinjaTools.FluentMockServer.API.Types;
 
 namespace NinjaTools.FluentMockServer.API.Logging
 {
+    /// <summary>
+    /// Marker interface to identify and disable <see cref="LoggingInitializer"/>  at startup,
+    /// when configured in <seealso cref="ServiceCollectionExtensions.AddInitializers"/>.
+    /// </summary>
+    public interface ILoggingInitializer : IInitializer
+    { }
+
     /// <inheritdoc />
-    public class LoggingInitializer : IInitializer
+    public class LoggingInitializer : ILoggingInitializer
     {
         private readonly IFileSystem _fileSystem;
 

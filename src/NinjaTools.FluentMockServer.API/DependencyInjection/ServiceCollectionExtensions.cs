@@ -1,13 +1,16 @@
 using System;
 using System.IO;
 using System.IO.Abstractions;
+using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using NinjaTools.FluentMockServer.API.Administration;
 using NinjaTools.FluentMockServer.API.Configuration;
 using NinjaTools.FluentMockServer.API.Logging;
 using NinjaTools.FluentMockServer.API.Types;
@@ -24,25 +27,30 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
         }
 
         [NotNull]
-        internal static IServiceCollection AddInitializers(this IServiceCollection services)
+        public static IMockServerBuilder AddInitializers(this IMockServerBuilder builder, Action<StartupInitializerOptions> initializerOptions)
         {
+            var services = builder.Services;
+
+            services.ConfigureOrUpdate(initializerOptions);
             services.TryAddSingleton<IStartupInitializer>(sp =>
             {
-                var logger = sp.GetRequiredService<ILoggerFactory>();
-                var startupInitializer = new StartupInitializer(logger.CreateLogger<StartupInitializer>());
+                var logger = sp.GetRequiredService<ILoggerFactory>().CreateLogger<StartupInitializer>();
+                var options = sp.GetRequiredService<StartupInitializerOptions>();
+                var startupInitializer = new StartupInitializer(logger, options );
 
                 startupInitializer.AddInitializer(new ConfigurationInitializer(sp.GetRequiredService<IConfigurationService>()));
                 startupInitializer.AddInitializer(new LoggingInitializer(new FileSystem()));
+
                 return startupInitializer;
             });
 
-            return services;
+            return builder;
         }
 
         [NotNull]
-        public static IServiceCollection AddSwagger(this IServiceCollection services)
+        public static IMockServerBuilder  AddSwagger(this IMockServerBuilder builder)
         {
-            return services.AddSwaggerGen(o =>
+            builder.Services.AddSwaggerGen(o =>
             {
                 o.SwaggerDoc("v1", new OpenApiInfo
                 {
@@ -61,6 +69,19 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 o.IncludeXmlComments(xmlPath);
             });
+            return builder;
+        }
+
+
+        internal static IServiceCollection ConfigureOrUpdate<T>(this IServiceCollection services, Action<T> update)
+        {
+            return services.Replace(new ServiceDescriptor(typeof(StartupInitializerOptions), sp =>
+            {
+                if (!(sp.GetService<T>() is {} options))
+                    return ActivatorUtilities.GetServiceOrCreateInstance(sp, typeof(T));
+                update?.Invoke(options);
+                return options;
+            }, ServiceLifetime.Singleton));
         }
     }
 }

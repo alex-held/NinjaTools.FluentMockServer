@@ -27,7 +27,6 @@ namespace NinjaTools.FluentMockServer.Tests.Xunit
         [Fact]
         public async Task Should_Reset_Expectation_On_MockServer()
         {
-
             // Arrange
            await MockClient.SetupAsync(exp =>
                     exp.OnHandling(HttpMethod.Get, req => req.WithPath("/test"))

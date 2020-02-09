@@ -62,7 +62,7 @@ namespace NinjaTools.FluentMockServer.API.Models
         public Method()
         { }
 
-        public Method(string methodString) => MethodString = methodString.ToUpperInvariant();
+        public Method(string methodString) => MethodString = methodString?.ToUpperInvariant();
 
         [YamlMember(SerializeAs = typeof(string), Alias = "Method")]
         public string MethodString { get; set; }

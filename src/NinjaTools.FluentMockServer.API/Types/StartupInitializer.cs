@@ -1,6 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using NinjaTools.FluentMockServer.API.Administration;
+using NinjaTools.FluentMockServer.API.Configuration;
+using NinjaTools.FluentMockServer.API.Logging;
 
 namespace NinjaTools.FluentMockServer.API.Types
 {
@@ -8,22 +13,17 @@ namespace NinjaTools.FluentMockServer.API.Types
     {
         private readonly ILogger<IStartupInitializer> _logger;
         private readonly List<IInitializer> _initializers;
+        private readonly StartupInitializerOptions _options;
 
-        public StartupInitializer(ILogger<IStartupInitializer> logger)
+        public StartupInitializer(ILogger<IStartupInitializer> logger, StartupInitializerOptions options)
         {
             _initializers = new List<IInitializer>();
             _logger = logger;
+            _options = options;
         }
-
 
         /// <inheritdoc />
-        public async Task InitializeAsync()
-        {
-            foreach (var initializer in _initializers)
-            {
-                await initializer.InitializeAsync();
-            }
-        }
+        public Task InitializeAsync() => Task.WhenAll(_initializers.Where(_options.IsEnabled).Select(init => init.InitializeAsync()));
 
         /// <inheritdoc />
         public void AddInitializer<TInitializer>(TInitializer initializer) where TInitializer : class, IInitializer
