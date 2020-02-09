@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  mock-server:
+    image:  alexheld/mock-server:${TAG}
+    build:
+      context: .
+      dockerfile: './src/NinjaTools.FluentMockServer.API/Dockerfile'
+    container_name: alexheld-mock-server-DEBUG
+    ports:
+    - "6080:80"
+    - "6081:1080"
