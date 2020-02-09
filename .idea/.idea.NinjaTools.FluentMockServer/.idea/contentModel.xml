@@ -240,6 +240,7 @@
       </e>
       <e p="test" t="Include">
         <e p="NinjaTools.FluentMockServer.API.Tests" t="IncludeRecursive">
+          <e p="appsettings.json" t="Include" />
           <e p="bin" t="ExcludeRecursive" />
           <e p="Configuration" t="Include">
             <e p="ConfigFileProviderTests.cs" t="Include" />

@@ -26,6 +26,13 @@
       <ProjectReference Include="..\NinjaTools.FluentMockServer.Tests\NinjaTools.FluentMockServer.Tests.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="appsettings.json" />
+      <EmbeddedResource Include="appsettings.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+    </ItemGroup>
+
     
 
 </Project>

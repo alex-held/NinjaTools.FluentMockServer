@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +26,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.DependencyInjection
         private IServiceCollection GetServiceCollection(out IConfiguration config)
         {
             var configBuilder = new ConfigurationBuilder();
+            configBuilder.AddJsonFile("appsettings.json");
 
             configBuilder.AddInMemoryCollection(new List<KeyValuePair<string, string>>
             {
