@@ -3,6 +3,7 @@ using System.IO.Abstractions.TestingHelpers;
 using System.Linq;
 using FluentAssertions;
 using NinjaTools.FluentMockServer.API.Configuration;
+using NinjaTools.FluentMockServer.API.DependencyInjection;
 using NinjaTools.FluentMockServer.Tests.TestHelpers;
 using Xunit;
 using Xunit.Abstractions;
@@ -45,7 +46,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
       Content-Length:
         - 105
 ")}});
-            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>());
+            var sut = new ConfigFileProvider(fs, new Paths {CONFIG_BASE_PATH = "/etc/mock-server", CONFIG_FILE_PATH = "/etc/mock-server/config/"}, CreateLogger<ConfigFileProvider>());
 
             // Act
             var configurations = sut.GetConfigFiles().ToArray();
@@ -126,7 +127,7 @@ namespace NinjaTools.FluentMockServer.API.Tests.Configuration
   }
 ]
 ")}});
-            var sut = new ConfigFileProvider(fs, CreateLogger<ConfigFileProvider>());
+            var sut = new ConfigFileProvider(fs, new Paths {CONFIG_BASE_PATH = "/etc/mock-server", CONFIG_FILE_PATH = "/etc/mock-server/config/"}, CreateLogger<ConfigFileProvider>());
 
             // Act
             var configurations = sut.GetConfigFiles().ToArray();

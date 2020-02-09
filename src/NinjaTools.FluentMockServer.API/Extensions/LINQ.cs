@@ -49,17 +49,12 @@ namespace NinjaTools.FluentMockServer.API.Extensions
 
         public static Cookies ToCookies<T>([CanBeNull] this T cookies) where T : IRequestCookieCollection
         {
-            return new Cookies((cookies ?? throw new ArgumentNullException(nameof(cookies)))
-                .Select(k => (k.Key, k.Value))
-                .ToArray()
-            );
+            return new Cookies(cookies.ToDictionary(k => k.Key, v => v.Value));
         }
 
         public static Cookies? ToCookiesOrDefault<T>([CanBeNull] this T cookies) where T : IRequestCookieCollection
         {
-            return cookies?.Any() ?? false
-                ? cookies.ToCookies()
-                : null;
+            return new Cookies(cookies?.ToDictionary(k => k.Key, v => v.Value));
         }
     }
 }

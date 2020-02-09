@@ -10,6 +10,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.Tests", "test\NinjaTools.FluentMockServer.Tests\NinjaTools.FluentMockServer.Tests.csproj", "{72FDC041-D690-45C9-9B3A-A48EC676DC37}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{05E960F6-8585-4DC2-B04D-1C43CFE47C22}"
+ProjectSection(SolutionItems) = preProject
+	scripts\docker-compose.yaml = scripts\docker-compose.yaml
+EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaTools.FluentMockServer.API", "src\NinjaTools.FluentMockServer.API\NinjaTools.FluentMockServer.API.csproj", "{C60E5A2A-4391-420B-8FBC-D7E941EEF286}"
 EndProject

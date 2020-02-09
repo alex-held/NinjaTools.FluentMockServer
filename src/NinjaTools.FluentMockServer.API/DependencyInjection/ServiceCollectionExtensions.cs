@@ -1,14 +1,12 @@
 using System;
 using System.IO;
 using System.IO.Abstractions;
-using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using NinjaTools.FluentMockServer.API.Administration;
 using NinjaTools.FluentMockServer.API.Configuration;
@@ -23,7 +21,47 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
         public static IMockServerBuilder AddMockServer([NotNull] this IServiceCollection services)
         {
             var config = services.BuildServiceProvider().GetRequiredService<IConfiguration>();
-            return new MockServerBuilder(services, config);
+            var constants =  config.GetSection(ServiceConstants.KEY).Get<ServiceConstants>();
+            return new MockServerBuilder( services.AddSingleton(constants), config);
+        }
+
+        /// <inheritdoc cref="AddTelemetry"/>.
+        //[Conditional("Development")]
+        private static void AddDebugTelemetryInternal([NotNull] this IMockServerBuilder builder)
+        {
+            builder.Services.AddApplicationInsightsTelemetry("293f6d44-80ec-4232-8707-e1e60a194173");
+            // opt =>
+            // {
+            //     opt.InstrumentationKey = builder.Configuration.GetValue<string>("ApplicationInsights:InstrumentationKey");
+            //     opt.EnableQuickPulseMetricStream = true;
+            //     opt.EnableDependencyTrackingTelemetryModule = true;
+            //     opt.ApplicationVersion = "1.0.0";
+            //     opt.EnableAppServicesHeartbeatTelemetryModule = true;
+            //     opt.DeveloperMode = true;
+            //     opt.EnableDebugLogger = true;
+            //     opt.EnableHeartbeat = true;
+            //     opt.EnableRequestTrackingTelemetryModule = true;
+            //     opt.ConnectionString = $"InstrumentationKey={opt.InstrumentationKey}";
+            //     opt.EnableAuthenticationTrackingJavaScript = true;
+            //     opt.EnableRequestTrackingTelemetryModule = true;
+            //     opt.RequestCollectionOptions.TrackExceptions = true;
+            //     opt.RequestCollectionOptions.InjectResponseHeaders = true;
+            //     opt.EnablePerformanceCounterCollectionModule = true;
+            //     opt.EnableAzureInstanceMetadataTelemetryModule = true;
+            //     opt.EnableAdaptiveSampling = false;
+            // });
+        }
+
+        /// <summary>
+        /// Adds ApplicationInsights Telemetry when in DEBUG configuration.
+        /// <seealso cref="AddDebugTelemetryInternal"/>
+        /// </summary>
+        /// <param name="builder" />
+        /// <returns></returns>
+        public static IMockServerBuilder AddTelemetry([NotNull] this IMockServerBuilder builder)
+        {
+            AddDebugTelemetryInternal(builder);
+            return builder;
         }
 
         [NotNull]
@@ -39,7 +77,7 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
                 var startupInitializer = new StartupInitializer(logger, options );
 
                 startupInitializer.AddInitializer(new ConfigurationInitializer(sp.GetRequiredService<IConfigurationService>()));
-                startupInitializer.AddInitializer(new LoggingInitializer(new FileSystem()));
+                startupInitializer.AddInitializer(new LoggingInitializer(new FileSystem(), new Paths {LOG_PATH = "some/path"}));
 
                 return startupInitializer;
             });
@@ -47,9 +85,19 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
             return builder;
         }
 
+
+        [NotNull]
+        public static IMockServerBuilder AddHealthChecks(this IMockServerBuilder builder, Action<IHealthChecksBuilder> checks)
+        {
+            var services = builder.Services.AddHealthChecks();
+            checks(services);
+            return builder;
+        }
+
         [NotNull]
         public static IMockServerBuilder  AddSwagger(this IMockServerBuilder builder)
         {
+            var opt = builder.Constants;
             builder.Services.AddSwaggerGen(o =>
             {
                 o.SwaggerDoc("v1", new OpenApiInfo

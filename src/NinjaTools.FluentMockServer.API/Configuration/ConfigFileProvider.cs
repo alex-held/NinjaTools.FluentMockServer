@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Abstractions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using NinjaTools.FluentMockServer.API.DependencyInjection;
 using NinjaTools.FluentMockServer.API.Logging;
 using NinjaTools.FluentMockServer.API.Models;
 using NinjaTools.FluentMockServer.API.Serialization.Converters;
@@ -20,21 +21,23 @@ namespace NinjaTools.FluentMockServer.API.Configuration
     public class ConfigFileProvider : IConfigFileProvider
     {
         private readonly IFileSystem _fs;
+        private readonly Paths _paths;
         private readonly ILogger<ConfigFileProvider> _logger;
 
-        public ConfigFileProvider(IFileSystem fs, ILogger<ConfigFileProvider> logger)
+        public ConfigFileProvider(IFileSystem fs, Paths  paths, ILogger<ConfigFileProvider> logger)
         {
             _fs = fs;
+            _paths = paths;
             _logger = logger;
         }
 
-        public ConfigFileProvider(ILogger<ConfigFileProvider> logger) : this(new FileSystem(), logger)
+        public ConfigFileProvider(ILogger<ConfigFileProvider> logger, Paths paths) : this(new FileSystem(), paths ,logger)
         { }
 
 
         public IEnumerable<IConfigFile> GetConfigFiles()
         {
-            var rootDirectory = MockServerPaths.Configs;
+            var rootDirectory = _paths.CONFIG_BASE_PATH;
             var files = _fs.Directory.GetFiles(rootDirectory, "*", SearchOption.AllDirectories);
 
             foreach (var file in files)

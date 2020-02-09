@@ -1,5 +1,6 @@
 using System;
 using Ardalis.GuardClauses;
+using AutoMapper;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
@@ -12,20 +13,27 @@ using NinjaTools.FluentMockServer.API.Administration;
 using NinjaTools.FluentMockServer.API.Configuration;
 using NinjaTools.FluentMockServer.API.Infrastructure;
 using NinjaTools.FluentMockServer.API.Logging;
+using NinjaTools.FluentMockServer.API.Models;
 using NinjaTools.FluentMockServer.API.Services;
 using NinjaTools.FluentMockServer.API.Types;
 
 namespace NinjaTools.FluentMockServer.API.DependencyInjection
 {
+    /// <inheritdoc />
     public class MockServerBuilder : IMockServerBuilder
     {
+        /// <inheritdoc cref="IMockServerBuilder" />
         public MockServerBuilder([NotNull] IServiceCollection services, [NotNull] IConfiguration configuration)
         {
             Services = services ?? throw new ArgumentNullException(nameof(services));
             Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 
             // set defaults
-            Services.AddLogging(_ => _.AddDebug().AddConsole().AddConfiguration(Configuration));
+            Constants = configuration.GetSection(ServiceConstants.KEY).Get<ServiceConstants>();
+            Paths = Constants.PATHS;
+            services.TryAddSingleton(Constants);
+            services.TryAddSingleton(Paths);
+            Services.AddLogging(l => l.AddConsole().AddDebug().AddApplicationInsights());
             Services.TryAddSingleton<StartupInitializerOptions>();
 
             // add services
@@ -37,6 +45,7 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
             Services.TryAddSingleton<ILogService, LogService>();
             Services.TryAddSingleton<ILogRepository, LogRepository>();
             Services.TryAddSingleton<IStartupInitializer, StartupInitializer>();
+            Services.AddAutoMapper(typeof(Startup).Assembly);
 
             // configure asp.net
             MvcCoreBuilder = Services
@@ -55,7 +64,11 @@ namespace NinjaTools.FluentMockServer.API.DependencyInjection
 
         /// <inheritdoc />
         public IMvcCoreBuilder MvcCoreBuilder { get; }
+
+
+        public Paths Paths { get; private set; }
         public IServiceCollection Services { get; }
+        public  ServiceConstants Constants { get; private set; }
         public IConfiguration Configuration { get; }
 
     }

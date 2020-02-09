@@ -43,6 +43,10 @@ namespace NinjaTools.FluentMockServer.API.Models.ViewModels
     [JsonObject(MemberSerialization.OptOut, ItemNullValueHandling = NullValueHandling.Ignore)]
     public class HttpRequestViewModel
     {
+        public HttpRequestViewModel()
+        {
+        }
+
         public HttpRequestViewModel(HttpRequest request)
         {
             Request = request;
@@ -56,14 +60,14 @@ namespace NinjaTools.FluentMockServer.API.Models.ViewModels
         }
 
         [JsonIgnore]
-        public HttpRequest Request { get; }
-        public string? Method { get; }
-        public string? Path { get; }
-        public string? Body { get; }
-        public string? QueryString { get; }
-        public Headers Headers { get; }
-        public Cookies Cookies { get; }
-        public bool? IsHttps { get; }
+        public HttpRequest Request { get; set; }
+        public string? Method { get;set; }
+        public string? Path { get; set;}
+        public string? Body { get; set;}
+        public string? QueryString { get; set;}
+        public Headers Headers { get;set;}
+        public Cookies Cookies { get; set;}
+        public bool? IsHttps { get; set;}
 
         private string? ReadBody()
         {

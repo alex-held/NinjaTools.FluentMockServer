@@ -16,21 +16,23 @@ namespace NinjaTools.FluentMockServer.API.Logging
     public class LoggingInitializer : ILoggingInitializer
     {
         private readonly IFileSystem _fileSystem;
+        private readonly Paths  _paths;
 
         /// <summary>
         /// Initializes a new instance of <see cref="LoggingInitializer"/>.
         /// </summary>
         /// <param name="fileSystem"></param>
-        internal LoggingInitializer(IFileSystem fileSystem)
+        internal LoggingInitializer(IFileSystem fileSystem, Paths paths)
         {
             _fileSystem = fileSystem;
+            _paths = paths;
         }
 
         /// <inheritdoc />
         public Task InitializeAsync()
         {
-            var setupLogsPath = MockServerPaths.Logs.Setups;
-            var requestLogsPath  = MockServerPaths.Logs.Requests;
+            var setupLogsPath = _paths.LOG_PATH;
+            var requestLogsPath  = _paths.LOG_PATH;
 
             if (_fileSystem.Directory.Exists(setupLogsPath))
             {
