@@ -1,0 +1,16 @@
+name: "sync"
+
+on:
+  push:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: ./
+        with:
+          ssh_private_key: ${{ secrets.DEVOPS_SSH_PRIVATE_KEY }}
+          target_repo_url: git@ssh.dev.azure.com:v3/alexheld/NinjaTools.FluentMockServer/NinjaTools.FluentMockServer
