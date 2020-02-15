@@ -12,5 +12,5 @@ jobs:
           fetch-depth: 0
       - uses: ./
         with:
-          ssh_private_key: ${{ secrets.DEVOPS_SSH_PRIVATE_KEY }}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
           target_repo_url: git@ssh.dev.azure.com:v3/alexheld/NinjaTools.FluentMockServer/NinjaTools.FluentMockServer
