@@ -14,7 +14,7 @@
         <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="3.0.0" />
         <PackageReference Include="AutoFixture" Version="4.11.0" />
         <PackageReference Include="Bogus" Version="29.0.1" />
-        <PackageReference Include="FluentAssertions" Version="5.10.0" />
+        <PackageReference Include="FluentAssertions" Version="5.10.3" />
         <PackageReference Include="FluentAssertions.Json" Version="5.5.0" />
         <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.2" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
