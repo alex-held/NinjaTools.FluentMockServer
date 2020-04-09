@@ -20,7 +20,7 @@
 
     <ItemGroup>
       <PackageReference Include="Ardalis.GuardClauses" Version="1.4.2" />
-      <PackageReference Include="AspNetCore.HealthChecks.Publisher.ApplicationInsights" Version="3.0.4" />
+      <PackageReference Include="AspNetCore.HealthChecks.Publisher.ApplicationInsights" Version="3.1.0" />
       <PackageReference Include="AspNetCore.HealthChecks.System" Version="3.0.3" />
       <PackageReference Include="AspNetCore.HealthChecks.Uris" Version="3.0.0" />
       <PackageReference Include="AutoMapper" Version="9.0.0" />
