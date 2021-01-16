@@ -1,3 +1,8 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://help.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
 version: 2
 updates:
 - package-ecosystem: nuget
@@ -5,8 +10,17 @@ updates:
   schedule:
     interval: daily
     time: "04:00"
-  open-pull-requests-limit: 99
+  open-pull-requests-limit: 5
   target-branch: develop
+  rebase-strategy: "auto"
+  commit-message:
+      prefix: "chore(deps): "
+      include: "scope"
   labels:
-  - dependencies
-  - automerge
+    - dependabot
+    - automerge
+    - deps
+  reviewers:
+    - alex-held
+  assignees:
+    - alex-held
