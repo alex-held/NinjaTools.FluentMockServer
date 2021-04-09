@@ -47,7 +47,7 @@
       <PackageReference Include="System.IO.Abstractions" Version="13.2.9" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
       <PackageReference Include="System.IO.Abstractions" Version="13.2.9" />
-      <PackageReference Include="YamlDotNet" Version="8.1.2" />
+      <PackageReference Include="YamlDotNet" Version="11.1.0" />
     </ItemGroup>
 
 
