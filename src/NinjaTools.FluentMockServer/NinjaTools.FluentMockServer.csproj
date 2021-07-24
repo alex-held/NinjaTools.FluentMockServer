@@ -5,7 +5,7 @@
         <ProjectGuid>36A37D14-D7FC-4E32-8F48-5FB606818757</ProjectGuid>
         <AssemblyVersion>1.1.1</AssemblyVersion>
         <LangVersion>8.0</LangVersion>
-        <TargetFrameworks>netcoreapp3.1;</TargetFrameworks>
+        <TargetFrameworks>net5.0;</TargetFrameworks>
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
@@ -40,7 +40,7 @@
 
     <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
         <DebugSymbols>true</DebugSymbols>
-        <TargetFrameworks>netstandard2.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netcoreapp3.1</TargetFrameworks>
+        <TargetFrameworks>netstandard2.1;netcoreapp2.1;netcoreapp2.2;netcoreapp3.0;netcoreapp3.1;net5.0</TargetFrameworks>
         <DocumentationFile>bin\Release\HardCoded.MockServer.xml</DocumentationFile>
         <NoWarn>CS1591;</NoWarn>
     </PropertyGroup>
