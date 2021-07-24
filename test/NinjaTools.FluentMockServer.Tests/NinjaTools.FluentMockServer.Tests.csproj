@@ -2,12 +2,12 @@
 
     <PropertyGroup>
         <ProjectGuid>B687AFC5-D484-4240-B89C-ACEAEA7B8A96</ProjectGuid>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
         <LangVersion>Preview</LangVersion>
         <IsPackable>false</IsPackable>
         <Nullable>enable</Nullable>
         <Nullable>Enable</Nullable>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
     
     <ItemGroup>
